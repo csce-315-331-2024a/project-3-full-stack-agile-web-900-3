@@ -33,7 +33,7 @@ Setting up Development Environment
 1. Installing Angularjs and Spring Boot (2) HIGH
 Time Estimate: 2. Assigned to: Hayden O’ Keefe
 Actual Time Spent: 0. Status: Incomplete
-2. Sketch initial UI using figma (1) MED
+2. Sketch initial UI (1) MED
 Time Estimate: 1. Assigned to: Kaghan Odom
 Actual Time Spent: 0. Status: Incomplete
 3. Create a basic UI not including all aspects (3) HIGH
