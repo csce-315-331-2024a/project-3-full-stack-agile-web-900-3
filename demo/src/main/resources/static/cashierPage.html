@@ -58,6 +58,19 @@
       outputParagraph.textContent = outputParagraph.textContent +"\n" + this.textContent;
     });
   }
+
+  function updateText() {
+    var newText = document.getElementById('newText').value;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/updateText", true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send("newText=" + newText);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            document.getElementById('outputText').textContent = xhr.responseText;
+        }
+    }
+}
 </script>
 </body>
 </html>
