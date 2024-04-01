@@ -3,7 +3,6 @@ fetch('/manager')
   .then(data => {
     const tableBody = document.getElementById('manager-data');
 
-    // Iterate over the data and create table rows
     data.forEach(item => {
       const row = document.createElement('tr');
       row.innerHTML = `

@@ -4,13 +4,21 @@ body {
   padding: 0;
   background-color: #500000; /* Maroon background */
   color: #ffffff; /* White text */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensure that the container is at least the height of the viewport */
+  overflow-x: hidden; /* Prevent horizontal scrollbar from appearing */
 }
 
 .container {
-  width: 100%;
+  width: 80%; /* Adjust width as needed */
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  padding: 20px; /* Adjust padding as needed */
+  background-color: #500000; /* Maroon background */
+  border-radius: 10px; /* Rounded corners */
+  box-sizing: border-box; /* Include padding and border in the width and height */
+  overflow-x: auto; /* Enable horizontal scrolling if needed */
 }
 
 header {
@@ -24,7 +32,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  color: #740000; /* Aggie Maroon link color */
+  color: #ffffff; /* White text */
   text-decoration: none;
 }
 
@@ -34,15 +42,19 @@ a:hover {
 
 button {
   cursor: pointer;
-  background-color: #500000; /* Maroon button background */
-  color: #ffffff; /* White text */
+  background-color: #500000; 
+  color: #ffffff; 
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
 }
 
 button:hover {
-  background-color: #740000; /* Darker Maroon on hover */
+  background-color: #740000; 
+}
+
+.table-container {
+  padding: 10px; 
 }
 
 table {
@@ -51,15 +63,16 @@ table {
 }
 
 th, td {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
+  padding: 12px; 
+  border-bottom: 1px solid #fff; 
   text-align: left;
+  color: #ffffff; 
 }
 
 th {
-  background-color: #f6f8fa;
+  background-color: #500000; 
 }
 
 tbody tr:hover {
-  background-color: #500000; /* Maroon background on hover */
+  background-color: #740000;
 }
