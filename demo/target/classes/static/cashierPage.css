@@ -12,7 +12,8 @@ body {
   }
   .container {
     display: flex;
-    height: 100vh;
+    height: 100%;
+    width: auto;
   }
   .sidebar {
     width: 25%;
