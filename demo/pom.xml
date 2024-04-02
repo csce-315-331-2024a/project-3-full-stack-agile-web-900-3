@@ -74,7 +74,7 @@
 						</exclude>
 					</excludes>
 					<profiles>
-						<active.profile>${active.profile}</active.profile>
+    					<active.profile>prod</active.profile>
 					</profiles>
 				</configuration>
 			</plugin>
