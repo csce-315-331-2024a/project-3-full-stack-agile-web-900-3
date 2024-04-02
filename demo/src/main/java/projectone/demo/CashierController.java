@@ -1,3 +1,5 @@
+package projectone.demo;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +12,7 @@ public class CashierController {
 
     @GetMapping("/")
     public String index() {
-        return "index"; // Return the name of your HTML file (index.html)
+        return "cashierPage.html"; // Return the name of your HTML file (index.html)
     }
 
     @PostMapping("/updateText")
