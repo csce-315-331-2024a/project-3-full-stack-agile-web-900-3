@@ -1,56 +1,114 @@
+
+body, h2, p, button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: maroon;
-    color: white;
-    display: flex;
-    height: 100vh;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+  font-family: 'Arial', sans-serif;
+  background-color: maroon;
+  color:rgb(0, 0, 0);
+}
+
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 20%;
+  background-color:maroon;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  color: white;
+}
+
+.sidebar button {
+  background-color:white;
+  color: maroon;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar button:hover {
+   opacity: 0.7;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.button, #switch {
+  padding: 20px;
+  border: none;
+  background-color: white;
+  color: maroon;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.button:hover, #switch:hover {
+  transform: scale(1.05);
+  background-color: white;
+}
+
+.sub-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 20px;
+}
+
+.small-button {
+  padding: 10px;
+  background-color: white;
+  border: none;
+  color:maroon;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.small-button:hover {
+  opacity: 0.7;
+}
+
+/* Additional styling */
+#outputText {
+  padding: 10px;
+  border: 1px solid rgb(0, 0, 0);
+  background-color: white;
+  margin-bottom: 20px;
+  height: 450px; /* Adjust based on content */
+  overflow-y: auto; /* Scrollable if content is too long */
+}
+
+/* Adjustments for responsiveness */
+@media (max-width: 768px) {
   .container {
-    display: flex;
-    height: 100%;
-    width: auto;
+    flex-direction: column;
   }
+
   .sidebar {
-    width: 25%;
-    padding: 20px;
-    background-color: white;
-    color: maroon;
+    width: 100%;
   }
+
   .content {
-    flex: 1;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
   }
-  .button {
-    background-color: white;
-    color: maroon;
-    border: none;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-  }
-  .output {
-    background-color: white;
-    color: maroon;
-    padding: 20px;
-  }
+
   .sub-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
   }
-  .small-button {
-    background-color: white;
-    color: maroon;
-    border: none;
-    padding: 5px;
-    text-align: center;
-    cursor: pointer;
-  }
+}
