@@ -83,7 +83,7 @@ Time Estimate: 1. Assigned to: Kaghan Odom
 Actual Time Spent: 0. Status: Incomplete
 
 ---------------------------------------------------------------------------------------------------
-Sprint 1 Plan:
+Sprint 2 Plan:
 
 Our Sprint 2 Goal-
 
