@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="manager.css">
 </head>
 <body>
-  <div class="manager-table">
+  <!-- <div class="manager-table">
     <table>
       <thead>
         <tr>
@@ -19,10 +19,35 @@
       <tbody id="manager-data">
       </tbody>
     </table>
-  </div>
+  </div> -->
 
-  <script src="manager.js"></script>
+  <form id="addItem">
+    <div class="textboxes">
+      <input type="text" id = "type" name = "type" placeholder = "type of Item" >
+      <input type="text" id="product" name="product" placeholder="Product">
+      <input type="text" id="price" name="price" placeholder="Price">
+    </div>
+    <button type="button">Add New Menu Item</button>
+  </form>
+
+  <!--form id="updateItem">
+    <div class="textboxes">
+      <input type="text" id = "type" name = "type" placeholder = "type of Item" >
+      <input type="text" id="product" name="product" placeholder="Product">
+      <input type="text" id="price" name="price" placeholder="Price">
+    </div>
+    <button type="button">Update Menu Item</button>
+  </form-->
+
+  <form id="removeItem">
+    <label for="itemSelect">Choose an item:</label>
+    <select id="manager-data"></select>
+    <div>
+      <script src="manager.js"></script>
+    </div>
+    <button type="button">Remove Menu Item</button>
+  </form>
+  
+  
 </body>
 </html>
-
-
