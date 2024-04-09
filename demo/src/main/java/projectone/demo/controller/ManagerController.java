@@ -18,11 +18,16 @@ import java.util.List;
 public class ManagerController {
 
     private final ManagerRepository managerRepository;
+    
 
     @GetMapping("/manager")
     public ResponseEntity<List<Products>> listMenuItems() {
         List<Products> menuItems = managerRepository.findAll(); 
         return ResponseEntity.ok().body(menuItems);
+    }
+    public ResponseEntity<List<inventory>> listInventoryItems(){
+        List<inventory> inv = managerRepository.findAll();
+        return ResponseEntity.ok().body(inv);
     }
 }
 
