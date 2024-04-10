@@ -1,8 +1,8 @@
 
 CREATE TABLE products (
-    product_id INT PRIMARY KEY,
+    product_id SERIAL PRIMARY KEY,
     ProductName VARCHAR(255) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL
+    price DECIMAL(10, 2) NOT NULL,
     product_type VARCHAR(255) NOT NULL
 );
 
