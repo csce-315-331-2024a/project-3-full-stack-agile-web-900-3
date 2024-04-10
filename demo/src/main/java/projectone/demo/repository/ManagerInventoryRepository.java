@@ -4,12 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import projectone.demo.model.Inventory;
-import projectone.demo.model.Products;
+
 
 @Repository
-public interface ManagerRepository extends JpaRepository<Products, Long> {
+public interface ManagerInventoryRepository extends JpaRepository<Inventory, Long> {
 }
-
-
-
-

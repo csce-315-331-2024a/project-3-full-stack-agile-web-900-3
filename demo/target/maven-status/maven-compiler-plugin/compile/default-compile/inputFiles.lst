@@ -1,5 +1,7 @@
 /home/quinn/maven/Sprint1/Proj3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/ManagerRepository.java
+/home/quinn/maven/Sprint1/Proj3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Inventory.java
 /home/quinn/maven/Sprint1/Proj3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Products.java
+/home/quinn/maven/Sprint1/Proj3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/ManagerInventoryRepository.java
 /home/quinn/maven/Sprint1/Proj3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/CustomerController.java
 /home/quinn/maven/Sprint1/Proj3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/HomeController.java
 /home/quinn/maven/Sprint1/Proj3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/CustomerRepository.java
