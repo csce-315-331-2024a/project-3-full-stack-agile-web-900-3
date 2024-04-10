@@ -17,11 +17,11 @@ import java.util.List;
 @RequestMapping("/") // Base mapping for all methods in this controller
 public class CustomerController {
 
-    private final ManagerRepository managerRepository;
+    private final ManagerRepository customerRepository;
 
     @GetMapping("/customer")
     public ResponseEntity<List<Products>> listMenuItems() {
-        List<Products> menuItems = managerRepository.findAll(); 
+        List<Products> menuItems = customerRepository.findAll(); 
         return ResponseEntity.ok().body(menuItems);
     }
 }

@@ -1,28 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manager Table</title>
-  <link rel="stylesheet" href="customer.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revs Ordering System</title>
+<link rel="stylesheet" href="customer.css">
 </head>
 <body>
-  <div class="customer-table">
-    <table>
+<div class="container">
+  <nav class="navbar">
+    <button class="nav-button" id="burgers">Burgers</button>
+    <button class="nav-button" id="chicken">Chicken</button>
+    <button class="nav-button" id="shakes">Shakes/Drinks</button>
+    <button class="nav-button" id="sides">Sides</button>
+  </nav>
+
+  <div class="menu-area">
+    <!-- This table will hold the menu items fetched from the database -->
+    <table id="menu-items-table">
       <thead>
         <tr>
           <th>ID</th>
-          <th>Product Name</th>
+          <th>Name</th>
           <th>Price</th>
+          <th>Type</th>
+          <th></th> <!-- for Add to Order button -->
         </tr>
       </thead>
-      <tbody id="customer-data">
+      <tbody id="menu-items">
+        <!-- Items will be inserted here by the JavaScript -->
       </tbody>
     </table>
   </div>
 
-  <script src="customer.js"></script>
+  <aside class="order-tracker">
+    <h2>Your Order</h2>
+    <div class="order-items">
+      <!-- Dynamically add items here -->
+    </div>
+    <div class="order-total">
+      <p>Total: <span id="total-price">$0.00</span></p>
+    </div>
+    <button class="confirm-button" id="confirm-order">Confirm Order</button>
+  </aside>
+</div>
+<script src="customer1.js"></script>
 </body>
 </html>
-
-

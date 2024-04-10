@@ -3,6 +3,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,9 +20,11 @@ import jakarta.persistence.Table;
 public class Products implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long product_id;
+    private BigInteger product_id;
 
     private String productname;
 
     private BigDecimal price;
+
+    private String product_type;
 }

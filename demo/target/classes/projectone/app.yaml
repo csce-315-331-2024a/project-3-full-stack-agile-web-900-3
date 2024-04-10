@@ -1,6 +1,0 @@
-runtime: java17
-
-env_variables:
-    JAVA_USER_OPTS: '-Dspring.profiles.active=prod'
-
-
