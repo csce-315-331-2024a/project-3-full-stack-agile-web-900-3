@@ -9,7 +9,7 @@
 <body>
 <div class="container">
   <nav class="navbar">
-    <button class="nav-button" id="burgers">Burgers</button>
+    <button class="nav-button" id="burgers">Burgers and Sandwiches</button>
     <button class="nav-button" id="chicken">Chicken</button>
     <button class="nav-button" id="shakes">Shakes/Drinks</button>
     <button class="nav-button" id="sides">Sides</button>
@@ -37,11 +37,16 @@
     <h2>Your Order</h2>
     <div class="order-items">
       <!-- Dynamically add items here -->
+      <ul id="order-summary">
+        <!-- List items will be added here by JavaScript -->
+      </ul>
     </div>
     <div class="order-total">
       <p>Total: <span id="total-price">$0.00</span></p>
     </div>
     <button class="confirm-button" id="confirm-order">Confirm Order</button>
+    <button class="cancel-button" id="cancel-order">Cancel Order</button>
+
   </aside>
 </div>
 <script src="customer1.js"></script>
