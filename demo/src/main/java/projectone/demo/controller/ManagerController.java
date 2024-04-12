@@ -1,33 +1,33 @@
-package projectone.demo.controller;
+// package projectone.demo.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+// import org.springframework.web.bind.annotation.GetMapping;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.http.ResponseEntity;
+// import org.springframework.web.bind.annotation.RestController;
 
-import lombok.AllArgsConstructor;
+// import lombok.AllArgsConstructor;
 
-import projectone.demo.repository.ManagerRepository;
-import projectone.demo.model.Products;
+// import projectone.demo.repository.ManagerRepository;
+// import projectone.demo.model.Products;
 
-import java.util.List;
+// import java.util.List;
 
-@RestController
-@AllArgsConstructor
-@RequestMapping("/") // Base mapping for all methods in this controller
-public class ManagerController {
+// @RestController
+// @AllArgsConstructor
+// @RequestMapping("/") // Base mapping for all methods in this controller
+// public class ManagerController {
 
-    private final ManagerRepository managerRepository;
+//     private final ManagerRepository managerRepository;
     
 
-    @GetMapping("/manager")
-    public ResponseEntity<List<Products>> listMenuItems() {
-        List<Products> menuItems = managerRepository.findAll(); 
-        return ResponseEntity.ok().body(menuItems);
-    }
-    public ResponseEntity<List<inventory>> listInventoryItems(){
-        List<inventory> inv = managerRepository.findAll();
-        return ResponseEntity.ok().body(inv);
-    }
-}
+//     @GetMapping("/manager")
+//     public ResponseEntity<List<Products>> listMenuItems() {
+//         List<Products> menuItems = managerRepository.findAll(); 
+//         return ResponseEntity.ok().body(menuItems);
+//     }
+//     public ResponseEntity<List<inventory>> listInventoryItems(){
+//         List<inventory> inv = managerRepository.findAll();
+//         return ResponseEntity.ok().body(inv);
+//     }
+// }
 
