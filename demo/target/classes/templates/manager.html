@@ -8,19 +8,6 @@
   <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 </head>
 <body>
-  <!-- <div class="manager-table">
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Product Name</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody id="manager-data">
-      </tbody>
-    </table>
-  </div> -->
 
   <form id="addItem">
     <div class="textboxes">
@@ -31,23 +18,18 @@
     <button type="button">Add New Menu Item</button>
   </form>
 
-  <!--form id="updateItem">
-    <div class="textboxes">
-      <input type="text" id = "type" name = "type" placeholder = "type of Item" >
-      <input type="text" id="product" name="product" placeholder="Product">
-      <input type="text" id="price" name="price" placeholder="Price">
-    </div>
-    <button type="button">Update Menu Item</button>
-  </form-->
 
-  <form id="removeItem">
-    <label for="itemSelect">Choose an item:</label>
-    <select id="manager-data"></select>
-    <div>
-      <script src="manager.js"></script>
+  <div class = "products" th:each="products: ${manager}">
+    <!-- <div class = "id" th:text="${products.product_id}">ID</div> -->
+    <div class = "name" th:text="${products.productname}">Name</div>
+    <div class = "price" th:text="${products.price}">Price</div>
+    <div class = "product type" th:text="${products.product_type}">Type</div>
+    <div class = "buttons">
+        <button> Delete</button>
+
     </div>
-    <button type="button">Remove Menu Item</button>
-  </form>
+
+  </div>
   
   
 </body>

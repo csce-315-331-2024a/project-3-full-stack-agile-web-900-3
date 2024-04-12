@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import projectone.demo.model.Products;
 
 @Repository
-public interface ManagerRepository extends JpaRepository<Products, Long> {
+public interface ProductsRepository extends JpaRepository<Products, Long> {
 }
 
 
