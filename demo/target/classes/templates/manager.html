@@ -18,14 +18,24 @@
     <button type="button">Add New Menu Item</button>
   </form>
 
-
+<!-- th: is thymleaf and the each tag is saying each value in the products table and the   ${manager} linkes it to the manager controller logic-->
   <div class = "products" th:each="products: ${manager}">
-    <!-- <div class = "id" th:text="${products.product_id}">ID</div> -->
+    <!-- this line is displaying the id attrabute of a row in a product table -->
+    <div class = "id" th:text="${products.product_id}">ID</div>
     <div class = "name" th:text="${products.productname}">Name</div>
     <div class = "price" th:text="${products.price}">Price</div>
     <div class = "product type" th:text="${products.product_type}">Type</div>
     <div class = "buttons">
-        <button> Delete</button>
+        <button 
+        
+                th:attr = "hx-delete = @{/manager/{id}(id = ${products.product_id})}"  
+                hx-swap = "outerHTML"
+                
+                >
+                <!-- th:attr is a thymeleaf attribute and hx-delete is a htmx function @{/manager/{id}(id = ${products.product_id})} is mapping for the path varible id and then its saying that id is equal to the corresponding product id in the products table -->
+                Delete
+
+        </button>
 
     </div>
 
