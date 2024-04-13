@@ -55,3 +55,33 @@ button:hover {
   flex: 1; /* Allows each element within products to take equal space */
   text-align: center; /* Centers text within each div */
 }
+
+
+
+#addProduct .line {
+  display: flex; /* Enables flexbox layout */
+  align-items: center; /* Aligns children vertically in the middle */
+  justify-content: space-between; /* Distributes space between children */
+  padding: 10px;
+  
+}
+
+#addProduct .line input[type="text"],
+#addProduct .line input[type="price"],
+#addProduct .line select {
+  flex: 1; /* Each child will take equal width */
+  margin: 0 10px; /* Adds horizontal space between elements */
+  padding: 8px; /* Padding inside the elements */
+  border: 2px solid rgb(0, 0, 0); /* Adds border to make elements visible */
+  background-color: rgb(255, 255, 255); /* Background color for inputs and select */
+  color: rgb(0, 0, 0); /* Text color */
+  border-radius: 4px; /* Rounded corners */
+}
+
+#addProduct .line input:first-child {
+  margin-left: 0; /* Removes left margin from the first input */
+}
+
+#addProduct .line select {
+  cursor: pointer; /* Indicates the dropdown is selectable */
+}

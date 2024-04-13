@@ -43,10 +43,10 @@ class ProductsController{
     }
 
     @PostMapping
-    String add(@RequestParam("new-products")String name,Model model)
+    String add(@RequestParam("new-productsName")String name,@RequestParam("new-productsPrice")String price,@RequestParam("new-productsType")String type,Model model)
     {
-        BigDecimal bdFromString = new BigDecimal("4.50");
-        Products newProduct = new Products(null, name, bdFromString, name);
+        BigDecimal bdFromString = new BigDecimal(price);
+        Products newProduct = new Products(null, name, bdFromString, type);
         
         System.out.println("adding "+ name);
         this.repository.save(newProduct);
