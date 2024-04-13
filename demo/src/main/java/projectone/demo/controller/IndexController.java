@@ -1,14 +1,19 @@
 package projectone.demo.controller;
 
+import java.math.BigDecimal;
+
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import projectone.demo.model.Products;
 import projectone.demo.repository.ProductsRepository;
 
 
@@ -36,6 +41,20 @@ class ProductsController{
         repository.deleteById(id);// this is a querie from jpa repository
         return "";
     }
+
+    @PostMapping
+    String add(@RequestParam("new-products")String name,Model model)
+    {
+        BigDecimal bdFromString = new BigDecimal("4.50");
+        Products newProduct = new Products(null, name, bdFromString, name);
+        
+        System.out.println("adding "+ name);
+        this.repository.save(newProduct);
+        model.addAttribute("products", this.repository.findAll());
+        return "products";
+        
+    }
+    
 
 }
    

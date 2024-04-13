@@ -9,36 +9,39 @@
 </head>
 <body>
 
-  <form id="addItem">
-    <div class="textboxes">
-      <input type="text" id = "type" name = "type" placeholder = "type of Item" >
-      <input type="text" id="product" name="product" placeholder="Product">
-      <input type="text" id="price" name="price" placeholder="Price">
-    </div>
-    <button type="button">Add New Menu Item</button>
-  </form>
-
-<!-- th: is thymleaf and the each tag is saying each value in the products table and the   ${manager} linkes it to the manager controller logic-->
-  <div class = "products" th:each="products: ${manager}">
-    <!-- this line is displaying the id attrabute of a row in a product table -->
-    <div class = "id" th:text="${products.product_id}">ID</div>
-    <div class = "name" th:text="${products.productname}">Name</div>
-    <div class = "price" th:text="${products.price}">Price</div>
-    <div class = "product type" th:text="${products.product_type}">Type</div>
-    <div class = "buttons">
+  
+  <div th:fragment="products-list" class="products-list">
+    <div class="products line" th:each="product : ${manager}">
+      <div class="id" th:text="${product.product_id}">ID</div>
+      <div class="name" th:text="${product.productname}">Name</div>
+      <div class="price" th:text="${product.price}">Price</div>
+      <div class="product type" th:text="${product.product_type}">Type</div>
+      <div class="buttons">
         <button 
-        
-                th:attr = "hx-delete = @{/manager/{id}(id = ${products.product_id})}"  
-                hx-swap = "outerHTML"
-                
-                >
-                <!-- th:attr is a thymeleaf attribute and hx-delete is a htmx function @{/manager/{id}(id = ${products.product_id})} is mapping for the path varible id and then its saying that id is equal to the corresponding product id in the products table -->
-                Delete
-
+          th:attr="hx-delete=@{/manager/{id}(id=${product.product_id})}"
+          hx-swap="outerHTML"
+          hx-target="closest .products"
+        >
+          Delete
         </button>
-
+      </div>
     </div>
-
+  </div>
+  
+  <div id="addProduct">
+    <div class="line products">
+      <input type="text" name="new-products" id="new-products"/>
+      <div class="buttons">
+        <button 
+          hx-post="/manager/add"
+          hx-include="#new-products"
+          hx-target=".products-list"
+          hx-swap="outerHTML"
+        >
+          Add
+        </button>
+      </div>
+    </div>
   </div>
   
   

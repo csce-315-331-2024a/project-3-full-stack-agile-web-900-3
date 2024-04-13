@@ -17,10 +17,10 @@ import jakarta.persistence.Table;
 @Getter
 @Setter
 public class Products implements Serializable{
-   
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Id
+    
     private Long product_id;
 
     private String productname;
