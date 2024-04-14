@@ -50,8 +50,8 @@ class ProductsController{
         
         System.out.println("adding "+ name);
         this.repository.save(newProduct);
-        model.addAttribute("products", this.repository.findAll());
-        return "manager";
+        model.addAttribute("manager", this.repository.findAll());
+        return "manager :: manager-list";
         
     }
     

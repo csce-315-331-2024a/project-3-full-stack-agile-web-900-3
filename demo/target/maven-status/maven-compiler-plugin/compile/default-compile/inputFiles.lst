@@ -1,7 +1,6 @@
-/Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/model/Inventory.java
-/Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/repository/ProductsRepository.java
-/Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/model/Products.java
-/Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/controller/IndexController.java
-/Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/DemoApplication.java
-/Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/repository/CustomerRepository.java
-/Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/repository/InventoryRepository.java
+/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/repository/CustomerRepository.java
+/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/DemoApplication.java
+/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/controller/IndexController.java
+/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/model/Inventory.java
+/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/repository/ProductsRepository.java
+/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/model/Products.java

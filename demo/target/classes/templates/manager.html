@@ -9,43 +9,6 @@
 </head>
 <body>
 
-  
-  <!-- <div th:fragment="products-list" class="products-list">
-    <div class="products line" th:each="product : ${manager}">
-      <div class="id" th:text="${product.product_id}">ID</div>
-      <div class="name" th:text="${product.productname}">Name</div>
-      <div class="price" th:text="${product.price}">Price</div>
-      <div class="product type" th:text="${product.product_type}">Type</div>
-      <div class="buttons">
-        <button 
-          th:attr="hx-delete=@{/manager/{id}(id=${product.product_id})}"
-          hx-swap="outerHTML"
-          hx-target="closest .products"
-        >
-          Delete
-        </button>
-      </div>
-    </div>
-  </div>
-  
-  <div id="addProduct">
-    <div class="line products">
-      <input type="text" name="new-products" id="new-products"/>
-      <div class="buttons">
-        <button 
-          hx-post="/manager/add"
-          hx-include="#new-products"
-          hx-target=".products-list"
-          hx-swap="outerHTML"
-        >
-          Add
-        </button>
-      </div>
-    </div>
-  </div>
-  
-  
-</body> -->
 <div th:fragment= "manager-list" class = "manager-list">
   <!-- th: is thymleaf and the each tag is saying each value in the products table and the   ${manager} linkes it to the manager controller logic-->
     <div  class = "products line" th:each="products: ${manager}">
@@ -101,4 +64,5 @@
       </div>
       
     </div>
+  </body>
 </html>
