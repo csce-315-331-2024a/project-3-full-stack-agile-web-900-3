@@ -51,7 +51,7 @@ class ProductsController{
         System.out.println("adding "+ name);
         this.repository.save(newProduct);
         model.addAttribute("products", this.repository.findAll());
-        return "products";
+        return "manager";
         
     }
     

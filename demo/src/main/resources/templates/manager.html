@@ -46,7 +46,7 @@
   
   
 </body> -->
-<div id= "manager-list" class = "manager-list">
+<div th:fragment= "manager-list" class = "manager-list">
   <!-- th: is thymleaf and the each tag is saying each value in the products table and the   ${manager} linkes it to the manager controller logic-->
     <div  class = "products line" th:each="products: ${manager}">
   
