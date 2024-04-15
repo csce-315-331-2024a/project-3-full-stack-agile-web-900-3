@@ -2,5 +2,12 @@ runtime: java17
 
 env_variables:
     JAVA_USER_OPTS: '-Dspring.profiles.active=prod'
+    SPRING_PROFILES_ACTIVE: "prod"
+    SPRING_THYMELEAF_CACHE: "false"
+
+spring:
+    devtools:
+        livereload:
+            enabled: true
 
 

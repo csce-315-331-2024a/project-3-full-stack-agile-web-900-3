@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revs Ordering System</title>
+<link rel="stylesheet" href="customer.css">
+</head>
+<body>
+<div class="container">
+  <nav class="navbar">
+    <button class="nav-button" onclick="loadMenuItems('burgers')">Burgers and Sandwiches</button>
+    <button class="nav-button" onclick="loadMenuItems('chicken')">Chicken</button>
+    <button class="nav-button" onclick="loadMenuItems('shakes')">Shakes/Drinks</button>
+    <button class="nav-button" onclick="loadMenuItems('sides')">Sides</button>
+  </nav>
+  <div class="menu-area" id="menu-items">
+    <!-- Items will be loaded here -->
+  </div>
+  <aside class="order-tracker">
+    <h2>Your Order</h2>
+    <div class="order-items">
+      <ul id="order-summary">
+      </ul>
+    </div>
+    <div class="order-total">
+      <p>Total: <span id="total-price">$0.00</span></p>
+    </div>
+    <button class="confirm-button" id="confirm-order">Confirm Order</button>
+    <button class="cancel-button" id="cancel-order">Cancel Order</button>
+  </aside>
+</div>
+<script src="customer1.js"></script>
+</body>
+</html>

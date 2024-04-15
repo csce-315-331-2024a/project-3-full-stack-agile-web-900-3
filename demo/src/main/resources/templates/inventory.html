@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory Table</title>
+  <link rel="stylesheet" href="inventory.css">
+  <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
+</head>
+<body>
+  <div  class = "inventory line" th:each="item: ${inventory}">
+  
+  
+        <!-- this line is displaying the id attrabute of a row in a product table -->
+        <!-- <div class = "id" th:text="${products.product_id}">ID</div> -->
+        <div class = "name" th:text="${item.name}">Name</div>
+        <div class = "price" th:text="${item.type}">Price</div>
+        <div class = "quantity" th:text="${item.quantity}">Type</div>
+        <div class = "unit" th:text="${item.unit}">Type</div>
+        <div class = "low_threshold" th:text="${item.lowThreshold}">Type</div>
+        <div class = "order_date" th:text="${item.orderDate}">Type</div>
+  </div>
+</body>
+</html>

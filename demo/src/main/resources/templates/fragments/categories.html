@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/burger.css">
+</head>
+<body>
+<div class="col" th:fragment="basket">
+    <div class="rounded-rectangle" >
+        <h1>Basket</h1>
+        <hr>
+        <div class="prod-row" th:each="product: ${categoryMap[basket]}">
+            <div class="name" th:text="${product.getProductname()}"></div>
+            <div class="border-divider dots"></div>
+
+            <div class="price" th:text="${product.getPrice()}"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col" th:fragment="salad">
+    <div class="rounded-rectangle" >
+        <h1>Salad</h1>
+        <hr>
+        <div class="prod-row" th:each="product: ${categoryMap[salad]}">
+            <div  class="name" th:text="${product.getProductname()}"></div>
+            <div class="border-divider dots"></div>
+
+            <div class="price" th:text="${product.getPrice()}"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col" th:fragment="burger">
+    <div class="rounded-rectangle" >
+        <h1>Burger</h1>
+        <hr>
+        <div class="prod-row" th:each="product: ${categoryMap[burger]}">
+            <div class="name" th:text="${product.getProductname()}"></div>
+            <div class="border-divider dots"></div>
+
+            <div class="price" th:text="${product.getPrice()}"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col" th:fragment="beverage">
+    <div class="rounded-rectangle" >
+        <h1>Beverage</h1>
+        <hr>
+        <div class="prod-row" th:each="product: ${categoryMap[beverage]}">
+            <div class="name" th:text="${product.getProductname()}"></div>
+            <div class="border-divider dots"></div>
+
+            <div class="price" th:text="${product.getPrice()}"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col" th:fragment="coffee">
+    <div class="rounded-rectangle" >
+        <h1>Coffee</h1>
+        <hr>
+        <div class="prod-row" th:each="product: ${categoryMap[coffee]}">
+            <div class="name" th:text="${product.getProductname()}"></div>
+            <div class="border-divider dots"></div>
+
+            <div class="price" th:text="${product.getPrice()}"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col" th:fragment="sandwich">
+    <div class="rounded-rectangle" >
+        <h1>Sandwich</h1>
+        <hr>
+        <div class="prod-row" th:each="product: ${categoryMap[sandwich]}">
+            <div class="name" th:text="${product.getProductname()}"></div>
+            <div class="border-divider dots"></div>
+
+            <div class="price" th:text="${product.getPrice()}"></div>
+        </div>
+    </div>
+</div>
+
+<div class="col" th:fragment="sweet">
+    <div class="rounded-rectangle" >
+        <h1>Sweet</h1>
+        <hr>
+        <div class="prod-row" th:each="product: ${categoryMap[sweet]}">
+            <div class="name" th:text="${product.getProductname()}"></div>
+            <div class="border-divider dots"></div>
+
+            <div class="price" th:text="${product.getPrice()}"></div>
+        </div>
+    </div>
+</div>
+
+<script src="http://localhost:35729/livereload.js"></script>
+<script src="../../static/burger.js"></script>
+</body>
+</html>
