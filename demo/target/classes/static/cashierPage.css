@@ -1,4 +1,3 @@
-
 body, h2, p, button {
   margin: 0;
   padding: 0;
@@ -38,28 +37,88 @@ body {
 }
 
 .sidebar button:hover {
-   opacity: 0.7;
+  opacity: 0.7;
 }
+
+
 
 .content {
   flex: 1;
   padding: 20px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr); /* Four columns */
   gap: 20px;
 }
 
-.button, #switch {
+.grid {
+  display: grid;
+  
+  grid-template-columns: repeat(4, 1fr); /* Four columns */
+    gap: 10px;
+  padding: 20px;
+}
+
+.grid-item button {
+
+  width: 100%;
+  padding: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button {
   padding: 20px;
   border: none;
-  background-color: white;
-  color: maroon;
+  color: black;
   font-size: 16px;
   cursor: pointer;
   transition: transform 0.2s;
+
 }
 
-.button:hover, #switch:hover {
+#burger {
+  
+  background-color: white;
+  
+}
+
+#basket {
+  
+  background-color: goldenrod;
+
+}
+
+#sandwich {
+  background-color: silver;
+  
+}
+
+#sweet {
+  background-color: lightpink;
+  
+}
+
+#beverage {
+  background-color: lightskyblue;
+  
+}
+
+#side {
+  background-color: tan;
+
+}
+
+#salad {
+  background-color: olivedrab;
+  
+}
+
+#sauce {
+  background-color: lightsalmon;
+  
+}
+
+.button:hover {
   transform: scale(1.05);
   background-color: white;
 }
@@ -75,7 +134,7 @@ body {
   padding: 10px;
   background-color: white;
   border: none;
-  color:maroon;
+  color:black;
   cursor: pointer;
   transition: opacity 0.3s;
 }
@@ -84,14 +143,17 @@ body {
   opacity: 0.7;
 }
 
-/* Additional styling */
 #outputText {
   padding: 10px;
-  border: 1px solid rgb(0, 0, 0);
+  border: 5px solid rgb(0, 0, 0);
   background-color: white;
   margin-bottom: 20px;
-  height: 450px; /* Adjust based on content */
-  overflow-y: auto; /* Scrollable if content is too long */
+  height: 450px; 
+  overflow-y: auto; 
+}
+
+#orderTotal {
+  color:white;
 }
 
 /* Adjustments for responsiveness */
