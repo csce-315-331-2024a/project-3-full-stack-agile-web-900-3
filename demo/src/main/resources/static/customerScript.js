@@ -1,7 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-  loadMenuItems('burger'); // Initially loads burgers on page load
-});
-
 /*
 fetch('/customer')
   .then(response => response.json())
@@ -113,6 +109,7 @@ window.addEventListener('beforeunload', function(event) {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+  loadMenuItems('burger'); // Initially loads burgers on page load
   const returningUser = localStorage.getItem('returningUser');
   if (returningUser) {
     const savedTotal = localStorage.getItem('orderTotal');
@@ -126,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('returningUser', false);
     localStorage.clear();
   } else {
+    loadMenuItems('burger'); // Initially loads burgers on page load
     localStorage.clear();  // Clear storage if not returning from checkout
   }
 });
