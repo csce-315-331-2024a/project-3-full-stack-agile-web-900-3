@@ -9,36 +9,18 @@
 <body>
 <div class="container">
   <nav class="navbar">
-    <button class="nav-button" id="burgers">Burgers and Sandwiches</button>
-    <button class="nav-button" id="chicken">Chicken</button>
-    <button class="nav-button" id="shakes">Shakes/Drinks</button>
-    <button class="nav-button" id="sides">Sides</button>
+    <button class="nav-button" onclick="loadMenuItems('burgers')">Burgers and Sandwiches</button>
+    <button class="nav-button" onclick="loadMenuItems('chicken')">Chicken</button>
+    <button class="nav-button" onclick="loadMenuItems('shakes')">Shakes/Drinks</button>
+    <button class="nav-button" onclick="loadMenuItems('sides')">Sides</button>
   </nav>
-
-  <div class="menu-area">
-    <!-- This table will hold the menu items fetched from the database -->
-    <table id="menu-items-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Type</th>
-          <th></th> <!-- for Add to Order button -->
-        </tr>
-      </thead>
-      <tbody id="menu-items">
-        <!-- Items will be inserted here by the JavaScript -->
-      </tbody>
-    </table>
+  <div class="menu-area" id="menu-items">
+    <!-- Items will be loaded here -->
   </div>
-
   <aside class="order-tracker">
     <h2>Your Order</h2>
     <div class="order-items">
-      <!-- Dynamically add items here -->
       <ul id="order-summary">
-        <!-- List items will be added here by JavaScript -->
       </ul>
     </div>
     <div class="order-total">
@@ -46,7 +28,6 @@
     </div>
     <button class="confirm-button" id="confirm-order">Confirm Order</button>
     <button class="cancel-button" id="cancel-order">Cancel Order</button>
-
   </aside>
 </div>
 <script src="customer1.js"></script>

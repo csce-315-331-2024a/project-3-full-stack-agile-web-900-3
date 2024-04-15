@@ -1,7 +1,7 @@
 projectone/demo/controller/CustomerController.class
+projectone/demo/repository/ManagerRepository.class
+projectone/demo/DemoApplication.class
 projectone/demo/model/Products.class
 projectone/demo/repository/CustomerRepository.class
-projectone/demo/repository/ManagerRepository.class
 projectone/demo/controller/HomeController.class
-projectone/demo/DemoApplication.class
 projectone/demo/controller/ManagerController.class
