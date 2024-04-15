@@ -1,36 +1,75 @@
-document.addEventListener('DOMContentLoaded', function() {
-  loadMenuItems('burgers'); // Initially loads burgers on page load
+document.addEventListener('DOMContentLoaded', () => {
+  loadMenuItems('burger'); // Initially loads burgers on page load
 });
 
-function loadMenuItems(category) {
-  fetch(`/api/menu/${category}`)
-    .then(response => response.json())
-    .then(data => {
-      const menuItems = document.getElementById('menu-items');
-      menuItems.innerHTML = '';
-      data.forEach(item => {
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'menu-item';
-        const detailsDiv = document.createElement('div');
-        detailsDiv.className = 'menu-item-details';
-        const itemName = document.createElement('h3');
-        itemName.textContent = item.productname;
-        const itemPrice = document.createElement('p');
-        itemPrice.className = 'menu-item-price';
-        itemPrice.textContent = `$${item.price.toFixed(2)}`;
-        const orderButton = document.createElement('button');
-        orderButton.className = 'order-button';
-        orderButton.textContent = 'Order Now';
-        orderButton.onclick = function() { addToOrder(item.product_id, item.price, item.productname); };
-        detailsDiv.appendChild(itemName);
-        detailsDiv.appendChild(itemPrice);
-        detailsDiv.appendChild(orderButton);
-        itemDiv.appendChild(detailsDiv);
-        menuItems.appendChild(itemDiv);
-      });
-    })
-    .catch(error => console.error('Error loading items:', error));
-}
+/*
+fetch('/customer')
+  .then(response => response.json())
+  .then(data => {
+    const menuItems = document.getElementById('menu-items');
+    data.forEach(item => {
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'menu-item';
+      const img = document.createElement('img');
+      img.src = 'path_to_image/' + item.image;
+      const detailsDiv = document.createElement('div');
+      detailsDiv.className = 'menu-item-details';
+      const itemName = document.createElement('h3');
+      itemName.textContent = item.productname;
+      const itemPrice = document.createElement('p');
+      itemPrice.className = 'menu-item-price';
+      itemPrice.textContent = `$${item.price.toFixed(2)}`;
+      const orderButton = document.createElement('button');
+      orderButton.className = 'order-button';
+      orderButton.textContent = 'Order Now';
+      orderButton.onclick = () => addToOrder(item.product_id, item.price, item.productname);
+      detailsDiv.appendChild(itemName);
+      detailsDiv.appendChild(itemPrice);
+      detailsDiv.appendChild(orderButton);
+      itemDiv.appendChild(img);
+      itemDiv.appendChild(detailsDiv);
+      menuItems.appendChild(itemDiv);
+    });
+  })
+  .catch(error => console.error('Error fetching data:', error));
+  */
+
+  function loadMenuItems(category) {
+    fetch(`/api/menu/${category}`)
+      .then(response => response.json())
+      .then(data => {
+        const menuItems = document.getElementById('menu-items');
+        menuItems.innerHTML = '';
+        if (!data || data.length === 0) {
+          menuItems.innerHTML = '<p>No items found in this category.</p>';
+        } else {
+          data.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'menu-item';
+            const img = document.createElement('img');
+            img.src = 'path_to_image/' + item.image;
+            const detailsDiv = document.createElement('div');
+            detailsDiv.className = 'menu-item-details';
+            const itemName = document.createElement('h3');
+            itemName.textContent = item.productname;
+            const itemPrice = document.createElement('p');
+            itemPrice.className = 'menu-item-price';
+            itemPrice.textContent = `$${item.price.toFixed(2)}`;
+            const orderButton = document.createElement('button');
+            orderButton.className = 'order-button';
+            orderButton.textContent = 'Order Now';
+            orderButton.onclick = function() { addToOrder(item.product_id, item.price, item.productname); };
+            detailsDiv.appendChild(itemName);
+            detailsDiv.appendChild(itemPrice);
+            detailsDiv.appendChild(orderButton);
+            itemDiv.appendChild(img);
+            itemDiv.appendChild(detailsDiv);
+            menuItems.appendChild(itemDiv);
+          });
+        }
+      })
+      .catch(error => console.error('Error loading items:', error));
+  }
 
 let orderTotal = 0;
 
@@ -72,32 +111,4 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-fetch('/customer')
-  .then(response => response.json())
-  .then(data => {
-    const menuItems = document.getElementById('menu-items');
-    data.forEach(item => {
-      const itemDiv = document.createElement('div');
-      itemDiv.className = 'menu-item';
-      const img = document.createElement('img');
-      img.src = 'path_to_image/' + item.image;
-      const detailsDiv = document.createElement('div');
-      detailsDiv.className = 'menu-item-details';
-      const itemName = document.createElement('h3');
-      itemName.textContent = item.productname;
-      const itemPrice = document.createElement('p');
-      itemPrice.className = 'menu-item-price';
-      itemPrice.textContent = `$${item.price.toFixed(2)}`;
-      const orderButton = document.createElement('button');
-      orderButton.className = 'order-button';
-      orderButton.textContent = 'Order Now';
-      orderButton.onclick = () => addToOrder(item.product_id, item.price, item.productname);
-      detailsDiv.appendChild(itemName);
-      detailsDiv.appendChild(itemPrice);
-      detailsDiv.appendChild(orderButton);
-      itemDiv.appendChild(img);
-      itemDiv.appendChild(detailsDiv);
-      menuItems.appendChild(itemDiv);
-    });
-  })
-  .catch(error => console.error('Error fetching data:', error));
+
