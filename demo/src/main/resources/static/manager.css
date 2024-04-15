@@ -68,7 +68,11 @@ button:hover {
 
 #addProduct .line input[type="text"],
 #addProduct .line input[type="price"],
-#addProduct .line select {
+#addProduct .line select
+#addInventory .line input[type="text"],
+#addInventory .line input[type="number"],
+#addInventory .line input[type="date"],
+#addInventory .line select {
   flex: 1; /* Each child will take equal width */
   margin: 0 10px; /* Adds horizontal space between elements */
   padding: 8px; /* Padding inside the elements */
@@ -78,10 +82,12 @@ button:hover {
   border-radius: 4px; /* Rounded corners */
 }
 
-#addProduct .line input:first-child {
+#addProduct .line input:first-child
+#addInventory .line input:first-child {
   margin-left: 0; /* Removes left margin from the first input */
 }
 
-#addProduct .line select {
+#addProduct .line select
+#addInventory .line select {
   cursor: pointer; /* Indicates the dropdown is selectable */
 }

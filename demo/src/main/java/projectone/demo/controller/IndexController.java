@@ -1,8 +1,11 @@
 package projectone.demo.controller;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,6 +36,7 @@ class ProductsController{
 
         return "manager";
     }
+    
     @ResponseBody
     @DeleteMapping(value = "/{id}" ,produces = MediaType.TEXT_HTML_VALUE)
     String delete(@PathVariable Long id)
@@ -50,14 +54,58 @@ class ProductsController{
         
         System.out.println("adding "+ name);
         this.repository.save(newProduct);
-        model.addAttribute("products", this.repository.findAll());
-        return "manager";
+        model.addAttribute("manager", this.repository.findAll());
+        return "manager :: manager-list";
         
     }
     
 
 }
-   
+// @RequestMapping(value = "/inventory-manager")   
+// @Controller
+// class InventoryController
+// {
+//      private final InventoryRepository repository;
+
+//      InventoryController(InventoryRepository repository)
+//      {
+//         this.repository = repository;
+//      }
+
+//      @GetMapping
+//      String ManagerPage(Model model)
+//      {
+//         model.addAttribute("inventory", this.repository.findAll());
+//         return "manager";
+//      }
+    //  @PostMapping("/addInventory")
+    // public String addInventory(@RequestParam("name") String name, 
+    //                         @RequestParam("type") String type, 
+    //                         @RequestParam("quantity") Integer quantity,
+    //                         @RequestParam("unit") String unit,
+    //                         @RequestParam("lowThreshold") Integer lowThreshold,
+    //                         @RequestParam("orderDate") String orderDate,
+    //                         Model model) {
+    //     LocalDate date = LocalDate.parse(orderDate);
+    //     Inventory newInventory = new Inventory(null, name, type, quantity, unit, lowThreshold, date);
+    //     repository.save(newInventory);
+    //     return "redirect:/manager";  // Redirect to manage page
+    // }
+
+    // @DeleteMapping("/deleteInventory/{id}")
+    // @ResponseBody
+    // public ResponseEntity<?> deleteInventory(@PathVariable Long id) {
+    //     try {
+    //         repository.deleteById(id);
+    //         return ResponseEntity.ok().build();
+    //     } catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    //     }
+    // }
+
+//}
+
+
 
     @Controller // no logic in this this is purely mappping the index html to the javascript
     class IndexController
