@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import projectone.demo.model.Inventory;
 import projectone.demo.model.Products;
+import projectone.demo.repository.InventoryRepository;
 import projectone.demo.repository.ProductsRepository;
 
 
@@ -60,6 +62,23 @@ class ProductsController{
     }
     
 
+}
+@RequestMapping(value = "/inventory")   
+@Controller
+class InventoryController{
+    private final InventoryRepository repository;
+
+    InventoryController(InventoryRepository repository)
+    {
+        this.repository = repository;
+    }
+    @GetMapping
+    String Inventory(Model model)
+    {
+        model.addAttribute("inventory", this.repository.findAll());
+
+        return "inventory";
+    }
 }
 // @RequestMapping(value = "/inventory-manager")   
 // @Controller
