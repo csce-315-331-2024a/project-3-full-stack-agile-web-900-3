@@ -1,7 +1,7 @@
 CREATE TABLE orders (
     order_id INT PRIMARY KEY,
     price DECIMAL,
-    order_datetime DATETIME0
+    order_datetime DATETIME
 );
 
 INSERT INTO orders (order_id, price, order_datetime) 

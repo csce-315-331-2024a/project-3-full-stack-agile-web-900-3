@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" href="index.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation Page</title>
@@ -24,11 +25,14 @@
     </style>
 </head>
 <body>
-<h1>"test hello"</h1>
 
-<a href="pinpad.html" class="button">Pin Pad</a>
-<a href="manager.html" class="button">Manager</a>
-<a href="/menuboard" hx-get="true" class="button">MenuBoard</a>
+<!-- <a href="pinpad.html" class="button">Pin Pad</a> -->
+<a th:href="@{/pinpad}">Go to pinPad Page</a>
+<a th:href="@{/manager}">Go to Manager Page</a>
+<a th:href="@{/menuBoard}">Go to menuBoard Page</a>
+<a th:href="@{/cashierPage}">Go to Cashier Page</a>
+<a th:href="@{/inventory}">Go to Manager Inventory</a>
+<!-- <a href="menuBoard.html" class="button">Menu Board</a>
 <a href="customer.html" class="button">Customer</a>
 <a href="cashierPage.html" class="button">Cashier</a>
 

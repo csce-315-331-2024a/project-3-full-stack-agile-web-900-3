@@ -46,4 +46,6 @@ public class Products implements Serializable{
     public BigDecimal getPrice(){
         return price;
     }
+
+    private String product_type;
 }

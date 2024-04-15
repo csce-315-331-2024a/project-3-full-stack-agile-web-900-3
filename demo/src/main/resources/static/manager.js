@@ -1,16 +1,16 @@
 fetch('/manager')
   .then(response => response.json())
   .then(data => {
-    const tableBody = document.getElementById('manager-data');
+    const select = document.getElementById('manager-data');
 
     data.forEach(item => {
-      const row = document.createElement('tr');
+      const row = document.createElement('option');
       row.innerHTML = `
-        <td>${item.product_id}</td>
-        <td>${item.productname}</td>
-        <td>${item.price}</td>
+       
+        <p>${item.productname}</p>
+        
       `;
-      tableBody.appendChild(row);
+      select.appendChild(row);
     });
   })
   .catch(error => console.error('Error fetching data:', error));
