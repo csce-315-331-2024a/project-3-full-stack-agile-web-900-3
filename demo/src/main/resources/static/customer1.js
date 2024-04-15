@@ -91,23 +91,42 @@ document.getElementById('cancel-order').addEventListener('click', function() {
   document.getElementById('total-price').textContent = `$0.00`;
   localStorage.removeItem('orderTotal');
   localStorage.removeItem('orderSummary');
+  localStorage.removeItem('returningUser');
 });
 
 document.getElementById('confirm-order').addEventListener('click', function() {
   if (orderTotal > 0 && confirm('Do you want to proceed to checkout?')) {
+    localStorage.setItem('orderTotal', orderTotal.toFixed(2));
+    localStorage.setItem('orderSummary', document.getElementById('order-summary').innerHTML);
+    localStorage.setItem('returningUser', true); // Set flag that user is going to checkout
     window.location.href = 'checkout.html';
   } else {
     alert('Please add items to your order.');
   }
 });
 
+window.addEventListener('beforeunload', function(event) {
+  // This can be a place to clear local storage if needed, though it may not always trigger (e.g., browser crash)
+  if (!localStorage.getItem('returningUser')) {
+    localStorage.clear();
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
-  const savedTotal = localStorage.getItem('orderTotal');
-  const savedSummary = localStorage.getItem('orderSummary');
-  if (savedTotal && savedSummary) {
-    document.getElementById('total-price').textContent = `$${savedTotal}`;
-    document.getElementById('order-summary').innerHTML = savedSummary;
-    orderTotal = parseFloat(savedTotal);
+  const returningUser = localStorage.getItem('returningUser');
+  if (returningUser) {
+    const savedTotal = localStorage.getItem('orderTotal');
+    const savedSummary = localStorage.getItem('orderSummary');
+    if (savedTotal && savedSummary) {
+      document.getElementById('total-price').textContent = `$${savedTotal}`;
+      document.getElementById('order-summary').innerHTML = savedSummary;
+      orderTotal = parseFloat(savedTotal);
+    }
+    // Reset returningUser flag after loading the session
+    localStorage.setItem('returningUser', false);
+    localStorage.clear();
+  } else {
+    localStorage.clear();  // Clear storage if not returning from checkout
   }
 });
 
