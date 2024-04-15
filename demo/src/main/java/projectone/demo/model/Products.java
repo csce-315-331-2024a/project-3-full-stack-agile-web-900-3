@@ -19,9 +19,13 @@ import jakarta.persistence.Table;
 public class Products implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    
     private Long product_id;
 
     private String productname;
 
     private BigDecimal price;
+
+    private String product_type;
 }
