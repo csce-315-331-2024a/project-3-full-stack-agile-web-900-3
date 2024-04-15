@@ -23,7 +23,7 @@ import projectone.demo.repository.ProductsRepository;
 @RequestMapping(value = "/manager")   
 @Controller
 class ProductsController{
-    private final InventoryRepository invRepository;
+    
     private final ProductsRepository repository;
     
     ProductsController(ProductsRepository repository){

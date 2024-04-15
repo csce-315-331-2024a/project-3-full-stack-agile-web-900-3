@@ -60,44 +60,6 @@
         </div>
       </div>
       
-  </div>
-
-  <div th:fragment="inventory-list" class="inventory-list">
-    <div class="inventory line" th:each="inventory : ${manager}">
-        <div class="name" th:text="${inventory.name}">Name</div>
-        <div class="type" th:text="${inventory.type}">Type</div>
-        <div class="quantity" th:text="${inventory.quantity}">Quantity</div>
-        <div class="unit" th:text="${inventory.unit}">Unit</div>
-        <div class="lowThreshold" th:text="${item.lowThreshold}">Low Threshold</div>
-        <div class="orderDate" th:text="${item.orderDate}">Order Date</div>
-        <div class="buttons">
-            <!-- <button
-                th:attr="hx-delete=@{/deleteInventory/{Itemid}(Itemid=${item.id})}"
-                hx-swap="outerHTML"
-                hx-target="closest .inventory">
-                Delete
-            </button> -->
-        </div>
     </div>
-  </div>
-
-  <!-- <div id="addInventory" class="line inventory">
-    <input type="text" name="name" id="inventoryName" placeholder="Name" />
-    <input type="text" name="type" id="inventoryType" placeholder="Type" />
-    <input type="number" name="quantity" id="inventoryQuantity" placeholder="Quantity" />
-    <input type="text" name="unit" id="inventoryUnit" placeholder="Unit" />
-    <input type="number" name="lowThreshold" id="inventoryLowThreshold" placeholder="Low Threshold" />
-    <input type="date" name="orderDate" id="inventoryOrderDate" placeholder="Order Date" />
-    <div class="buttons">
-        <button
-            hx-post="/manager/addInventory"
-            hx-include="#inventoryName, #inventoryType, #inventoryQuantity, #inventoryUnit, #inventoryLowThreshold, #inventoryOrderDate"
-            hx-target=".inventory-list"
-            hx-swap="beforeend">
-            Add Inventory
-        </button>
-    </div>
-  </div> -->
-
   </body>
 </html>
