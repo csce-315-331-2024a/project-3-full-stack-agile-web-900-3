@@ -24,4 +24,26 @@ public class Products implements Serializable{
     private String productname;
 
     private BigDecimal price;
+
+    public Products(String productname, BigDecimal price) {
+        this.productname = productname;
+        this.price = price;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Products{" +
+                "productname='" + productname + '\'' +
+                ", price=" + price +
+                '}';
+    }
+
+    public String getProductname(){
+        return productname;
+    }
+    //return price
+    public BigDecimal getPrice(){
+        return price;
+    }
 }

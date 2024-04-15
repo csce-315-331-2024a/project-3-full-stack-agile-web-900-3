@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/menuBoard.css">
+</head>
+<body>
+<div class="full-height d-flex flex-column">
+    <nav class="navbar navbar-expand-lg bg-lightmaroon">
+        <div class="container-fluid bg-lightmaroon">
+            <a class="navbar-brand">Rev's Grill Menu</a>
+        </div>
+    </nav>
+    <div class="container-fluid bg-maroon flex-grow-1 menu-area text-style-gold">
+        <div class="col rounded-rectangle" >
+
+            <div th:insert="~{fragments/categories :: basket}"></div>
+            <div th:insert="~{fragments/categories :: salad}"></div>
+            <div th:insert="~{fragments/categories :: burger}"></div>
+
+        </div>
+        <div class="col rounded-rectangle">
+            <div th:insert="~{fragments/categories :: beverage}"></div>
+            <div th:insert="~{fragments/categories :: coffee}"></div>
+            <div th:insert="~{fragments/categories :: sandwich}"></div>
+        </div>
+        <div class="col rounded-rectangle">
+            <div th:insert="~{fragments/categories :: sweet}"></div>
+
+        </div>
+
+<!--        <div class="row align-items-start"> &lt;!&ndash; Add flex-grow-1 class to make the row take up remaining height &ndash;&gt;-->
+<!--            <div th:each="categoryEntry : ${categoryMap}" class="col"> &lt;!&ndash; Add h-100 class for the columns &ndash;&gt;-->
+<!--                <h1 th:text="${categoryEntry.key}" class="font-style"></h1>-->
+
+<!--                <ul class="list-group"> &lt;!&ndash; Add h-100 class for the ul elements &ndash;&gt;-->
+<!--                    <li th:each="product: ${categoryEntry.value}" class="list-group-item d-flex justify-content-between">-->
+<!--                        <span th:text="${product.productname}"></span> <span th:text="${product.price}"></span>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+</div>
+
+<script src="http://localhost:35729/livereload.js"></script>
+
+</body>
+</html>
