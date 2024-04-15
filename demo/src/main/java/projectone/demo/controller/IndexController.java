@@ -139,11 +139,18 @@ class InventoryController{
     }
     
 
+    @RequestMapping(value = "/cashierPage")
     @Controller // no logic in this this is purely mappping the index html to the javascript
     class CashierController{
-        @GetMapping("/cashierPage")
-    public String cashierPage()
+        private final ProductsRepository repository;
+        CashierController(ProductsRepository repository)
+        {
+            this.repository = repository;
+        }
+    @GetMapping
+    String products(Model model)
     {
+        model.addAttribute("products", this.repository.findAll());
         return "cashierPage";
     }
     }
