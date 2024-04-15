@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
-import projectone.demo.repository.ManagerRepository;
 import projectone.demo.model.Products;
-
+import projectone.demo.repository.CustomerRepository;
 import java.util.List;
 
 @RestController
@@ -17,7 +16,7 @@ import java.util.List;
 @RequestMapping("/") // Base mapping for all methods in this controller
 public class CustomerController {
 
-    private final ManagerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     @GetMapping("/customer")
     public ResponseEntity<List<Products>> listMenuItems() {
