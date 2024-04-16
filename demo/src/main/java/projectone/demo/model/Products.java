@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 
 @Entity(name="Products")
 @Table(name="products")
@@ -26,7 +27,9 @@ public class Products implements Serializable{
 
     private BigDecimal price;
 
-    private String product_type;
+    // map our product_type attribute column to the productType string
+    @Column(name = "product_type")
+    private String productType;
 
     public Products(String productname, BigDecimal price) {
         this.productname = productname;
