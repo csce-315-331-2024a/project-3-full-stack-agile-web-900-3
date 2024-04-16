@@ -80,6 +80,13 @@ class InventoryController{
 
         return "inventory";
     }
+    @DeleteMapping(value = "/{id}" ,produces = MediaType.TEXT_HTML_VALUE)
+    String delete(@PathVariable Long id)
+    {
+        System.out.println("going to delete Inventory number: "+id);
+        repository.deleteById(id);// this is a querie from jpa repository
+        return "";
+    }
 }
 // @RequestMapping(value = "/inventory-manager")   
 // @Controller
