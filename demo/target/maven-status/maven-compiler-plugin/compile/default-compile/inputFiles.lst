@@ -3,10 +3,12 @@
 /home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/repository/OrdersRepository.java
 /home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/model/Inventory.java
 /home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/controller/IndexController.java
+/home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/controller/InventoryController.java
+/home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/model/Products.java
+/home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/model/Orders.java
+/home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/model/DBConnection.java
 /home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/controller/MenuBoard.java
 /home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/repository/CustomerRepository.java
-/home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/model/Products.java
 /home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/controller/CustomerController.java
-/home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/model/Orders.java
+/home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/controller/ProductController.java
 /home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/DemoApplication.java
-/home/quinn/project-3-full-stack-agile-web-900-3-7/demo/src/main/java/projectone/demo/model/DBConnection.java

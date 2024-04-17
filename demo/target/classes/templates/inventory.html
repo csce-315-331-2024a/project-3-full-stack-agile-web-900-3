@@ -7,15 +7,21 @@
   <link rel="stylesheet" href="inventory.css">
   <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 </head>
-<header>
-  
-  
-</header>
-<body>
+
+<h2 >Inventory</h2>
+<body id = "updateArea">
+  <div id = navBar>
+  <button class="nav-btn" onclick="switchDiv('food')">Food</button>
+  <button class="nav-btn" onclick="switchDiv('utilities')">Utilities</button>
+  <button class="nav-btn" onclick="switchDiv('condiments')">Condiments</button>
+  <button class="nav-btn" onclick="switchDiv('desserts')">Dessert</button>
+  <button class="nav-btn" onclick="switchDiv('toppings')">Toppings</button>
+  <a href="/manager" class="nav-btn">Products</a>
+  </div>
 
 
   <div class = "category-container">
-    <div class="category" id="food">
+    <div class="content" id="food" th:fragment = "loadArea">
       <h2>Food</h2>
       <div class="header">
         <div class="header-item">Name</div>
@@ -23,23 +29,29 @@
         <div class="header-item">Unit</div>
         <div class="header-item">Low Threshold</div>
         <div class="header-item">Order Date</div>
+        <div class="header-item">Amount To Order</div>
       </div>
       <div class="inventory line" th:each="item : ${inventory}" th:if="${item.type == 'food'}">
-        <div class="item" th:classappend="${ item.lowThreshold > item.quantity } ? 'low-stock'">
+        <div class="item" th:classappend="${item.lowThreshold > item.quantity} ? 'low-stock'">
           <div class="name" th:text="${item.name}">Name</div>
+          <div class="name" id="id" th:text="${item.id}" style="display: none;"></div>
           <div class="quantity" th:text="${item.quantity}">Quantity</div>
           <div class="unit" th:text="${item.unit}">Unit</div>
           <div class="low_threshold" th:text="${item.lowThreshold}">Low Threshold</div>
           <div class="order_date" th:text="${item.orderDate}">Order Date</div>
-          <button
-        > delete </button>
+
+          <form id="orderForm" hx-post="/inventory" hx-target="#updateArea" hx-swap="outerHTML">
+            <input type="hidden" name="item-id" th:value="${item.id}" />
+            <input type="number" name="new-quantity" placeholder="Enter quantity" required>
+            <button type="submit">Order</button>
+          </form>
         </div>
       </div>
     </div>
     <!-- Repeat for each category: Condiments, Toppings, Utilities, and Desserts -->
    
-  
-    <div class="category" id="utilities">
+  <div>
+    <div  class="content hidden" id="utilities">
       <h2>Utilities</h2>
       <div class="header">
         <div class="header-item">Name</div>
@@ -55,13 +67,17 @@
           <div class="unit" th:text="${item.unit}">Unit</div>
           <div class="low_threshold" th:text="${item.lowThreshold}">Low Threshold</div>
           <div class="order_date" th:text="${item.orderDate}">Order Date</div>
-          <button
-          > delete </button>
+          <form id="orderForm" hx-post="/inventory" hx-target="#updateArea" hx-swap="outerHTML">
+            <input type="hidden" name="item-id" th:value="${item.id}" />
+            <input type="number" name="new-quantity" placeholder="Enter quantity" required>
+            <button type="submit">Order</button>
+          </form>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="category" id="condiments">
+    <div class="content hidden" id="condiments">
       <h2>Condiments</h2>
       <div class="header">
         <div class="header-item">Name</div>
@@ -77,13 +93,16 @@
           <div class="unit" th:text="${item.unit}">Unit</div>
           <div class="low_threshold" th:text="${item.lowThreshold}">Low Threshold</div>
           <div class="order_date" th:text="${item.orderDate}">Order Date</div>
-          <button
-         > delete </button>
+          <form id="orderForm" hx-post="/inventory" hx-target="#updateArea" hx-swap="outerHTML">
+            <input type="hidden" name="item-id" th:value="${item.id}" />
+            <input type="number" name="new-quantity" placeholder="Enter quantity" required>
+            <button type="submit">Order</button>
+          </form>
         </div>
       </div>
     </div>
   
-    <div class="category" id="toppings">
+    <div class="content hidden" id="toppings">
       <h2>Toppings</h2>
       <div class="header">
         <div class="header-item">Name</div>
@@ -99,13 +118,16 @@
           <div class="unit" th:text="${item.unit}">Unit</div>
           <div class="low_threshold" th:text="${item.lowThreshold}">Low Threshold</div>
           <div class="order_date" th:text="${item.orderDate}">Order Date</div>
-          <button
-       > delete </button>
+          <form id="orderForm" hx-post="/inventory" hx-target="#updateArea" hx-swap="outerHTML">
+            <input type="hidden" name="item-id" th:value="${item.id}" />
+            <input type="number" name="new-quantity" placeholder="Enter quantity" required>
+            <button type="submit">Order</button>
+          </form>
         </div>
       </div>
     </div>
   
-    <div class="category" id="desserts">
+    <div class="content hidden" id="desserts">
       <h2>Desserts</h2>
       <div class="header">
         <div class="header-item">Name</div>
@@ -121,14 +143,29 @@
           <div class="unit" th:text="${item.unit}">Unit</div>
           <div class="low_threshold" th:text="${item.lowThreshold}">Low Threshold</div>
           <div class="order_date" th:text="${item.orderDate}">Order Date</div>
-          <button
-       > delete </button>
+          <form id="orderForm" hx-post="/inventory" hx-target="#updateArea" hx-swap="outerHTML">
+            <input type="hidden" name="item-id" th:value="${item.id}" />
+            <input type="number" name="new-quantity" placeholder="Enter quantity" required>
+            <button type="submit">Order</button>
+          </form>
         </div>
       </div>
     </div>
 
   </div>
  
+<script>
+  function switchDiv(divId) {
+      // Get all elements with class 'content' and hide them
+      document.querySelectorAll('.content').forEach(div => {
+          div.classList.add('hidden');
+      });
+
+      // Show the specific div
+      document.getElementById(divId).classList.remove('hidden');
+  }
+
+</script>
 </body>
 </body>
 </html>

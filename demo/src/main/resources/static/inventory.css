@@ -20,12 +20,47 @@ body {
     color: black; /* Text color inside products set to black for readability */
   }
 
-  .category-container {
+  /* .category-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-  }
-  
+  } */
+  #navBar {
+    
+    display: flex;
+    justify-content: space-around; /* Adjust this if you need different spacing */
+    align-items: center;
+    margin-top: 40;
+    padding: 10px;
+    position: relative; /* Ensures that the absolute positioning of h2 is relative to navBar */
+}
+
+header h2 {
+    position: absolute; /* Keep if necessary, otherwise consider integrating into the flex flow */
+    top: 10px;
+    bottom: 20px;
+    left: 30px;
+    font-size: 24px;
+    margin: 0;
+    z-index: 1; /* Ensures it does not get hidden behind other flex items */
+}
+
+.nav-btn {
+    flex-grow: 1;
+    text-align: center;
+    margin: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+    color: black;
+}
+
   .category {
     flex: 0 0 48%; /* Each category box takes up 48% of the container width, allowing some space for margins/padding */
     margin-bottom: 20px; /* Adds space between the rows */
@@ -51,3 +86,5 @@ body {
 .low-stock {
   background-color: orange;
 }
+
+.hidden { display: none;}
