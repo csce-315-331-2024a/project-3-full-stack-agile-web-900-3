@@ -10,96 +10,99 @@
     <link rel="stylesheet" href="../../static/burger.css">
 </head>
 <body>
-<div class="col" th:fragment="side">
-    <div class="rounded-rectangle" >
-        <h1>Basket</h1>
-        <hr>
-        <div class="prod-row" th:each="product: ${categoryMap[basket]}">
-            <div class="name" th:text="${product.getProductname()}"></div>
-            <div class="border-divider dots"></div>
+<div class="col" th:each="category : ${categories}">
+    <div th:fragment="${category}">
+        <div class="rounded-rectangle" >
+            <h1 th:text="${category}"></h1>
+            <hr>
+            <div class="prod-row" th:each="product: ${categoryMap[__${category}__]}">
+                <div class="name" th:text="${product.getProductname()}"></div>
+                <div class="border-divider dots"></div>
 
-            <div class="price" th:text="${product.getPrice()}"></div>
+                <div class="price" th:text="${product.getPrice()}"></div>
+            </div>
         </div>
     </div>
+
 </div>
 
-<div class="col" th:fragment="sauce">
-    <div class="rounded-rectangle" >
-        <h1>Salad</h1>
-        <hr>
-        <div class="prod-row" th:each="product: ${categoryMap[salad]}">
-            <div  class="name" th:text="${product.getProductname()}"></div>
-            <div class="border-divider dots"></div>
+<!--<div class="col" th:fragment="basket">-->
+<!--    <div class="rounded-rectangle" >-->
+<!--        <h1>Salad</h1>-->
+<!--        <hr>-->
+<!--        <div class="prod-row" th:each="product: ${categoryMap[salad]}">-->
+<!--            <div  class="name" th:text="${product.getProductname()}"></div>-->
+<!--            <div class="border-divider dots"></div>-->
 
-            <div class="price" th:text="${product.getPrice()}"></div>
-        </div>
-    </div>
-</div>
+<!--            <div class="price" th:text="${product.getPrice()}"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
-<div class="col" th:fragment="burger">
-    <div class="rounded-rectangle" >
-        <h1>Burger</h1>
-        <hr>
-        <div class="prod-row" th:each="product: ${categoryMap[burger]}">
-            <div class="name" th:text="${product.getProductname()}"></div>
-            <div class="border-divider dots"></div>
+<!--<div class="col" th:fragment="burger">-->
+<!--    <div class="rounded-rectangle" >-->
+<!--        <h1>Burger</h1>-->
+<!--        <hr>-->
+<!--        <div class="prod-row" th:each="product: ${categoryMap[burger]}">-->
+<!--            <div class="name" th:text="${product.getProductname()}"></div>-->
+<!--            <div class="border-divider dots"></div>-->
 
-            <div class="price" th:text="${product.getPrice()}"></div>
-        </div>
-    </div>
-</div>
+<!--            <div class="price" th:text="${product.getPrice()}"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
-<div class="col" th:fragment="beverage">
-    <div class="rounded-rectangle" >
-        <h1>Beverage</h1>
-        <hr>
-        <div class="prod-row" th:each="product: ${categoryMap[beverage]}">
-            <div class="name" th:text="${product.getProductname()}"></div>
-            <div class="border-divider dots"></div>
+<!--<div class="col" th:fragment="beverage">-->
+<!--    <div class="rounded-rectangle" >-->
+<!--        <h1>Beverage</h1>-->
+<!--        <hr>-->
+<!--        <div class="prod-row" th:each="product: ${categoryMap[beverage]}">-->
+<!--            <div class="name" th:text="${product.getProductname()}"></div>-->
+<!--            <div class="border-divider dots"></div>-->
 
-            <div class="price" th:text="${product.getPrice()}"></div>
-        </div>
-    </div>
-</div>
+<!--            <div class="price" th:text="${product.getPrice()}"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
-<div class="col" th:fragment="coffee">
-    <div class="rounded-rectangle" >
-        <h1>Coffee</h1>
-        <hr>
-        <div class="prod-row" th:each="product: ${categoryMap[coffee]}">
-            <div class="name" th:text="${product.getProductname()}"></div>
-            <div class="border-divider dots"></div>
+<!--<div class="col" th:fragment="coffee">-->
+<!--    <div class="rounded-rectangle" >-->
+<!--        <h1>Coffee</h1>-->
+<!--        <hr>-->
+<!--        <div class="prod-row" th:each="product: ${categoryMap[coffee]}">-->
+<!--            <div class="name" th:text="${product.getProductname()}"></div>-->
+<!--            <div class="border-divider dots"></div>-->
 
-            <div class="price" th:text="${product.getPrice()}"></div>
-        </div>
-    </div>
-</div>
+<!--            <div class="price" th:text="${product.getPrice()}"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
-<div class="col" th:fragment="sandwich">
-    <div class="rounded-rectangle" >
-        <h1>Sandwich</h1>
-        <hr>
-        <div class="prod-row" th:each="product: ${categoryMap[sandwich]}">
-            <div class="name" th:text="${product.getProductname()}"></div>
-            <div class="border-divider dots"></div>
+<!--<div class="col" th:fragment="sandwich">-->
+<!--    <div class="rounded-rectangle" >-->
+<!--        <h1>Sandwich</h1>-->
+<!--        <hr>-->
+<!--        <div class="prod-row" th:each="product: ${categoryMap[sandwich]}">-->
+<!--            <div class="name" th:text="${product.getProductname()}"></div>-->
+<!--            <div class="border-divider dots"></div>-->
 
-            <div class="price" th:text="${product.getPrice()}"></div>
-        </div>
-    </div>
-</div>
+<!--            <div class="price" th:text="${product.getPrice()}"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
-<div class="col" th:fragment="sweet">
-    <div class="rounded-rectangle" >
-        <h1>Sweet</h1>
-        <hr>
-        <div class="prod-row" th:each="product: ${categoryMap[sweet]}">
-            <div class="name" th:text="${product.getProductname()}"></div>
-            <div class="border-divider dots"></div>
+<!--<div class="col" th:fragment="sweet">-->
+<!--    <div class="rounded-rectangle" >-->
+<!--        <h1>Sweet</h1>-->
+<!--        <hr>-->
+<!--        <div class="prod-row" th:each="product: ${categoryMap[sweet]}">-->
+<!--            <div class="name" th:text="${product.getProductname()}"></div>-->
+<!--            <div class="border-divider dots"></div>-->
 
-            <div class="price" th:text="${product.getPrice()}"></div>
-        </div>
-    </div>
-</div>
+<!--            <div class="price" th:text="${product.getPrice()}"></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <script src="http://localhost:35729/livereload.js"></script>
 <script src="../../static/burger.js"></script>

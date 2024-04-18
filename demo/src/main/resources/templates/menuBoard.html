@@ -19,36 +19,52 @@
         <div class="container-fluid bg-maroon flex-grow-1 menu-area text-style-gold">
             <div class="col rounded-rectangle">
                 <div th:each="index : ${categoryColumns[0]}">
-                    <h1 th:text="${index}" class="font-style"></h1>
+                    <div class="rounded-rectangle" th:with="category=${categories[index]}">
+                        <h1 th:text="${category}"></h1>
+                        <hr>
+                        <div class="prod-row" th:each="product: ${categoryMap[__${category}__]}">
+                            <div class="name" th:text="${product.getProductname()}"></div>
+                            <div class="border-divider dots"></div>
+
+                            <div class="price" th:text="${product.getPrice()}"></div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
             <div class="col rounded-rectangle" >
                 <div th:each="index : ${categoryColumns[1]}">
-                    <h1 th:text="${index}" class="font-style"></h1>
+                    <div class="rounded-rectangle" th:with="category=${categories[index]}">
+                        <h1 th:text="${category}"></h1>
+                        <hr>
+                        <div class="prod-row" th:each="product: ${categoryMap[__${category}__]}">
+                            <div class="name" th:text="${product.getProductname()}"></div>
+                            <div class="border-divider dots"></div>
+
+                            <div class="price" th:text="${product.getPrice()}"></div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
             <div class="col rounded-rectangle">
 
                 <div th:each="index : ${categoryColumns[2]}" >
-                    <div th:replace="fragments/categories :: ${categories[index]}"></div>
+                    <div class="rounded-rectangle" th:with="category=${categories[index]}">
+                        <h1 th:text="${category}"></h1>
+                        <hr>
+                        <div class="prod-row" th:each="product: ${categoryMap[__${category}__]}">
+                            <div class="name" th:text="${product.getProductname()}"></div>
+                            <div class="border-divider dots"></div>
 
+                            <div class="price" th:text="${product.getPrice()}"></div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
-<!--        <div class="row align-items-start"> &lt;!&ndash; Add flex-grow-1 class to make the row take up remaining height &ndash;&gt;-->
-<!--            <div th:each="categoryEntry : ${categoryMap}" class="col"> &lt;!&ndash; Add h-100 class for the columns &ndash;&gt;-->
-<!--                <h1 th:text="${categoryEntry.key}" class="font-style"></h1>-->
 
-<!--                <ul class="list-group"> &lt;!&ndash; Add h-100 class for the ul elements &ndash;&gt;-->
-<!--                    <li th:each="product: ${categoryEntry.value}" class="list-group-item d-flex justify-content-between">-->
-<!--                        <span th:text="${product.productname}"></span> <span th:text="${product.price}"></span>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
     </div>
 </div>
 
