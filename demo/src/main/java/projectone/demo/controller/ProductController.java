@@ -57,7 +57,6 @@ class ProductsController{
     @PostMapping()
     String add(@RequestParam("new-productsName")String name,@RequestParam("new-productsPrice")String price,@RequestParam("new-productsType")String type,Model model)
     {
-        System.out.println(Integer.parseInt(price));
         BigDecimal bdFromString = new BigDecimal(price);
         Products newProduct = new Products(null, name, bdFromString, type);
         
