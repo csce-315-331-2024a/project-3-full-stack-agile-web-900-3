@@ -1,33 +1,12 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-/home/haydencokeefe02/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Products.java
-/home/haydencokeefe02/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/CustomerController.java
-/home/haydencokeefe02/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/DemoApplication.java
-/home/haydencokeefe02/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/HomeController.java
-/home/haydencokeefe02/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/ManagerRepository.java
-/home/haydencokeefe02/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/ManagerController.java
-/home/haydencokeefe02/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/CustomerRepository.java
-=======
-/home/ewoods738/CSCE331/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/OrdersRepository.java
-/home/ewoods738/CSCE331/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/CustomerRepository.java
-/home/ewoods738/CSCE331/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/MenuBoard.java
-/home/ewoods738/CSCE331/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Orders.java
-/home/ewoods738/CSCE331/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/InventoryRepository.java
-/home/ewoods738/CSCE331/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Products.java
-/home/ewoods738/CSCE331/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/DemoApplication.java
-/home/ewoods738/CSCE331/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/DBConnection.java
-/home/ewoods738/CSCE331/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/IndexController.java
-/home/ewoods738/CSCE331/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Inventory.java
-/home/ewoods738/CSCE331/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/ProductsRepository.java
->>>>>>> main
-=======
-/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/model/Orders.java
-/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/repository/OrdersRepository.java
-/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/repository/CustomerRepository.java
-/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/DemoApplication.java
-/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/controller/IndexController.java
-/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/model/Inventory.java
-/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/repository/ProductsRepository.java
-/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/repository/InventoryRepository.java
-/home/quinn/project-3-full-stack-agile-web-900-3-2/demo/src/main/java/projectone/demo/model/Products.java
->>>>>>> testing
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/IndexController.java
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Products.java
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/MenuBoard.java
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/CustomerController.java
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/DBConnection.java
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/DemoApplication.java
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Orders.java
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/OrdersRepository.java
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/ProductsRepository.java
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/CustomerRepository.java
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/InventoryRepository.java
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Inventory.java

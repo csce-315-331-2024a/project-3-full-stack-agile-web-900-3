@@ -13,7 +13,8 @@
 <div class="container">
     <div class="sidebar">
         <h2>Current Order</h2>
-        <p id="outputText"></p>
+        <!-- <p id="outputText"></p> -->
+        <div id="outputContainer"></div>
         <p id="orderTotal">Order Total: </p>
         <button id="placeOrder">Place Order</button>
         
@@ -22,33 +23,6 @@
   <div class="grid-item" th:each="item: ${products}">
     
     <button class="button" id="${item.product_type}" th:text="${item.productname}">button</button>
-
-
-    <!-- Grid of buttons 
-    <button class="button" id="burgerButton">Revs Burger</button>
-    <button class="button" id="burgerButton">Double Cheese Burger</button>
-    <button class="button" id="burgerButton">Classic Burger</button>
-    <button class="button" id="burgerButton">Bacon Cheeseburger</button>
-    <button class="button" id="sandwichButton">Patty Melt</button>
-    <button class="button" id="sandwichButton">Spicy Ranch Chicken Sandwich</button>
-    <button class="button" id="sandwichButton">Chicken Tender Sandwich</button>
-    <button class="button" id="sandwichButton">Grilled Cheese</button>
-    <button class="button" id="desertButton">Aggie Shake</button>
-    <button class="button" id="desertButton">Ice Cream</button>
-    <button class="button" id="desertButton">Chocolate Chip Cooke</button>
-    <button class="button" id="desertButton">Brownie</button>
-    <button class="button" id="drinkButton">Foundain Drink</button>
-    <button class="button" id="drinkButton">Coffee</button>
-    <button class="button" id="drinkButton">Cold Brew</button>
-    <button class="button" id="sideButton">Fries</button>
-    <button class="button" id="sideButton">Tots</button>
-    <button class="button" id="sideButton">Onion Rings</button>
-    <button class="button" id="sideButton">Kettle Chips</button>
-    <button class="button" id="salad">Salad Bar</button>
-    <button class="button" id="basketButton">Three Tender Basket</button>
-    <button class="button" id="basketButton">Four Steak Finger Basket</button>
-    <button class="button" id="sauceButton">Sauces</button>
-    -->
   </div>
 </div>
 </div>
@@ -66,12 +40,49 @@
   </div>
 
 <script>
-  var outputParagraph = document.getElementById('outputText');
+
+  // var outputParagraph = document.getElementById('outputText');
+  // var buttons = document.getElementsByClassName('button');
+  // for (var i = 0; i < buttons.length; i++) {
+  //   buttons[i].addEventListener('click', function() {
+  //     outputParagraph.textContent = outputParagraph.textContent +" | \n" + this.textContent;
+  //   });
+  // }
+
+  // function updateText() {
+  //   var newText = document.getElementById('newText').value;
+  //   var xhr = new XMLHttpRequest();
+  //   xhr.open("POST", "/updateText", true);
+  //   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  //   xhr.send("newText=" + newText);
+  //   xhr.onreadystatechange = function() {
+  //       if (xhr.readyState === 4 && xhr.status === 200) {
+  //           document.getElementById('outputText').textContent = xhr.responseText;
+  //       }
+  //   }
+//}
+
+
+  var outputContainer = document.getElementById('outputContainer');
   var buttons = document.getElementsByClassName('button');
+
   for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function() {
-      outputParagraph.textContent = outputParagraph.textContent +" | \n" + this.textContent;
+      var itemName = this.textContent;
+      addItemToList(itemName);
     });
+  }
+
+  function addItemToList(itemName) {
+    var itemButton = document.createElement('button');
+    itemButton.textContent = itemName + ' (x1)';
+    itemButton.classList.add('ordered-item');
+    itemButton.addEventListener('click', function() {
+      // Add functionality to edit item quantity if necessary
+      // For now, let's assume it's simply removing the item
+      this.remove();
+    });
+    outputContainer.appendChild(itemButton);
   }
 
   function updateText() {
@@ -85,7 +96,8 @@
             document.getElementById('outputText').textContent = xhr.responseText;
         }
     }
-}
+  }
+
 </script>
 </body>
 </html>

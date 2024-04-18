@@ -156,6 +156,24 @@ body {
   color:white;
 }
 
+.ordered-item {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: white;
+  border: 2px solid maroon;
+  color: maroon;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.ordered-item:hover {
+  transform: scale(1.05);
+  background-color: maroon;
+  color: white;
+}
+
 /* Adjustments for responsiveness */
 @media (max-width: 768px) {
   .container {
