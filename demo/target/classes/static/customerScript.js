@@ -29,12 +29,6 @@ fetch('/customer')
   })
   .catch(error => console.error('Error fetching data:', error));
   */
-  function sanitizeProductName(productName) {
-    return productName.toLowerCase() 
-      .replace(/[^a-z0-9]/gi, '_')
-      .replace(/__+/g, '_')
-      .replace(/^_|_$/g, ''); 
-  }
   
   function loadMenuItems(category) {
     fetch(`/api/menu/${category}`)
@@ -50,7 +44,7 @@ fetch('/customer')
             itemDiv.className = 'menu-item';
             const img = document.createElement('img');
 
-            const imageName = sanitizeProductName(item.productname) + '.png';
+            const imageName = 'images/' + category + '/' + item.productname + '.png';
             img.src = `/${imageName}`;
   
             const detailsDiv = document.createElement('div');
