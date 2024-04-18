@@ -21,7 +21,7 @@ import jakarta.persistence.Column;
 public class Products implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger product_id;
+    private Long product_id;
 
     private String productname;
 
