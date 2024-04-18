@@ -16,23 +16,27 @@
             <a class="navbar-brand">Rev's Grill Menu</a>
         </div>
     </nav>
-    <div class="container-fluid bg-maroon flex-grow-1 menu-area text-style-gold">
-        <div class="col rounded-rectangle" >
+        <div class="container-fluid bg-maroon flex-grow-1 menu-area text-style-gold">
+            <div class="col rounded-rectangle">
+                <div th:each="index : ${categoryColumns[0]}">
+                    <h1 th:text="${index}" class="font-style"></h1>
+                </div>
 
-            <div th:insert="~{fragments/categories :: basket}"></div>
-            <div th:insert="~{fragments/categories :: salad}"></div>
-            <div th:insert="~{fragments/categories :: burger}"></div>
+            </div>
+            <div class="col rounded-rectangle" >
+                <div th:each="index : ${categoryColumns[1]}">
+                    <h1 th:text="${index}" class="font-style"></h1>
+                </div>
 
-        </div>
-        <div class="col rounded-rectangle">
-            <div th:insert="~{fragments/categories :: beverage}"></div>
-            <div th:insert="~{fragments/categories :: coffee}"></div>
-            <div th:insert="~{fragments/categories :: sandwich}"></div>
-        </div>
-        <div class="col rounded-rectangle">
-            <div th:insert="~{fragments/categories :: sweet}"></div>
+            </div>
+            <div class="col rounded-rectangle">
 
-        </div>
+                <div th:each="index : ${categoryColumns[2]}" >
+                    <div th:replace="fragments/categories :: ${categories[index]}"></div>
+
+                </div>
+
+            </div>
 
 <!--        <div class="row align-items-start"> &lt;!&ndash; Add flex-grow-1 class to make the row take up remaining height &ndash;&gt;-->
 <!--            <div th:each="categoryEntry : ${categoryMap}" class="col"> &lt;!&ndash; Add h-100 class for the columns &ndash;&gt;-->
@@ -48,6 +52,7 @@
     </div>
 </div>
 
+<script src="../static/menuboard.js"></script>
 <script src="http://localhost:35729/livereload.js"></script>
 
 </body>
