@@ -7,8 +7,22 @@
   <link rel="stylesheet" href="manager.css">
   <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 </head>
-<body>
-
+<body id = "updateArea">
+  <h2>Products</h2>
+  <div id = navBar>
+    <a th:href="@{/Inventory/food}" class="nav-btn">Food</a>
+    <a th:href="@{/Inventory/utilities}" class="nav-btn">Utilities</a>
+    <a th:href="@{/Inventory/condiments}" class="nav-btn">Condiments</a>
+    <a th:href="@{/Inventory/desert}" class="nav-btn">Dessert</a>
+    <a th:href="@{/Inventory/toppings}" class="nav-btn">Toppings</a>
+    <a href="/manager" class="nav-btn">Products</a>
+  </div>
+  <div class="header">
+    <div class="header-item">Name</div>
+    <div class="header-item">Price</div>
+    <div class="header-item">Type</div>
+    <div class="header-item">Action</div>
+  </div>
 <div th:fragment= "manager-list" class = "manager-list">
   <!-- th: is thymleaf and the each tag is saying each value in the products table and the   ${manager} linkes it to the manager controller logic-->
     <div  class = "products line" th:each="products: ${manager}">
@@ -16,10 +30,28 @@
   
       <!-- this line is displaying the id attrabute of a row in a product table -->
       <!-- <div class = "id" th:text="${products.product_id}">ID</div> -->
-      <div class = "name" th:text="${products.productname}">Name</div>
-      <div class = "price" th:text="${products.price}">Price</div>
-      <div class = "product type" th:text="${products.productType}">Type</div>
-      <div class = "buttons">
+      <form class="item" id="orderForm" hx-post="/manager" hx-target="#updateArea" hx-swap="outerHTML">
+      <input  th:value ="${products.product_id}" name = "id" style="display: none;">
+      <input name = "new-name" id = styledInput class = "name" th:value="${products.productname}"></input>
+      <input name = "new-price" id = styledInput class = "price" th:value="${products.price}"></input>
+      <select name="new-products" aria-label="Type">
+        <option th:text="${products.productType}" th:value="${products.productType}" disabled selected hidden></option>
+
+        <option value="burger">Burger</option>
+        <option value="sandwich">Sandwich</option>
+        <option value="sweet">Sweet</option>
+        <option value="sauce">Sauce</option>
+        <option value="beverage">Beverage</option>
+        <option value="salad">Salad</option>
+        <option value="seasonal">Seasonal</option>
+        <option value="coffee">Coffee</option>
+      </select>
+      
+      <div>
+          
+          <button type = "submit">
+            Update
+          </button>
           <button 
           
                   th:attr = "hx-delete = @{/manager/{id}(id = ${products.product_id})}"  
@@ -33,6 +65,8 @@
           </button>
   
       </div>
+    </form>
+      
   
     </div>
 </div>
@@ -53,7 +87,7 @@
         </select>
         <div class = "buttons">
           <button 
-          hx-post ="/manager"
+          hx-post ="/manager/add"
           hx-include = "#new-productsName, #new-productsPrice, #new-productsType"
           hx-target = ".manager-list"
           >Add</button>

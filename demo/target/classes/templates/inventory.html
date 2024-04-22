@@ -11,12 +11,12 @@
 <h2 >Inventory</h2>
 <body id = "updateArea">
   <div id = navBar>
-  <button class="nav-btn" onclick="switchDiv('food')">Food</button>
-  <button class="nav-btn" onclick="switchDiv('utilities')">Utilities</button>
-  <button class="nav-btn" onclick="switchDiv('condiments')">Condiments</button>
-  <button class="nav-btn" onclick="switchDiv('desserts')">Dessert</button>
-  <button class="nav-btn" onclick="switchDiv('toppings')">Toppings</button>
-  <a href="/manager" class="nav-btn">Products</a>
+    <a th:href="@{/Inventory/food}" class="nav-btn">Food</a>
+    <a th:href="@{/Inventory/utilities}" class="nav-btn">Utilities</a>
+    <a th:href="@{/Inventory/condiments}" class="nav-btn">Condiments</a>
+    <a th:href="@{/Inventory/desert}" class="nav-btn">Dessert</a>
+    <a th:href="@{/Inventory/toppings}" class="nav-btn">Toppings</a>
+    <a href="/manager" class="nav-btn">Products</a>
   </div>
 
 
@@ -44,7 +44,13 @@
             <input type="hidden" name="item-id" th:value="${item.id}" />
             <input type="number" name="new-quantity" placeholder="Enter quantity" required>
             <button type="submit">Order</button>
+            
           </form>
+          
+          <button id="toggleButton">Show/Hide Content</button>
+            <div id="content" class="hidden">
+                
+            </div>
         </div>
       </div>
     </div>
@@ -156,14 +162,17 @@
  
 <script>
   function switchDiv(divId) {
-      // Get all elements with class 'content' and hide them
-      document.querySelectorAll('.content').forEach(div => {
-          div.classList.add('hidden');
-      });
+    // Get all elements with class 'content' and hide them
+    document.querySelectorAll('.content').forEach(div => {
+        div.classList.add('hidden');
+    });
 
-      // Show the specific div
-      document.getElementById(divId).classList.remove('hidden');
-  }
+    // Show the specific div
+    document.getElementById(divId).classList.remove('hidden');
+
+    
+}
+
 
 </script>
 </body>

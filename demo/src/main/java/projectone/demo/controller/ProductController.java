@@ -54,17 +54,32 @@ class ProductsController{
         return "";
     }
 
-    @PostMapping()
+    @PostMapping("/add")
     String add(@RequestParam("new-productsName")String name,@RequestParam("new-productsPrice")String price,@RequestParam("new-productsType")String type,Model model)
     {
-        System.out.println(Integer.parseInt(price));
+        Long newId = this.repository.findMaxId() +1;
         BigDecimal bdFromString = new BigDecimal(price);
-        Products newProduct = new Products(null, name, bdFromString, type);
+        Products newProduct = new Products(newId, name, bdFromString, type);
         
         System.out.println("adding "+ name);
         this.repository.save(newProduct);
         model.addAttribute("manager", this.repository.findAll());
         return "manager :: manager-list";
+        
+    }
+    @PostMapping()
+    String update( @RequestParam("new-name")String name,@RequestParam("new-price")String price,@RequestParam("new-products")String type,@RequestParam("id")String id,Model model)
+    {
+      
+    
+    Products newProd = new Products(Long.parseLong(id), name, new BigDecimal(price), type);
+   
+
+
+    this.repository.save(newProd);
+    model.addAttribute("inventory", this.repository.findAll());
+    System.err.println(name +" changed");
+    return "redirect:/manager";
         
     }
     
