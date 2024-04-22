@@ -1,4 +1,4 @@
-projectone/demo/controller/CustomerController.class
 projectone/demo/DemoApplication.class
 projectone/demo/model/Products.class
+projectone/demo/controller/CustomerController.class
 projectone/demo/repository/CustomerRepository.class
