@@ -12,9 +12,14 @@
 <body>
 <div class="full-height d-flex flex-column">
     <nav class="navbar navbar-expand-lg bg-lightmaroon">
-        <div class="container-fluid bg-lightmaroon">
-            <a class="navbar-brand">Rev's Grill Menu</a>
+        <div class="weather">d</div>
+
+        <div class="title-pic">
+            <h1 class="title">Rev's Grill Menu</h1>
+            <img th:src="@{images/rev.png}" alt="help" class="rounded img-fluid">
         </div>
+
+
     </nav>
         <div class="container-fluid bg-maroon flex-grow-1 menu-area text-style-gold">
             <div class="col rounded-rectangle">
@@ -67,8 +72,12 @@
 
     </div>
 </div>
+<div th:if="${weatherResponse != null}">
+    <div th:text="${weatherResponse}"></div>
+</div>
 
-<script src="../static/menuboard.js"></script>
+
+<script src="/menuboard.js"></script>
 <script src="http://localhost:35729/livereload.js"></script>
 
 </body>

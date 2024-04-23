@@ -1,4 +1,6 @@
 projectone\demo\controller\IndexController.class
+projectone\demo\controller\MenuBoard$geoLocation.class
+projectone\demo\model\WeatherResponse.class
 projectone\demo\controller\CashierController.class
 projectone\demo\model\Inventory.class
 projectone\demo\repository\InventoryRepository.class

@@ -156,15 +156,15 @@ class InventoryController{
     }
     
     
-    @Controller // no logic in this this is purely mappping the index html to the javascript
-    class MenuBoardController
-    {
-        @GetMapping("/menuBoard")
-    public String menuBoard()
-    {
-        return "menuBoard";
-    }
-    }
+//    @Controller // no logic in this this is purely mappping the index html to the javascript
+//    class MenuBoardController
+//    {
+//        @GetMapping("/menuBoard")
+//    public String menuBoard()
+//    {
+//        return "menuBoard";
+//    }
+//    }
     
     
     @Controller
