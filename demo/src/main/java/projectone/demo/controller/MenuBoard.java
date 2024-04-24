@@ -29,7 +29,7 @@ public class MenuBoard {
                 String sql = "SELECT productname, price, product_type FROM products";
 
                 try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-                    System.out.println(rs);
+                    //System.out.println(rs);
                     while (rs.next()) {
                         List<String> item = new ArrayList<>();
                         item.add(rs.getString("productname"));
@@ -75,7 +75,7 @@ public class MenuBoard {
     @GetMapping("/menuboard")
     String getPeople(Model model){
 
-        System.out.println(categoryMap);
+        //System.out.println(categoryMap);
         model.addAttribute("something", "hooray text");
         model.addAttribute("categoryMap", categoryMap);
         model.addAttribute("categories", categories);

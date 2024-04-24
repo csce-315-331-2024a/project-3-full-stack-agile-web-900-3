@@ -19,8 +19,8 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		MenuBoard test = new MenuBoard();
 		test.categoryMap.forEach((key, value) -> {
-			System.out.println("Category: " + key);
-			value.forEach(System.out::println);
+			//System.out.println("Category: " + key);
+			//value.forEach(System.out::println);
 		});
 
 		SpringApplication.run(DemoApplication.class, args);
