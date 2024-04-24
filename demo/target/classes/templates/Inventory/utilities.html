@@ -12,7 +12,7 @@
 <body id = "updateArea">
   <div id = navBar>
     <a th:href="@{/Inventory/food}" class="nav-btn">Food</a>
-    <a th:href="@{/Inventory/utilities}" class="nav-btn">Utilities</a>
+    <a th:href="@{/Inventory/utilities}" class="nav-btn"style = "background-color: rgba(242, 211, 152);">Utilities</a>
     <a th:href="@{/Inventory/condiments}" class="nav-btn">Condiments</a>
     <a th:href="@{/Inventory/desert}" class="nav-btn">Dessert</a>
     <a th:href="@{/Inventory/toppings}" class="nav-btn">Toppings</a>
@@ -20,7 +20,7 @@
   </div>
   <div class = "category-container">
     <div class="content" id="food" th:fragment = "loadArea">
-      <h2>Utilities</h2>
+    
       <div class="header">
         <div class="header-item">Name</div>
         <div class="header-item">Quantity</div>
@@ -29,6 +29,7 @@
         <div class="header-item">Order Date</div>
         <div class="header-item">Amount To Order</div>
       </div>
+      <div class = "inv">
       <div class="inventory line" th:each="item : ${inventory}" th:if="${item.type == 'utilities'}">
           <form class="item" id="orderForm" hx-post="/Inventory/utilities" hx-target="#updateArea" hx-swap="outerHTML"  th:classappend="${item.lowThreshold > item.quantity} ? 'low-stock'">
             
@@ -60,6 +61,7 @@
           </form>
           
       </div >
+    </div>
       <form class = item hx-post="/Inventory/utilities/add" hx-target="#updateArea" hx-swap="outerHTML">
         <input class="name" placeholder="name" id = Input name = "item-name"></input>
         <input class="unit" placeholder="unit" id = Input name = "item-unit"></input>
