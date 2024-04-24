@@ -84,7 +84,8 @@ body, html {
   border: none;
   border-radius: 15px;
   cursor: pointer;
-  width: 100%;
+  width: 150px;
+  align-items: center;
   font-size: 14px;
   transition: background-color 0.3s ease;
 }
@@ -102,3 +103,19 @@ body, html {
   border-radius: 8px; 
   margin-bottom: 10px;  
 }
+
+.nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+}
+
+.menu-icon {
+  fill: white;
+}
+

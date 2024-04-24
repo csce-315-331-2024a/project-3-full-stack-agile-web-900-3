@@ -56,7 +56,7 @@ fetch('/customer')
             itemPrice.textContent = `$${item.price.toFixed(2)}`;
             const orderButton = document.createElement('button');
             orderButton.className = 'order-button';
-            orderButton.textContent = 'Order Now';
+            orderButton.textContent = 'Add to Order';
             orderButton.onclick = function() { addToOrder(item.product_id, item.price, item.productname); };
             detailsDiv.appendChild(itemName);
             detailsDiv.appendChild(itemPrice);
