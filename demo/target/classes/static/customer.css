@@ -13,23 +13,25 @@ body, html {
 
 .navbar {
   background-color: #500000;
-  width: 200px;
+  width: 150px;
   height: 100%;
   overflow: auto;
   position: fixed;
 }
 
 .nav-button {
-  display: block;
-  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 10px 10px 20px;
   color: white;
-  text-align: left;
   background-color: #500000;
   font-size: 14px;
   border: none;
   width: 100%;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  gap: 10px; /* Adds space between the icon and the text */
 }
 
 .nav-button:hover {
@@ -38,7 +40,7 @@ body, html {
 
 .menu-area {
   flex-grow: 1;
-  padding-left: 200px;
+  padding-left: 150px;
   padding-top: 20px;
   display: flex;
   flex-wrap: wrap;
@@ -95,27 +97,15 @@ body, html {
 }
 
 .menu-item img {
-  max-width: 90%;  
-  max-height: 120px; 
-  width: auto;  
-  height: auto; 
-  object-fit: contain;  
-  border-radius: 8px; 
-  margin-bottom: 10px;  
-}
-
-.nav-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background-color: transparent;
-  border: none;
-  color: white;
-  font-size: 16px;
+  max-width: 90%;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
 .menu-icon {
   fill: white;
 }
-
