@@ -41,7 +41,7 @@ class ProductsController{
     String delete(@PathVariable Long id)
     {
         System.out.println("going to delete Product number: "+id);
-        repository.deleteById(id);// this is a querie from jpa repository
+        repository.deleteById(id);// this is a query from jpa repository
         return "";
     }
 
