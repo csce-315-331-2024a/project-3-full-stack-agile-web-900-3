@@ -1,5 +1,5 @@
-projectone/demo/controller/PinPadController.class
 projectone/demo/model/Inventory.class
+projectone/demo/controller/PinPadController.class
 projectone/demo/model/DBConnection.class
 projectone/demo/model/Orders.class
 projectone/demo/repository/ProductsRepository.class
