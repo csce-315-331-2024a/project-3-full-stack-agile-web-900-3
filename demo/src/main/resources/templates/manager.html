@@ -24,18 +24,20 @@
     <div class="header-item">Action</div>
   </div>
 <div th:fragment= "manager-list" class = "manager-list">
-  <!-- th: is thymleaf and the each tag is saying each value in the products table and the   ${manager} linkes it to the manager controller logic-->
-    <div  class = "products line" th:each="products: ${manager}">
+  <!-- th: is thymleaf and the each tag is saying each value in the item table and the   ${manager} linkes it to the manager controller logic-->
+    <div   th:each="item: ${manager}">
   
   
       <!-- this line is displaying the id attrabute of a row in a product table -->
-      <!-- <div class = "id" th:text="${products.product_id}">ID</div> -->
+      <!-- <div class = "id" th:text="${item.product_id}">ID</div> -->
       <form class="item" id="orderForm" hx-post="/manager" hx-target="#updateArea" hx-swap="outerHTML">
-      <input  th:value ="${products.product_id}" name = "id" style="display: none;">
-      <input name = "new-name" id = styledInput class = "name" th:value="${products.productname}"></input>
-      <input name = "new-price" id = styledInput class = "price" th:value="${products.price}"></input>
-      <select name="new-products" aria-label="Type">
-        <option th:text="${products.productType}" th:value="${products.productType}" disabled selected hidden></option>
+        <!-- using this forem to send all the data im getting these correlate to the request paramerets in controller  -->
+      <input  th:value ="${item.product_id}" name = "id" style="display: none;">
+      <input name = "new-name" id = styledInput class = "name" th:value="${item.productname}"></input>
+      <!-- item has all the attributers that the product table has ie name id price ect the th value is just setting the value of the textbox so it has default values if -->
+      <input name = "new-price" id = styledInput class = "price" th:value="${item.price}"></input>
+      <select name="new-item" aria-label="Type">
+        <option th:text="${item.productType}" th:value="${item.productType}" disabled selected hidden></option>
 
         <option value="burger">Burger</option>
         <option value="sandwich">Sandwich</option>
@@ -54,12 +56,13 @@
           </button>
           <button 
           
-                  th:attr = "hx-delete = @{/manager/{id}(id = ${products.product_id})}"  
+                  th:attr = "hx-delete = @{/manager/{id}(id = ${item.product_id})}"  
                   hx-swap = "outerHTML"
-                  hx-target = "closest .products"
+                  
+                  hx-target = "closest .item"
                   
                   >
-                  <!-- th:attr is a thymeleaf attribute and hx-delete is a htmx function @{/manager/{id}(id = ${products.product_id})} is mapping for the path varible id and then its saying that id is equal to the corresponding product id in the products table -->
+                  <!-- th:attr is a thymeleaf attribute and hx-delete is a htmx function @{/manager/{id}(id = ${item.product_id})} is mapping for the path varible id and then its saying that id is equal to the corresponding product id in the item table -->
                   Delete
   
           </button>
