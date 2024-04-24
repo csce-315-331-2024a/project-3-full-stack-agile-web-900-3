@@ -6,6 +6,7 @@
 /home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/ProductController.java
 /home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Orders.java
 /home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/InventoryController.java
+/home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/ProductInventoryController.java
 /home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/DBConnection.java
 /home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/MenuBoard.java
 /home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/IndexController.java

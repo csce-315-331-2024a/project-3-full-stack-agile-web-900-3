@@ -20,6 +20,8 @@ import jakarta.persistence.Column;
 @Setter
 public class ProductInventory implements  Serializable{
 
+    //   @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // private Long id;
     @Id
     private Long product_id;
 

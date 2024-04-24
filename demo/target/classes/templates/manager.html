@@ -27,7 +27,7 @@
   <!-- th: is thymleaf and the each tag is saying each value in the item table and the   ${manager} linkes it to the manager controller logic-->
     <div   th:each="item: ${manager}">
   
-  
+      <div class = "product line">
       <!-- this line is displaying the id attrabute of a row in a product table -->
       <!-- <div class = "id" th:text="${item.product_id}">ID</div> -->
       <form class="item" id="orderForm" hx-post="/manager" hx-target="#updateArea" hx-swap="outerHTML">
@@ -46,7 +46,7 @@
         <option value="beverage">Beverage</option>
         <option value="salad">Salad</option>
         <option value="seasonal">Seasonal</option>
-        <option value="coffee">Coffee</option>
+        <option value="basket">Basket</option>
       </select>
       
       <div>
@@ -72,6 +72,10 @@
       
   
     </div>
+    
+
+  </div>
+
 </div>
     <div id = "addProduct">
       <div class = "line products">
@@ -97,6 +101,10 @@
         </div>
       </div>
       
+    </div>
+    <div th:each = "junction: ${junction}">
+      <div th:if = "1 == ${junction.product_id}" th:text = "${junction.inventory_id}"></div>
+
     </div>
   </body>
 </html>
