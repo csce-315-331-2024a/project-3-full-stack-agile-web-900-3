@@ -34,7 +34,7 @@ public class Products implements Serializable{
     public Products(String productname, BigDecimal price, String product_type) {
         this.productname = productname;
         this.price = price;
-        this.product_type = product_type;
+        this.productType = product_type;
     }
 
 
@@ -44,7 +44,7 @@ public class Products implements Serializable{
                 "product_id=" + product_id +
                 ", productname='" + productname + '\'' +
                 ", price=" + price +
-                ", product_type='" + product_type + '\'' +
+                ", product_type='" + productType + '\'' +
                 '}';
     }
 
@@ -57,6 +57,6 @@ public class Products implements Serializable{
     }
 
     public String getProduct_type() {
-        return product_type;
+        return productType;
     }
 }

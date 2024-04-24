@@ -10,7 +10,6 @@ projectone\demo\controller\CustomerController.class
 projectone\demo\repository\OrdersRepository.class
 projectone\demo\DemoApplication.class
 projectone\demo\repository\CustomerRepository.class
-projectone\demo\controller\MenuBoardController.class
 projectone\demo\model\Products.class
 projectone\demo\model\Orders.class
 projectone\demo\controller\InventoryController.class
