@@ -5,12 +5,10 @@ body, html {
   height: 100%;
   overflow: hidden;
 }
-
 .container {
   display: flex;
   height: 100%;
 }
-
 .navbar {
   background-color: #500000;
   width: 150px;
@@ -18,7 +16,6 @@ body, html {
   overflow: auto;
   position: fixed;
 }
-
 .nav-button {
   display: flex;
   align-items: center;
@@ -31,24 +28,21 @@ body, html {
   width: 100%;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  gap: 10px; /* Adds space between the icon and the text */
+  gap: 10px;
 }
-
 .nav-button:hover {
   background-color: #730000;
 }
-
 .menu-area {
   flex-grow: 1;
-  padding-left: 150px;
+  padding-left: 160px;
   padding-top: 20px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   overflow-x: hidden;
-  margin-right: 300px;
+  margin-right: 400px;
 }
-
 .menu-item {
   background-color: white;
   margin: 20px;
@@ -62,14 +56,12 @@ body, html {
   height: 250px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .menu-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
-
 .order-tracker {
-  width: 300px;
+  width: 400px;
   background-color: #f8f8f8;
   padding: 20px;
   overflow-y: auto;
@@ -78,24 +70,21 @@ body, html {
   top: 0;
   bottom: 0;
 }
-
 .order-button, .confirm-button, .cancel-button {
-  padding: 10px 15px;
+  padding: 8px 10px;
   background-color: #500000;
   color: white;
   border: none;
-  border-radius: 15px;
+  border-radius: 10px;
   cursor: pointer;
-  width: 150px;
+  width: auto;
   align-items: center;
-  font-size: 14px;
+  font-size: 12px;
   transition: background-color 0.3s ease;
 }
-
 .order-button:hover, .confirm-button:hover, .cancel-button:hover {
   background-color: #730000;
 }
-
 .menu-item img {
   max-width: 90%;
   max-height: 120px;
@@ -105,7 +94,41 @@ body, html {
   border-radius: 8px;
   margin-bottom: 10px;
 }
-
 .menu-icon {
   fill: white;
+}
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #500000;
+  border-radius: 10px;
+  padding: 5px;
+  color: white;
+  width: 100px;
+  margin-top: 20px;
+}
+.minus-button, .plus-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  padding: 0;
+  background-color: #800000;
+  transition: background-color 0.3s ease;
+}
+.minus-button:hover, .plus-button:hover {
+  background-color: #a00000;
+}
+.quantity-display {
+  font-size: 14px;
+  padding: 0 10px;
+  text-align: center;
+  min-width: 20px;
 }
