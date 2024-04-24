@@ -97,7 +97,13 @@ body, html {
 .menu-icon {
   fill: white;
 }
-.quantity-controls {
+.order-items li {
+  margin-bottom: 10px;
+  list-style-type: none;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.quantity-controls, .quantity-controls.hidden {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -106,7 +112,15 @@ body, html {
   padding: 5px;
   color: white;
   width: 100px;
-  margin-top: 20px;
+  margin-top: 5px;
+}
+.quantity-controls.hidden {
+  display: none;
+}
+.expand-arrow {
+  cursor: pointer;
+  margin-left: 10px;
+  user-select: none;
 }
 .minus-button, .plus-button {
   background: none;
