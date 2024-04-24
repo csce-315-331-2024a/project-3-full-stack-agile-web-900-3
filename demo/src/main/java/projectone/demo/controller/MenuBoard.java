@@ -123,62 +123,72 @@ public class MenuBoard {
 
     record geoLocation(double latitude, double longitude){};
     public geoLocation weatherLocation;
+    public WeatherResponse currentWeather_api;
+    public String weatherIconLink;
+    public String weatherCity;
+    public String weatherDescription;
+    public double weatherTemp;
+    @PostMapping
+    public String handleLocation(@RequestBody geoLocation location) throws JsonProcessingException {
+        productList = fetchDataFromDatabase();
+        categories = getCategories(productList);
+        categoryMap = groupProducts();
 
-//    @PostMapping("/menuboard")
-//    public ModelAndView handleLocation(@RequestBody geoLocation location) throws JsonProcessingException {
-//        productList = fetchDataFromDatabase();
-//        categories = getCategories(productList);
-//        categoryMap = groupProducts();
-//
-//        double category_per_col = Math.round(categories.size() / 3.0);
-//        //create a list of list to store the indexes of the categoreis belonging to each column
-//        ArrayList<List<Integer>> categoryColumns = new ArrayList<>();
-//
-//        int curr_index =0;
-//        for(int i =0; i<3; i++){
-//            categoryColumns.add(new ArrayList<>());
-//            for (int j = 0; j < category_per_col; j++) {
-//                categoryColumns.get(i).add(curr_index);
-//                curr_index++;
-//                if(curr_index >= categories.size()){
-//                    break;
-//                }
-//            }
-//        }
-//
-//
-//
-//
-//        // send an api request to openweather api to get the weather
-//        // the api format is https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
-//        // the api key is 85a9986100fc4b8928e3e17b2d74322c
-//        // the response will be in html format
-//
-//        System.out.println(location.latitude());
-//        System.out.println(location.longitude());
-//
-//        String apiUrl = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&appid=85a9986100fc4b8928e3e17b2d74322c",
-//                location.latitude(), location.longitude());
-//        RestTemplate restTemplate = new RestTemplate();
-//        String jsonResponse = restTemplate.getForObject(apiUrl, String.class);
-//
-//        //deserialize jsonResponse to WeatherResponse object
-//        System.out.println(jsonResponse);
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        WeatherResponse response = objectMapper.readValue(jsonResponse, WeatherResponse.class);
-//        System.out.println(response);
-//
-//
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("menuBoard");
-//        modelAndView.addObject("categoryMap", categoryMap);
-//        modelAndView.addObject("categories", categories);
-//        modelAndView.addObject("category_per_col", category_per_col);
-//        modelAndView.addObject("categoryColumns", categoryColumns);
-//        modelAndView.addObject("weatherResponse", "hello world");
-//
-//        return modelAndView;
-//    }
+        double category_per_col = Math.round(categories.size() / 3.0);
+        //create a list of list to store the indexes of the categoreis belonging to each column
+        ArrayList<List<Integer>> categoryColumns = new ArrayList<>();
+
+        int curr_index =0;
+        for(int i =0; i<3; i++){
+            categoryColumns.add(new ArrayList<>());
+            for (int j = 0; j < category_per_col; j++) {
+                categoryColumns.get(i).add(curr_index);
+                curr_index++;
+                if(curr_index >= categories.size()){
+                    break;
+                }
+            }
+        }
+
+
+
+
+        // send an api request to openweather api to get the weather
+        // the api format is https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+        // the api key is 85a9986100fc4b8928e3e17b2d74322c
+        // the response will be in html format
+
+        System.out.println(location.latitude());
+        System.out.println(location.longitude());
+        System.out.println("javascript recieved");
+
+        String apiUrl = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&appid=85a9986100fc4b8928e3e17b2d74322c",
+                location.latitude(), location.longitude());
+        RestTemplate restTemplate = new RestTemplate();
+        String jsonResponse = restTemplate.getForObject(apiUrl, String.class);
+
+        //deserialize jsonResponse to WeatherResponse object
+        ObjectMapper objectMapper = new ObjectMapper();
+        currentWeather_api = objectMapper.readValue(jsonResponse, WeatherResponse.class);
+
+        //convert the temperature from kelvin to farenheit and store
+        double temp_faren = (currentWeather_api.getMain().get("temp") - 273.15) * 9/5 + 32;
+        currentWeather_api.getMain().put("temp", (float) temp_faren);
+        weatherTemp = temp_faren;
+        //create the source link for the weather icon
+        weatherIconLink = "https://openweathermap.org/img/wn/" + currentWeather_api.getWeather()[0].getIcon() + ".png";
+        //get the city name
+        weatherCity = currentWeather_api.getName();
+        //get the weather description
+        weatherDescription = currentWeather_api.getWeather()[0].getDescription();
+
+        System.out.println(currentWeather_api);
+        weatherLocation = location;
+
+
+
+        return "redirect:/menuBoard";
+    }
 
 
 
@@ -200,12 +210,14 @@ public class MenuBoard {
 //        return "test";
 //    }
 //
-//    @GetMapping("/weather")
-//    public String getWeather(Model model) {
-//        model.addAttribute("shantanu", "goofy");
-//        model.addAttribute("weather", weatherLocation);
-//        return "fragments/test-fragment";
-//    }
+    @GetMapping("/weather")
+    public String getWeather(Model model) {
+        model.addAttribute("weatherIconLink", weatherIconLink);
+        model.addAttribute("weatherCity", weatherCity);
+        model.addAttribute("weatherDescription", weatherDescription);
+        model.addAttribute("weatherTemp", weatherTemp);
+        return "fragments/weather";
+    }
 
 
 
