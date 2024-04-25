@@ -30,17 +30,20 @@ public class Products implements Serializable{
     @Column(name = "product_type")
     private String productType;
 
-    public Products(String productname, BigDecimal price) {
+    public Products(String productname, BigDecimal price, String product_type) {
         this.productname = productname;
         this.price = price;
+        this.productType = product_type;
     }
 
 
     @Override
     public String toString() {
         return "Products{" +
-                "productname='" + productname + '\'' +
+                "product_id=" + product_id +
+                ", productname='" + productname + '\'' +
                 ", price=" + price +
+                ", product_type='" + productType + '\'' +
                 '}';
     }
 
@@ -50,5 +53,9 @@ public class Products implements Serializable{
     //return price
     public BigDecimal getPrice(){
         return price;
+    }
+
+    public String getProduct_type() {
+        return productType;
     }
 }
