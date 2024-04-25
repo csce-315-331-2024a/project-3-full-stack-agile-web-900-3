@@ -17,7 +17,9 @@ import java.util.List;
 @RequestMapping("/") // Base mapping for all methods in this controller
 public class CustomerController {
 
-    private final CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
+
+
 
     @GetMapping("/customer")
     public ResponseEntity<List<Products>> listMenuItems() {

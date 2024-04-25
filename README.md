@@ -185,3 +185,64 @@ Time Estimate: 2. Assigned to: Chance Hughes and Quinn Bromley
 Actual Time Spent: 0. Status: Incomplete
 
 ---------------------------------------------------------------------------------------------------
+
+Sprint 3 Plan:
+
+Our Sprint 3 Goal-
+
+Start making the Interfaces user friendly, with pictures, color scheme, button layout, etc. Integrate external API calls from weather app, Google authentication request, as well as Google translate. Complete the reports as implemented in project 2. Including Product Usage Chart, Sales report, Excess report, restock report, what sells together, menu items popularity analysis. Create and finish the admin page. Begin building and testing framework if time permits.
+
+Our Sprint 3 Backlog-
+
+Development of Menu Board Page
+1. Implement dynamic designs that show changing pictures (4) HIGH  Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+2. Integrate keyboard navigation through the page (3) MED - Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+3. Learn Architecture of weather API integration (3) HIGH - Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+4. Add weather API integration on the menu board (4) HIGH - Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+Development of Customer Page
+5. Make the design visually appealing for a casual user (1) LOW - Assigned to: Hayden O’Keefe and Ethan Woods. Actual Time Spent: 0.5 Status: In Progress
+6. Make use of images for menu items (2) MED - Assigned to: Hayden O’Keefe and Ethan Woods. Actual Time Spent: 1. Status: In Progress
+7. Implement customization for each item in the order (3) MED - Assigned to: Hayden O’Keefe and Ethan Woods. Actual Time Spent: 0. Status: In Progress
+Development of Cashier Page
+8. Minimize number of different pages involved (1) LOW - Assigned to: Kaghan Odom. Actual Time Spent: .5 Status: In Progress
+9. Use dynamic buttons for each item to add and remove ingredients to suit the customers specifications (3) HIGH - Assigned to: Kaghan Odom. Actual Time Spent: 2. Status: In Progress
+10. Implement taking items off the current order (1) MED - Assigned to: Kaghan Odom. Actual Time Spent: .5 Status: In Progress
+11. Implement a cancel order system (1) LOW - Assigned to: Kaghan Odom. Actual Time Spent: .5. Status: In Progress
+Development of Manager Page
+12. Minimize number of different pages involved (1) LOW - Assigned to: Chance Hughes and Quinn Bromley Actual Time Spent: .5 Status: In Progress
+13. Implement trend charts based on time interval (2) MED - Assigned to: Chance Hughes and Quinn Bromley Actual Time Spent: 1. Status: In Progress
+Development of Admin Page 
+14. Add a new navigation to the Administration page. (2) HIGH - Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+15. Sketch user interface/design of administrator functionality (1) HIGH - Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+16. Create an administrator page. (5) HIGH - Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+17. Integrate with database and backend (3) HIGH - Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+18. Create an authentication system using either google authentication with a mix of pin pad verification. (4) HIGH - Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+Development of Landing Page
+19. Change the styling and layout of the landing page (3) LOW Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+20. Set up dynamic linking to different pages (2) MED Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+API Integration into Web Page
+21. Learn architecture of Google Authentication API (api keys, libraries/dependencies in spring-boot) (4) HIGH Assigned to: Quinn Bromley, Hayden O’Keefe, and Chance Hughes. Actual Time Spent: 0. Status: Incomplete
+22. Learn structure of google translate API (api keys, libraries/dependencies in spring-boot) (4) HIGH Assigned to: Ethan Woods and Hayden O’ Keefe. Actual Time Spent: 0. Status: Incomplete
+23. Implement Authentication Login Page (2) HIGH Assigned to: Hayden O’ Keefe. Actual Time Spent: 0. Status: Incomplete
+24. Integrate Authentication into Manager Page (1) MED Assigned to: Chance Hughes. Actual Time Spent: 0. Status: Incomplete
+25. Implement weather module into menu page (2) MED Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+26. Integrate dynamic naming of items based on current weather (3) HIGH Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+27. Implement translation API into Menu Page (3) HIGH Assigned to: Ethan Woods. Actual Time Spent: 0. Status: Incomplete
+28. Implement translation API into Customer Page (2) HIGH Assigned to: Hayden O’Keefe. Actual Time Spent: 0. Status: Incomplete
+Web Accessibility Tasks
+30. Ensure all non-text content on the web app has a text alternative (2) HIGH Assigned to: Kaghan Odom. Actual Time Spent: 0. Status: Incomplete
+31. Ensure that the content is adaptable (3) HIGH Assigned to: Kaghan Odom. Actual Time Spent: 0. Status: Incomplete
+32. Ensuring that content is easier for users to see and hear (3) MED Assigned to: Quinn Bromley. Actual Time Spent: 0. Status: Incomplete
+33. Ensuring implementation features for Carol (3) HIGH Assigned to: Chance Hughes. Actual Time Spent: 0. Status: Incomplete
+34. Ensuring implementation features for Maria. (3) HIGH Assigned to: Chance Hughes. Actual Time Spent: 0. Status: Incomplete
+35. Ensuring implementation features for Lea. (3) HIGH Assigned to: Ethan Woods. Actual Time Spent: 0. Status: Incomplete
+36. Ensuring keyboard accessibility. (3) HIGH Assigned to: Ethan Woods and Quinn Bromley. Actual Time Spent: 0. Status: Incomplete
+37. Ensuring users enough time to read and use content (1) LOW Assigned to: Jacob Kuruvilla. Actual Time Spent: 0. Status: Incomplete
+38. Ensuring minimization of seizure and physical reaction provoking responses (1) LOW Assigned to: Kaghan Odom. Actual Time Spent: 0. Status: Incomplete
+39. Ensuring Navigation accessibility (3) HIGH Assigned to: Hayden O’Keefe. Actual Time Spent: 0. Status: Incomplete
+40. Ensuring multiple input modalities (3) LOW Assigned to: Quinn Bromley. Actual Time Spent: 0. Status: Incomplete
+41. Ensuring readability and clear/understandable text. (2) MED Assigned to: Ethan Woods. Actual Time Spent: 0. Status: Incomplete
+42. Ensuring predictability (2) LOW Assigned to: Chance Hughes. Actual Time Spent: 0. Status: Incomplete
+43. Input assistance (help users avoid and correct mistakes) (2) LOW Assigned to: Kaghan Odom. Actual Time Spent: 0. Status: Incomplete
+
+---------------------------------------------------------------------------------------------------

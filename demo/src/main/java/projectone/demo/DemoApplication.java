@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import projectone.demo.controller.MenuBoard;
+import projectone.demo.repository.ProductsRepository;
 // import org.springframework.stereotype.Controller;
 // import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +18,8 @@ import projectone.demo.controller.MenuBoard;
 public class DemoApplication {
 
 	public static void main(String[] args) {
-		MenuBoard test = new MenuBoard();
-		test.categoryMap.forEach((key, value) -> {
-			System.out.println("Category: " + key);
-			value.forEach(System.out::println);
-		});
+
+
 
 		SpringApplication.run(DemoApplication.class, args);
 	}
