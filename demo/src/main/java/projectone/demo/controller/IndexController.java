@@ -2,10 +2,14 @@ package projectone.demo.controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +32,6 @@ import projectone.demo.repository.ProductsRepository;
 
 
 
-
     @Controller // no logic in this this is purely mappping the index html to the javascript
     class IndexController
     {
@@ -36,6 +39,18 @@ import projectone.demo.repository.ProductsRepository;
         @GetMapping("/")
         public String Index() {
             return "index"; 
+        }
+
+        @GetMapping("/check")
+        public void checkDetails() {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            OidcUser principal = (OidcUser) authentication.getPrincipal();
+
+            String username = principal.getName();
+            Map<String, Object> attributes = principal.getAttributes();
+
+            System.out.println("Username: " + username);
+            System.out.println("Details: " + attributes);
         }
     
     }
