@@ -4,34 +4,29 @@ function loadMenuItems(category) {
     .then(data => {
       const menuItems = document.getElementById('menu-items');
       menuItems.innerHTML = '';
-      if (!data || data.length === 0) {
-        menuItems.innerHTML = '<p>No items found in this category.</p>';
-      } else {
-        data.forEach(item => {
-          const itemDiv = document.createElement('div');
-          itemDiv.className = 'menu-item';
-          const img = document.createElement('img');
-          const imageName = 'images/' + category + '/' + item.productname + '.png';
-          img.src = `/${imageName}`;
-          const detailsDiv = document.createElement('div');
-          detailsDiv.className = 'menu-item-details';
-          const itemName = document.createElement('h3');
-          itemName.textContent = item.productname;
-          const itemPrice = document.createElement('p');
-          itemPrice.className = 'menu-item-price';
-          itemPrice.textContent = `$${item.price.toFixed(2)}`;
-          const orderButton = document.createElement('button');
-          orderButton.className = 'order-button';
-          orderButton.textContent = 'Add to Order';
-          orderButton.onclick = function () { addToOrder(item.product_id, item.price, item.productname); };
-          detailsDiv.appendChild(itemName);
-          detailsDiv.appendChild(itemPrice);
-          detailsDiv.appendChild(orderButton);
-          itemDiv.appendChild(img);
-          itemDiv.appendChild(detailsDiv);
-          menuItems.appendChild(itemDiv);
-        });
-      }
+      data.forEach(item => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'menu-item';
+        const img = document.createElement('img');
+        img.src = `/images/${category}/${item.productname}.png`;
+        const detailsDiv = document.createElement('div');
+        detailsDiv.className = 'menu-item-details';
+        const itemName = document.createElement('h3');
+        itemName.textContent = item.productname;
+        const itemPrice = document.createElement('p');
+        itemPrice.className = 'menu-item-price';
+        itemPrice.textContent = `$${item.price.toFixed(2)}`;
+        const orderButton = document.createElement('button');
+        orderButton.className = 'order-button';
+        orderButton.textContent = 'Add to Order';
+        orderButton.onclick = function () { addToOrder(item.product_id, item.price, item.productname); };
+        detailsDiv.appendChild(itemName);
+        detailsDiv.appendChild(itemPrice);
+        detailsDiv.appendChild(orderButton);
+        itemDiv.appendChild(img);
+        itemDiv.appendChild(detailsDiv);
+        menuItems.appendChild(itemDiv);
+      });
     })
     .catch(error => console.error('Error loading items:', error));
 }
@@ -44,13 +39,10 @@ function addToOrder(productId, price, productName) {
   if (!listItem) {
     listItem = document.createElement('li');
     listItem.setAttribute('data-product-id', productId);
-    listItem.innerHTML = `${productName} - $${price.toFixed(2)} 
-      <div class="quantity-controls">
-        <button class="minus">-</button><span class="quantity">1</span><button class="plus">+</button>
-      </div>`;
+    listItem.innerHTML = `${productName} - $${price.toFixed(2)} <div class="quantity-controls"><button class="minus-button">-</button><span class="quantity-display">1</span><button class="plus-button">+</button></div>`;
     orderSummary.appendChild(listItem);
-    listItem.querySelector('.plus').addEventListener('click', () => adjustQuantity(productId, price, 1));
-    listItem.querySelector('.minus').addEventListener('click', () => adjustQuantity(productId, price, -1));
+    listItem.querySelector('.minus-button').addEventListener('click', () => adjustQuantity(productId, price, -1));
+    listItem.querySelector('.plus-button').addEventListener('click', () => adjustQuantity(productId, price, 1));
   } else {
     adjustQuantity(productId, price, 1);
   }
@@ -59,7 +51,7 @@ function addToOrder(productId, price, productName) {
 
 function adjustQuantity(productId, price, change) {
   const listItem = document.getElementById('order-summary').querySelector(`li[data-product-id="${productId}"]`);
-  const quantitySpan = listItem.querySelector('.quantity');
+  const quantitySpan = listItem.querySelector('.quantity-display');
   let quantity = parseInt(quantitySpan.textContent);
   quantity = Math.max(0, quantity + change);
   if (quantity > 0) {
@@ -76,7 +68,7 @@ function updateTotal() {
   orderTotal = 0;
   listItems.forEach(item => {
     const price = parseFloat(item.textContent.match(/\$([\d\.]+)/)[1]);
-    const quantity = parseInt(item.querySelector('.quantity').textContent);
+    const quantity = parseInt(item.querySelector('.quantity-display').textContent);
     orderTotal += price * quantity;
   });
   const totalPriceElement = document.getElementById('total-price');
