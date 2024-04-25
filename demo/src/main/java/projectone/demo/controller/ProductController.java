@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import projectone.demo.model.ProductInventory;
 import projectone.demo.model.Products;
+import projectone.demo.repository.InventoryRepository;
 import projectone.demo.repository.ProductsInventoryRepo;
 import projectone.demo.repository.ProductsRepository;
 
@@ -21,18 +23,20 @@ import projectone.demo.repository.ProductsRepository;
 class ProductsController{
     private final ProductsInventoryRepo repositoryJunction;
     private final ProductsRepository repository;
+    private final InventoryRepository invRepository;
     // importing products repository
-    ProductsController(ProductsRepository repository,ProductsInventoryRepo repositoryJunction){
+    ProductsController(ProductsRepository repository,ProductsInventoryRepo repositoryJunction,InventoryRepository invRepository){
         this.repository = repository;
         this.repositoryJunction = repositoryJunction;
+        this.invRepository = invRepository;
     }
     //populating model in code from database
     @GetMapping
-    String products(Model model,Model modelJunc )
+    String products(Model model,Model modelJunc,Model modelinventory )
     {
        model.addAttribute("manager", this.repository.findAll());
        modelJunc.addAttribute("junction", this.repositoryJunction.findAll());
-
+       modelinventory.addAttribute("inventory", this.invRepository.findAll());
         return "manager";
     }
     
@@ -56,6 +60,26 @@ class ProductsController{
         this.repository.save(newProduct);
         model.addAttribute("manager", this.repository.findAll());
         return "manager :: manager-list"; // in this one im sending back a Thymeleaf fragment
+        
+    }
+    @PostMapping("/addInv")
+    String addInv(@RequestParam("new-inv-id")String invId,@RequestParam("id")String prodId,Model modelJunc)
+    {
+        Long newId = this.repositoryJunction.findMaxId() +1;
+        ProductInventory newJunc = new ProductInventory(newId, Long.parseLong(prodId), Long.parseLong(invId));
+        System.out.println("adding new junction");
+        this.repositoryJunction.save(newJunc);
+        modelJunc.addAttribute("junction", this.repositoryJunction.findAll());
+        return "redirect:/manager"; // in this one im sending back a Thymeleaf fragment
+        
+    }
+    @PostMapping("/removeInv")
+    String removeInv(@RequestParam("remove")String remove,Model modelJunc)
+    {
+        System.out.println(remove);
+        repositoryJunction.deleteById(Long.parseLong(remove));
+        modelJunc.addAttribute("junction", this.repositoryJunction.findAll());
+        return "redirect:/manager"; // in this one im sending back a Thymeleaf fragment
         
     }
     @PostMapping()
