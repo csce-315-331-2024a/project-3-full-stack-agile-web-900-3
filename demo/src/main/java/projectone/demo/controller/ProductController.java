@@ -44,6 +44,7 @@ class ProductsController{
     @DeleteMapping(value = "/{id}" ,produces = MediaType.TEXT_HTML_VALUE)
     String delete(@PathVariable Long id)
     {
+        repositoryJunction.deleteAllByProductId(id);
         System.out.println("going to delete Product number: "+id);
         repository.deleteById(id);// this is a query from jpa repository
         return "";

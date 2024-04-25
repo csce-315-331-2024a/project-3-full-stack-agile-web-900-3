@@ -10,6 +10,7 @@ projectone/demo/controller/CashierController.class
 projectone/demo/controller/MenuBoardController.class
 projectone/demo/repository/InventoryRepository.class
 projectone/demo/model/Products.class
+projectone/demo/controller/kitchenController.class
 projectone/demo/controller/toppingsController.class
 projectone/demo/repository/OrdersRepository.class
 projectone/demo/controller/utilitesController.class

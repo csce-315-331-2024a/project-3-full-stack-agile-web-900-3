@@ -30,7 +30,8 @@ public class Orders implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "order_datetime")
     private Date orderDatetime;
-
+    @Column(name = "order_status")
+    private String status;
     public Orders(BigDecimal price, Date orderDatetime) {
         this.price = price;
         this.orderDatetime = orderDatetime;

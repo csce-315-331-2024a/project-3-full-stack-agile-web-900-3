@@ -191,10 +191,10 @@ header h2 {
 }
 
 .modify {
-  display: flex;
-  justify-content: center; /* Center the forms horizontally */
-  align-items: center; /* Align items vertically */
-  margin-left: auto;  /* Push to the right */
+    display: flex;
+    justify-content: center; /* Center the forms horizontally */
+    align-items: center; /* Align items vertically */
+    margin-left: auto;  /* Push to the right */
 }
 
 .modify form {
