@@ -103,7 +103,7 @@ body, html {
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
-.quantity-controls, .quantity-controls.hidden {
+.quantity-controls {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -112,7 +112,6 @@ body, html {
   padding: 5px;
   color: white;
   width: 100px;
-  margin-top: 5px;
 }
 .quantity-controls.hidden {
   display: none;
@@ -146,3 +145,82 @@ body, html {
   text-align: center;
   min-width: 20px;
 }
+
+.back-button {
+  padding: 10px 15px;
+  background-color: #4CAF50; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #45a049;
+}
+
+.edit-icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-icon {
+  fill: #007BFF; 
+  transition: fill 0.3s ease;
+}
+
+.edit-icon:hover {
+  fill: #0056b3;
+}
+
+
+
+.order-item-title {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+
+.order-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  list-style-type: none;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.order-item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+
+
