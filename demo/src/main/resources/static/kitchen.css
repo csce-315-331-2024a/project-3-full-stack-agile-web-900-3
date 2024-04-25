@@ -1,0 +1,71 @@
+/* Basic Reset for margins and paddings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.order-container {
+    width: 100%; /* Set width to 100% to stretch across the screen */
+    margin: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.header, .order-item {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Five columns layout */
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.header {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 0;
+    font-weight: bold;
+}
+
+.header-item {
+    padding: 0 5px;
+}
+
+.order-item {
+    padding: 10px 0;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s;
+}
+
+.order-item:hover {
+    background-color: #e9e9e9;
+}
+
+.order-field {
+    padding: 0 5px;
+}
+
+button {
+    cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    margin: 10px;
+    padding: 10px 20px; /* Increased padding for wider buttons */
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    min-width: 120px; /* Minimum width to ensure consistency across all buttons */
+    text-align: center; /* Center the text inside the button */
+}
+
+button:hover {
+    background-color: #218838;
+}
