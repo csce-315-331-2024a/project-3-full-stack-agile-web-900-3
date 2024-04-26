@@ -1,6 +1,9 @@
 package projectone.demo.controller;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -67,9 +70,25 @@ public class queriesController {
     }
 
     @GetMapping("/queries")
-    public String displayQueries(Model model) {
-        List<SalesDataProjection> salesData = salesDataRepository.fetchSalesData();
-        model.addAttribute("data", salesData);
-        return "queries";  // Name of the Thymeleaf template
+    public String displayQueries(
+        @RequestParam(value = "start_time", required = false, defaultValue = "2023-01-01T00:00") String startTime,
+        @RequestParam(value = "end_time", required = false, defaultValue = "2023-12-31T23:59") String endTime,
+        Model model) {
+        
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+            LocalDateTime startDateTime = LocalDateTime.parse(startTime, formatter);
+            LocalDateTime endDateTime = LocalDateTime.parse(endTime, formatter);
+
+            List<SalesDataProjection> salesData = salesDataRepository.fetchSalesData(
+                startDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")), 
+                endDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")));
+            model.addAttribute("data", salesData);
+        } catch (DateTimeParseException e) {
+            // Log the error or inform the user, and set default data or handle the exception
+            model.addAttribute("error", "Invalid date format. Please use the format YYYY-MM-DDTHH:MM");
+        }
+        
+        return "queries";
     }
 }
