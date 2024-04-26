@@ -2,6 +2,7 @@
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-3/demo/src/main/java/projectone/demo/controller/OrdersPageController.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-3/demo/src/main/java/projectone/demo/model/SalesData.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-3/demo/src/main/java/projectone/demo/model/WeatherResponse.java
+/Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-3/demo/src/main/java/projectone/demo/projection/SalesTrendsProjection.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-3/demo/src/main/java/projectone/demo/model/SalesTrends.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-3/demo/src/main/java/projectone/demo/DemoApplication.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3-3/demo/src/main/java/projectone/demo/repository/ProductsRepository.java
