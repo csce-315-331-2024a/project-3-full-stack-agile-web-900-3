@@ -23,12 +23,6 @@ import projectone.demo.repository.InventoryRepository;
 import projectone.demo.repository.ProductsRepository;
 
 
-
-
-
-
-
-
     @Controller // no logic in this this is purely mappping the index html to the javascript
     class IndexController
     {

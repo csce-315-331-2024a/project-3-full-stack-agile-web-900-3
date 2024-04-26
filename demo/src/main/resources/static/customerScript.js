@@ -167,6 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
       orderTotal = parseFloat(savedTotal);
     }
     localStorage.setItem('returningUser', false);
+    loadMenuItems('burger');
     localStorage.clear();
   } else {
     loadMenuItems('burger');
