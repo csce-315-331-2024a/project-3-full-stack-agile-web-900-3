@@ -42,7 +42,7 @@ import projectone.demo.repository.ProductsRepository;
     
 
     @RequestMapping(value = "/cashierPage")
-    @Controller // no logic in this this is purely mappping the index html to the javascript
+    @Controller // no logic in this is purely mappping the index html to the javascript
     class CashierController{
         private final ProductsRepository repository;
         CashierController(ProductsRepository repository)
