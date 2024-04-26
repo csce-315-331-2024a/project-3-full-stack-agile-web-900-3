@@ -27,4 +27,6 @@ public class ProductInventory implements Serializable {
 
     @Column(name = "inventory_id")
     private Long inventoryId;
+
+    
 }
