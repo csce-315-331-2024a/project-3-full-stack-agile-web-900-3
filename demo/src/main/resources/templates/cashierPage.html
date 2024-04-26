@@ -15,7 +15,7 @@
         <h2>Current Order</h2>
         <!-- <p id="outputText"></p> -->
         <div id="outputContainer"></div>
-        <p id="orderTotal">Order Total: </p>
+        <p id="orderTotal">Order Total: $0.00</p>
         <button id="placeOrder">Place Order</button>
         
     </div>
@@ -23,6 +23,7 @@
   <div class="grid-item" th:each="item: ${products}">
     
     <button class="button" id="${item.product_type}" th:text="${item.productname}">button</button>
+    <input type="hidden" class="item-price" value="${item.price}" />
   </div>
 </div>
 </div>
@@ -51,36 +52,37 @@
   //   }
 //}
 
-
   var outputContainer = document.getElementById('outputContainer');
+  var orderTotalParagraph = document.getElementById('orderTotal');
   var buttons = document.getElementsByClassName('button');
 
   for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function() {
       var itemName = this.textContent;
-      addItemToList(itemName);
+      var itemPrice = parseFloat(this.nextElementSibling.value); 
+      addItemToList(itemName, itemPrice);
     });
   }
 
-  function addItemToList(itemName) {
+  function addItemToList(itemName, itemPrice) {
     var itemButton = document.createElement('button');
-    itemButton.textContent = itemName;
+    itemButton.textContent = itemName + ' - $' + itemPrice.toFixed(2); 
     itemButton.classList.add('ordered-item');
+    itemButton.setAttribute('data-price', itemPrice); 
     itemButton.addEventListener('click', function() {
-      // Open a new window for editing
       openEditWindow(itemButton);
     });
     outputContainer.appendChild(itemButton);
+    updateOrderTotal(); 
   }
-
-  // Function to open a new window for editing
+  
   function openEditWindow(button) {
     var editWindow = window.open('', '_blank', 'width=300,height=200');
     var label = document.createElement('label');
     label.textContent = button.textContent;
     editWindow.document.body.appendChild(label);
 
-    // Create a label for the number input
+    
     var numberLabel = document.createElement('label');
     numberLabel.textContent = '\nQuantity:';
     editWindow.document.body.appendChild(numberLabel);
@@ -123,6 +125,15 @@
         }
     }
   }
+  function updateOrderTotal() {
+        var orderedItems = document.getElementsByClassName('ordered-item');
+        var total = 0;
+        for (var i = 0; i < orderedItems.length; i++) {
+            var price = parseFloat(orderedItems[i].getAttribute('data-price'));
+            total += price;
+        }
+        orderTotalParagraph.textContent = 'Order Total: $' + total.toFixed(2);
+    }
 
 </script>
 </body>

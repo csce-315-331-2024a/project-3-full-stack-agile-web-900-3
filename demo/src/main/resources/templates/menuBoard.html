@@ -8,45 +8,78 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/menuBoard.css">
+    <script src="https://unpkg.com/htmx.org@1.8.1"></script>
+    <script src="/menuboard.js"></script>
+
 </head>
 <body>
 <div class="full-height d-flex flex-column">
     <nav class="navbar navbar-expand-lg bg-lightmaroon">
-        <div class="container-fluid bg-lightmaroon">
-            <a class="navbar-brand">Rev's Grill Menu</a>
+        <div hx-get="/menuBoard/weather"
+             hx-trigger="load delay:5000ms"
+             hx-target="this"
+             hx-swap="outerHTML">
+        </div>
+
+        <div class="title-pic">
+            <h1 class="title">Rev's Grill Menu</h1>
+            <img th:src="@{images/rev.png}" alt="help" class="rounded img-fluid">
         </div>
     </nav>
-    <div class="container-fluid bg-maroon flex-grow-1 menu-area text-style-gold">
-        <div class="col rounded-rectangle" >
 
-            <div th:insert="~{fragments/categories :: basket}"></div>
-            <div th:insert="~{fragments/categories :: salad}"></div>
-            <div th:insert="~{fragments/categories :: burger}"></div>
+        <div class="container-fluid bg-maroon flex-grow-1 menu-area text-style-gold">
+            <div class="col rounded-rectangle">
+                <div th:each="index : ${categoryColumns[0]}">
+                    <div class="rounded-rectangle" th:with="category=${categories[index]}">
+                        <h1 th:text="${category}"></h1>
+                        <hr>
+                        <div class="prod-row" th:each="product: ${categoryMap[__${category}__]}">
+                            <div class="name" th:text="${product.getProductname()}"></div>
+                            <div class="border-divider dots"></div>
 
-        </div>
-        <div class="col rounded-rectangle">
-            <div th:insert="~{fragments/categories :: beverage}"></div>
-            <div th:insert="~{fragments/categories :: coffee}"></div>
-            <div th:insert="~{fragments/categories :: sandwich}"></div>
-        </div>
-        <div class="col rounded-rectangle">
-            <div th:insert="~{fragments/categories :: sweet}"></div>
+                            <div class="price" th:text="${product.getPrice()}"></div>
+                        </div>
+                    </div>
+                </div>
 
-        </div>
+            </div>
+            <div class="col rounded-rectangle" >
+                <div th:each="index : ${categoryColumns[1]}">
+                    <div class="rounded-rectangle" th:with="category=${categories[index]}">
+                        <h1 th:text="${category}"></h1>
+                        <hr>
+                        <div class="prod-row" th:each="product: ${categoryMap[__${category}__]}">
+                            <div class="name" th:text="${product.getProductname()}"></div>
+                            <div class="border-divider dots"></div>
 
-<!--        <div class="row align-items-start"> &lt;!&ndash; Add flex-grow-1 class to make the row take up remaining height &ndash;&gt;-->
-<!--            <div th:each="categoryEntry : ${categoryMap}" class="col"> &lt;!&ndash; Add h-100 class for the columns &ndash;&gt;-->
-<!--                <h1 th:text="${categoryEntry.key}" class="font-style"></h1>-->
+                            <div class="price" th:text="${product.getPrice()}"></div>
+                        </div>
+                    </div>
+                </div>
 
-<!--                <ul class="list-group"> &lt;!&ndash; Add h-100 class for the ul elements &ndash;&gt;-->
-<!--                    <li th:each="product: ${categoryEntry.value}" class="list-group-item d-flex justify-content-between">-->
-<!--                        <span th:text="${product.productname}"></span> <span th:text="${product.price}"></span>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
+            </div>
+            <div class="col rounded-rectangle">
+
+                <div th:each="index : ${categoryColumns[2]}" >
+                    <div class="rounded-rectangle" th:with="category=${categories[index]}">
+                        <h1 th:text="${category}"></h1>
+                        <hr>
+                        <div class="prod-row" th:each="product: ${categoryMap[__${category}__]}">
+                            <div class="name" th:text="${product.getProductname()}"></div>
+                            <div class="border-divider dots"></div>
+
+                            <div class="price" th:text="${product.getPrice()}"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
     </div>
 </div>
+
+
 
 <script src="http://localhost:35729/livereload.js"></script>
 
