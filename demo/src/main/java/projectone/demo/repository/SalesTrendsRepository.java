@@ -11,8 +11,8 @@ import java.util.List;
 public interface SalesTrendsRepository extends JpaRepository<SalesTrends, Long> {
     // You can define custom queries here if needed
     @Query(value = "SELECT " +
-            "p1.product_name AS productNameOne, " +
-            "p2.product_name AS productNameTwo, " +
+            "p1.productname AS productNameOne, " +
+            "p2.productname AS productNameTwo, " +
             "COUNT(*) AS freq " +
             "FROM " +
             "order_products op1 " +
@@ -20,9 +20,9 @@ public interface SalesTrendsRepository extends JpaRepository<SalesTrends, Long> 
             "JOIN orders o ON op1.order_id = o.order_id " +
             "JOIN products p1 ON op1.product_id = p1.product_id " +
             "JOIN products p2 ON op2.product_id = p2.product_id " +
-            "WHERE o.order_time BETWEEN :start_time AND :end_time " +
-            "GROUP BY p1.product_name, p2.product_name " +
+            "WHERE o.order_datetime BETWEEN '2023-01-01 01:01:01' AND '2024-01-01 01:01:01' " +
+            "GROUP BY p1.productname, p2.productname " +
             "ORDER BY freq DESC " +
             "LIMIT 10", nativeQuery = true)
-    List<SalesTrends> findSalesTrends(@Param("start_time") String startTime, @Param("end_time") String endTime);
+    List<SalesTrends> findSalesTrends();
 }
