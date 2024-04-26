@@ -1,0 +1,52 @@
+/* Reset some default styles */
+.landing-page {
+    height: 100vh; /* This makes the body take up the full viewport height */
+    margin: 0; /* This removes the default margin */
+    display: flex; /* This makes the body a flex container */
+    flex-direction: column; /* This stacks the children vertically */
+    justify-content: center;
+}
+
+.bg-maroon {
+    background-color: maroon; /* A dark red color for the background */
+}
+
+/* Style for the navigation links */
+a {
+    display: inline-block; /* Makes links block elements but flow like inline elements */
+    background-color: #007BFF; /* Primary blue color for a vibrant look */
+    color: white; /* White text for contrast */
+    text-decoration: none; /* Removes underline from links */
+    padding: 10px 20px; /* Adds space around the text */
+    margin: 10px; /* Adds space between buttons */
+    border-radius: 5px; /* Softens the corners of the buttons */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a 3D effect */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions for hover effects */
+}
+
+/* Hover effect for links */
+a:hover {
+    background-color: #0056b3; /* A darker shade of blue for interaction feedback */
+    transform: translateY(-2px); /* Slightly raises the button to give a button-press effect */
+}
+
+/* Focus and active styles to improve accessibility */
+a:focus,
+a:active {
+    outline: none; /* Removes default focus outline */
+    border: 2px solid #004080; /* Adds a darker blue border for accessibility focus/active state */
+}
+
+.container {
+    display: flex; /* This makes the container a flex container */
+    flex-direction: column; /* This stacks the children vertically */
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* This allows the container to take up the remaining space */
+}
+
+.bg-lightmaroon{
+
+        background-color: #a05252;
+}
+

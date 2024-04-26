@@ -2,10 +2,12 @@ package projectone.demo.controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +30,6 @@ import projectone.demo.repository.ProductsRepository;
 
 
 
-
     @Controller // no logic in this this is purely mappping the index html to the javascript
     class IndexController
     {
@@ -37,6 +38,8 @@ import projectone.demo.repository.ProductsRepository;
         public String Index() {
             return "index"; 
         }
+
+
     
     }
     

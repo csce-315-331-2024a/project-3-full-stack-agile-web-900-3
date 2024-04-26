@@ -7,10 +7,11 @@ projectone\demo\repository\OrdersRepository.class
 projectone\demo\DemoApplication.class
 projectone\demo\repository\CustomerRepository.class
 projectone\demo\model\WeatherResponse$Weather.class
+projectone\demo\repository\UsersRepository.class
 projectone\demo\model\DBConnection.class
 projectone\demo\controller\IndexController.class
+projectone\demo\model\Users.class
 projectone\demo\model\Inventory.class
-projectone\demo\model\SecurityConfig.class
 projectone\demo\repository\InventoryRepository.class
 projectone\demo\controller\PinPadController.class
 projectone\demo\model\Products.class

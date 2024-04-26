@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="assets/index.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation Page</title>
-    <style>
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            text-decoration: none;
-            color: white;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </head>
 <body>
+<div class="landing-page">
 
-<!-- <a href="pinpad.html" class="button">Pin Pad</a> -->
-<a th:href="@{/pinpad}">Go to pinPad Page</a>
-<a th:href="@{/manager}">Go to Manager Page</a>
-<a th:href="@{/menuBoard}">Go to Menu Board</a>
-<a th:href="@{/cashierPage}">Go to Cashier Page</a>
-<a th:href="@{/inventory}">Go to Manager Inventory</a>
-<a href="assets/customer.html" class="button">Go to Customer Page</a>
+
+<div class="links">
+    <!-- <a href="pinpad.html" class="button">Pin Pad</a> -->
+    <a th:href="@{/pinpad}">Go to pinPad Page</a>
+    <a th:href="@{/manager}">Go to Manager Page</a>
+    <a th:href="@{/menuBoard}">Go to Menu Board</a>
+    <a th:href="@{/cashierPage}">Go to Cashier Page</a>
+    <a th:href="@{/inventory}">Go to Manager Inventory</a>
+    <a href="customer.html" class="button">Go to Customer Page</a>
+
+</div>
+
+
+    <div class="container flex-grow-1">
+        <h1>Welcome To Rev's Grill</h1>
+        <img src="images/rev.png" alt="Rev's Grill Logo">
+        <button class="bg-lightmaroon"> Login </button>
+        <button class="bg-lightmaroon"> Continue as guest </button>
+    </div>
+
+</div>
+
+
 <!-- <a href="menuBoard.html" class="button">Menu Board</a> -->
 
 
