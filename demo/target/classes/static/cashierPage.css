@@ -17,9 +17,11 @@ body {
 
 .sidebar {
   width: 20%;
-  background-color:maroon;
+  height: 500px; /* Set the desired height */
+  background-color: maroon;
   padding: 20px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .sidebar h2 {

@@ -9,21 +9,24 @@
   
 </style>
 </head>
-<body>
+<body id="all">
 <div class="container">
     <div class="sidebar">
         <h2>Current Order</h2>
         <!-- <p id="outputText"></p> -->
         <div id="outputContainer"></div>
         <p id="orderTotal">Order Total: $0.00</p>
-        <button id="placeOrder">Place Order</button>
+        <form hx-post="/cashierPage/add" hx-target="#all" hx-swap="outerHTML">
+          <input name="price" type= "hidden" id="total-price"/>
+          <button id="placeOrder" type="submit">Place Order</button>
+        </form>
         
     </div>
     <div class="grid">
   <div class="grid-item" th:each="item: ${products}">
     
-    <button class="button" id="${item.product_type}" th:text="${item.productname}">button</button>
-    <input type="hidden" class="item-price" value="${item.price}" />
+    <button class="button" th:id="${item.product_type}" th:text="${item.productname}">button</button>
+    <input type="hidden" class="item-price" th:value="${item.price}" />
   </div>
 </div>
 </div>
@@ -54,7 +57,9 @@
 
   var outputContainer = document.getElementById('outputContainer');
   var orderTotalParagraph = document.getElementById('orderTotal');
+  var totalPrice = document.getElementById('total-price')
   var buttons = document.getElementsByClassName('button');
+  
 
   for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function() {
@@ -108,6 +113,7 @@
     deleteButton.addEventListener('click', function() {
       button.remove();
       editWindow.close();
+      updateOrderTotal();
     });
     editWindow.document.body.appendChild(deleteButton);
   
@@ -125,15 +131,16 @@
         }
     }
   }
-  function updateOrderTotal() {
-        var orderedItems = document.getElementsByClassName('ordered-item');
-        var total = 0;
-        for (var i = 0; i < orderedItems.length; i++) {
-            var price = parseFloat(orderedItems[i].getAttribute('data-price'));
-            total += price;
-        }
-        orderTotalParagraph.textContent = 'Order Total: $' + total.toFixed(2);
+    function updateOrderTotal() {
+    var orderedItems = document.getElementsByClassName('ordered-item');
+    var total = 0;
+    for (var i = 0; i < orderedItems.length; i++) {
+      var price = parseFloat(orderedItems[i].getAttribute('data-price'));
+      total += price;
     }
+    totalPrice.value=total;
+    orderTotalParagraph.textContent = 'Order Total: $' + total.toFixed(2);
+  }
 
 </script>
 </body>
