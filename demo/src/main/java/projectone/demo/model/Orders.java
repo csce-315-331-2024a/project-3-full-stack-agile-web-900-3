@@ -22,7 +22,6 @@ import jakarta.persistence.TemporalType;
 @Setter
 public class Orders implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long order_id;
 
     private BigDecimal price;
@@ -32,10 +31,7 @@ public class Orders implements Serializable{
     private Date orderDatetime;
     @Column(name = "order_status")
     private String status;
-    public Orders(BigDecimal price, Date orderDatetime) {
-        this.price = price;
-        this.orderDatetime = orderDatetime;
-    }
+    
 
     @Override
     public String toString() {

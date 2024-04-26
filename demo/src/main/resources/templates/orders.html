@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manager Table</title>
+  <link rel="stylesheet" href="kitchen.css">
+  <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
+</head>
+<body id = "updateArea">
+    <form hx-post = "/orders/add" hx-target = "#updateArea" hx-swap="outerHTML">
+       <input value = "5.80" name = "price">
+        <button type = "submit">add new order</button>
+    </form>
+</body>
+</html>
