@@ -5,7 +5,6 @@ body, html {
   height: 100%;
   overflow: hidden;
 }
-
 .container {
   display: flex;
   height: 100%;
@@ -25,40 +24,38 @@ body, html {
 
 .navbar {
   background-color: #500000;
-  width: 200px;
+  width: 150px;
   height: 100%;
   overflow: auto;
   position: fixed;
 }
-
 .nav-button {
-  display: block;
-  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 10px 10px 20px;
   color: white;
-  text-align: left;
   background-color: #500000;
   font-size: 14px;
   border: none;
   width: 100%;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  gap: 10px;
 }
-
 .nav-button:hover {
   background-color: #730000;
 }
-
 .menu-area {
   flex-grow: 1;
-  padding-left: 200px;
+  padding-left: 160px;
   padding-top: 20px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   overflow-x: hidden;
-  margin-right: 300px;
+  margin-right: 400px;
 }
-
 .menu-item {
   background-color: white;
   margin: 20px;
@@ -72,14 +69,12 @@ body, html {
   height: 250px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .menu-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
-
 .order-tracker {
-  width: 300px;
+  width: 400px;
   background-color: #f8f8f8;
   padding: 20px;
   overflow-y: auto;
@@ -88,19 +83,157 @@ body, html {
   top: 0;
   bottom: 0;
 }
-
 .order-button, .confirm-button, .cancel-button {
-  padding: 10px 15px;
+  padding: 8px 10px;
   background-color: #500000;
   color: white;
   border: none;
-  border-radius: 15px;
+  border-radius: 10px;
   cursor: pointer;
-  width: 100%;
-  font-size: 14px;
+  width: auto;
+  align-items: center;
+  font-size: 12px;
   transition: background-color 0.3s ease;
 }
-
 .order-button:hover, .confirm-button:hover, .cancel-button:hover {
   background-color: #730000;
 }
+.menu-item img {
+  max-width: 90%;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.menu-icon {
+  fill: white;
+}
+.order-items li {
+  margin-bottom: 10px;
+  list-style-type: none;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #500000;
+  border-radius: 10px;
+  padding: 5px;
+  color: white;
+  width: 100px;
+}
+.quantity-controls.hidden {
+  display: none;
+}
+.expand-arrow {
+  cursor: pointer;
+  margin-left: 10px;
+  user-select: none;
+}
+.minus-button, .plus-button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  padding: 0;
+  background-color: #800000;
+  transition: background-color 0.3s ease;
+}
+.minus-button:hover, .plus-button:hover {
+  background-color: #a00000;
+}
+.quantity-display {
+  font-size: 14px;
+  padding: 0 10px;
+  text-align: center;
+  min-width: 20px;
+}
+
+.back-button {
+  padding: 10px 15px;
+  background-color: #4CAF50; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #45a049;
+}
+
+.edit-icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-icon {
+  fill: #007BFF; 
+  transition: fill 0.3s ease;
+}
+
+.edit-icon:hover {
+  fill: #0056b3;
+}
+
+
+
+.order-item-title {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+
+.order-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  list-style-type: none;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.order-item-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+
+
