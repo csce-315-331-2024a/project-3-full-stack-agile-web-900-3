@@ -54,7 +54,7 @@ public String displayQueries(Model model) {
     // }
     return "queries";
 }
-    
+  
 }
 */
 
