@@ -36,7 +36,7 @@ public class SalesTrends implements Serializable {
     @Override
     public String toString() {
         return "SalesTrends{" +
-                "id=" + id +
+                // "id=" + id +
                 ", productNameOne='" + productNameOne + '\'' +
                 ", productNameTwo='" + productNameTwo + '\'' +
                 ", frequency=" + freq +
