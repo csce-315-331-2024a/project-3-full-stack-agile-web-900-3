@@ -15,6 +15,7 @@
 <body>
 <div class="full-height d-flex flex-column">
     <nav class="navbar navbar-expand-lg bg-lightmaroon">
+
         <div hx-get="/menuBoard/weather"
              hx-trigger="load delay:5000ms"
              hx-target="this"
@@ -26,11 +27,10 @@
             <img th:src="@{images/rev.png}" alt="help" class="rounded img-fluid">
         </div>
 
-    </nav>
-
         <div class="translate-container">
             <div id="google_translate_element"></div>
         </div>
+    </nav>
 
         <div class="container-fluid bg-maroon flex-grow-1 menu-area text-style-gold">
             <div class="col rounded-rectangle">
@@ -94,8 +94,9 @@
         );
     } 
     </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>'
     <script src="http://localhost:35729/livereload.js"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>'
+    
 
 
 

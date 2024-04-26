@@ -129,15 +129,12 @@ h1 {
 
 #google_translate_element {
     position: absolute;
-    display: flex;
     top: 0;
     right: 0; /* Aligns the translation box to the top right */
     color: white; /* Ensure text is visible */
-    box-sizing: border-box;
     display: block; 
     padding-right: 30px;
-    min-width: 100px;
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 .navbar img{

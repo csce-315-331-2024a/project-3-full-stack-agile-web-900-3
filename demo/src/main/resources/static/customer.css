@@ -19,7 +19,6 @@ body, html {
   color: white; /* Ensure text is visible */
   padding-bottom: 50px;
   box-sizing: border-box;
-  padding-right: -10px;
 }
 
 .navbar {
