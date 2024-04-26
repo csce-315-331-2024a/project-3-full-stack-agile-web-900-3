@@ -21,5 +21,6 @@ public interface ProductInventoryRepository extends JpaRepository<ProductInvento
     @Query("DELETE FROM ProductInventory p WHERE p.productId = :productId")
     void deleteAllByProductId(@Param("productId") Long productId);
 
-    List<ProductInventory> findByProductId(Long productId);
+    @Query(value = "SELECT i.name FROM inventory i INNER JOIN product_inventory pi ON i.id = pi.inventory_id WHERE pi.product_id = :productId", nativeQuery = true)
+    List<String> findIngredientNamesByProductId(@Param("productId") Long productId);
 }

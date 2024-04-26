@@ -7,9 +7,30 @@
 <body>
     <h1>Edit Item</h1>
     <p>Modify the item details here.</p>
-    <button onclick="goBack()">Back to Order</button>
 
+    <div id="edit-section" style="display: none;">
+        <!-- Ingredients list will be appended here by the JavaScript function -->
+        <ul id="ingredient-list"></ul>
+        <button class="back-button" onclick="goBack()">Back to Customer Page</button>
+    </div>
+
+    <script src="customerScript.js"></script>
     <script>
+    function getProductIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('product_id');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const productId = getProductIdFromUrl();
+        if(productId) {
+            editItem(productId);
+        } else {
+            console.error('Product ID not found.');
+            // Handle the case where the product ID is not present
+        }
+    });
+    
     function goBack() {
         try {
             window.location.href = 'customer.html'; 
