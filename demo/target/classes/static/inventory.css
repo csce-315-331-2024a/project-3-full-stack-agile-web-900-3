@@ -18,6 +18,15 @@ body {
     display: flex; /* Utilizes flexbox for horizontal layout */
     justify-content: space-between; /* Distributes space between elements evenly */
     color: black; /* Text color inside products set to black for readability */
+    overflow: hidden;
+  }
+
+  .inv{
+    height: 60vh;
+    width: auto;
+    overflow: auto;     
+    border: 4px solid #F5EBD5; /* Set the border color to black and width to 2px */
+    border-radius: 20px; /* Rounded corners with a radius of 10px */
   }
 
   /* .category-container {
@@ -33,6 +42,12 @@ body {
     margin-top: 40;
     padding: 10px;
     position: relative; /* Ensures that the absolute positioning of h2 is relative to navBar */
+}
+.nav-btn:hover,
+.nav-btn:focus {
+    transform: scale(1.05);   /* Enlarges the link */
+    background-color:darkgray;
+            
 }
 
 header h2 {
@@ -66,14 +81,15 @@ header h2 {
     margin-bottom: 20px; /* Adds space between the rows */
   }
   .header {
-    display: flex;
-    justify-content: space-between; /* Ensures content is evenly spaced */
-    background: #ffffff; /* A slightly lighter maroon than the body for contrast */
-    padding: 10px 15px; /* Matches the padding inside item listings */
-    border-radius: 8px; /* Consistency with item border rounding */
-    margin-bottom: 10px; /* Space before the items start */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Slightly more prominent shadow than items */
-    color: rgb(0, 0, 0); /* Text color */
+    background: white; /* Sets a white background for product listings */
+    padding: 15px; /* Adds padding inside each product container */
+    margin-top: 10px; /* Adds space between each product listing */
+    border-radius: 8px; /* Rounds the corners of the product listings */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds a shadow to the product listings */
+    display: flex; /* Utilizes flexbox for horizontal layout */
+    justify-content: space-between; /* Distributes space between elements evenly */
+    color: black; /* Text color inside products set to black for readability */
+    overflow: hidden;
 }
 
 .header-item {
@@ -84,7 +100,24 @@ header h2 {
 }
 
 .low-stock {
-  background-color: orange;
+  background-color: rgb(251, 130, 0);
 }
 
 .hidden { display: none;}
+
+#styledInput {
+  border: none; /* Removes the default border */
+  background-color: transparent; /* Background is transparent by default */
+  text-align: center; /* Centers the text inside the input */
+  font-size: 16px; /* Sets the font size */
+  color: black; /* Text color is black */
+  padding: 2px; /* Adds padding around the text */
+  width: auto; /* Width is auto to fit content by default */
+  transition: background-color 0.3s, padding 0.3s; /* Smooth transition for background color and padding */
+  border-radius: 10 %; /* Starts with a fully rounded shape */
+}
+
+#styledInput:hover {
+  background-color: rgba(242, 211, 152); /* Changes background to yellow on hover */
+  padding: 5px; /* Increase padding to expand the circular background */
+}
