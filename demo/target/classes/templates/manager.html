@@ -66,12 +66,52 @@
                   Delete
   
           </button>
+         
   
       </div>
     </form>
-      
-  
+    
+    
+     <div class="ingredients">
+      <span>Ingredients:</span>
+        <div th:each="junction : ${junction}">
+            <div th:if="${junction.productId} == ${item.product_id}">
+                <span th:each="inv: ${inventory}" th:if="${junction.inventoryId} == ${inv.id}" class="ingredient-name">
+                    <span th:text="${inv.name}"></span>
+                </span>
+            </div>
+        </div>
+        <div class = modify>
+        <form hx-post = "/manager/addInv" hx-swap ="outerHTML" hx-target="#updateArea">
+          <input  th:value ="${item.product_id}" name = "id" style="display: none;">
+        <select name = "new-inv-id">
+          <option th:each = "inv: ${inventory}" th:if ="${inv.type} != utilities  " th:value = "${inv.id}" th:text = "${inv.name}">
+
+          </option>
+        </select>
+
+        <button type = "submit">Add</button>
+        
+      </form>
+      <form hx-post = "/manager/removeInv" hx-swap = "outerHTML" hx-target="#updateArea">
+        <select name = "remove">
+          <div th:each="junction : ${junction}">
+            <div th:if="${junction.productId} == ${item.product_id}">
+                <span th:each="inv: ${inventory}" th:if="${junction.inventoryId} == ${inv.id}" class="ingredient-name">
+                    <option th:text="${inv.name}" th:value = "${junction.productInventoryId}"></option>
+                </span>
+            </div>
+        </div>
+
+        </select>
+        <button type = "submit">Remove</button>
+      </form>
     </div>
+    </div>
+    </div>
+
+
+
     
 
   </div>
@@ -102,9 +142,6 @@
       </div>
       
     </div>
-    <div th:each = "junction: ${junction}">
-      <div th:if = "1 == ${junction.product_id}" th:text = "${junction.inventory_id}"></div>
-
-    </div>
+    
   </body>
 </html>
