@@ -16,8 +16,8 @@
         <p id="outputText"></p>
         <p id="orderTotal">Order Total: </p>
         <button id="placeOrder">Place Order</button>
-        
     </div>
+    <div id="google_translate_element"></div> 
     <div class="grid">
   <div class="grid-item" th:each="item: ${products}">
     
@@ -52,18 +52,6 @@
   </div>
 </div>
 </div>
-<div class="sub-grid">
-    <!-- Grid of smaller buttons -->
-    <button class="small-button">Small Button 1</button>
-    <button class="small-button">Small Button 2</button>
-    <button class="small-button">Small Button 3</button>
-    <button class="small-button">Small Button 4</button>
-    <button class="small-button">Small Button 5</button>
-    <button class="small-button">Small Button 6</button>
-    <button class="small-button">Small Button 7</button>
-    <button class="small-button">Small Button 8</button>
-    <button class="small-button">Small Button 9</button>
-  </div>
 
 <script>
   var outputParagraph = document.getElementById('outputText');
@@ -87,5 +75,15 @@
     }
 }
 </script>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+          {pageLanguage: 'en'},
+          'google_translate_element'
+      );
+  } 
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
