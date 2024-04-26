@@ -12,12 +12,14 @@ body, html {
 
 #google_translate_element {
   position: absolute;
+  display: flex;
   bottom: 0;
   left: 0;
   width: 100%;
   color: white; /* Ensure text is visible */
   padding-bottom: 50px;
   box-sizing: border-box;
+  padding-right: -10px;
 }
 
 .navbar {
