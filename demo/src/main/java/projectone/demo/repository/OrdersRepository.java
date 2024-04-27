@@ -13,4 +13,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     List<Orders> findOrdersWithStatusPending();
     @Query(value = "SELECT MAX(order_id) FROM orders", nativeQuery = true)
     Long findMaxId();
+    @Query(value = "SELECT * FROM orders ORDER BY order_id DESC LIMIT 1",nativeQuery = true)
+    List<Orders> getLastOrder();
 }

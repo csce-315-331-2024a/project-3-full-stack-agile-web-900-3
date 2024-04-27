@@ -1,8 +1,10 @@
 package projectone.demo.controller;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
@@ -28,23 +30,23 @@ class CashierController{
         this.ordersRepository = ordersRepository;
     }
     @GetMapping
-    String products(Model model)
+    String products(Model model, Model orderModel)
     {
         model.addAttribute("products", this.repository.findAll());
-        model.addAttribute("orders", this.ordersRepository.findAll());
+        orderModel.addAttribute("orders", this.ordersRepository.getLastOrder());
         return "cashierPage";
     }
     @PostMapping(value = "/add")
-    public String add(@RequestParam("price") String price, Model model) {
+    public String add(@RequestParam("price") String price, Model orderModel) {
 
         Long newId = ordersRepository.findMaxId()+1;
-        LocalDate now = LocalDate.now();
-        Date date = Date.valueOf(now);
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp date = Timestamp.valueOf(now);
         String status = "processing";
         BigDecimal newPrice = new BigDecimal(price);
         Orders newOrder = new Orders(newId,newPrice,date,status);
         this.ordersRepository.save(newOrder);
-        model.addAttribute("orders", this.ordersRepository.findAll());
+        orderModel.addAttribute("orders", this.ordersRepository.getLastOrder());
         System.out.println("Order placed successfully.");
         return "redirect:/cashierPage";
     }

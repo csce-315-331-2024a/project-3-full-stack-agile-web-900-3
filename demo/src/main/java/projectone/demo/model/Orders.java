@@ -3,6 +3,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -29,7 +30,7 @@ public class Orders implements Serializable{
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "order_datetime")
-    private Date orderDatetime;
+    private Timestamp orderDatetime;
     @Column(name = "order_status")
     private String status;
     
