@@ -33,13 +33,13 @@ public class SalesTrends implements Serializable {
     @Column(name = "frequency", nullable = false)
     private int freq;
 
-    @Override
-    public String toString() {
-        return "SalesTrends{" +
-                // "id=" + id +
-                ", productNameOne='" + productNameOne + '\'' +
-                ", productNameTwo='" + productNameTwo + '\'' +
-                ", frequency=" + freq +
-                '}';
-    }
+    // @Override
+    // public String toString() {
+    //     return "SalesTrends{" +
+    //             "id=" + id +
+    //             ", productNameOne='" + productNameOne + '\'' +
+    //             ", productNameTwo='" + productNameTwo + '\'' +
+    //             ", frequency=" + freq +
+    //             '}';
+    // }
 }

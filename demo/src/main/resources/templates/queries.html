@@ -11,20 +11,22 @@
 
         <!-- Form for inputting start and end time -->
         <div class="mb-3">
-            <form th:action="@{/queries}" method="get">
-                <div class="mb-3">
-                    <label for="startTime">Start Time:</label>
-                    <input type="datetime-local" id="startTime" name="start_time" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="endTime">End Time:</label>
-                    <input type="datetime-local" id="endTime" name="end_time" class="form-control" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Fetch Data</button>
-            </form>
+          <form th:action="@{/queries}" method="get">
+            <div class="mb-3">
+                <label for="startTime">Start Time:</label>
+                <input type="datetime-local" id="startTime" name="start_time" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="endTime">End Time:</label>
+                <input type="datetime-local" id="endTime" name="end_time" class="form-control" required>
+            </div>
+            <button type="submit" name="display" value="data" class="btn btn-primary">Show Sales Data</button>
+            <button type="submit" name="display" value="trends" class="btn btn-secondary">Show Sales Trends</button>
+        </form>
         </div>
 
-        <div class="row">
+        <!-- Conditionally display the Sales Data table -->
+        <div th:if="${display == 'data'}" class="row">
             <div class="col-md-12">
                 <h2>Sales Data</h2>
                 <table class="table table-bordered">
@@ -42,6 +44,29 @@
                             <td th:text="${data.productName}">Product Name</td>
                             <td th:text="${data.quantitySold}">Quantity Sold</td>
                             <td th:text="${data.totalSales}">Total Sales</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Conditionally display the Sales Trends table -->
+        <div th:if="${display == 'trends'}" class="row">
+            <div class="col-md-12">
+                <h2>Sales Trends</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product Name One</th>
+                            <th>Product Name Two</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="trend : ${trends}">
+                            <td th:text="${trend.productNameOne}">Product Name 1</td>
+                            <td th:text="${trend.productNameTwo}">Product Name 2</td>
+                            <td th:text="${trend.freq}">Frequency</td>
                         </tr>
                     </tbody>
                 </table>
