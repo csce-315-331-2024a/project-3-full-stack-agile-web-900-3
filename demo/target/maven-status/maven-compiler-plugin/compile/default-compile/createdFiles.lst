@@ -1,4 +1,5 @@
 projectone\demo\controller\MenuBoard$geoLocation.class
+projectone\demo\model\SecurityConfig$MySimpleUrlAuthenticationSuccessHandler.class
 projectone\demo\model\WeatherResponse.class
 projectone\demo\controller\CashierController.class
 projectone\demo\controller\ProductsController.class
@@ -12,6 +13,7 @@ projectone\demo\model\DBConnection.class
 projectone\demo\controller\IndexController.class
 projectone\demo\model\Users.class
 projectone\demo\model\Inventory.class
+projectone\demo\model\SecurityConfig.class
 projectone\demo\repository\InventoryRepository.class
 projectone\demo\controller\PinPadController.class
 projectone\demo\model\Products.class

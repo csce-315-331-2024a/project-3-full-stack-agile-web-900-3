@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation Page</title>
+    <script src="https://unpkg.com/htmx.org@1.8.1"></script>
+    <script src="index.js"></script>
 </head>
 <body>
 <div class="landing-page">
@@ -26,9 +28,10 @@
     <div class="container flex-grow-1">
         <h1>Welcome To Rev's Grill</h1>
         <img src="images/rev.png" alt="Rev's Grill Logo">
-        <button class="bg-lightmaroon"> Login </button>
+        <button id="loginButton" class="bg-lightmaroon" th:onclick="'window.location.href=\'/login\''">Login</button>
         <button class="bg-lightmaroon"> Continue as guest </button>
     </div>
+
 
 </div>
 
