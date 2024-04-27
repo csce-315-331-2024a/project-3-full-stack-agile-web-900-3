@@ -1,54 +1,3 @@
-{% comment %} 
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manager Table</title>
-  <link rel="stylesheet" href="">
-  <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
-</head>
-<body id = "updateArea">
-  <h2>Sales Trends</h2>
-
-<div th:fragment= "queries-list" class = "queries-list">
-  <!-- th: is thymleaf and the each tag is saying each value in the item table and the   ${manager} linkes it to the manager controller logic-->
-    <div   th:each="item: ${trends}">
-  
-      <div class = "trends line">
-      <!-- this line is displaying the id attrabute of a row in a product table -->
-      <!-- <div class = "id" th:text="${item.product_id}">ID</div> -->
-      <div class = "id" th:text="${item.id}">ID</div>
-      <div class = "productNameOne" th:text="${item.productNameOne}">Product Name One</div>
-      <div class = "productNameTwo" th:text="${item.productNameTwo}">Product Name Two</div>
-      <div class = "frequency" th:text="${item.frequency}">Frequency</div>
-      
-      <form class="item" id="orderForm" hx-post="/queries" hx-target="#updateArea" hx-swap="outerHTML">
-        <!-- using this form to send all the data im getting these correlate to the request paramerets in controller  -->
-      <input  th:value ="${item.id}" name = "id" style="display: none;">
-      <input name = "start_time" id = styledInput class = "start_time"></input>
-      <!-- item has all the attributers that the product table has ie name id price ect the th value is just setting the value of the textbox so it has default values if -->
-      <input name = "end_time" id = styledInput class = "end_time"></input>
-      
-      <div>
-          
-        <button type = "submit">
-          Update
-        </button>
-
-    </div>
-    </form>
-      
-  
-    </div>
-    
-
-  </div>
-
-</div>
-</body>
-</html> {% endcomment %}
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -60,9 +9,25 @@
     <div class="container mt-4">
         <h1>Sales Trends and Data</h1>
 
-        <!-- Removed the time input form -->
-        <div class="row">
-            <div class="col-md-12"> <!-- Adjusted to take full width -->
+        <!-- Form for inputting start and end time -->
+        <div class="mb-3">
+          <form th:action="@{/queries}" method="get">
+            <div class="mb-3">
+                <label for="startTime">Start Time:</label>
+                <input type="datetime-local" id="startTime" name="start_time" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="endTime">End Time:</label>
+                <input type="datetime-local" id="endTime" name="end_time" class="form-control" required>
+            </div>
+            <button type="submit" name="display" value="data" class="btn btn-primary">Show Sales Data</button>
+            <button type="submit" name="display" value="trends" class="btn btn-secondary">Show Sales Trends</button>
+        </form>
+        </div>
+
+        <!-- Conditionally display the Sales Data table -->
+        <div th:if="${display == 'data'}" class="row">
+            <div class="col-md-12">
                 <h2>Sales Data</h2>
                 <table class="table table-bordered">
                     <thead>
@@ -79,6 +44,29 @@
                             <td th:text="${data.productName}">Product Name</td>
                             <td th:text="${data.quantitySold}">Quantity Sold</td>
                             <td th:text="${data.totalSales}">Total Sales</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Conditionally display the Sales Trends table -->
+        <div th:if="${display == 'trends'}" class="row">
+            <div class="col-md-12">
+                <h2>Sales Trends</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product Name One</th>
+                            <th>Product Name Two</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="trend : ${trends}">
+                            <td th:text="${trend.productNameOne}">Product Name 1</td>
+                            <td th:text="${trend.productNameTwo}">Product Name 2</td>
+                            <td th:text="${trend.freq}">Frequency</td>
                         </tr>
                     </tbody>
                 </table>
