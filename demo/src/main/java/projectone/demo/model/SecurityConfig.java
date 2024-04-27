@@ -128,14 +128,6 @@ public class SecurityConfig{
                         }
                     }
 
-//                    if ("coby.kuruvilla@gmail.com".equals(email)) {
-//                        // If the email matches, assign the ADMIN role
-//                        mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-//                    }
-
-                    // Map the attributes found in userAttributes
-                    // to one or more GrantedAuthority's and add it to mappedAuthorities
-
                 }
             });
 

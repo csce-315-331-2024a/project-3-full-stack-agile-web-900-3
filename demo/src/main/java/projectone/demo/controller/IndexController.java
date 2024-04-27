@@ -34,23 +34,9 @@ import projectone.demo.repository.UsersRepository;
     class IndexController
     {
 
-        // using the usersrepository print out all entries in the database
-//        private UsersRepository usersRepository;
-//        public IndexController(UsersRepository usersRepository) {
-//            this.usersRepository = usersRepository;
-//            System.out.println(usersRepository.findAll());
-//        }
-
         @GetMapping("/")
         public String Index() {
-//            List<Users> users = usersRepository.findAll();
-//            if(users.isEmpty()){
-//                System.out.println("No users in the database");
-//
-//            }
-//            else{
-//                System.out.println(users.get(0).toString());
-//            }
+
 
             return "index";
         }
