@@ -35,7 +35,7 @@ class CashierController{
         return "cashierPage";
     }
     @PostMapping(value = "/add")
-    public String addOrder(@RequestParam("price") String price, Model model) {
+    public String add(@RequestParam("price") String price, Model model) {
 
         Long newId = ordersRepository.findMaxId()+1;
         LocalDate now = LocalDate.now();
