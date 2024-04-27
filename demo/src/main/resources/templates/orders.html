@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manager Table</title>
+  <link rel="stylesheet" href="orders.css">
+  <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
+</head>
+<body id = "updateArea">
+    <form hx-post = "/orders/add" hx-target = "#updateArea" hx-swap="outerHTML">
+       <input value = "5.80" name = "price">
+        <button type = "submit">add new order</button>
+    </form>
+    <form hx-post = "/orders/view" hx-target = #updateArea hx-swap = outerHTML>
+      <input type = date name = date>
+      <button type = submit>View Orders</button>
+    </form>
+    <div class = item th:each = "order : ${orders}">
+      <div class = top >
+      <span th:text = "'Order ID: ' +${order.order_id}"></span>
+      <span th:text = "'Order Date: ' + ${order.orderDatetime}"></span>
+      <span>
+        <span>Order Price: </span>
+      <input  id = styledInput th:value = "${order.price}">
+      </span>
+     <span>
+      <select>
+        <option th:value = "${order.status}" th:text = "${order.status}" disabled selected hidden></option>
+        <option value = "processing">Processing</option>
+        <option value = "completed">Completed</option>
+        <option value = "canceled">Canceled</option>
+      </select>
+      <button>Submit</button>
+    </span>
+  </div>
+  <div class = bottom>this is where order details go</div>
+      <div th:each = "junc : ${junction}" th:if ="${junc.order_id} == ${order.order_id}">
+        
+          <span th:each ="product:${products}" th:if="${product.product_id == junc.product_id}" th:text = "${product.productname}"></span>
+        
+      </div>
+  </div>
+       
+</body>
+</html>

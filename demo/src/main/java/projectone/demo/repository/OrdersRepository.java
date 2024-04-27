@@ -1,5 +1,7 @@
 package projectone.demo.repository;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +13,12 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     // You can define custom queries here if needed
     @Query(value = "SELECT * FROM orders WHERE order_status = 'processing'", nativeQuery = true)
     List<Orders> findOrdersWithStatusPending();
+    @Query(value = "SELECT MAX(order_id) FROM orders", nativeQuery = true)
+    Long findMaxId(); 
+
+    @Query("SELECT o FROM Orders o WHERE o.orderDatetime BETWEEN :startDate AND :endDate ORDER BY o.orderDatetime")
+    ArrayList<Orders> findOrdersWithinDateRange(LocalDateTime startDate, LocalDateTime endDate);
+
+    @Query("SELECT o FROM Orders o WHERE o.orderDatetime BETWEEN :startDate AND :endDate ORDER BY o.order_id ASC")
+    ArrayList<Orders> findOrdersWithinDateRangeSorted(LocalDateTime startDate, LocalDateTime endDate);
 }

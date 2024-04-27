@@ -4,10 +4,13 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+.title{
+    color: white;
+    margin: 2vh;
+}
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: maroon;
     padding: 20px;
 }
 
@@ -29,8 +32,8 @@ body {
 }
 
 .header {
-    background-color: #007BFF;
-    color: white;
+    background-color: white;
+    color: black;
     padding: 10px 0;
     font-weight: bold;
 }
@@ -55,8 +58,8 @@ body {
 
 button {
     cursor: pointer;
-    background-color: #28a745;
-    color: white;
+    background-color: rgba(242, 211, 152);
+    color: black;
     border: none;
     margin: 10px;
     padding: 10px 20px; /* Increased padding for wider buttons */
@@ -67,5 +70,5 @@ button {
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: rgba(242, 211, 152);
 }

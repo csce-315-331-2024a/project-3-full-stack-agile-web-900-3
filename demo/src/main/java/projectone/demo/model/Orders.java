@@ -3,6 +3,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -22,20 +23,16 @@ import jakarta.persistence.TemporalType;
 @Setter
 public class Orders implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long order_id;
 
     private BigDecimal price;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "order_datetime")
-    private Date orderDatetime;
+    private Timestamp orderDatetime;
     @Column(name = "order_status")
     private String status;
-    public Orders(BigDecimal price, Date orderDatetime) {
-        this.price = price;
-        this.orderDatetime = orderDatetime;
-    }
+    
 
     @Override
     public String toString() {

@@ -32,7 +32,7 @@ import projectone.demo.repository.OrdersRepository;
     String update(@RequestParam("id")String id,@RequestParam("update")String update,Model model)
     {
         Orders newOrder = this.repository.getById(Long.parseLong(id));
-        newOrder.setStatus("completed");
+        newOrder.setStatus(update);
         this.repository.save(newOrder);
         model.addAttribute("pending",this.repository.findOrdersWithStatusPending());
         System.out.println("updated order "+id);
