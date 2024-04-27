@@ -30,7 +30,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
 
         if (isAdmin) {
-            return "/manager";
+            return "/greet/admin";
         } else {
             return "/";
         }
