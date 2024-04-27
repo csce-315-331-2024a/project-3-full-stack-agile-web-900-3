@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-=======
-
-projectone/demo/repository/ProductsInventoryRepo.class
-projectone/demo/controller/PinPadController.class
-
->>>>>>> 578705ad0a4ada55a2c49c6b561c99665b695cbc
 projectone/demo/model/Inventory.class
 projectone/demo/model/DBConnection.class
 projectone/demo/model/Orders.class
@@ -36,26 +29,3 @@ projectone/demo/controller/queriesController.class
 projectone/demo/controller/MenuBoard$geoLocation.class
 projectone/demo/model/SalesData.class
 projectone/demo/controller/IndexController.class
-<<<<<<< HEAD
-=======
-projectone/demo/controller/foodController.class
-projectone\demo\controller\IndexController.class
-projectone\demo\controller\MenuBoard$geoLocation.class
-projectone\demo\model\WeatherResponse.class
-projectone\demo\controller\CashierController.class
-projectone\demo\model\Inventory.class
-projectone\demo\repository\InventoryRepository.class
-projectone\demo\controller\ProductsController.class
-projectone\demo\controller\PinPadController.class
-projectone\demo\controller\CustomerController.class
-projectone\demo\repository\OrdersRepository.class
-projectone\demo\DemoApplication.class
-projectone\demo\repository\CustomerRepository.class
-projectone\demo\model\Products.class
-projectone\demo\model\Orders.class
-projectone\demo\controller\InventoryController.class
-projectone\demo\repository\ProductsRepository.class
-projectone\demo\controller\MenuBoard.class
-projectone\demo\model\DBConnection.class
-
->>>>>>> 578705ad0a4ada55a2c49c6b561c99665b695cbc
