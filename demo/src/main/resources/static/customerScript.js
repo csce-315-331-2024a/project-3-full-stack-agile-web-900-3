@@ -1,3 +1,4 @@
+// Main function for loading the different menu items depending on the category being displayed
 function loadMenuItems(category) {
   fetch(`/api/menu/${category}`)
     .then(response => response.json())
