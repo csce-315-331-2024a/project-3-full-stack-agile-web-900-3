@@ -27,7 +27,6 @@ import projectone.demo.model.Products;
 import projectone.demo.model.Users;
 import projectone.demo.repository.InventoryRepository;
 import projectone.demo.repository.ProductsRepository;
-import projectone.demo.repository.UsersRepository;
 
 
 @Controller // no logic in this this is purely mappping the index html to the javascript
