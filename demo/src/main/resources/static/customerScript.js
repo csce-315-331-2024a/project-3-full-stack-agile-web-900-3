@@ -288,6 +288,10 @@ function updateTotal() {
     orderTotal += price * quantity;
   });
 
+  // Apply state tax
+  const stateTaxRate = 1.08; // 8% state tax
+  orderTotal *= stateTaxRate;
+
   const totalPriceElement = document.getElementById('total-price');
   totalPriceElement.textContent = `$${orderTotal.toFixed(2)}`;
   console.log('Updated order total:', orderTotal.toFixed(2)); // Debugging log
