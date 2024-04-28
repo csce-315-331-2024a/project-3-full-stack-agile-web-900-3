@@ -240,41 +240,26 @@ function adjustQuantity(uniqueId, change) {
     return;
   }
 
-  console.log("Found list item", listItem);
-
   // Retrieve stored product data
   const productPrice = parseFloat(listItem.getAttribute('data-price'));
   const productName = listItem.getAttribute('data-product-name');
   const category = listItem.getAttribute('data-category'); // Ensure this is being set when creating the list item
-  console.log("Retrieved item data", { productPrice, productName, category });
-
   const isCombo = listItem.getAttribute('data-is-combo') === 'true';
-  console.log("Is it a combo?", isCombo);
-
-  // Calculate the new price and quantity
-  let comboPrice = isCombo ? ((category === 'burger' || category === 'sandwich') ? 1.90 : 1.10) : 0;
-  let totalItemPrice = productPrice + comboPrice;
-  console.log("Total item price calculated", totalItemPrice);
 
   const quantityDisplay = listItem.querySelector('.quantity-display');
   let currentQuantity = parseInt(quantityDisplay.textContent);
-  console.log("Current quantity", currentQuantity);
-
   let newQuantity = Math.max(0, currentQuantity + change);
-  console.log("New quantity", newQuantity);
 
-  let newTotalPrice = totalItemPrice * newQuantity;
-  console.log("New total price", newTotalPrice);
-
+  console.log("Found list item", listItem);
 
   // Update the list item display
   if (newQuantity > 0) {
     quantityDisplay.textContent = newQuantity;
     let displayName = isCombo ? `${productName} Combo` : productName;
+    let comboPrice = isCombo ? ((category === 'burger' || category === 'sandwich') ? 1.90 : 1.10) : 0;
+    let totalNewPrice = productPrice + comboPrice;
+    listItem.querySelector('.order-item-title').textContent = `${displayName} - $${totalNewPrice.toFixed(2)}`;
     console.log("Updated display name", displayName);
-
-    listItem.querySelector('.order-item-title').textContent = `${displayName} - $${newTotalPrice.toFixed(2)}`;
-    console.log("Updated list item text content");
 
   } else {
     orderSummary.removeChild(listItem);
