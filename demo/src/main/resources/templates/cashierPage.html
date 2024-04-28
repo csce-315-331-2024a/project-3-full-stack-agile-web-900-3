@@ -14,66 +14,59 @@
 <body id="all">
 <div class="container">
     <div class="sidebar">
-        <h2>Current Order</h2>
-        <div id="outputContainer"></div>
-        <p id="orderTotal">Order Total: $0.00</p>
-        <form hx-post="/cashierPage/add" hx-target="#all" hx-swap="outerHTML">
-          <input name="price" type= "hidden" id="total-price"/>
-          <button id="placeOrder" type="submit">Place Order</button>
-        </form>
-      </div>
+        
+      <h2>Current Order</h2>
+      <div id="outputContainer"></div>
+      <p id="orderTotal">Order Total: $0.00</p>
+      <form hx-post="/cashierPage/add" hx-target="#all" hx-swap="outerHTML">
+        <input type="hidden" name="price"  id="total-price"/>
+        <input type ="hidden" name="productId" id="ids"/> 
+        <button id="placeOrder" type="submit">Place Order</button>
+      </form>
+      <button id="backButton"class="button">back</button>
+    </div>
     <div class="grid">
-  <div class="grid-item" th:each="item: ${products}">
-    
-    <button class="button" th:id="${item.product_type}" th:text="${item.productname}">button</button>
-    <input type="hidden" class="item-price" th:value="${item.price}" />
+      <div class="grid-item" th:each="item: ${products}">
+        <button class="button" th:id="${item.product_type}" th:text="${item.productname}">button</button>
+        <input type="hidden" class="item-price" th:value="${item.price}" />
+        <input type ="hidden" class="item-id" th:value="${item.product_id}" />
+        <input type ="hidden" class="item-type" th:value="${item.productType}" />
+      </div>
+    </div>
   </div>
-</div>
-</div>
 
 
 <script>
 
-  // var outputParagraph = document.getElementById('outputText');
-  // var buttons = document.getElementsByClassName('button');
-  // for (var i = 0; i < buttons.length; i++) {
-  //   buttons[i].addEventListener('click', function() {
-  //     outputParagraph.textContent = outputParagraph.textContent +" | \n" + this.textContent;
-  //   });
-  // }
-
-  // function updateText() {
-  //   var newText = document.getElementById('newText').value;
-  //   var xhr = new XMLHttpRequest();
-  //   xhr.open("POST", "/updateText", true);
-  //   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  //   xhr.send("newText=" + newText);
-  //   xhr.onreadystatechange = function() {
-  //       if (xhr.readyState === 4 && xhr.status === 200) {
-  //           document.getElementById('outputText').textContent = xhr.responseText;
-  //       }
-  //   }
-//}
-
   var outputContainer = document.getElementById('outputContainer');
   var orderTotalParagraph = document.getElementById('orderTotal');
-  var totalPrice = document.getElementById('total-price')
+  var totalPrice = document.getElementById('total-price');
   var buttons = document.getElementsByClassName('button');
+  var ids = document.getElementById("ids");
+  var sideIds = "";
   
+  document.getElementById("backButton").addEventListener("click", function() {
+    window.location.href = "../";
+  });
 
   for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function() {
       var itemName = this.textContent;
       var itemPrice = parseFloat(this.nextElementSibling.value); 
-      addItemToList(itemName, itemPrice);
+      var itemId = parseInt(this.nextElementSibling.nextElementSibling.value);
+      var itemType = this.nextElementSibling.nextElementSibling.nextElementSibling.value;
+      addItemToList(itemName, itemPrice, itemId, itemType);
     });
   }
 
-  function addItemToList(itemName, itemPrice) {
+  function addItemToList(itemName, itemPrice, itemId, itemType) {
     var itemButton = document.createElement('button');
     itemButton.textContent = itemName + ' - $' + itemPrice.toFixed(2); 
     itemButton.classList.add('ordered-item');
     itemButton.setAttribute('data-price', itemPrice); 
+    //itemButton.setAttribute('quantity', 1); 
+    itemButton.setAttribute('item-type',itemType);
+    itemButton.setAttribute('item-id',itemId);
     itemButton.addEventListener('click', function() {
       openEditWindow(itemButton);
     });
@@ -86,25 +79,72 @@
     var label = document.createElement('label');
     label.textContent = button.textContent;
     editWindow.document.body.appendChild(label);
+    var itemType = button.getAttribute('item-type');
+
+    var comboOptions = ['Fries', 'Chips'];
+    var comboSelect = document.createElement('select');
+    var defaultOption = document.createElement('option');
+    //defaultOption.value = "";
+    defaultOption.text = 'Chose Combo';
+    comboSelect.appendChild(defaultOption);
+
+    var comboButton = document.createElement('button');
+    comboButton.textContent = "Combo";
 
     
-    var numberLabel = document.createElement('label');
-    numberLabel.textContent = '\nQuantity:';
-    editWindow.document.body.appendChild(numberLabel);
-    
 
-    var numberInput = document.createElement('input');
-    numberInput.type = 'number';
-    numberInput.value = 1; 
-    numberInput.style.width = '50px';
-    editWindow.document.body.appendChild(numberInput);
-    
+    if (itemType === 'burger' || itemType === 'sandwich') {
+      comboButton.disabled = false;
+      comboButton.addEventListener('click', function() {
+        
+
+        for (var i = 0; i < comboOptions.length; i++) {
+          var option = document.createElement('option');
+          option.value = comboOptions[i];
+          option.text = comboOptions[i];
+          comboSelect.appendChild(option);
+        }
+
+        var comboPrice = parseFloat(button.getAttribute('data-price')) + 1.90;
+        button.setAttribute('data-price', comboPrice);
+        editWindow.document.body.appendChild(comboSelect);
+
+        comboSelect.addEventListener('change', function() {
+          var selectedOption = comboSelect.options[comboSelect.selectedIndex].text;
+          button.textContent = button.textContent.split(' - ')[0] + ' ' + selectedOption + ' Combo - $' + comboPrice.toFixed(2);
+          label.textContent = button.textContent;
+        });
+      });
+    } 
+    else if(itemType==='basket'){
+      comboButton.addEventListener('click', function() {
+        var comboPrice = parseFloat(button.getAttribute('data-price')) + 1.10;
+        button.setAttribute('data-price', comboPrice);
+        button.textContent = button.textContent.split(' - ')[0] + ' Combo - $' + comboPrice.toFixed(2);
+        label.textContent = button.textContent;
+        sideIds = sideIds+'20-';
+      });
+    }
+    else {
+      comboButton.disabled = true;
+    }
+    editWindow.document.body.appendChild(comboButton);
 
     var saveButton = document.createElement('button');
     saveButton.textContent = 'Save';
     saveButton.addEventListener('click', function() {
-      button.textContent = button.textContent + '(' + numberInput.value + ')';
+      //button.textContent = button.textContent + '(' + numberInput.value + ')';
+      //button.setAttribute("quantity", parseInt(numberInput.value));
+      var selectedOption = comboSelect.options[comboSelect.selectedIndex].text;
+      if(selectedOption==='Fries'){
+        sideIds = sideIds+"23-20-"
+      }
+      if(selectedOption==="Chips"){
+        sideIds = sideIds+"26-20-"
+      }
+
       editWindow.close();
+      updateOrderTotal();
     });
     editWindow.document.body.appendChild(saveButton);
 
@@ -131,16 +171,24 @@
         }
     }
   }
-    function updateOrderTotal() {
+  function updateOrderTotal() {
     var orderedItems = document.getElementsByClassName('ordered-item');
     var total = 0;
+    ids.value = "";
     for (var i = 0; i < orderedItems.length; i++) {
       var price = parseFloat(orderedItems[i].getAttribute('data-price'));
+      //var quantity = parseInt(orderedItems[i].getAttribute('quantity')); 
+      var thisId = orderedItems[i].getAttribute('item-id')
       total += price;
+      ids.value = ids.value + thisId +"-";
     }
+    ids.value = ids.value+sideIds;
+    total=total*1.08;
     totalPrice.value=total.toFixed(2);
     orderTotalParagraph.textContent = 'Order Total: $' + total.toFixed(2);
   }
+
+  
 
 </script>
 </body>

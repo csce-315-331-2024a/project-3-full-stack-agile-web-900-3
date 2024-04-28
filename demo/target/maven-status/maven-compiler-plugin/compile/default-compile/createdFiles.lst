@@ -1,48 +1,15 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 projectone/demo/model/Inventory.class
-=======
-
-projectone/demo/repository/ProductsInventoryRepo.class
-projectone/demo/controller/PinPadController.class
-
-projectone/demo/model/Inventory.class
-
->>>>>>> 578705ad0a4ada55a2c49c6b561c99665b695cbc
-=======
-projectone/demo/model/Inventory.class
->>>>>>> 120a51c72be781da8cf235d50ab4fcd183c771be
 projectone/demo/model/DBConnection.class
 projectone/demo/model/Orders.class
 projectone/demo/repository/ProductsRepository.class
 projectone/demo/DemoApplication.class
-<<<<<<< HEAD
-<<<<<<< HEAD
-projectone/demo/model/SalesTrends.class
-projectone/demo/repository/InventoryRepository.class
-projectone/demo/model/Products.class
-=======
-
-=======
->>>>>>> 120a51c72be781da8cf235d50ab4fcd183c771be
 projectone/demo/model/SalesTrends.class
 projectone/demo/repository/InventoryRepository.class
 projectone/demo/model/Products.class
 projectone/demo/model/WeatherResponse$Weather.class
->>>>>>> 578705ad0a4ada55a2c49c6b561c99665b695cbc
 projectone/demo/controller/toppingsController.class
 projectone/demo/controller/utilitesController.class
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-projectone/demo/controller/CustomerController.class
-projectone/demo/controller/desertController.class
 projectone/demo/model/WeatherResponse.class
-projectone/demo/controller/MenuBoard.class
->>>>>>> 578705ad0a4ada55a2c49c6b561c99665b695cbc
-=======
-projectone/demo/model/WeatherResponse.class
->>>>>>> 120a51c72be781da8cf235d50ab4fcd183c771be
 projectone/demo/repository/SalesDataRepository.class
 projectone/demo/controller/condimentsController.class
 projectone/demo/controller/ProductsController.class
@@ -50,13 +17,8 @@ projectone/demo/model/ProductInventory.class
 projectone/demo/repository/CustomerRepository.class
 projectone/demo/repository/SalesTrendsRepository.class
 projectone/demo/controller/foodController.class
-<<<<<<< HEAD
 projectone/demo/controller/PinPadController.class
 projectone/demo/repository/ProductsInventoryRepo.class
-=======
-projectone/demo/repository/ProductsInventoryRepo.class
-projectone/demo/controller/PinPadController.class
->>>>>>> 120a51c72be781da8cf235d50ab4fcd183c771be
 projectone/demo/controller/CashierController.class
 projectone/demo/controller/kitchenController.class
 projectone/demo/repository/OrdersRepository.class
@@ -64,34 +26,6 @@ projectone/demo/controller/CustomerController.class
 projectone/demo/controller/desertController.class
 projectone/demo/controller/MenuBoard.class
 projectone/demo/controller/queriesController.class
-<<<<<<< HEAD
-projectone/demo/model/SalesData.class
-projectone/demo/controller/IndexController.class
-<<<<<<< HEAD
-=======
-projectone/demo/controller/foodController.class
-projectone\demo\controller\IndexController.class
-projectone\demo\controller\MenuBoard$geoLocation.class
-projectone\demo\model\WeatherResponse.class
-projectone\demo\controller\CashierController.class
-projectone\demo\model\Inventory.class
-projectone\demo\repository\InventoryRepository.class
-projectone\demo\controller\ProductsController.class
-projectone\demo\controller\PinPadController.class
-projectone\demo\controller\CustomerController.class
-projectone\demo\repository\OrdersRepository.class
-projectone\demo\DemoApplication.class
-projectone\demo\repository\CustomerRepository.class
-projectone\demo\model\Products.class
-projectone\demo\model\Orders.class
-projectone\demo\controller\InventoryController.class
-projectone\demo\repository\ProductsRepository.class
-projectone\demo\controller\MenuBoard.class
-projectone\demo\model\DBConnection.class
-
->>>>>>> 578705ad0a4ada55a2c49c6b561c99665b695cbc
-=======
 projectone/demo/controller/MenuBoard$geoLocation.class
 projectone/demo/model/SalesData.class
 projectone/demo/controller/IndexController.class
->>>>>>> 120a51c72be781da8cf235d50ab4fcd183c771be
