@@ -296,19 +296,16 @@ function updateTotal() {
   const totalPriceElement = document.getElementById('total-price');
   totalPriceElement.value = orderTotal.toFixed(2);
   document.getElementById('display-total').textContent = `$${orderTotal.toFixed(2)}`;
-  console.log('Updated order total:', orderTotal.toFixed(2)); // Debugging log
+  console.log('Updated order total:', orderTotal.toFixed(2));
 }
 
 
 function customerEditItem(productId) {
-  // Fetch ingredients for the specific product
-  fetch(`/customer/api/products/${productId}/ingredients`)
+  fetch(`/api/products/${productId}/ingredients`)
     .then(response => response.json())
     .then(ingredients => {
       const editSection = document.getElementById('edit-section');
       const ingredientList = document.getElementById('ingredient-list');
-
-      // Clear previous list items if any
       ingredientList.innerHTML = '';
 
       ingredients.forEach(ingredient => {
@@ -317,12 +314,10 @@ function customerEditItem(productId) {
         ingredientList.appendChild(ingredientItem);
       });
 
-      // Show the edit-section since we have successfully fetched ingredients
       editSection.style.display = 'block';
     })
     .catch(error => {
       console.error('Error fetching ingredients:', error);
-      // Optionally hide the edit-section if there is an error
       editSection.style.display = 'none';
     });
 }
@@ -344,7 +339,7 @@ document.getElementById('confirm-order').addEventListener('click', function () {
     saveOrderDetails();
     
     // Navigate to confirmation screen
-    window.location.href = 'customerCheckout.html';
+    window.location.href = 'customerCheckout';
   } else {
     alert('Please add items to your order.');
   }
@@ -391,7 +386,7 @@ document.addEventListener('click', function(event) {
       saveOrderDetails();
 
       const productId = targetElement.closest('li').getAttribute('data-product-id');
-      window.location.href = `customerEditItem.html?product_id=${productId}`;
+      window.location.href = `customer/edit?product_id=${productId}`;
       break; // Break the loop after finding your button
     }
     targetElement = targetElement.parentElement; // Move up the DOM

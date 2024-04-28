@@ -62,12 +62,6 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
-    // @GetMapping("/")
-    // public ResponseEntity<List<Products>> listMenuItems() {
-    //     List<Products> menuItems = customerRepository.findAll(); 
-    //     return ResponseEntity.ok().body(menuItems);
-    // }
-
     @GetMapping("/api/menu/{category}")
     public ResponseEntity<List<Products>> getMenuByCategory(@PathVariable("category") String category) {
         List<Products> productsByCategory = customerRepository.findByProductType(category);
@@ -75,6 +69,11 @@ public class CustomerController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(productsByCategory);
+    }
+
+    @GetMapping("/edit")
+    public String editPage() {
+        return "customerEditItem";
     }
 }
 
