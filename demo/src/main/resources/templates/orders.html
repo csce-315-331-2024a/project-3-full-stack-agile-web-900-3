@@ -25,22 +25,50 @@
       <input  id = styledInput th:value = "${order.price}">
       </span>
      <span>
-      <select>
-        <option th:value = "${order.status}" th:text = "${order.status}" disabled selected hidden></option>
-        <option value = "processing">Processing</option>
-        <option value = "completed">Completed</option>
-        <option value = "canceled">Canceled</option>
-      </select>
-      <button>Submit</button>
+      <form hx-post = "/orders/status">
+        <input  name = id th:value = ${order.order_id} dispay = hidden >
+        <select name = status>
+          <option th:value = "${order.status}" th:text = "${order.status}" disabled selected hidden></option>
+          
+          <option value = "processing">Processing</option>
+          <option value = "completed">Completed</option>
+          <option value = "canceled">Canceled</option>
+        </select>
+      <button>Modify Status</button>
+    </form>
     </span>
   </div>
-  <div class = bottom>this is where order details go</div>
-      <div th:each = "junc : ${junction}" th:if ="${junc.order_id} == ${order.order_id}">
+  <div class = bottom>
+    <div class = items> Purchased:
+      <span th:each = "junc : ${junction}" th:if ="${junc.order_id} == ${order.order_id}">
         
-          <span th:each ="product:${products}" th:if="${product.product_id == junc.product_id}" th:text = "${product.productname}"></span>
+          <span class = "products-name"   th:each ="product:${products}" th:if="${product.product_id == junc.product_id}" th:text = "${product.productname}"></span>
         
-      </div>
+      </span>
+    </div>
+    <div class = modify>
+      <form>
+        <select name = add>
+          <div th:each = "product :${products}" >
+            <option th:vlaue = ${product.product_id} th:text = "${product.productname}" ></option>
+          </div>
+        </select>
+        <button>add</button>
+      </form>
+      <form>
+        <select name = remove>
+          <div th:each = "junc : ${junction}" th:if ="${junc.order_id} == ${order.order_id}">
+              <option th:each ="product:${products}" th:if="${product.product_id == junc.product_id}" th:text = "${product.productname}" th:value = "${product.product_id}">
+
+              </option>
+          </div>
+        </select>
+        <button>remove</button>
+      </form>
+    </div>
+      
   </div>
+</div>
        
 </body>
 </html>

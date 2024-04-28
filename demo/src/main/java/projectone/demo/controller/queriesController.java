@@ -24,16 +24,20 @@ import projectone.demo.projection.SalesDataProjection;
 import projectone.demo.projection.SalesTrendsProjection;
 import projectone.demo.repository.SalesDataRepository;
 import projectone.demo.repository.SalesTrendsRepository;
+import projectone.demo.projection.OverstockProjection;
+import projectone.demo.repository.InventoryRepository;
 
 
 @Controller
 public class queriesController {
     private final SalesDataRepository salesDataRepository;
     private final SalesTrendsRepository salesTrendsRepository;
+    private final InventoryRepository inventoryRepository;
 
-    public queriesController(SalesDataRepository salesDataRepository, SalesTrendsRepository salesTrendsRepository) {
+    public queriesController(SalesDataRepository salesDataRepository, SalesTrendsRepository salesTrendsRepository, InventoryRepository inventoryRepository) {
         this.salesDataRepository = salesDataRepository;
         this.salesTrendsRepository = salesTrendsRepository;
+        this.inventoryRepository = inventoryRepository;
     }
 
     @GetMapping("/queries")
@@ -43,25 +47,30 @@ public class queriesController {
         @RequestParam(value = "display", required = false, defaultValue = "data") String display,
         Model model) {
 
-        // Append ":00" to startTime and endTime to include seconds
         startTime = startTime + ":00";
         endTime = endTime + ":00";
 
-        // Parse the modified time strings to LocalDateTime, then convert to Timestamp
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         Timestamp startTimestamp = Timestamp.valueOf(LocalDateTime.parse(startTime, formatter));
         Timestamp endTimestamp = Timestamp.valueOf(LocalDateTime.parse(endTime, formatter));
 
-        if ("trends".equals(display)) {
-            List<SalesTrendsProjection> salesTrends = salesTrendsRepository.findSalesTrends(startTimestamp, endTimestamp);
-            model.addAttribute("trends", salesTrends);
-            model.addAttribute("display", "trends");
-        } else {
+        switch (display) {
+            case "trends":
+                List<SalesTrendsProjection> salesTrends = salesTrendsRepository.findSalesTrends(startTimestamp, endTimestamp);
+                model.addAttribute("trends", salesTrends);
+                model.addAttribute("display", "trends");
+                break;
+            case "overstock":
+                List<OverstockProjection> overstocks = inventoryRepository.findOverstock(startTimestamp, endTimestamp);
+            model.addAttribute("overstocks", overstocks);
+            model.addAttribute("display", "overstock");
+            break;
+            default:
             List<SalesDataProjection> salesData = salesDataRepository.fetchSalesData(startTimestamp, endTimestamp);
             model.addAttribute("data", salesData);
             model.addAttribute("display", "data");
         }
 
-        return "queries";
-    }
+            return "queries";
+        }
 }
