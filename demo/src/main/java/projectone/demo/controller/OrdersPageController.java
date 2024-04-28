@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import projectone.demo.model.Orders;
 import projectone.demo.model.OrderProducts;
@@ -69,11 +70,12 @@ class OrdersPageController {
         return "redirect:/orders";
     }
     @PostMapping(value = "/view")
-    String view(@RequestParam("date")String date,Model model,Model junctionModel,Model productModel)
+    String view(@RequestParam("date")String date,Model model,Model junctionModel,Model productModel,RedirectAttributes redirectAttributes)
     {
         
         
-        LocalDate localDate = LocalDate.parse(date);
+        try{
+            LocalDate localDate = LocalDate.parse(date);
 
        
         LocalDateTime startDate = LocalDateTime.of(localDate, LocalTime.MIDNIGHT);
@@ -91,6 +93,20 @@ class OrdersPageController {
         junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
         model.addAttribute("orders", dat);
         productModel.addAttribute("products", productsRepository.findAll());
+        }
+        catch(Exception e)
+        {
+            redirectAttributes.addFlashAttribute("errorMessage", "Error: date has no orders");
+        }
+        return "orders";
+    }
+    @PostMapping(value = "/status")
+    String status(@RequestParam("status")String newStatus, @RequestParam("id")String id)
+    {
+        Orders newOrder = orderRepository.getById(Long.parseLong(id));
+        newOrder.setStatus(newStatus);
+        this.orderRepository.save(newOrder);
+        System.out.println("status updated");
         return "orders";
     }
 
