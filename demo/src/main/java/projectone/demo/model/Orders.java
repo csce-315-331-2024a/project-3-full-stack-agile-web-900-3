@@ -3,7 +3,8 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,27 +23,22 @@ import jakarta.persistence.TemporalType;
 @Setter
 public class Orders implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long order_id;
 
     private BigDecimal price;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "order_datetime")
-    private Date orderDatetime;
+    private LocalDateTime orderDatetime;
     @Column(name = "order_status")
     private String status;
-    public Orders(BigDecimal price, Date orderDatetime) {
-        this.price = price;
-        this.orderDatetime = orderDatetime;
-    }
 
     @Override
     public String toString() {
         return "Orders{" +
                 "order_id=" + order_id +
                 ", price=" + price +
-                ", orderDatetime=" + orderDatetime +
+                ", orderDatetime=" + orderDatetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) +
                 '}';
     }
 }

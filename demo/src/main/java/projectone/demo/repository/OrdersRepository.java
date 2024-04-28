@@ -11,4 +11,6 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
     // You can define custom queries here if needed
     @Query(value = "SELECT * FROM orders WHERE order_status = 'processing'", nativeQuery = true)
     List<Orders> findOrdersWithStatusPending();
+    @Query(value = "SELECT MAX(order_id) FROM orders", nativeQuery = true)
+    Long findMaxId();
 }

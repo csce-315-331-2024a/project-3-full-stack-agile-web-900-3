@@ -1,9 +1,11 @@
+var totalPrice = document.getElementById('total-price');
+
 function loadMenuItems(category) {
-  fetch(`/api/menu/${category}`)
+  fetch(`/customer/api/menu/${category}`)
     .then(response => response.json())
     .then(data => {
       const menuItems = document.getElementById('menu-items');
-      menuItems.innerHTML = '';  // Clear existing menu items
+      menuItems.innerHTML = '';
       data.forEach(item => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'menu-item';
@@ -45,9 +47,8 @@ function loadMenuItems(category) {
     .catch(error => console.error('Error loading items:', error));
 }
 
-
-
 let orderTotal = 0;
+
 function addToOrder(productId, price, productName) {
   const orderSummary = document.getElementById('order-summary');
   let listItem = orderSummary.querySelector(`li[data-product-id="${productId}"]`);
@@ -131,7 +132,8 @@ function updateTotal() {
     orderTotal += price * quantity;
   });
   const totalPriceElement = document.getElementById('total-price');
-  totalPriceElement.textContent = `$${orderTotal.toFixed(2)}`;
+  totalPriceElement.value = orderTotal.toFixed(2);
+  document.getElementById('display-total').textContent = `$${orderTotal.toFixed(2)}`;
 }
 
 document.getElementById('cancel-order').addEventListener('click', function () {
