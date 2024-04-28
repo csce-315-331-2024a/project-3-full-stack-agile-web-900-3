@@ -11,18 +11,19 @@
 
         <!-- Form for inputting start and end time -->
         <div class="mb-3">
-          <form th:action="@{/queries}" method="get">
-            <div class="mb-3">
-                <label for="startTime">Start Time:</label>
-                <input type="datetime-local" id="startTime" name="start_time" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label for="endTime">End Time:</label>
-                <input type="datetime-local" id="endTime" name="end_time" class="form-control" required>
-            </div>
-            <button type="submit" name="display" value="data" class="btn btn-primary">Show Sales Data</button>
-            <button type="submit" name="display" value="trends" class="btn btn-secondary">Show Sales Trends</button>
-        </form>
+            <form th:action="@{/queries}" method="get">
+                <div class="mb-3">
+                    <label for="startTime">Start Time:</label>
+                    <input type="datetime-local" id="startTime" name="start_time" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="endTime">End Time:</label>
+                    <input type="datetime-local" id="endTime" name="end_time" class="form-control" required>
+                </div>
+                <button type="submit" name="display" value="data" class="btn btn-primary">Show Sales Data</button>
+                <button type="submit" name="display" value="trends" class="btn btn-secondary">Show Sales Trends</button>
+                <button type="submit" name="display" value="overstock" class="btn btn-danger">Show Overstock</button>
+            </form>
         </div>
 
         <!-- Conditionally display the Sales Data table -->
@@ -67,6 +68,37 @@
                             <td th:text="${trend.productNameOne}">Product Name 1</td>
                             <td th:text="${trend.productNameTwo}">Product Name 2</td>
                             <td th:text="${trend.freq}">Frequency</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Conditionally display the Overstock table -->
+        <div th:if="${display == 'overstock'}" class="row">
+            <div class="col-md-12">
+                <h2>Overstock Data</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                        <th>Inventory ID</th>
+                        <th>Inventory Name</th>
+                        <th>Type</th>
+                        <th>Current Quantity</th>
+                        <th>Unit</th>
+                        <th>Low Threshold</th>
+                        <th>Usage Count</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="overstock : ${overstocks}">
+                            <td th:text="${overstock.inventoryId}">Inventory ID</td>
+                            <td th:text="${overstock.inventoryName}">Inventory Name</td>
+                            <td th:text="${overstock.inventoryType}">Type</td>
+                            <td th:text="${overstock.currentQuantity}">Current Quantity</td>
+                            <td th:text="${overstock.unit}">Unit</td>
+                            <td th:text="${overstock.threshold}">Low Threshold</td>
+                            <td th:text="${overstock.usageCount}">Usage Count</td>
                         </tr>
                     </tbody>
                 </table>
