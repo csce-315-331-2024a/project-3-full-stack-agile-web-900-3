@@ -300,9 +300,9 @@ function updateTotal() {
 }
 
 
-function editItem(productId) {
+function customerEditItem(productId) {
   // Fetch ingredients for the specific product
-  fetch(`/api/products/${productId}/ingredients`)
+  fetch(`/customer/api/products/${productId}/ingredients`)
     .then(response => response.json())
     .then(ingredients => {
       const editSection = document.getElementById('edit-section');
@@ -344,7 +344,7 @@ document.getElementById('confirm-order').addEventListener('click', function () {
     saveOrderDetails();
     
     // Navigate to confirmation screen
-    window.location.href = 'checkout.html';
+    window.location.href = 'customerCheckout.html';
   } else {
     alert('Please add items to your order.');
   }
@@ -391,7 +391,7 @@ document.addEventListener('click', function(event) {
       saveOrderDetails();
 
       const productId = targetElement.closest('li').getAttribute('data-product-id');
-      window.location.href = `editItem.html?product_id=${productId}`;
+      window.location.href = `customerEditItem.html?product_id=${productId}`;
       break; // Break the loop after finding your button
     }
     targetElement = targetElement.parentElement; // Move up the DOM
