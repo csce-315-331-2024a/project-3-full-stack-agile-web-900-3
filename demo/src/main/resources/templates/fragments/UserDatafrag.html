@@ -1,5 +1,5 @@
 <html xmlns:th="https://www.thymeleaf.org">
-<div class="privelege-table">
+<div class="privelege-table" id="privelege-table">
     <table class="table">
         <thead>
         <tr>
@@ -10,19 +10,25 @@
         </tr>
         </thead>
         <tbody >
-        <tr th:each="user: ${UserData}">
+        <tr th:each="user : ${UserData}">
             <td th:text="${user.getName()}"></td>
             <td th:text="${user.getEmail()}"></td>
             <td th:text="${user.getRole()}"></td>
             <td>
+                <!-- Hidden input to store user ID -->
+                <input type="hidden" th:value="${user.getUser_id()}" th:id="'user' + ${user.getUser_id()}">
+
                 <div class="button-styles">
                     <button class="btn btn-css btn-outline-secondary" type="button">Edit</button>
-                    <button class="btn-css delete-button" type="button"></button>
+                    <button class="btn-css delete-button" type="button"  th:value="${user.getUser_id()}"
+
+                            th:attr="hx-get=@{/admin/delete(user_id=${user.getUser_id()})}"
+                            hx-trigger="click delay:1000ms"
+                            hx-target="#privelege-table"
+                            hx-swap="outerHTML"
+                    >Delete</button>
                 </div>
-
-
             </td>
-
         </tr>
         </tbody>
     </table>
