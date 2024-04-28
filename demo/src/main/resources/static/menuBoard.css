@@ -120,23 +120,6 @@ h1 {
     align-items: center;
 }
 
-.translate-container {
-    position: absolute;
-    display: flex;
-    top: 0;
-    right: 0; /* Aligns the container to the top right */
-}
-
-#google_translate_element {
-    position: absolute;
-    top: 0;
-    right: 0; /* Aligns the translation box to the top right */
-    color: white; /* Ensure text is visible */
-    display: block; 
-    padding-right: 30px;
-    padding-top: 20px;
-}
-
 .navbar img{
     height: 100px;
     object-fit: cover;

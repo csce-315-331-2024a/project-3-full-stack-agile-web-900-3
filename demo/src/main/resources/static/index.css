@@ -1,9 +1,14 @@
 /* Reset some default styles */
-body {
-    margin: 0;
-    padding: 20px;
-    font-family: 'Arial', sans-serif; /* Ensures a clean, readable font */
-    background: #f0f0f0; /* Light grey background for minimalistic look */
+.landing-page {
+    height: 100vh; /* This makes the body take up the full viewport height */
+    margin: 0; /* This removes the default margin */
+    display: flex; /* This makes the body a flex container */
+    flex-direction: column; /* This stacks the children vertically */
+    justify-content: center;
+}
+
+.bg-maroon {
+    background-color: maroon; /* A dark red color for the background */
 }
 
 /* Style for the navigation links */
@@ -26,7 +31,22 @@ a:hover {
 }
 
 /* Focus and active styles to improve accessibility */
-a:focus, a:active {
+a:focus,
+a:active {
     outline: none; /* Removes default focus outline */
     border: 2px solid #004080; /* Adds a darker blue border for accessibility focus/active state */
 }
+
+.container {
+    display: flex; /* This makes the container a flex container */
+    flex-direction: column; /* This stacks the children vertically */
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* This allows the container to take up the remaining space */
+}
+
+.bg-lightmaroon{
+
+        background-color: #a05252;
+}
+
