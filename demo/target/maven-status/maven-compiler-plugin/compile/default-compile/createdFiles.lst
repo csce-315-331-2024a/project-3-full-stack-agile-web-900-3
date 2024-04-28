@@ -1,6 +1,7 @@
 projectone\demo\controller\MenuBoard$geoLocation.class
 projectone\demo\controller\CashierController.class
 projectone\demo\controller\CustomerController.class
+projectone\demo\controller\adminController.class
 projectone\demo\DemoApplication.class
 projectone\demo\repository\CustomerRepository.class
 projectone\demo\repository\UsersRepository.class
