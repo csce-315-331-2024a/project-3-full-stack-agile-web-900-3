@@ -14,4 +14,14 @@ public class greetController {
         return "adminGreet";
     }
 
+    @GetMapping("/manager")
+    public String greetManager(){
+        return "managerGreet";
+    }
+
+    @GetMapping("/cashier")
+    public String greetCashier(){
+        return "cashierGreet";
+    }
+
 }

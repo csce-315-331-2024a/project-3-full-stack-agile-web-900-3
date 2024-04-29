@@ -62,7 +62,9 @@ public class SecurityConfig{
         http
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/manager/**").hasRole("ADMIN")
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/Manager/**").hasAnyRole("ADMIN", "MANAGER")
+                                .requestMatchers("/cashierPage/**").hasAnyRole("ADMIN", "MANAGER", "CASHIER")
                                 .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2Login ->
@@ -121,8 +123,13 @@ public class SecurityConfig{
                         if(user.getEmail().equals(email)){
                             if(user.getRole().equals("admin")){
                                 mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                            } else if (user.getRole().equals("manager")){
+                                mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_MANAGER"));
                             }
-                            else{
+                            else if(user.getRole().equals("cashier")){
+                                mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_CASHIER"));
+
+                            } else{
                                 mappedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
                             }
                         }

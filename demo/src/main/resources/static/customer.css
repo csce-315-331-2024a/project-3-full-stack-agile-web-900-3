@@ -64,8 +64,9 @@ body, html {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   width: 250px;
-  height: 250px;
+  height: auto;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .menu-item:hover {
@@ -89,7 +90,8 @@ body, html {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  width: auto;
+  width: calc(100% - 20px); /* Full width minus padding */
+  box-sizing: border-box; /* Includes padding and border in the width */
   align-items: center;
   font-size: 12px;
   transition: background-color 0.3s ease;
@@ -98,13 +100,13 @@ body, html {
   background-color: #730000;
 }
 .menu-item img {
-  max-width: 90%;
-  max-height: 120px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  max-width: 100%; /* Limits the width to the parent container's width */
+  max-height: 150px; /* Sets a maximum height */
+  width: auto; /* Maintains the aspect ratio */
+  height: auto; /* Maintains the aspect ratio */
+  object-fit: cover; /* Ensures the image covers the area, might crop if the aspect ratio is different */
+  border-radius: 8px; /* If you want rounded corners */
+  margin-bottom: 10px; /* Space between image and text below it */
 }
 .menu-icon {
   fill: white;
@@ -118,7 +120,7 @@ body, html {
 .quantity-controls {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   background-color: #500000;
   border-radius: 10px;
   padding: 5px;
@@ -231,8 +233,18 @@ body, html {
   flex-direction: column;
 }
 
+.combo-checkbox {
+  margin-right: 5px;
+  cursor: pointer;
+}
 
+.combo-label {
+  font-size: 12px;
+  color: #500000; /* Match the dark red theme */
+  cursor: pointer;
+}
 
-
-
-
+/* Style adjustments for hover effects on the checkbox's label */
+.combo-label:hover {
+  color: #730000; /* Darker red for hover state */
+}
