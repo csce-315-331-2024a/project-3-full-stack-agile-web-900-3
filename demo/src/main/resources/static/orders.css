@@ -72,7 +72,7 @@ body {
   margin-left: auto;  /* Push to the right */
 }
 
-.modify form {
+.modify-items {
 display: inline-block;  /* Display forms inline */
 margin-left: 15vh;           /* Spacing between forms */
 }
@@ -81,3 +81,54 @@ margin-left: 15vh;           /* Spacing between forms */
   margin-top: 4vh;
 }
 
+#spinner {
+  width: 100px;        /* Adjust the size of the spinner */
+  height: 100px;       /* Adjust the size of the spinner */
+  border: 16px solid #f3f3f3; /* Light grey background */
+  border-top: 16px solid white; /* White foreground */
+  border-radius: 50%;
+  position: absolute;
+}
+#navBar {
+    
+  display: flex;
+  justify-content: space-around; /* Adjust this if you need different spacing */
+  align-items: center;
+  margin-top: 40;
+  padding: 10px;
+  position: relative; /* Ensures that the absolute positioning of h2 is relative to navBar */
+}
+.nav-btn:hover,
+.nav-btn:focus {
+  transform: scale(1.05);   /* Enlarges the link */
+  background-color:darkgray;
+          
+}
+
+button {
+  background: white; /* Sets a white background color for the button */
+  color: black; /* Sets the text color to black for visibility */
+  padding: 10px 20px; /* Adds padding inside the button */
+  border: 1px solid #ccc; /* Adds a light grey border for some definition */
+  border-radius: 5px; /* Rounds the corners of the button */
+  cursor: pointer; /* Shows a pointer cursor when hovering over the button */
+}
+
+button:hover {
+  background: #e6e6e6; /* Light grey background on hover for a subtle effect */
+}
+.nav-btn {
+  flex-grow: 1;
+  text-align: center;
+  margin: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  color: black;
+}

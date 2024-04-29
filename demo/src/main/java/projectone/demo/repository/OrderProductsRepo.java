@@ -15,5 +15,9 @@ public interface OrderProductsRepo extends JpaRepository<OrderProducts,Long>
     ArrayList<OrderProducts> findOrderProductsByOrderIdBetween(
         @Param("startOrderId") Long startOrderId,
         @Param("endOrderId") Long endOrderId
-    );
+        );
+
+        @Query(value = "SELECT MAX(order_product_id) FROM order_products", nativeQuery = true)
+        Long findMaxId(); 
+   
 }

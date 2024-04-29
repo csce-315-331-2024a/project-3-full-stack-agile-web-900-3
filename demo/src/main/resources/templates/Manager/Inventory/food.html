@@ -11,12 +11,13 @@
 <h2 >Inventory</h2>
 <body id = "updateArea">
   <div id = navBar>
-    <a th:href="@{/Inventory/food}" class="nav-btn" style = "background-color: rgba(242, 211, 152);">Food</a>
-    <a th:href="@{/Inventory/utilities}" class="nav-btn">Utilities</a>
-    <a th:href="@{/Inventory/condiments}" class="nav-btn">Condiments</a>
-    <a th:href="@{/Inventory/desert}" class="nav-btn">Dessert</a>
-    <a th:href="@{/Inventory/toppings}" class="nav-btn">Toppings</a>
-    <a href="/manager" class="nav-btn">Products</a>
+    <a th:href="@{/Manager/Inventory/food}" class="nav-btn" style = "background-color: rgba(242, 211, 152);">Food</a>
+    <a th:href="@{/Manager/Inventory/utilities}" class="nav-btn">Utilities</a>
+    <a th:href="@{/Manager/Inventory/condiments}" class="nav-btn">Condiments</a>
+    <a th:href="@{/Manager/Inventory/desert}" class="nav-btn">Dessert</a>
+    <a th:href="@{/Manager/Inventory/toppings}" class="nav-btn">Toppings</a>
+    <a th:href="@{/Manager/orders}" class="nav-btn">Orders</a>
+    <a th:href="@{/Manager/manager}" class="nav-btn">Products</a>
   </div>
   <div class = "category-container">
     <div class="content" id="food" th:fragment = "loadArea">
@@ -31,7 +32,7 @@
       </div>
       <div class = inv>
         <div  th:each="item : ${inventory}" th:if="${item.type == 'food'}">
-            <form class="item" id="orderForm" hx-post="/Inventory/food" hx-target="#updateArea" hx-swap="outerHTML"  th:classappend="${item.lowThreshold > item.quantity} ? 'low-stock'">
+            <form class="item" id="orderForm" hx-post="/Manager/Inventory/food" hx-target="#updateArea" hx-swap="outerHTML"  th:classappend="${item.lowThreshold > item.quantity} ? 'low-stock'">
               
               <input class="name" th:value="${item.name}" id = styledInput name = "item-name"></input>
               
@@ -49,7 +50,7 @@
               <button type="submit">Update</button>
               <button 
             
-                    th:attr = "hx-delete = @{/Inventory/food/{id}(id = ${item.id})}"  
+                    th:attr = "hx-delete = @{/Manager/Inventory/food/{id}(id = ${item.id})}"  
                     hx-swap = "outerHTML"
                     hx-target = "closest .item"
                     
@@ -63,7 +64,7 @@
         </div >
         
       </div>
-      <form class = item hx-post="/Inventory/food/add" hx-target="#updateArea" hx-swap="outerHTML">
+      <form class = item hx-post="/Manager/Inventory/food/add" hx-target="#updateArea" hx-swap="outerHTML">
         <input class="name" placeholder="name" id = Input name = "item-name"></input>
         <input class="unit" placeholder="unit" id = Input name = "item-unit"></input>
         <input class="low_threshold" placeholder="low threshold" id = Input name = "item-low"></input>

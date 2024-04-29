@@ -83,7 +83,7 @@ import projectone.demo.repository.ProductsRepository;
 //     }
 // }
 
-@RequestMapping("/Inventory/food")
+@RequestMapping("Manager/Inventory/food")
 @Controller
 class foodController
 {
@@ -93,14 +93,14 @@ class foodController
     String foodController(InventoryRepository repository)
     {
         this.repository = repository;
-        return "Inventory/food";
+        return "/Manager/Inventory/food";
     }
     @GetMapping
     String Inventory(Model model)
     {
         model.addAttribute("inventory", this.repository.findAll());
 
-        return "Inventory/food";
+        return "/Manager/Inventory/food";
     }
     @PostMapping
     String order( @RequestParam("new-quantity")String amount,@RequestParam("item-id")String id,@RequestParam("item-name")String name,@RequestParam("item-unit")String unit,@RequestParam("item-low")String low,Model model)
@@ -128,7 +128,7 @@ class foodController
     this.repository.save(inventoryItem);
     model.addAttribute("inventory", this.repository.findAll());
     System.err.println(name +" changed");
-    return "redirect:/Inventory/food";
+    return "redirect:/Manager/Inventory/food";
         
     }
 
@@ -145,7 +145,7 @@ class foodController
     this.repository.save(inventoryItem);
     model.addAttribute("inventory", this.repository.findAll());
     System.err.println(name +" added");
-    return "redirect:/Inventory/food";
+    return "redirect:/Manager/Inventory/food";
         
     }
 
@@ -205,7 +205,7 @@ class foodController
 
 
 
-@RequestMapping("Inventory/desert")
+@RequestMapping("Manager/Inventory/desert")
 @Controller
 class desertController
 {
@@ -215,14 +215,14 @@ class desertController
     String foodController(InventoryRepository repository)
     {
         this.repository = repository;
-        return "Inventory/desert";
+        return "Manager/Inventory/desert";
     }
     @GetMapping
     String Inventory(Model model)
     {
         model.addAttribute("inventory", this.repository.findAll());
 
-        return "Inventory/desert";
+        return "Manager/Inventory/desert";
     }
     @PostMapping
     String order( @RequestParam("new-quantity")String amount,@RequestParam("item-id")String id,@RequestParam("item-name")String name,@RequestParam("item-unit")String unit,@RequestParam("item-low")String low,Model model)
@@ -250,7 +250,7 @@ class desertController
     this.repository.save(inventoryItem);
     model.addAttribute("inventory", this.repository.findAll());
     System.err.println(name +" changed");
-    return "redirect:/Inventory/desert";
+    return "redirect:/Manager/Inventory/desert";
         
     }
 
@@ -267,7 +267,7 @@ class desertController
     this.repository.save(inventoryItem);
     model.addAttribute("inventory", this.repository.findAll());
     System.err.println(name +" added");
-    return "redirect:/Inventory/desert";
+    return "redirect:/Manager/Inventory/desert";
         
     }
 
@@ -324,7 +324,7 @@ class desertController
     }
 }
 
-@RequestMapping("Inventory/condiments")
+@RequestMapping("Manager/Inventory/condiments")
 @Controller
 class condimentsController
 {
@@ -334,14 +334,14 @@ class condimentsController
     String foodController(InventoryRepository repository)
     {
         this.repository = repository;
-        return "Inventory/condiments";
+        return "Manager/Inventory/condiments";
     }
     @GetMapping
     String Inventory(Model model)
     {
         model.addAttribute("inventory", this.repository.findAll());
 
-        return "Inventory/condiments";
+        return "Manager/Inventory/condiments";
     }
     @PostMapping
     String order( @RequestParam("new-quantity")String amount,@RequestParam("item-id")String id,@RequestParam("item-name")String name,@RequestParam("item-unit")String unit,@RequestParam("item-low")String low,Model model)
@@ -369,7 +369,7 @@ class condimentsController
     this.repository.save(inventoryItem);
     model.addAttribute("inventory", this.repository.findAll());
     System.err.println(name +" changed");
-    return "redirect:/Inventory/condiments";
+    return "redirect:/Manager/Inventory/condiments";
         
     }
 
@@ -386,7 +386,7 @@ class condimentsController
     this.repository.save(inventoryItem);
     model.addAttribute("inventory", this.repository.findAll());
     System.err.println(name +" added");
-    return "redirect:/Inventory/condiments";
+    return "redirect:/Manager/Inventory/condiments";
         
     }
 
@@ -443,7 +443,7 @@ class condimentsController
     }
 }
 
-@RequestMapping("Inventory/utilities")
+@RequestMapping("Manager/Inventory/utilities")
 @Controller
 class utilitesController
 {
@@ -453,14 +453,14 @@ class utilitesController
     String foodController(InventoryRepository repository)
     {
         this.repository = repository;
-        return "Inventory/utilities";
+        return "Manager/Inventory/utilities";
     }
     @GetMapping
     String Inventory(Model model)
     {
         model.addAttribute("inventory", this.repository.findAll());
 
-        return "Inventory/utilities";
+        return "Manager/Inventory/utilities";
     }
     @PostMapping
     String order( @RequestParam("new-quantity")String amount,@RequestParam("item-id")String id,@RequestParam("item-name")String name,@RequestParam("item-unit")String unit,@RequestParam("item-low")String low,Model model)
@@ -488,7 +488,7 @@ class utilitesController
     this.repository.save(inventoryItem);
     model.addAttribute("inventory", this.repository.findAll());
     System.err.println(name +" changed");
-    return "redirect:/Inventory/utilities";
+    return "redirect:/Manager/Inventory/utilities";
         
     }
 
@@ -505,7 +505,7 @@ class utilitesController
     this.repository.save(inventoryItem);
     model.addAttribute("inventory", this.repository.findAll());
     System.err.println(name +" added");
-    return "redirect:/Inventory/utilities";
+    return "redirect:/Manager/Inventory/utilities";
         
     }
 
@@ -562,7 +562,7 @@ class utilitesController
     }
 }
 
-@RequestMapping("Inventory/toppings")
+@RequestMapping("Manager/Inventory/toppings")
 @Controller
 class toppingsController
 {
@@ -572,14 +572,14 @@ class toppingsController
     String foodController(InventoryRepository repository)
     {
         this.repository = repository;
-        return "Inventory/toppings";
+        return "Manager/Inventory/toppings";
     }
     @GetMapping
     String Inventory(Model model)
     {
         model.addAttribute("inventory", this.repository.findAll());
 
-        return "Inventory/toppings";
+        return "Manager/Inventory/toppings";
     }
     @PostMapping()
     String order( @RequestParam("new-quantity")String amount,@RequestParam("item-id")String id,@RequestParam("item-name")String name,@RequestParam("item-unit")String unit,@RequestParam("item-low")String low,Model model)
@@ -607,7 +607,7 @@ class toppingsController
     this.repository.save(inventoryItem);
     model.addAttribute("inventory", this.repository.findAll());
     System.err.println(name +" changed");
-    return "redirect:/Inventory/toppings";
+    return "redirect:/Manager/Inventory/toppings";
         
     }
 
@@ -624,7 +624,7 @@ class toppingsController
     this.repository.save(inventoryItem);
     model.addAttribute("inventory", this.repository.findAll());
     System.err.println(name +" added");
-    return "redirect:/Inventory/toppings";
+    return "redirect:/Manager/Inventory/toppings";
         
     }
 
