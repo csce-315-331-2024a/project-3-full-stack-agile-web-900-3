@@ -21,4 +21,7 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 
     @Query("SELECT o FROM Orders o WHERE o.orderDatetime BETWEEN :startDate AND :endDate ORDER BY o.order_id ASC")
     ArrayList<Orders> findOrdersWithinDateRangeSorted(LocalDateTime startDate, LocalDateTime endDate);
+
+    @Query(value = "SELECT * FROM orders ORDER BY order_id DESC LIMIT 1",nativeQuery = true)
+    List<Orders> getLastOrder();
 }
