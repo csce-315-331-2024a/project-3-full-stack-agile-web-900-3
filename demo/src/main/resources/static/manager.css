@@ -81,7 +81,7 @@ button:hover {
   padding: 2px; /* Adds padding around the text */
   width: auto; /* Width is auto to fit content by default */
   transition: background-color 0.3s, padding 0.3s; /* Smooth transition for background color and padding */
-  border-radius: 10 %; /* Starts with a fully rounded shape */
+  border-radius: 10%; /* Starts with a fully rounded shape */
 }
 
 #styledInput:hover {
