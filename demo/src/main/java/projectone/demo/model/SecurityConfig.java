@@ -63,7 +63,7 @@ public class SecurityConfig{
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER")
+                                .requestMatchers("/Manager/**").hasAnyRole("ADMIN", "MANAGER")
                                 .requestMatchers("/cashierPage/**").hasAnyRole("ADMIN", "MANAGER", "CASHIER")
                                 .anyRequest().permitAll()
                 )
