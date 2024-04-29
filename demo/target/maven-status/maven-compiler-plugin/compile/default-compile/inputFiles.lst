@@ -6,6 +6,7 @@
 /home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/InventoryController.java
 /home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/kitchenController.java
 /home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/DemoApplication.java
+/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/ProductInventoryRepository.java
 /home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/projection/SalesDataProjection.java
 /home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/SalesTrends.java
 /home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/ProductsRepository.java
@@ -18,7 +19,6 @@
 /home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/OrdersRepository.java
 /home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/OrderProducts.java
 /home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Inventory.java
-/home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/ProductsInventoryRepo.java
 /home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/MenuBoard.java
 /home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/ProductInventoryController.java
 /home/alec_odom/csce-331-project3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/CustomerRepository.java

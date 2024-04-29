@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import projectone.demo.model.OrderProducts;
 import projectone.demo.model.Orders;
+import projectone.demo.repository.InventoryRepository;
 import projectone.demo.repository.OrderProductsRepo;
 import projectone.demo.repository.OrdersRepository;
+import projectone.demo.repository.ProductInventoryRepository;
 import projectone.demo.repository.ProductsRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,20 +32,26 @@ class CashierController{
     private final ProductsRepository repository;
     private final OrdersRepository ordersRepository;
     private final OrderProductsRepo orderProductsRepo;
+    private final ProductInventoryRepository productInventoryRepository;
+    private final InventoryRepository inventoryRepository;
 
-    CashierController(ProductsRepository repository,OrdersRepository ordersRepository, OrderProductsRepo orderProductsRepo){
+    CashierController(ProductsRepository repository,OrdersRepository ordersRepository, OrderProductsRepo orderProductsRepo, ProductInventoryRepository productInventoryRepository, InventoryRepository inventoryRepository){
         this.repository = repository;
         this.ordersRepository = ordersRepository;
         this.orderProductsRepo=orderProductsRepo;
+        this.productInventoryRepository=productInventoryRepository;
+        this.inventoryRepository=inventoryRepository;
     }
     @GetMapping
-    String products(Model model, Model orderModel, Model orderProductsModel, Model productModel)
+    String products(Model model, Model orderModel, Model orderProductsModel, Model productModel, Model productInventoryModel, Model inventoryModel)
     {
-        List<String> prodTypes = Arrays.asList("sweet", "sandwich", "sauce", "burger",  "side", "beverage", "basket", "salad");        
+        List<String> prodTypes = Arrays.asList("sweet", "sandwich", "sauce", "burger",  "side", "beverage", "basket", "salad","seasonal");        
         productModel.addAttribute("productTypes", prodTypes);
         model.addAttribute("products", this.repository.getByProductType());
         orderModel.addAttribute("orders", this.ordersRepository.getLastOrder());
         orderProductsModel.addAttribute("orderProducts", this.orderProductsRepo.getLastOrder());
+        productInventoryModel.addAttribute("productInventory", this.productInventoryRepository.findAll());
+        inventoryModel.addAttribute("inventory", this.inventoryRepository.findAll());
         return "cashierPage";
     }
     @PostMapping(value = "/add")

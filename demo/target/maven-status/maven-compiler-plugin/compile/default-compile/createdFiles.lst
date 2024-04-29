@@ -18,7 +18,6 @@ projectone/demo/repository/CustomerRepository.class
 projectone/demo/repository/SalesTrendsRepository.class
 projectone/demo/controller/foodController.class
 projectone/demo/controller/PinPadController.class
-projectone/demo/repository/ProductsInventoryRepo.class
 projectone/demo/controller/CashierController.class
 projectone/demo/controller/kitchenController.class
 projectone/demo/repository/OrdersRepository.class
