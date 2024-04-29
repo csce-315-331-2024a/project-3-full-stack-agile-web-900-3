@@ -39,7 +39,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             return "/greet/admin";
         }
         else if(isManager){
-            return "/greet/manager";
+            return "/greet/Manager/manager";
         }
         else if(isCashier){
             return "/greet/cashier";
