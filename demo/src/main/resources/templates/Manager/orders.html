@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manager Table</title>
+  <link rel="stylesheet" href="../orders.css">
+  <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
+</head>
+<H2>Orders</H2>
+<div id = navBar>
+  <a th:href="@{/Manager/Inventory/food}" class="nav-btn" >Food</a>
+  <a th:href="@{/Manager/Inventory/utilities}" class="nav-btn">Utilities</a>
+  <a th:href="@{/Manager/Inventory/condiments}" class="nav-btn">Condiments</a>
+  <a th:href="@{/Manager/Inventory/desert}" class="nav-btn">Dessert</a>
+  <a th:href="@{/Manager/Inventory/toppings}" class="nav-btn">Toppings</a>
+  <a th:href="@{/Manager/orders}" class="nav-btn">Orders</a>
+  <a th:href="@{/Manager/manager}" class="nav-btn" style = "background-color: rgba(242, 211, 152);">Products</a>
+
+ 
+</div>
+<body id = "updateArea">
+    
+    <div id = selectDate>
+    <form hx-post = "Manager/orders/view"  hx-swap = outerHTML hx-indicator="#spinner">
+      <input type = date name = date>
+      <button type = submit>View Orders</button>
+    </form>
+  </div>
+    <img src = /images/spinners/90-ring.svg id="spinner" class="htmx-indicator">
+    <div id = list th:fragment = list class = item th:each = "order : ${orders}">
+      <form  hx-post = /orders/updateOrder hx-target = "updateArea" hx-swap = innerHTML>
+      <div class = top >
+      <span th:text = "'Order ID: ' +${order.order_id}"></span>
+      <span th:text = "'Order Date: ' + ${order.orderDatetime}"></span>
+      <span>
+        <span>Order Price: </span>
+      <input name = "price" id = styledInput th:value = "${order.price}">
+      </span>
+     <span id  = statusUpdate>
+      <div class = modify-items   >
+        <input  name = Orderid th:value = ${order.order_id} display = hidden >
+        <select name = status th:fragment = "Status-update">
+          <option value = "" th:text = "${order.status}" disabled selected hidden></option>
+          
+          <option value = "processing">Processing</option>
+          <option value = "completed">Completed</option>
+          <option value = "canceled">Canceled</option>
+        </select>
+      <button>Modify Status</button>
+      </div>
+    </span>
+  </div>
+  <div class = bottom>
+    <div class = items> Purchased:
+      <span th:each = "junc : ${junction}" th:if ="${junc.order_id} == ${order.order_id}">
+        
+          <span class = "products-name"   th:each ="product:${products}" th:if="${product.product_id == junc.product_id}" th:text = "${product.productname}"></span>
+        
+      </span>
+    </div>
+    <div class = modify>
+      <div class = modify-items >
+        <span>Add:</span>
+        <select name = add>
+          <option value = "">don't add</option>
+          <div th:each = "product :${products}" >
+            <option th:value = ${product.product_id} th:text = "${product.productname}" ></option>
+          </div>
+        </select>
+       
+      </div>
+      
+      <div calss = modify-items >
+        <span>Remove: </span>
+        <select name = remove>
+          <option value = "">don't remove</option>
+          <div th:each = "junc : ${junction}" th:if ="${junc.order_id} == ${order.order_id}">
+              <option th:each ="product:${products}" th:if="${product.product_id == junc.product_id}" th:text = "${product.productname}" th:value = "${junc.order_product_id}">
+
+              </option>
+          </div>
+        </select>
+       
+      </div>
+    </div>
+      
+  </div>
+  <button type = "submit" >Update Order</button>
+</form>
+</div>
+       
+</body>
+</html>

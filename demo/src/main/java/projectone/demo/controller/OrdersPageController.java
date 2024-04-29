@@ -23,14 +23,16 @@ import projectone.demo.model.OrderProducts;
 import projectone.demo.repository.OrderProductsRepo;
 import projectone.demo.repository.OrdersRepository;
 import projectone.demo.repository.ProductsRepository;
-@RequestMapping("/orders")
+@RequestMapping("Manager/orders")
 @Controller
 class OrdersPageController {
     @Autowired
     private OrdersRepository orderRepository;
     private OrderProductsRepo orderProductsRepo;
     private ProductsRepository productsRepository;
-
+    private LocalDateTime endDate;
+    private LocalDateTime startDate;
+    
     public OrdersPageController(OrdersRepository orderRepository, OrderProductsRepo orderProductsRepo,ProductsRepository productsRepository) {
         this.orderRepository = orderRepository;
         this.orderProductsRepo = orderProductsRepo;
@@ -42,18 +44,19 @@ class OrdersPageController {
     {
         
         LocalDateTime dateTime = LocalDateTime.now();
-        LocalDateTime startDate = LocalDateTime.of(dateTime.toLocalDate(), LocalTime.MIDNIGHT);
-        ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, LocalDateTime.now());
+        startDate = LocalDateTime.of(dateTime.toLocalDate(), LocalTime.MIDNIGHT);
+        endDate = LocalDateTime.now();
+        ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
         ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate, LocalDateTime.now());
         Orders firstOrder = datSorted.get(1);
         int size = datSorted.size();
         Orders lastOrder = datSorted.get(size-1);
         Collections.reverse(dat);
-       
+
         junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
         model.addAttribute("orders", dat);
         productModel.addAttribute("products", productsRepository.findAll());
-        return "orders";
+        return "Manager/orders";
     }
     @PostMapping(value = "/add")
     String add(@RequestParam("price")String price,Model model)
@@ -67,7 +70,7 @@ class OrdersPageController {
         this.orderRepository.save(newOrder);
         model.addAttribute("orders", this.orderRepository.findAll());
         System.out.println("order added "+ newPrice);
-        return "redirect:/orders";
+        return "redirect:/Manager/orders";
     }
     @PostMapping(value = "/view")
     String view(@RequestParam("date")String date,Model model,Model junctionModel,Model productModel,RedirectAttributes redirectAttributes)
@@ -78,18 +81,16 @@ class OrdersPageController {
             LocalDate localDate = LocalDate.parse(date);
 
        
-        LocalDateTime startDate = LocalDateTime.of(localDate, LocalTime.MIDNIGHT);
+        startDate = LocalDateTime.of(localDate, LocalTime.MIDNIGHT);
 
         
-        LocalDateTime endDate = LocalDateTime.of(localDate, LocalTime.of(23, 59));
+        endDate = LocalDateTime.of(localDate, LocalTime.of(23, 59));
         ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
-        
         ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
         Orders firstOrder = datSorted.get(1);
         int size = datSorted.size();
         Orders lastOrder = datSorted.get(size-1);
         Collections.reverse(dat);
-    
         junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
         model.addAttribute("orders", dat);
         productModel.addAttribute("products", productsRepository.findAll());
@@ -98,16 +99,38 @@ class OrdersPageController {
         {
             redirectAttributes.addFlashAttribute("errorMessage", "Error: date has no orders");
         }
-        return "orders";
+        return "Manager/orders";
     }
-    @PostMapping(value = "/status")
-    String status(@RequestParam("status")String newStatus, @RequestParam("id")String id)
+    @PostMapping(value = "/updateOrder")
+     String update(@RequestParam("status")String newStatus, @RequestParam("Orderid")String id,@RequestParam("price")String price,@RequestParam("add")String add,@RequestParam("remove")String remove,Model junctionModel,Model model,Model productModel)
     {
+        if(newStatus != "")
+        {
         Orders newOrder = orderRepository.getById(Long.parseLong(id));
+        newOrder.setPrice(new BigDecimal(price));
         newOrder.setStatus(newStatus);
         this.orderRepository.save(newOrder);
-        System.out.println("status updated");
-        return "orders";
+        }
+        
+        if(add != "")
+        {
+            Long newId = orderProductsRepo.findMaxId()+1;
+            Long orderid = Long.parseLong(id);
+            Long addnew = Long.parseLong(add);
+            Long newQuantity = Long.parseLong("1");
+            OrderProducts newJunction = new OrderProducts(newId,orderid,addnew,newQuantity);
+        }
+        if(remove != "")
+        {
+
+        }
+        
+      System.out.println("working");
+      return("Manager/orders");
+       
     }
+
+ 
+    
 
 }
