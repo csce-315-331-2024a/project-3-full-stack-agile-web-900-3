@@ -7,17 +7,30 @@
   <link rel="stylesheet" href="../../inventory.css">
   <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 </head>
-
+<span id = translate>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {pageLanguage: 'en'},
+            'google_translate_element'
+        );
+    } 
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
+      <div id="google_translate_element"></div>
+</span>
 <h2 >Inventory</h2>
 <body id = "updateArea">
   <div id = navBar>
+    <a th:href="@{/}" class="nav-btn" >Home</a>
     <a th:href="@{/Manager/Inventory/food}" class="nav-btn" >Food</a>
     <a th:href="@{/Manager/Inventory/utilities}" class="nav-btn">Utilities</a>
     <a th:href="@{/Manager/Inventory/condiments}" class="nav-btn">Condiments</a>
     <a th:href="@{/Manager/Inventory/desert}" class="nav-btn">Dessert</a>
     <a th:href="@{/Manager/Inventory/toppings}" class="nav-btn" style = "background-color: rgba(242, 211, 152);">Toppings</a>
     <a th:href="@{/Manager/orders}" class="nav-btn">Orders</a>
-    <a th:href="@{/Manager/manager}" class="nav-btn">Products</a>
+    <a th:href="@{/manager}" class="nav-btn" >Products</a>
     <a th:href="@{/Manager/queries}" class = "nav-btn" >Reports</a>
   </div>
   <div class = "category-container">

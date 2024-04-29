@@ -8,16 +8,30 @@
 
 </head>
 <body>
+    <span id = translate>
+        <script type="text/javascript">
+          function googleTranslateElementInit() {
+              new google.translate.TranslateElement(
+                  {pageLanguage: 'en'},
+                  'google_translate_element'
+              );
+          } 
+          </script>
+          <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        
+            <div id="google_translate_element"></div>
+      </span>
     <div class="container mt-4">
         <h1>Sales Trends and Data</h1>
         <div id = navBar>
+            <a th:href="@{/}" class="nav-btn" >Home</a>
             <a th:href="@{/Manager/Inventory/food}" class="nav-btn" >Food</a>
             <a th:href="@{/Manager/Inventory/utilities}" class="nav-btn">Utilities</a>
             <a th:href="@{/Manager/Inventory/condiments}" class="nav-btn">Condiments</a>
             <a th:href="@{/Manager/Inventory/desert}" class="nav-btn">Dessert</a>
             <a th:href="@{/Manager/Inventory/toppings}" class="nav-btn">Toppings</a>
             <a th:href="@{/Manager/orders}" class="nav-btn">Orders</a>
-            <a th:href="@{/Manager/manager}" class="nav-btn" >Products</a>
+            <a th:href="@{/manager}" class="nav-btn" >Products</a>
             <a th:href="@{/Manager/queries}" class = "nav-btn" style = "background-color: rgba(242, 211, 152);">Reports</a>
           </div>
         <!-- Form for inputting start and end time -->
