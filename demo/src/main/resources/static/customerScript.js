@@ -141,8 +141,8 @@ function addToOrder(productId, price, productName, quantity = 1, category) {
 
     // When creating buttons, bind the click event with the current uniqueId
     const minusButton = document.createElement('button');
-    minusButton.className = 'plus-button';
-    minusButton.textContent = '+';
+    minusButton.className = "minus-button";
+    minusButton.textContent = '-';
     minusButton.addEventListener('click', (function(uniqueIdCopy) {
       return function() {
         adjustQuantity(uniqueIdCopy, -1);
