@@ -332,14 +332,8 @@ document.getElementById('cancel-order').addEventListener('click', function () {
 
 document.getElementById('confirm-order').addEventListener('click', function () {
   if (orderTotal > 0 && confirm('Do you want to proceed to checkout?')) {
-    // Set the flag that the user is navigating to the confirmation screen
     localStorage.setItem('returningUser', 'true');
-    
-    // Save the current order to local storage
     saveOrderDetails();
-    
-    // Navigate to confirmation screen
-    window.location.href = 'customerCheckout';
   } else {
     alert('Please add items to your order.');
   }
