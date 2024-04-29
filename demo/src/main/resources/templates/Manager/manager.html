@@ -17,7 +17,7 @@
     <a th:href="@{/Manager/Inventory/toppings}" class="nav-btn">Toppings</a>
     <a th:href="@{/Manager/orders}" class="nav-btn">Orders</a>
     <a th:href="@{/Manager/manager}" class="nav-btn" style = "background-color: rgba(242, 211, 152);">Products</a>
-
+    <a th:href="@{/Manager/queries}" class = "nav-btn" >Reports</a>
    
   </div>
   <div class="header">
@@ -26,8 +26,9 @@
     <div class="header-item">Type</div>
     <div class="header-item">Action</div>
   </div>
-<div th:fragment= "manager-list" class = "manager-list">
+<div  th:fragment= "manager-list" class = "manager-list">
   <!-- th: is thymleaf and the each tag is saying each value in the item table and the   ${manager} linkes it to the manager controller logic-->
+  <div class = inv>
     <div   th:each="item: ${manager}">
   
       <div class = "product line">
@@ -36,6 +37,7 @@
       <form class="item" id="orderForm" hx-post="/manager" hx-target="#updateArea" hx-swap="outerHTML">
         <!-- using this forem to send all the data im getting these correlate to the request paramerets in controller  -->
       <input  th:value ="${item.product_id}" name = "id" style="display: none;">
+      
       <input name = "new-name" id = styledInput class = "name" th:value="${item.productname}"></input>
       <!-- item has all the attributers that the product table has ie name id price ect the th value is just setting the value of the textbox so it has default values if -->
       <input name = "new-price" id = styledInput class = "price" th:value="${item.price}"></input>
@@ -118,7 +120,7 @@
     
 
   </div>
-
+</div>
 </div>
     <div id = "addProduct">
       <div class = "line products">
