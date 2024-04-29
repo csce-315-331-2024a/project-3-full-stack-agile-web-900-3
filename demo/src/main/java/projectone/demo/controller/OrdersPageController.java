@@ -60,10 +60,9 @@ class OrdersPageController {
     {
         Long newid = orderRepository.findMaxId()+1;
         LocalDateTime localDateTime = LocalDateTime.now(); 
-        Timestamp newdate = Timestamp.valueOf(localDateTime);
         String status = "processing";
         BigDecimal newPrice = new BigDecimal(price);
-        Orders newOrder = new Orders(newid,newPrice,newdate,status);
+        Orders newOrder = new Orders(newid,newPrice,localDateTime,status);
         this.orderRepository.save(newOrder);
         model.addAttribute("orders", this.orderRepository.findAll());
         System.out.println("order added "+ newPrice);
