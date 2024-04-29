@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
@@ -36,9 +37,11 @@ class CashierController{
         this.orderProductsRepo=orderProductsRepo;
     }
     @GetMapping
-    String products(Model model, Model orderModel, Model orderProductsModel)
+    String products(Model model, Model orderModel, Model orderProductsModel, Model productModel)
     {
-        model.addAttribute("products", this.repository.findAll());
+        List<String> prodTypes = Arrays.asList("sweet", "sandwich", "sauce", "burger",  "side", "beverage", "basket", "salad");        
+        productModel.addAttribute("productTypes", prodTypes);
+        model.addAttribute("products", this.repository.getByProductType());
         orderModel.addAttribute("orders", this.ordersRepository.getLastOrder());
         orderProductsModel.addAttribute("orderProducts", this.orderProductsRepo.getLastOrder());
         return "cashierPage";

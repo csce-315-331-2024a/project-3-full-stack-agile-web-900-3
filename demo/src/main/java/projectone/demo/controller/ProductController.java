@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import projectone.demo.model.ProductInventory;
 import projectone.demo.model.Products;
 import projectone.demo.repository.InventoryRepository;
-import projectone.demo.repository.ProductsInventoryRepo;
+import projectone.demo.repository.ProductInventoryRepository;
 import projectone.demo.repository.ProductsRepository;
 
 @RequestMapping(value = "/manager")   
 @Controller
 class ProductsController{
-    private final ProductsInventoryRepo repositoryJunction;
+    private final ProductInventoryRepository repositoryJunction;
     private final ProductsRepository repository;
     private final InventoryRepository invRepository;
     // importing products repository
-    ProductsController(ProductsRepository repository,ProductsInventoryRepo repositoryJunction,InventoryRepository invRepository){
+    ProductsController(ProductsRepository repository,ProductInventoryRepository repositoryJunction,InventoryRepository invRepository){
         this.repository = repository;
         this.repositoryJunction = repositoryJunction;
         this.invRepository = invRepository;

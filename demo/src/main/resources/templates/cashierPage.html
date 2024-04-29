@@ -20,19 +20,37 @@
       <p id="orderTotal">Order Total: $0.00</p>
       <form hx-post="/cashierPage/add" hx-target="#all" hx-swap="outerHTML">
         <input type="hidden" name="price"  id="total-price"/>
-        <input type ="hidden" name="productId" id="ids"/> 
+        <input type="hidden" name="productId" id="ids"/> 
         <button id="placeOrder" type="submit">Place Order</button>
       </form>
       <button id="backButton"class="button">back</button>
     </div>
-    <div class="grid">
+    <!-- <div class="grid"> 
       <div class="grid-item" th:each="item: ${products}">
         <button class="button" th:id="${item.product_type}" th:text="${item.productname}">button</button>
         <input type="hidden" class="item-price" th:value="${item.price}" />
         <input type ="hidden" class="item-id" th:value="${item.product_id}" />
         <input type ="hidden" class="item-type" th:value="${item.productType}" />
       </div>
-    </div>
+    </div> -->
+
+    <div class="grid">
+      <!-- Loop through each product type -->
+      <div th:each="productType: ${productTypes}">
+          <h3 id="typeHeader"th:text="${productType}"></h3> <!-- Display product type as section label -->
+          <!-- Loop through products of current product type -->
+          <div class="grid-item" th:each="item: ${products}">
+              <!-- Check if current product belongs to current product type -->
+              <th:block th:if="${item.product_type == productType}">
+                <button class="button" th:id="${item.product_type}" th:text="${item.productname}">button</button>
+                <input type="hidden" class="item-price" th:value="${item.price}" />
+                <input type ="hidden" class="item-id" th:value="${item.product_id}" />
+                <input type ="hidden" class="item-type" th:value="${item.productType}" />
+              </th:block>
+          </div>
+      </div>
+  </div>
+
   </div>
 
 
@@ -76,6 +94,13 @@
   
   function openEditWindow(button) {
     var editWindow = window.open('', '_blank', 'width=300,height=200');
+    editWindow.document.body.classList.add('edit-window');
+    var cssLink = editWindow.document.createElement('link');
+    cssLink.rel = 'stylesheet';
+    cssLink.href = '/cashierPage.css'; 
+    editWindow.document.head.appendChild(cssLink);
+
+
     var label = document.createElement('label');
     label.textContent = button.textContent;
     editWindow.document.body.appendChild(label);
