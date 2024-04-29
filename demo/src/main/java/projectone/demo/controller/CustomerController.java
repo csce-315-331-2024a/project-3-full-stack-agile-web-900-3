@@ -59,7 +59,7 @@ public class CustomerController {
         this.orderRepository.save(newOrder);
        
         System.out.println("order added");
-        return "redirect:/customer";
+        return "redirect:/customer/checkout";
     }
 
     @GetMapping("/api/menu/{category}")
@@ -74,6 +74,12 @@ public class CustomerController {
     @GetMapping("/edit")
     public String editPage() {
         return "customerEditItem";
+    }
+
+    
+    @GetMapping("/checkout")
+    public String checkoutPage() {
+        return "customerCheckout";
     }
 }
 

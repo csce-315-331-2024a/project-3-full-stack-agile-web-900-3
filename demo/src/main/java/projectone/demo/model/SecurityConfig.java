@@ -57,6 +57,7 @@ public class SecurityConfig{
     }
     @Autowired
     private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    @SuppressWarnings("deprecation")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -64,6 +65,7 @@ public class SecurityConfig{
                         authorizeRequests
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/Manager/**").hasAnyRole("ADMIN", "MANAGER")
+                                .requestMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER")
                                 .requestMatchers("/cashierPage/**").hasAnyRole("ADMIN", "MANAGER", "CASHIER")
                                 .anyRequest().permitAll()
                 )

@@ -7,16 +7,31 @@
   <link rel="stylesheet" href="../../inventory.css">
   <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 </head>
-
+<span id = translate>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {pageLanguage: 'en'},
+            'google_translate_element'
+        );
+    } 
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
+      <div id="google_translate_element"></div>
+</span>
 <h2 >Inventory</h2>
 <body id = "updateArea">
   <div id = navBar>
-    <a th:href="@{/Inventory/food}" class="nav-btn">Food</a>
-    <a th:href="@{/Inventory/utilities}" class="nav-btn">Utilities</a>
-    <a th:href="@{/Inventory/condiments}" class="nav-btn">Condiments</a>
-    <a th:href="@{/Inventory/desert}" class="nav-btn"style = "background-color: rgba(242, 211, 152);">Dessert</a>
-    <a th:href="@{/Inventory/toppings}" class="nav-btn">Toppings</a>
-    <a href="/manager" class="nav-btn">Products</a>
+    <a th:href="@{/}" class="nav-btn" >Home</a>
+    <a th:href="@{/Manager/Inventory/food}" class="nav-btn" >Food</a>
+    <a th:href="@{/Manager/Inventory/utilities}" class="nav-btn">Utilities</a>
+    <a th:href="@{/Manager/Inventory/condiments}" class="nav-btn">Condiments</a>
+    <a th:href="@{/Manager/Inventory/desert}" class="nav-btn" style = "background-color: rgba(242, 211, 152);">Dessert</a>
+    <a th:href="@{/Manager/Inventory/toppings}" class="nav-btn">Toppings</a>
+    <a th:href="@{/Manager/orders}" class="nav-btn">Orders</a>
+    <a th:href="@{/manager}" class="nav-btn" >Products</a>
+    <a th:href="@{/Manager/queries}" class = "nav-btn" >Reports</a>
   </div>
   <div class = "category-container">
     <div class="content" id="food" th:fragment = "loadArea">
@@ -31,7 +46,7 @@
       </div>
       <div class = "inv">
       <div class="inventory line" th:each="item : ${inventory}" th:if="${item.type == 'desert'}">
-          <form class="item" id="orderForm" hx-post="/Inventory/desert" hx-target="#updateArea" hx-swap="outerHTML"  th:classappend="${item.lowThreshold > item.quantity} ? 'low-stock'">
+          <form class="item" id="orderForm" hx-post="/Manager/Inventory/desert" hx-target="#updateArea" hx-swap="outerHTML"  th:classappend="${item.lowThreshold > item.quantity} ? 'low-stock'">
             
             <input class="name" th:value="${item.name}" id = styledInput name = "item-name"></input>
             
@@ -49,7 +64,7 @@
             <button type="submit">Update</button>
             <button 
           
-                  th:attr = "hx-delete = @{/Inventory/desert/{id}(id = ${item.id})}"  
+                  th:attr = "hx-delete = @{/Manager/Inventory/desert/{id}(id = ${item.id})}"  
                   hx-swap = "outerHTML"
                   hx-target = "closest .item"
                   
@@ -62,7 +77,7 @@
           
       </div >
     </div>
-      <form class = item hx-post="/Inventory/desert/add" hx-target="#updateArea" hx-swap="outerHTML">
+      <form class = item hx-post="/Manager/Inventory/desert/add" hx-target="#updateArea" hx-swap="outerHTML">
         <input class="name" placeholder="name" id = Input name = "item-name"></input>
         <input class="unit" placeholder="unit" id = Input name = "item-unit"></input>
         <input class="low_threshold" placeholder="low threshold" id = Input name = "item-low"></input>

@@ -1,5 +1,6 @@
 package projectone.demo.repository;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,10 @@ public interface OrderProductsRepo extends JpaRepository<OrderProducts,Long>
     ArrayList<OrderProducts> findOrderProductsByOrderIdBetween(
         @Param("startOrderId") Long startOrderId,
         @Param("endOrderId") Long endOrderId
-    );
+        );
+        @Query(value = "SELECT * FROM order_products ORDER BY order_id DESC LIMIT 1",nativeQuery = true)
+        List<OrderProducts> getLastOrder();
+        @Query(value = "SELECT MAX(order_product_id) FROM order_products", nativeQuery = true)
+        Long findMaxId(); 
+   
 }

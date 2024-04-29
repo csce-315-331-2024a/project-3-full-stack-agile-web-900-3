@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Revs Ordering System</title>
-  <link rel="stylesheet" href="customer.css">
+  <link rel="stylesheet" href="/customer.css">
 
   <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
   <script type="text/javascript">
@@ -19,7 +19,11 @@
   <script type="text/javascript"
     src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
+
 <body>
+  <div class="top-nav">
+    <a href="/" class="home-link">Home</a>
+  </div>
   <div class="container">
     <nav class="navbar">
       <button class="nav-button" onclick="loadMenuItems('burger')">
@@ -92,7 +96,7 @@
       <div class="order-total">
         <p>Total: <span id="display-total">$0.00</span></p>
       </div>
-      <form hx-post="/customer/add" hx-target="#menu-items">
+      <form action="/customer/add" method="post">
         <input type="hidden" name="price" id="total-price">
         <button class="confirm-button" id="confirm-order" type="submit">Confirm Order</button>
       </form>

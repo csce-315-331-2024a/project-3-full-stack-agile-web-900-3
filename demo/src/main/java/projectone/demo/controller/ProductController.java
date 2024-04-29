@@ -18,7 +18,7 @@ import projectone.demo.repository.InventoryRepository;
 import projectone.demo.repository.ProductInventoryRepository;
 import projectone.demo.repository.ProductsRepository;
 
-@RequestMapping(value = "/manager")   
+@RequestMapping("manager")   
 @Controller
 class ProductsController{
     private final ProductInventoryRepository repositoryJunction;
