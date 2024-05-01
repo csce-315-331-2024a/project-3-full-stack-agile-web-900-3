@@ -24,77 +24,36 @@ import projectone.demo.model.Inventory;
 import projectone.demo.model.Products;
 import projectone.demo.repository.InventoryRepository;
 import projectone.demo.repository.ProductsRepository;
-// @RequestMapping(value = "/inventory")   
-// @Controller
-// class InventoryController{
-//     @Autowired
-//     private InventoryRepository repository;
+/**
+ * this is a controller file wich controls the inventory pages of of the manager pages
+ */
 
-//     String InventoryController(InventoryRepository repository)
-//     {
-//         this.repository = repository;
-//         return "inventory";
-//     }
-//     @GetMapping
-//     String Inventory(Model model)
-//     {
-//         model.addAttribute("inventory", this.repository.findAll());
 
-//         return "inventory";
-//     }
-//     @PostMapping
-//     String order( @RequestParam("new-quantity")String amount,@RequestParam("item-id")String id,Model model)
-//     {
-       
-//         Long Id = Long.parseLong(id);
-//     Integer amt = Integer.parseInt(amount);
-//     LocalDate date = LocalDate.now();
-    
-//     Inventory inventoryItem = this.repository.getById(Id);
-//      System.out.println(inventoryItem.toString());
-
-//     inventoryItem.setQuantity(inventoryItem.getQuantity() + amt);
-//     inventoryItem.setOrderDate(date); 
-
-//     this.repository.save(inventoryItem);
-//     model.addAttribute("inventory", this.repository.findAll());
-    
-//     return "redirect:/inventory";
-        
-//     }
-//     String modify( @RequestParam("new-quantity")String amount,@RequestParam("item-id")String id,Model model)
-//     {
-       
-//     Long Id = Long.parseLong(id);
-//     Integer amt = Integer.parseInt(amount);
-//     LocalDate date = LocalDate.now();
-    
-//     Inventory inventoryItem = this.repository.getById(Id);
-//      System.out.println(inventoryItem.toString());
-
-//     inventoryItem.setQuantity(inventoryItem.getQuantity() + amt);
-//     inventoryItem.setOrderDate(date); 
-
-//     this.repository.save(inventoryItem);
-//     model.addAttribute("inventory", this.repository.findAll());
-    
-//     return "inventory";
-        
-//     }
-// }
 
 @RequestMapping("Manager/Inventory/food")
 @Controller
+/**
+ * this controls the food.java html file
+ */
 class foodController
 {
     @Autowired
-    private  InventoryRepository repository;
+    public  InventoryRepository repository;
 
-    String foodController(InventoryRepository repository)
+    /**
+     *  This is the constructor for the food  controller it takes in a repositoy from the sql database specifically the inventory table
+     * @param repository the inventory table repository ie the values in the inventory table, and queries in the repository file
+     */
+    foodController(InventoryRepository repository)
     {
         this.repository = repository;
-        return "/Manager/Inventory/food";
+        
     }
+    /**
+     * 
+     * @param model sets the model for the file
+     * @return the path to the html file
+     */
     @GetMapping
     String Inventory(Model model)
     {

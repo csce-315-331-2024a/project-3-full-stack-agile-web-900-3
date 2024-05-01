@@ -17,7 +17,7 @@ import projectone.demo.repository.OrdersRepository;
 import projectone.demo.repository.ProductsRepository;
 @RequestMapping("/kitchen")
 @Controller
- class kitchenController {
+ public class kitchenController {
     @Autowired
     private OrdersRepository repository;
     private OrderProductsRepo orderprodRepository;

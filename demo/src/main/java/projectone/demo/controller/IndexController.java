@@ -30,7 +30,7 @@ import projectone.demo.repository.ProductsRepository;
 
 
 @Controller // no logic in this this is purely mappping the index html to the javascript
-    class IndexController
+    public class IndexController
     {
 
         @GetMapping("/")

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RequestMapping(value = "/cashierPage")
 @Controller // no logic in this this is purely mappping the index html to the javascript
-class CashierController{
+public class CashierController{
     private final ProductsRepository repository;
     private final OrdersRepository ordersRepository;
     private final OrderProductsRepo orderProductsRepo;

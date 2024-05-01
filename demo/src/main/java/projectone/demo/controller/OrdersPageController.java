@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RequestMapping("Manager/orders")
 @Controller
-class OrdersPageController {
+public class OrdersPageController {
     @Autowired
     private OrdersRepository orderRepository;
     private OrderProductsRepo orderProductsRepo;

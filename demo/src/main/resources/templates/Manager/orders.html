@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manager Table</title>
-  <link rel="stylesheet" href="../orders.css">
+  <link rel="stylesheet" href="../ordersAlt.css">
   <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 </head>
 <span id = translate>
@@ -37,11 +37,11 @@
     
     <div id = selectDate>
     <form hx-post = "/Manager/orders/view" hx-target = #updateArea hx-swap = outerHTML hx-indicator="#spinner">
-      <input type = date name = date>
+      <input type = date name = date aria-label = "date" >
       <button type = submit>View Orders</button>
     </form>
   </div>
-    <img src = /images/spinners/90-ring.svg id="spinner" class="htmx-indicator">
+    <img src = /images/spinners/90-ring.svg alt = "" id="spinner" class="htmx-indicator">
     <div class="header">
       <div class="header-item">ID</div>
       <div class="header-item">Date</div>

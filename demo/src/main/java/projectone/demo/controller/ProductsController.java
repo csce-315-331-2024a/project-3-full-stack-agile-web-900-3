@@ -20,7 +20,7 @@ import projectone.demo.repository.ProductsRepository;
 
 @RequestMapping("manager")   
 @Controller
-class ProductsController{
+public class ProductsController{
     private final ProductInventoryRepository repositoryJunction;
     private final ProductsRepository repository;
     private final InventoryRepository invRepository;
