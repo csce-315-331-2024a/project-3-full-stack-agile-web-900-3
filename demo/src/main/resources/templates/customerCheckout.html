@@ -11,7 +11,7 @@
 <body>
   <div class="checkout-container">
     <h1>Checkout</h1>
-    <form id="checkout-form">
+    <form id="checkout-form" action="/customer/checkout" method="post">
       <div class="form-group">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
@@ -29,13 +29,45 @@
         <input type="tel" id="phone" name="phone" required>
       </div>
       <div class="form-group">
-        <button type="submit" class="submit-button">Place Order</button>
+        <input type="hidden" id="productId" name="productId">
+        <input type="hidden" id="price" name="price">
+        <input type="submit" value="Place Order" class="submit-button">
       </div>
-      <button type="button" class="back-button" onclick="window.location.href='/customer'">Back to Menu</button>
+      <button class="back-button" onclick="orderPlaced()">Back to Menu</button>
     </form>
 
   </div>
-  <script src="/checkout.js"></script>
+  <script>
+    function orderPlaced() {
+      localStorage.clear();
+      window.location.href='/customer';
+    }
+    const savedOrderDetails = localStorage.getItem('orderDetails');
+    if (savedOrderDetails) {
+      const orderDetails = JSON.parse(savedOrderDetails);
+      console.log('Loaded order details (parsed):', orderDetails); // Debugging log
+      var productIds = [];
+      var totalPrice = 0;
+
+      orderDetails.forEach(detail => {
+        productIds.push(detail.productId);
+        totalPrice += detail.price;
+      });
+
+      const stateTaxRate = 1.08; // 8% state tax
+      totalPrice *= stateTaxRate;
+
+      const productList = productIds.join("-");
+
+      const formProducts = document.getElementById("productId");
+      const formPrice = document.getElementById("price");
+      formProducts.value = productList;
+      formPrice.value = totalPrice;
+
+    } else {
+      console.log('No order details found in localStorage.');
+    }
+  </script>
 </body>
 
 </html>
