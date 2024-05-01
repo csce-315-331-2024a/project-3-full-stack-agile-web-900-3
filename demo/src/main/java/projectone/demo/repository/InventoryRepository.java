@@ -54,4 +54,5 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     @Modifying
     @Query(value = "UPDATE inventory SET quantity = quantity - :quantityUsed WHERE id = :inventoryId", nativeQuery = true)
     void updateInventoryQuantity(@Param("inventoryId") Long inventoryId, @Param("quantityUsed") int quantityUsed);
+
 }

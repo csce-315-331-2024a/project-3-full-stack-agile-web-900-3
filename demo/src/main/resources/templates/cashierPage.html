@@ -21,10 +21,11 @@
     <form hx-post="/cashierPage/add" hx-target="#all" hx-swap="outerHTML">
       <input type="hidden" name="price"  id="total-price"/>
       <input type="hidden" name="productId" id="ids"/> 
+      <input type="hidden" name="noId" id="noIds"/>
+      <input type="hidden" name="addId" id="addIds"/>
       <button id="placeOrder" type="submit">Place Order</button>
     </form>
-    <input type="hidden" name="" id="noIds"/>
-    <input type="hidden" name="" id="addIds"/>
+    
     <input type="hidden" name="" id="ticket"/>
     <button id="backButton"class="button">back</button>
     <div th:each="thisItem: ${inventory}">
