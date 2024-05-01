@@ -16,10 +16,10 @@
 <div class="full-height d-flex flex-column">
     <nav class="navbar navbar-expand-lg bg-lightmaroon">
 
-        <div hx-get="/menuBoard/weather"
-             hx-trigger="load delay:5000ms"
+        <div id="weather-display" hx-get="/menuBoard/weather"
+             hx-trigger="load delay:1000ms"
              hx-target="this"
-             hx-swap="outerHTML">
+             hx-swap="outerHTML" class="weather-info">
         </div>
 
         <div class="title-pic">
@@ -36,7 +36,7 @@
             <div class="col rounded-rectangle">
                 <div th:each="index : ${categoryColumns[0]}">
                     <div class="rounded-rectangle" th:with="category=${categories[index]}">
-                        <h1 th:text="${category}"></h1>
+                        <h1 th:text="${#strings.capitalize(category)}"></h1>
                         <hr>
                         <div class="prod-row" th:each="product: ${categoryMap[__${category}__]}">
                             <div class="name" th:text="${product.getProductname()}"></div>
@@ -51,7 +51,7 @@
             <div class="col rounded-rectangle" >
                 <div th:each="index : ${categoryColumns[1]}">
                     <div class="rounded-rectangle" th:with="category=${categories[index]}">
-                        <h1 th:text="${category}"></h1>
+                        <h1 th:text="${#strings.capitalize(category)}"></h1>
                         <hr>
                         <div class="prod-row" th:each="product: ${categoryMap[__${category}__]}">
                             <div class="name" th:text="${product.getProductname()}"></div>
@@ -67,7 +67,7 @@
 
                 <div th:each="index : ${categoryColumns[2]}" >
                     <div class="rounded-rectangle" th:with="category=${categories[index]}">
-                        <h1 th:text="${category}"></h1>
+                        <h1 th:text="${#strings.capitalize(category)}"></h1>
                         <hr>
                         <div class="prod-row" th:each="product: ${categoryMap[__${category}__]}">
                             <div class="name" th:text="${product.getProductname()}"></div>

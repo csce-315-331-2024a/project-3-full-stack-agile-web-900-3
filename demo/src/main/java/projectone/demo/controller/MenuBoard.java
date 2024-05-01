@@ -172,7 +172,7 @@ public class MenuBoard {
         currentWeather_api = objectMapper.readValue(jsonResponse, WeatherResponse.class);
 
         //convert the temperature from kelvin to farenheit and store
-        double temp_faren = (currentWeather_api.getMain().get("temp") - 273.15) * 9/5 + 32;
+        double temp_faren = (int)(currentWeather_api.getMain().get("temp") - 273.15) * 9/5 + 32;
         currentWeather_api.getMain().put("temp", (float) temp_faren);
         weatherTemp = temp_faren;
         //create the source link for the weather icon
@@ -180,7 +180,7 @@ public class MenuBoard {
         //get the city name
         weatherCity = currentWeather_api.getName();
         //get the weather description
-        weatherDescription = currentWeather_api.getWeather()[0].getDescription();
+        weatherDescription = capitalizeEachWord(currentWeather_api.getWeather()[0].getDescription());
 
         System.out.println(currentWeather_api);
         weatherLocation = location;
@@ -190,7 +190,20 @@ public class MenuBoard {
         return "redirect:/menuBoard";
     }
 
-
+    // Function to capitialize the words in the Weather API
+    public static String capitalizeEachWord(String input) {
+        char[] chars = input.toLowerCase().toCharArray();
+        boolean found = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (!found && Character.isLetter(chars[i])) {
+                chars[i] = Character.toUpperCase(chars[i]);
+                found = true;
+            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'' || chars[i]=='-') { // Reset for next word
+                found = false;
+            }
+        }
+        return String.valueOf(chars);
+    }
 
 
 
