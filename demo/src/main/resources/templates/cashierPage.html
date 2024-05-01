@@ -20,7 +20,7 @@
     <p id="orderTotal">Order Total: $0.00</p>
     <form hx-post="/cashierPage/add" hx-target="#all" hx-swap="outerHTML">
       <input type="hidden" name="price"  id="total-price"/>
-      <input type="hidden" name="productId" id="ids"/> 
+      <input name="productId" id="ids"/> 
       <button id="placeOrder" type="submit">Place Order</button>
     </form>
     <input name="" id="noIds"/>
