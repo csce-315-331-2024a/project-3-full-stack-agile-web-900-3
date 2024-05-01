@@ -4,9 +4,14 @@ import lombok.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
+/**
+ * @author Quinn Bromley
+ */
+/**
+ * Entity representing the order_products table which serves as a junction table
+ * between orders and products in the database.
+ * This entity links orders with the products they contain, including quantities of each product.
+ */
 @Entity(name = "OrderProducts")
 @Table(name = "order_products")
 @AllArgsConstructor
@@ -14,13 +19,23 @@ import lombok.NoArgsConstructor;
 @Getter
 @Setter
 public class OrderProducts {
+     /**
+     * Unique identifier for an entry in the order_products table.
+     * This ID is unique across the table and serves as the primary key.
+     */
     @Id
     private Long order_product_id;
-
+        /**
+     * The identifier for the order. This ID links to the Orders table.
+     */
     private Long order_id;
-
+     /**
+     * The identifier for the product. This ID links to the Products table.
+     */
     private Long product_id;
-
+    /**
+     * The quantity of the product included in the order.
+     */
     private Long quantity;
 }
 

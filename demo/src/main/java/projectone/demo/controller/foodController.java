@@ -1,16 +1,11 @@
 package projectone.demo.controller;
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,54 +13,48 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import projectone.demo.model.Inventory;
-import projectone.demo.model.Products;
 import projectone.demo.repository.InventoryRepository;
-import projectone.demo.repository.ProductsRepository;
-
-
-
-
-
-    
-
-
-
-
-
-@RequestMapping("Manager/Inventory/toppings")
-@Controller
 /**
- * this controls the toppings.java html file
+ * @author Quinn Bromley
  */
-class toppingsController
+/**
+ * this controls the food.java html file
+ */
+@RequestMapping("Manager/Inventory/food")
+@Controller
+
+class foodController
 {
+    /**
+     *  this is the sql table in a repository that we can run queries on through java code
+     */
     @Autowired
-    private  InventoryRepository repository;
+    public  InventoryRepository repository;
+
     /**
      *  This is the constructor for the food  controller it takes in a repositoy from the sql database specifically the inventory table
      * @param repository the inventory table repository ie the values in the inventory table, and queries in the repository file
      */
-    String foodController(InventoryRepository repository)
+    foodController(InventoryRepository repository)
     {
         this.repository = repository;
-        return "Manager/Inventory/toppings";
+        
     }
-    @GetMapping
     /**
-     * 
+     * this sets the model for the html file, the model is what data the html file pulls from the database
      * @param model sets the model for the file
      * @return the path to the html file
      */
+    @GetMapping
     String Inventory(Model model)
     {
         model.addAttribute("inventory", this.repository.findAll());
 
-        return "Manager/Inventory/toppings";
+        return "/Manager/Inventory/food";
     }
-         /**
+    /**
      * this is the method that modifies an entry in the inventory including ordering more stock
      * @param amount amount the user wants to order to add to the inventory
      * @param id this is the id of the inventory item
@@ -75,7 +64,7 @@ class toppingsController
      * @param model this is the model that is being modified by all these changes, this is where the html connects from the database so updating this is updating what the html recives.
      * @return this method returns a redirect to the html page to update the data changed
      */
-    @PostMapping()
+    @PostMapping
     String order( @RequestParam("new-quantity")String amount,@RequestParam("item-id")String id,@RequestParam("item-name")String name,@RequestParam("item-unit")String unit,@RequestParam("item-low")String low,Model model)
     {
       
@@ -101,11 +90,11 @@ class toppingsController
     this.repository.save(inventoryItem);
     model.addAttribute("inventory", this.repository.findAll());
     System.err.println(name +" changed");
-    return "redirect:/Manager/Inventory/toppings";
+    return "redirect:/Manager/Inventory/food";
         
     }
 
-     /**
+    /**
      * this is the logic behind adding a new item to the inventory
      * @param name this is the name of the new inventory item   
      * @param unit this is the unit of the new inventory item
@@ -120,15 +109,15 @@ class toppingsController
     id+=1;
     System.out.println(id);
     LocalDate date = LocalDate.now();
-    Inventory inventoryItem = new Inventory(id,name,"topping",0,unit,Integer.parseInt(low),date);
+    Inventory inventoryItem = new Inventory(id,name,"food",0,unit,Integer.parseInt(low),date);
      
     this.repository.save(inventoryItem);
     model.addAttribute("inventory", this.repository.findAll());
     System.err.println(name +" added");
-    return "redirect:/Manager/Inventory/toppings";
+    return "redirect:/Manager/Inventory/food";
         
     }
-        /**
+    /**
      * this is the method that deletes an inventory item from the database
      * @param id this is the id of the inventory item that needs to be delted
      * @return this returns nothing because we do not want to return any html, we just want to delete an item, if the item is in a product you cannot delete it, so i return html that tells the user why it cannot be deleted
@@ -148,8 +137,8 @@ class toppingsController
             return handleException(id, e);
         }
     }
-        /**
- * 
+/**
+ * this handels if there is an exception thrown by the delete function
  * @param id the id value of the inventory item
  * @param e the exception that is caught
  * @return  if the item is in a product you cannot delete it, so i return html that tells the user why it cannot be deleted
@@ -190,5 +179,3 @@ class toppingsController
                "</html>";
     }
 }
-
-

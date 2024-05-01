@@ -27,7 +27,14 @@ import projectone.demo.repository.OrderProductsRepo;
 import projectone.demo.repository.OrdersRepository;
 import projectone.demo.repository.ProductsRepository;
 import org.springframework.web.bind.annotation.RequestBody;
+/**
+ * @author Quinn Bromley
+ */
+ /**
+     * Constructor for OrdersPageController with required repositories.
+     *
 
+     */
 @RequestMapping("Manager/orders")
 @Controller
 public class OrdersPageController {
@@ -43,7 +50,15 @@ public class OrdersPageController {
         this.orderProductsRepo = orderProductsRepo;
         this.productsRepository = productsRepository;
     }
-
+      /**
+     * Displays the orders page with order details, product details and junction details.
+     *
+     * @param model          Model to pass orders to the view.
+     * @param junctionModel  Model to pass junction data to the view.
+     * @param productModel   Model to pass product data to the view.
+     * @param deletModel     Model to pass data for deletion operations.
+     * @return               View name for the manager's orders page.
+     */
     @GetMapping
     String Orders(Model model,Model junctionModel,Model productModel,Model deletModel)
     {
@@ -68,6 +83,13 @@ public class OrdersPageController {
             return "Manager/orders";
         }
     }
+        /**
+     * Adds a new order with the specified price.
+     *
+     * @param price   Price of the new order.
+     * @param model   Model to pass updated orders list.
+     * @return        Redirect to the orders page after adding an order.
+     */
     @PostMapping(value = "/add")
     String add(@RequestParam("price")String price,Model model)
     {
@@ -82,6 +104,15 @@ public class OrdersPageController {
         System.out.println("order added "+ newPrice);
         return "redirect:/Manager/orders";
     }
+        /**
+     * Displays orders based on the specified date.
+     *
+     * @param date           The date to filter orders.
+     * @param model          Model to pass filtered orders.
+     * @param junctionModel  Model to pass junction data.
+     * @param productModel   Model to pass product data.
+     * @return               Manager orders view name.
+     */
     @PostMapping(value = "/view")
     String view(@RequestParam("date")String date,Model model,Model junctionModel,Model productModel)
     {
@@ -113,6 +144,16 @@ public class OrdersPageController {
        
         return "Manager/orders";
     }
+        /**
+     * Modifies the price of an existing order.
+     *
+     * @param id            Order ID to modify.
+     * @param price         New price for the order.
+     * @param model         Model to pass updated orders list.
+     * @param junctionModel Model to pass junction data.
+     * @param productModel  Model to pass product data.
+     * @return              Updated list fragment of the orders page.
+     */
     @PostMapping("/modifyPrice")
     String modify(@RequestParam("id")String id,@RequestParam("price")String price,Model model,Model junctionModel,Model productModel)
     {
@@ -137,6 +178,16 @@ public class OrdersPageController {
         }
         return "Manager/orders :: list";
     }
+        /**
+     * Modifies the status of an existing order.
+     *
+     * @param id            Order ID to modify.
+     * @param Status        New status for the order.
+     * @param model         Model to pass updated orders list.
+     * @param junctionModel Model to pass junction data.
+     * @param productModel  Model to pass product data.
+     * @return              Updated list fragment of the orders page.
+     */
     @PostMapping("/modifyStatus")
     String modifyStatus(@RequestParam("id")String id,@RequestParam("status")String Status,Model model,Model junctionModel,Model productModel)
     {
@@ -161,6 +212,16 @@ public class OrdersPageController {
         }
         return "Manager/orders :: list";
     }
+    /**
+ * Adds a product to an order and adjusts the order price accordingly.
+ *
+ * @param id            ID of the order to add the product to.
+ * @param prodId        ID of the product to add.
+ * @param model         Model to pass updated orders list.
+ * @param junctionModel Model to pass junction data.
+ * @param productModel  Model to pass product data.
+ * @return              Updated list fragment of the orders page.
+ */
     @PostMapping("/addProduct")
     String AddItem(@RequestParam("id")String id,@RequestParam("prodId")String prodId,Model model,Model junctionModel,Model productModel)
     {
@@ -192,6 +253,16 @@ public class OrdersPageController {
         }
         return "Manager/orders :: list";
     }
+    /**
+ * Removes a product from an order and adjusts the order price accordingly.
+ *
+ * @param id            ID of the order to remove the product from.
+ * @param prodId        ID of the product to remove.
+ * @param model         Model to pass updated orders list.
+ * @param junctionModel Model to pass junction data.
+ * @param productModel  Model to pass product data.
+ * @return              Updated list fragment of the orders page.
+ */
     @PostMapping("/removeProduct")
     String RemoveItem(@RequestParam("id")String id,@RequestParam("remove")String prodId,Model model,Model junctionModel,Model productModel)
     {
@@ -225,6 +296,13 @@ public class OrdersPageController {
         }
         return "Manager/orders :: list";
     }
+    /**
+ * Updates the product removal options based on the specified order ID.
+ *
+ * @param id          ID of the order to update removal options for.
+ * @param deletModel  Model to pass product deletion list.
+ * @return            Fragment of the orders page for product removal.
+ */
     @PostMapping("/updateRemove")
     public String postMethodName(@RequestParam("id")String id,Model deletModel ) {
         List<Long> prodids  = orderProductsRepo.findProductIdsByOrderId(Long.parseLong(id));
@@ -232,6 +310,15 @@ public class OrdersPageController {
 
         return "Manager/orders :: remove";
     }
+    /**
+ * Removes an entire order and associated order products.
+ *
+ * @param id            ID of the order to remove.
+ * @param model         Model to pass updated orders list.
+ * @param junctionModel Model to pass junction data.
+ * @param productModel  Model to pass product data.
+ * @return              Updated list fragment of the orders page.
+ */
     @PostMapping("removeOrder")
     public String removeOrder(@RequestParam("id")String id,Model model,Model junctionModel,Model productModel ) {
         orderProductsRepo.deleteByOrderId(Long.parseLong(id));
@@ -253,34 +340,7 @@ public class OrdersPageController {
     }
     
     
-    // @PostMapping(value = "/updateOrder")
-    //  String update(@RequestParam("status")String newStatus, @RequestParam("Orderid")String id,@RequestParam("price")String price,@RequestParam("add")String add,@RequestParam("remove")String remove,Model junctionModel,Model model,Model productModel)
-    // {
-    //     if(newStatus != "")
-    //     {
-    //     Orders newOrder = orderRepository.getById(Long.parseLong(id));
-    //     newOrder.setPrice(new BigDecimal(price));
-    //     newOrder.setStatus(newStatus);
-    //     this.orderRepository.save(newOrder);
-    //     }
-        
-    //     if(add != "")
-    //     {
-    //         Long newId = orderProductsRepo.findMaxId()+1;
-    //         Long orderid = Long.parseLong(id);
-    //         Long addnew = Long.parseLong(add);
-    //         Long newQuantity = Long.parseLong("1");
-    //         OrderProducts newJunction = new OrderProducts(newId,orderid,addnew,newQuantity);
-    //     }
-    //     if(remove != "")
-    //     {
 
-    //     }
-        
-    //   System.out.println("working");
-    //   return("Manager/orders");
-       
-    // }
 
  
     

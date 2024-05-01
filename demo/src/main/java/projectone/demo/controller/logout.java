@@ -6,7 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+/**
+ * @author Koby kuruvilla
+ */
+/**
+ * Controller for handling logout and session reset.
+ */
 @Controller
 @RequestMapping("/reset")
 public class logout {
