@@ -96,14 +96,14 @@ class OrdersPageController {
 
         
         endDate = LocalDateTime.of(localDate, LocalTime.of(23, 59));
-        ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
-        ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
-        Orders firstOrder = datSorted.get(1);
-        int size = datSorted.size();
-        Orders lastOrder = datSorted.get(size-1);
-        Collections.reverse(dat);
-        junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
-        model.addAttribute("orders", dat);
+        List<Orders> datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);
+            if (!datSorted.isEmpty() && datSorted.size() > 1) {
+                Orders firstOrder = datSorted.get(0);
+                Orders lastOrder = datSorted.get(datSorted.size() - 1);
+                Collections.reverse(datSorted);
+                junctionModel.addAttribute("junction", orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));
+            }
+        model.addAttribute("orders", datSorted);
         productModel.addAttribute("products", productsRepository.findAll());
         }
         catch(Exception e)
@@ -120,19 +120,20 @@ class OrdersPageController {
         {
             System.out.println(id);
             String newid = id.replace(",", "").trim();
-            Orders modifiedOrder = this.orderRepository.getById(Long.parseLong(newid));
+            Orders modifiedOrder = this.orderRepository.getReferenceById(Long.parseLong(newid));
             if(price !="")
             modifiedOrder.setPrice(new BigDecimal(price));
             this.orderRepository.save(modifiedOrder);
             System.out.println("modified price of:"+id);
-            ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
-            ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
-            Orders firstOrder = datSorted.get(1);
-            int size = datSorted.size();
-            Orders lastOrder = datSorted.get(size-1);
-            Collections.reverse(dat);
-            junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
-            model.addAttribute("orders", dat);
+
+            List<Orders> datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);
+            if (!datSorted.isEmpty() && datSorted.size() > 1) {
+                Orders firstOrder = datSorted.get(0);
+                Orders lastOrder = datSorted.get(datSorted.size() - 1);
+                Collections.reverse(datSorted);
+                junctionModel.addAttribute("junction", orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));
+            }
+            model.addAttribute("orders", datSorted);
             productModel.addAttribute("products", productsRepository.findAll());
         }
         return "Manager/orders :: list";
@@ -144,83 +145,81 @@ class OrdersPageController {
         {
             System.out.println(id);
             String newid = id.replace(",", "").trim();
-            Orders modifiedOrder = this.orderRepository.getById(Long.parseLong(newid));
+            Orders modifiedOrder = this.orderRepository.getReferenceById(Long.parseLong(newid));
             if(Status !="")
             modifiedOrder.setStatus(Status);
             this.orderRepository.save(modifiedOrder);
             System.out.println("modified status of:"+id);
-            ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
-            ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
-            Orders firstOrder = datSorted.get(1);
-            int size = datSorted.size();
-            Orders lastOrder = datSorted.get(size-1);
-            Collections.reverse(dat);
-            junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
-            model.addAttribute("orders", dat);
+
+            List<Orders> datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);
+            if (!datSorted.isEmpty() && datSorted.size() > 1) {
+                Orders firstOrder = datSorted.get(0);
+                Orders lastOrder = datSorted.get(datSorted.size() - 1);
+                Collections.reverse(datSorted);
+                junctionModel.addAttribute("junction", orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));
+            }
+            model.addAttribute("orders", datSorted);
             productModel.addAttribute("products", productsRepository.findAll());
         }
         return "Manager/orders :: list";
     }
     @PostMapping("/addProduct")
-    String AddItem(@RequestParam("id")String id,@RequestParam("prodId")String prodId,Model model,Model junctionModel,Model productModel)
-    {
-        if(id!="")
-        {
-            if(prodId != "")
-            {
-                Long newid = orderProductsRepo.findMaxId()+1;
-                OrderProducts newJunction = new OrderProducts(newid, Long.parseLong(id), Long.parseLong(prodId), Long.parseLong("1"));
-                orderProductsRepo.save(newJunction);
-                Products addPrice = this.productsRepository.getById(Long.parseLong(prodId));
-                Orders modifiedPrice = this.orderRepository.getById(Long.parseLong(id));
-                BigDecimal newPrice = addPrice.getPrice().add( modifiedPrice.getPrice());
-                // BigDecimal newPrice = BigDecimal(addPrice.getPrice());
+    String AddItem(@RequestParam("id") String id, @RequestParam("prodId") String prodId, Model model, Model junctionModel, Model productModel) {
+        if (!id.isEmpty() && !prodId.isEmpty()) {
+            Long newid = orderProductsRepo.findMaxId() + 1;
+            OrderProducts newJunction = new OrderProducts(newid, Long.parseLong(id), Long.parseLong(prodId), Long.parseLong("1"));
+            orderProductsRepo.save(newJunction);
+
+            Products addPrice = productsRepository.getReferenceById(Long.parseLong(prodId));
+            Orders modifiedPrice = orderRepository.getReferenceById(Long.parseLong(id));
+
+            if (addPrice != null && modifiedPrice != null) {
+                BigDecimal newPrice = addPrice.getPrice().add(modifiedPrice.getPrice());
                 modifiedPrice.setPrice(newPrice);
                 orderRepository.save(modifiedPrice);
-                System.out.println("added "+prodId);
             }
-           
-            ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
-            ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
-            Orders firstOrder = datSorted.get(1);
-            int size = datSorted.size();
-            Orders lastOrder = datSorted.get(size-1);
-            Collections.reverse(dat);
-            junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
-            model.addAttribute("orders", dat);
+
+            List<Orders> datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);
+            if (!datSorted.isEmpty() && datSorted.size() > 1) {
+                Orders firstOrder = datSorted.get(0);
+                Orders lastOrder = datSorted.get(datSorted.size() - 1);
+                Collections.reverse(datSorted);
+                junctionModel.addAttribute("junction", orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));
+            }
+            
+            model.addAttribute("orders", datSorted);
             productModel.addAttribute("products", productsRepository.findAll());
         }
         return "Manager/orders :: list";
     }
     @PostMapping("/removeProduct")
-    String RemoveItem(@RequestParam("id")String id,@RequestParam("remove")String prodId,Model model,Model junctionModel,Model productModel)
-    {
-        if(id!="" && prodId!="")
-        {
+    String RemoveItem(@RequestParam("id") String id, @RequestParam("remove") String prodId, Model model, Model junctionModel, Model productModel) {
+        if (!id.isEmpty() && !prodId.isEmpty()) {
+            List<OrderProducts> deleteList = orderProductsRepo.findByOrderIdAndProductId(Long.parseLong(id), Long.parseLong(prodId));
             
-                
-                List<OrderProducts> deleteList = orderProductsRepo.findByOrderIdAndProductId(Long.parseLong(id),Long.parseLong(prodId));
+            if (!deleteList.isEmpty()) { // Check if the list is not empty
                 Long idToDelete = deleteList.get(0).getOrder_product_id();
                 System.out.println(idToDelete);
-                this.orderProductsRepo.deleteById(idToDelete);
+                orderProductsRepo.deleteById(idToDelete);
 
-                Products addPrice = this.productsRepository.getById(Long.parseLong(prodId));
-                Orders modifiedPrice = this.orderRepository.getById(Long.parseLong(id));
-                BigDecimal newPrice = modifiedPrice.getPrice().subtract(addPrice.getPrice());
-                // BigDecimal newPrice = BigDecimal(addPrice.getPrice());
-                modifiedPrice.setPrice(newPrice);
-                orderRepository.save(modifiedPrice);
-                System.out.println("added "+prodId);
-            
-           
-            ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
-            ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
-            Orders firstOrder = datSorted.get(1);
-            int size = datSorted.size();
-            Orders lastOrder = datSorted.get(size-1);
-            Collections.reverse(dat);
-            junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
-            model.addAttribute("orders", dat);
+                Products addPrice = productsRepository.getReferenceById(Long.parseLong(prodId));
+                Orders modifiedPrice = orderRepository.getReferenceById(Long.parseLong(id));
+                
+                if (addPrice != null && modifiedPrice != null) { // Check if addPrice and modifiedPrice are not null
+                    BigDecimal newPrice = modifiedPrice.getPrice().subtract(addPrice.getPrice());
+                    modifiedPrice.setPrice(newPrice);
+                    orderRepository.save(modifiedPrice);
+                    System.out.println("added " + prodId);
+                }
+            }
+            List<Orders> datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);
+            if (!datSorted.isEmpty() && datSorted.size() > 1) {
+                Orders firstOrder = datSorted.get(0);
+                Orders lastOrder = datSorted.get(datSorted.size() - 1);
+                Collections.reverse(datSorted);
+                junctionModel.addAttribute("junction", orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));
+            }
+            model.addAttribute("orders", datSorted);
             productModel.addAttribute("products", productsRepository.findAll());
         }
         return "Manager/orders :: list";

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manager Table</title>
+  <link rel="stylesheet" href="../orders.css">
+  <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
+</head>
+<span id = translate>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {pageLanguage: 'en'},
+            'google_translate_element'
+        );
+    } 
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
+      <div id="google_translate_element"></div>
+</span>
+<H2>Orders</H2>
+<div id = navBar>
+  <a th:href="@{/}" class="nav-btn" >Home</a>
+  <a th:href="@{/Manager/Inventory/food}" class="nav-btn" >Food</a>
+  <a th:href="@{/Manager/Inventory/utilities}" class="nav-btn">Utilities</a>
+  <a th:href="@{/Manager/Inventory/condiments}" class="nav-btn">Condiments</a>
+  <a th:href="@{/Manager/Inventory/desert}" class="nav-btn">Dessert</a>
+  <a th:href="@{/Manager/Inventory/toppings}" class="nav-btn">Toppings</a>
+  <a th:href="@{/Manager/orders}" class="nav-btn" style = "background-color: rgba(242, 211, 152);">Orders</a>
+  <a th:href="@{/manager}" class="nav-btn" >Products</a>
+  <a th:href="@{/Manager/queries}" class = "nav-btn" >Reports</a>
+ 
+</div>
+<body id = "updateArea">
+    
+    <div id = selectDate>
+    <form hx-post = "/Manager/orders/view" hx-target = #updateArea hx-swap = outerHTML hx-indicator="#spinner">
+      <input type = date name = date>
+      <button type = submit>View Orders</button>
+    </form>
+  </div>
+    <img src = /images/spinners/90-ring.svg id="spinner" class="htmx-indicator">
+    <div class="header">
+      <div class="header-item">ID</div>
+      <div class="header-item">Date</div>
+      <div class="header-item">Price</div>
+      <div class="header-item">Status</div>
+    </div>
+    <div class = inv>
+      <div class = list th:fragment = list>
+    <div   class = item th:each = "order : ${orders}">
+      
+      <div class = top >
+      <span th:text = "${order.order_id}"></span>
+      <span th:text = "${order.orderDatetime}"></span>
+      <span th:text = " ${order.price}"> </span>
+      <span th:text = " ${order.status}"></span>
+     </div>
+     <div class = bottom>
+      <div class = items> Purchased:
+        <span th:each = "junc : ${junction}" th:if ="${junc.order_id} == ${order.order_id}">
+          
+            <span class = "products-name"   th:each ="product:${products}" th:if="${product.product_id == junc.product_id}" th:text = "${product.productname}"></span>
+          
+        </span>
+     </div>
+</div>
+</div>
+</div>
+</div>
+<div class = item>
+  <span>Modify Order: 
+    <input hx-target = .remove list="options"  name="id" id = id placeholder="Order Id" hx-post = "/Manager/orders/updateRemove" hx-trigger="change from:#id">
+    <datalist id="options">
+    <div th:each = "order : ${orders}">
+        <option th:text = "${order.order_id}" th:value = "${order.order_id}"></option>
+    </div>
+</datalist>
+
+  </span>
+  <span>
+
+  <input hx-target = ".list" id = price name = "price" hx-post = /Manager/orders/modifyPrice hx-include = #id placeholder="Enter new price" hx-trigger="change from:#price">
+</span>
+  <span>
+    <select hx-target = ".list" id = status name = status hx-post = /Manager/orders/modifyStatus hx-include = #id hx-trigger = "change from:#status">
+      <option value = "">Enter New Status</option>
+      <option vlaue = "processing">processing</option>
+      <option value = "completed">completed</option>
+      <option value = "canceled">canceled</option>
+    </select>
+  </span>
+  
+  <span>Add:
+    <select hx-target = ".list" id = prodId name = prodId hx-post = /Manager/orders/addProduct hx-include = #id hx-trigger = "change from:#prodId">
+      <option value = "">Add Item</option>
+      <div th:each = "product : ${products}">
+        
+        <option th:text = "${product.productname}" th:value = "${product.product_id}"></option>
+      </div>
+    </select>
+  </span>
+
+  <span th:fragment = remove id = remove class = remove>Remove:
+    <select hx-target = ".list" id = remove name = remove hx-post = /Manager/orders/removeProduct hx-include = #id hx-trigger = "change from:#remove">
+      <option value = "">Remove Item</option>
+      <div th:each = "product : ${deleteList}">
+        
+        <option th:text = "${product.productname}" th:value = "${product.product_id}"></option>
+      
+      </div>
+    </select>
+  </span>
+
+  <span>
+   
+    <button hx-target = .list id = deleteOrder name = deleteOrder hx-post =/Manager/orders/removeOrder hx-include = #id hx-trigger = "click">Remove Order</button>
+  </span>
+
+</div> 
+</body>
+</html>

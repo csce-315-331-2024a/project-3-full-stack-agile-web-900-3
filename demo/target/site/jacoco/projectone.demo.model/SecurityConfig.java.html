@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">projectone.demo.model</a> &gt; <span class="el_source">SecurityConfig.java</span></div><h1>SecurityConfig.java</h1><pre class="source lang-java linenums">package projectone.demo.model;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
+import org.springframework.security.oauth2.client.oidc.web.server.logout.OidcClientInitiatedServerLogoutSuccessHandler;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
+import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
+import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
+import org.springframework.security.oauth2.core.oidc.OidcIdToken;
+import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
+import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.WebAttributes;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
+import org.springframework.security.web.server.authentication.logout.ServerLogoutSuccessHandler;
+import org.springframework.stereotype.Component;
+import projectone.demo.repository.UsersRepository;
+
+import java.io.IOException;
+import java.net.URI;
+import java.util.*;
+
+import static org.springframework.security.config.Customizer.withDefaults;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig{
+
+
+
+    @Value(&quot;${app.redirect-uri}&quot;)
+    private String redirectUri;
+
+    private UsersRepository usersRepository;
+    private List&lt;Users&gt; databaseUsers;
+<span class="nc" id="L71">    public SecurityConfig(UsersRepository usersRepository) {</span>
+<span class="nc" id="L72">        this.usersRepository = usersRepository;</span>
+<span class="nc" id="L73">        this.databaseUsers = usersRepository.findAll();</span>
+
+
+
+<span class="nc" id="L77">    }</span>
+    @Autowired
+    private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    @SuppressWarnings(&quot;deprecation&quot;)
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+<span class="nc" id="L83">        OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository());</span>
+<span class="nc" id="L84">        oidcLogoutSuccessHandler.setPostLogoutRedirectUri(&quot;/&quot;);</span>
+
+<span class="nc" id="L86">        SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();</span>
+<span class="nc" id="L87">        securityContextLogoutHandler.setInvalidateHttpSession(true);</span>
+<span class="nc" id="L88">        securityContextLogoutHandler.setClearAuthentication(true);</span>
+
+
+<span class="nc" id="L91">        http</span>
+<span class="nc" id="L92">                .authorizeRequests(authorizeRequests -&gt;</span>
+                        authorizeRequests
+<span class="nc" id="L94">                                .requestMatchers(&quot;/admin/**&quot;).hasRole(&quot;ADMIN&quot;)</span>
+<span class="nc" id="L95">                                .requestMatchers(&quot;/Manager/**&quot;).hasAnyRole(&quot;ADMIN&quot;, &quot;MANAGER&quot;)</span>
+<span class="nc" id="L96">                                .requestMatchers(&quot;/manager/**&quot;).hasAnyRole(&quot;ADMIN&quot;, &quot;MANAGER&quot;)</span>
+<span class="nc" id="L97">                                .requestMatchers(&quot;/cashierPage/**&quot;).hasAnyRole(&quot;ADMIN&quot;, &quot;MANAGER&quot;, &quot;CASHIER&quot;)</span>
+<span class="nc" id="L98">                                .anyRequest().permitAll()</span>
+                )
+<span class="nc" id="L100">                .oauth2Login(oauth2Login -&gt;</span>
+<span class="nc" id="L101">                        oauth2Login</span>
+<span class="nc" id="L102">                                .successHandler(customAuthenticationSuccessHandler)</span>
+
+                )
+<span class="nc" id="L105">                .logout(logout -&gt; logout</span>
+<span class="nc" id="L106">                        .logoutUrl(&quot;/logout&quot;)</span>
+<span class="nc" id="L107">                        .logoutSuccessUrl(&quot;/&quot;)</span>
+<span class="nc" id="L108">                        .invalidateHttpSession(true)</span>
+<span class="nc" id="L109">                        .deleteCookies(&quot;JSESSIONID&quot;, &quot;remember-me&quot;)</span>
+<span class="nc" id="L110">                        .clearAuthentication(true)</span>
+                )
+
+<span class="nc" id="L113">                .csrf((csrf) -&gt; csrf.disable())</span>
+
+
+        ;
+
+<span class="nc" id="L118">        return http.build();</span>
+    }
+
+    @Bean
+    public ClientRegistrationRepository clientRegistrationRepository() {
+<span class="nc" id="L123">        return new InMemoryClientRegistrationRepository(this.googleClientRegistration());</span>
+    }
+
+    private ClientRegistration googleClientRegistration() {
+<span class="nc" id="L127">        return ClientRegistration.withRegistrationId(&quot;google&quot;)</span>
+<span class="nc" id="L128">                .clientId(&quot;584496888119-f70a71sds4sg2ufqu3oipp6cofqfs044.apps.googleusercontent.com&quot;)</span>
+<span class="nc" id="L129">                .clientSecret(&quot;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&quot;)</span>
+<span class="nc" id="L130">                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)</span>
+<span class="nc" id="L131">                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)</span>
+<span class="nc" id="L132">                .redirectUri(&quot;http://localhost:8080/login/oauth2/code/google&quot;)</span>
+<span class="nc" id="L133">                .scope(&quot;profile&quot;, &quot;email&quot;)</span>
+<span class="nc" id="L134">                .authorizationUri(&quot;https://accounts.google.com/o/oauth2/v2/auth&quot;)</span>
+<span class="nc" id="L135">                .tokenUri(&quot;https://www.googleapis.com/oauth2/v4/token&quot;)</span>
+<span class="nc" id="L136">                .userInfoUri(&quot;https://www.googleapis.com/oauth2/v3/userinfo&quot;)</span>
+<span class="nc" id="L137">                .userNameAttributeName(&quot;email&quot;)</span>
+<span class="nc" id="L138">                .jwkSetUri(&quot;https://www.googleapis.com/oauth2/v3/certs&quot;)</span>
+<span class="nc" id="L139">                .clientName(&quot;Google&quot;)</span>
+<span class="nc" id="L140">                .build();</span>
+    }
+
+    @Bean
+    public GrantedAuthoritiesMapper userAuthoritiesMapper() {
+<span class="nc" id="L145">        return (authorities) -&gt; {</span>
+<span class="nc" id="L146">            Set&lt;GrantedAuthority&gt; mappedAuthorities = new HashSet&lt;&gt;();</span>
+
+<span class="nc" id="L148">            authorities.forEach(authority -&gt; {</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">                if (OidcUserAuthority.class.isInstance(authority)) {</span>
+<span class="nc" id="L150">                    OidcUserAuthority oidcUserAuthority = (OidcUserAuthority)authority;</span>
+
+<span class="nc" id="L152">                    OidcIdToken idToken = oidcUserAuthority.getIdToken();</span>
+<span class="nc" id="L153">                    OidcUserInfo userInfo = oidcUserAuthority.getUserInfo();</span>
+
+                    // Map the claims found in idToken and/or userInfo
+                    // to one or more GrantedAuthority's and add it to mappedAuthorities
+
+<span class="nc bnc" id="L158" title="All 2 branches missed.">                } else if (OAuth2UserAuthority.class.isInstance(authority)) {</span>
+<span class="nc" id="L159">                    OAuth2UserAuthority oauth2UserAuthority = (OAuth2UserAuthority)authority;</span>
+
+<span class="nc" id="L161">                    Map&lt;String, Object&gt; userAttributes = oauth2UserAuthority.getAttributes();</span>
+
+
+                    // Check the email attribute
+<span class="nc" id="L165">                    String email = (String) userAttributes.get(&quot;email&quot;);</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">                    for(Users user: databaseUsers){</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">                        if(user.getEmail().equals(email)){</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">                            if(user.getRole().equals(&quot;admin&quot;)){</span>
+<span class="nc" id="L169">                                mappedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_ADMIN&quot;));</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">                            } else if (user.getRole().equals(&quot;manager&quot;)){</span>
+<span class="nc" id="L171">                                mappedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_MANAGER&quot;));</span>
+                            }
+<span class="nc bnc" id="L173" title="All 2 branches missed.">                            else if(user.getRole().equals(&quot;cashier&quot;)){</span>
+<span class="nc" id="L174">                                mappedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_CASHIER&quot;));</span>
+
+                            } else{
+<span class="nc" id="L177">                                mappedAuthorities.add(new SimpleGrantedAuthority(&quot;ROLE_USER&quot;));</span>
+                            }
+                        }
+<span class="nc" id="L180">                    }</span>
+
+                }
+<span class="nc" id="L183">            });</span>
+
+<span class="nc" id="L185">            return mappedAuthorities;</span>
+        };
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+<span class="nc" id="L191">        return new CustomAuthenticationSuccessHandler();</span>
+    }
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

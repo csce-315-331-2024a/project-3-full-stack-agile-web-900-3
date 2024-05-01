@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @WebMvcTest(CustomerController.class)
-public class CustomerControllerTest {
+public class ProductControllerTest {
 
     @Autowired
     private MockMvc mockMvc;

@@ -14,7 +14,6 @@ import jakarta.persistence.Column;
 
 @Entity(name="Products")
 @Table(name="products")
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -30,7 +29,8 @@ public class Products implements Serializable{
     @Column(name = "product_type")
     private String productType;
 
-    public Products(String productname, BigDecimal price, String product_type) {
+    public Products(Long product_id,String productname, BigDecimal price, String product_type) {
+        this.product_id = product_id;
         this.productname = productname;
         this.price = price;
         this.productType = product_type;
@@ -45,6 +45,10 @@ public class Products implements Serializable{
                 ", price=" + price +
                 ", product_type='" + productType + '\'' +
                 '}';
+    }
+
+    public Long getProductID() {
+        return product_id;
     }
 
     public String getProductname(){

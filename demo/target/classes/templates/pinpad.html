@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pin Pad</title>
+<link rel="stylesheet" href="pinPad.css">
+</head>
+<body>
+
+<div id="pin-display">****</div>
+<div class="pin-pad">
+  <button onclick="enterPin('1')">1</button>
+  <button onclick="enterPin('2')">2</button>
+  <button onclick="enterPin('3')">3</button>
+  <button onclick="enterPin('4')">4</button>
+  <button onclick="enterPin('5')">5</button>
+  <button onclick="enterPin('6')">6</button>
+  <button onclick="enterPin('7')">7</button>
+  <button onclick="enterPin('8')">8</button>
+  <button onclick="enterPin('9')">9</button>
+  <button onclick="clearPin()">C</button>
+  <button onclick="enterPin('0')">0</button>
+  <button onclick="deleteLast()">Del</button>
+</div>
+
+<script>
+  let pin = '';
+  let display = document.getElementById('pin-display');
+
+  function enterPin(digit) {
+    if (pin.length < 4) {
+      pin += digit;
+      updateDisplay();
+    }
+  }
+
+  function updateDisplay() {
+    let displayValue = '';
+    for (let i = 0; i < pin.length; i++) {
+      displayValue += '*';
+    }
+    display.innerText = displayValue.padEnd(4, '*');
+  }
+
+  function clearPin() {
+    pin = '';
+    updateDisplay();
+  }
+
+  function deleteLast() {
+    pin = pin.substring(0, pin.length - 1);
+    updateDisplay();
+  }
+</script>
+
+</body>
+</html>
