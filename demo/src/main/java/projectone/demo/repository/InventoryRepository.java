@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import projectone.demo.model.Inventory;
 import projectone.demo.projection.InventoryUsageStatistic;
 import projectone.demo.projection.OverstockProjection;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
@@ -61,4 +63,15 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
            "ORDER BY o.order_datetime",
            nativeQuery = true)
     List<Object[]> findDailyInventoryUsageData(@Param("start_time") Timestamp startTime, @Param("end_time") Timestamp endTime);
+
+    @Query(value = "SELECT i.name AS itemName, SUM(op.quantity) AS quantityUsed " +
+           "FROM orders o " +
+           "JOIN order_products op ON o.order_id = op.order_id " +
+           "JOIN product_inventory pi ON op.product_id = pi.product_id " +
+           "JOIN inventory i ON pi.inventory_id = i.id " +
+           "WHERE o.order_datetime BETWEEN :start_time AND :end_time " +
+           "GROUP BY i.name",
+           countQuery = "SELECT COUNT(DISTINCT i.id) FROM Inventory i",
+           nativeQuery = true)
+    Page<Object[]> findAggregatedInventoryUsage(@Param("start_time") Timestamp startTime, @Param("end_time") Timestamp endTime, Pageable pageable);
 }

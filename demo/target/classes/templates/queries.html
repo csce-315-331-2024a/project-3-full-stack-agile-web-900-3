@@ -25,6 +25,13 @@
                 <button type="submit" name="display" value="trends" class="btn btn-secondary">Show Sales Trends</button>
                 <button type="submit" name="display" value="overstock" class="btn btn-danger">Show Overstock</button>
                 <button type="submit" name="display" value="inventoryChart" class="btn btn-info">Show Inventory Chart</button>
+                
+                <!-- Pagination controls -->
+                <div th:if="${display == 'inventoryChart'}">
+                    <button type="submit" name="page" th:value="${currentPage - 1}" th:disabled="${currentPage == 0}" class="btn btn-outline-secondary">Previous</button>
+                    <button type="submit" name="page" th:value="${currentPage + 1}" th:disabled="${currentPage == totalPages - 1}" class="btn btn-outline-secondary">Next</button>
+                    <input type="hidden" name="size" th:value="${size}">
+                </div>
             </form>
         </div>
 
@@ -113,7 +120,7 @@
                 <h2>Inventory Usage Chart</h2>
                 <img th:src="${'data:image/png;base64,' + chartImage}" alt="Inventory Chart" class="img-fluid"/>
             </div>
-        </div>        
+        </div>       
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
