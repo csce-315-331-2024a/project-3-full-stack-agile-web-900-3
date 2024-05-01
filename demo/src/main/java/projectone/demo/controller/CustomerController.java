@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 
 import org.springframework.web.client.RestTemplate;
 import projectone.demo.model.Products;
@@ -132,6 +133,14 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
+    @GetMapping("/api/products")
+    public ResponseEntity<List<Products>> getAllProducts() {
+        List<Products> products = customerRepository.findAll();
+        if (products.isEmpty()) {
+            return ResponseEntity.noContent().build(); // or notFound().build() depending on the scenario
+        }
+        return ResponseEntity.ok(products);
+    }
 
 
 }
