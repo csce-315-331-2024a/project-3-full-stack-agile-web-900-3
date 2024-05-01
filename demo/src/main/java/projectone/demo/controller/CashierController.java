@@ -64,7 +64,6 @@ class CashierController{
         int[] numbers = Arrays.stream(numbersArray).mapToInt(Integer::parseInt).toArray();
         
       
-        
         LocalDateTime date = LocalDateTime.now();
         String status = "processing";
         BigDecimal newPrice = new BigDecimal(price);
@@ -78,6 +77,7 @@ class CashierController{
             OrderProducts newJunction = new OrderProducts(newID,newId,productID,Long.parseLong("1"));
             this.orderProductsRepo.save(newJunction);
             orderProductsModel.addAttribute("orderProducts", this.orderProductsRepo.getLastOrder());
+            
         }
         System.out.println("Order placed successfully.\n"+ids);
         return "redirect:/cashierPage";

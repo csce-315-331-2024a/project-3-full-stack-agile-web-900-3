@@ -23,4 +23,7 @@ public interface ProductInventoryRepository extends JpaRepository<ProductInvento
 
     @Query(value = "SELECT i.name FROM inventory i INNER JOIN product_inventory pi ON i.id = pi.inventory_id WHERE pi.product_id = :productId", nativeQuery = true)
     List<String> findIngredientNamesByProductId(@Param("productId") Long productId);
+
+    // @Query(value = "SELECT pi.inventory.id FROM ProductInventory pi WHERE pi.product.id = :productId")
+    // List<Long> getInventoryIdsForProduct(@Param("productId") Long productId);
 }
