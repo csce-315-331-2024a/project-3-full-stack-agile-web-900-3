@@ -4,6 +4,7 @@
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/ProductInventory.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/OrderProductsRepo.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/UsersRepository.java
+/Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/projection/InventoryUsageStatistic.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/loginController.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/SalesTrendsRepository.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Overstock.java
@@ -16,6 +17,7 @@
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/SalesTrends.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/ProductsInventoryRepo.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Inventory.java
+/Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/service/InventoryService.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/OrderProducts.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/SalesData.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Orders.java
@@ -25,6 +27,7 @@
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/service/MyUserDetailsService.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/queriesController.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/ProductsRepository.java
+/Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/ItemWeekKey.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/projection/SalesDataProjection.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/CustomerRepository.java
 /Users/chancehughes/Desktop/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/repository/OrdersRepository.java

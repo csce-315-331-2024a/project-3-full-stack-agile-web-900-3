@@ -56,3 +56,15 @@ form {
       width: 100%;
   }
 }
+
+.chart-container {
+  background-color: #fff; /* Light background for the chart */
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px; /* Space below the chart */
+}
+
+.img-fluid {
+  width: 100%; /* Ensures the image is responsive */
+  height: auto;
+}
