@@ -226,6 +226,23 @@ body {
   padding: 10px; /* Add padding to give space around the buttons */
 }
 
+.addButton.uniqueAddButton {
+  background-color: maroon;
+  color: goldenrod;
+  display: block; 
+  width: 100%; 
+  margin-bottom: 5px;
+  padding: 8px; 
+  font-size: 14px; 
+}
+
+.addButtonDiv {
+  padding: 10px; 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  gap: 5px; /* Gap between buttons */
+}
+
 
 .edit-window button {
   padding: 8px 16px;

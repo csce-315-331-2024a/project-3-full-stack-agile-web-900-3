@@ -77,7 +77,12 @@ class CashierController{
             OrderProducts newJunction = new OrderProducts(newID,newId,productID,Long.parseLong("1"));
             this.orderProductsRepo.save(newJunction);
             orderProductsModel.addAttribute("orderProducts", this.orderProductsRepo.getLastOrder());
-            
+
+            List<Long> inventoryIds = productInventoryRepository.getInventoryIdsForProduct(productID);
+            for (Long inventoryId : inventoryIds){
+                inventoryRepository.updateInventoryQuantity(inventoryId, 1);
+            }
+
         }
         System.out.println("Order placed successfully.\n"+ids);
         return "redirect:/cashierPage";

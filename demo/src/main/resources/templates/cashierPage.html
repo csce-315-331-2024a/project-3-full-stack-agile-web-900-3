@@ -20,11 +20,19 @@
     <p id="orderTotal">Order Total: $0.00</p>
     <form hx-post="/cashierPage/add" hx-target="#all" hx-swap="outerHTML">
       <input type="hidden" name="price"  id="total-price"/>
-      <input name="productId" id="ids"/> 
+      <input type="hidden" name="productId" id="ids"/> 
       <button id="placeOrder" type="submit">Place Order</button>
     </form>
-    <input name="" id="noIds"/>
+    <input type="hidden" name="" id="noIds"/>
+    <input type="hidden" name="" id="addIds"/>
+    <input type="hidden" name="" id="ticket"/>
     <button id="backButton"class="button">back</button>
+    <div th:each="thisItem: ${inventory}">
+      <th:block th:if="${thisItem.type == 'topping' or thisItem.type == 'condiment'}">
+        <input type="hidden" class="tops" th:value="${thisItem.name} +'-'+ ${thisItem.id}"/>
+      </th:block>
+    </div>
+    
   </div>
 
   <div class="grid">
@@ -45,7 +53,7 @@
               <div th:each="thisName: ${inventory}">
                 <th:block th:if = "${thisName.id == thisItem.inventoryId}">
                   <input type="hidden" th:class="${item.productname} + ${item.product_id}" th:value="${thisName.name} +'-'+${thisName.id}" />
-                  
+            
                 </th:block>
               </div>
             </th:block>
@@ -66,6 +74,10 @@
   var buttons = document.getElementsByClassName('button');
   var ids = document.getElementById("ids");
   var noIds = document.getElementById("noIds");
+  var ticket = document.getElementById("ticket");
+  var addIds = document.getElementById('addIds');
+  
+
   
   
   document.getElementById("backButton").addEventListener("click", function() {
@@ -99,6 +111,7 @@
     itemButton.setAttribute('item-ingredients',itemIngredients);
     itemButton.setAttribute('item-side',"");
     itemButton.setAttribute('item-remove',"");
+    itemButton.setAttribute('item-add',"");
     itemButton.addEventListener('click', function() {
       openEditWindow(itemButton);
     });
@@ -113,7 +126,8 @@
     cssLink.rel = 'stylesheet';
     cssLink.href = '../cashierPage.css'; 
     editWindow.document.head.appendChild(cssLink);
-
+    var thePrice = parseFloat(button.getAttribute('data-price'));
+    var toppings = document.getElementsByClassName('tops');
 
     var label = document.createElement('label');
     label.textContent = button.textContent;
@@ -129,8 +143,6 @@
 
     var comboButton = document.createElement('button');
     comboButton.textContent = "Combo";
-
-    
 
     if (itemType === 'burger' || itemType === 'sandwich') {
       comboButton.disabled = false;
@@ -166,6 +178,7 @@
     }
     else {
       comboButton.disabled = true;
+      comboButton.hidden = true;
     }
 
     var noButtonDiv = document.createElement('div');
@@ -184,13 +197,52 @@
         noButtons[index].classList.add('uniqueNoButton'); // Add a unique class
         noButtons[index].addEventListener('click', function () {
           noButtons[index].disabled = true;
-          var thePrice = parseFloat(button.getAttribute('data-price'));
+          
           button.textContent = button.textContent.split(' - ')[0] + ' ' + noButtons[index].textContent + ' - $' + thePrice.toFixed(2);
           label.textContent = button.textContent;
-          button.setAttribute('item-remove',ingredients[index].split('-')[1]+"-");
+          var toRemove = button.getAttribute('item-remove');
+          button.setAttribute('item-remove',toRemove + ingredients[index].split('-')[1] + "-");
         });
         noButtonDiv.appendChild(noButtons[index]);
-    })(i); // Pass 'i' to the closure function
+      })(i); // Pass 'i' to the closure function
+    }
+
+    var addButtonDiv = document.createElement('div');
+    addButtonDiv.classList.add('addButtonDiv');
+    editWindow.document.body.appendChild(addButtonDiv);
+    var addButtons =[];
+
+    for(var i=0;i<toppings.length;i++){
+      (function (index) { // Create a closure to capture the current value of 'i'
+        addButtons[index] = document.createElement('button');
+        addButtons[index].textContent = 'Add ' + toppings[index].value.split('-')[0];
+        addButtons[index].classList.add('addButton');
+        addButtons[index].classList.add('uniqueAddButton'); // Add a unique class
+        addButtons[index].addEventListener('click', function () {
+          addButtons[index].disabled = true;
+          button.textContent = button.textContent.split(' - ')[0] + ' ' + addButtons[index].textContent + ' - $' + thePrice.toFixed(2);
+          label.textContent = button.textContent;
+          var toAdd = button.getAttribute('item-add');
+          button.setAttribute('item-add',toAdd + toppings[index].value.split('-')[1] + "-");
+        });
+        addButtonDiv.appendChild(addButtons[index]);
+      })(i);
+    }
+    
+
+    if (itemType === 'burger'){
+      var beanButton = document.createElement('button');
+      beanButton.textContent = "Bean Patty";
+      beanButton.addEventListener('click', function() {
+        button.textContent = button.textContent.split(' - ')[0] + ' Bean Patty - $' + thePrice.toFixed(2);
+        label.textContent = button.textContent;
+        var toRemove = button.getAttribute('item-remove');
+        button.setAttribute('item-remove',toRemove + "25-");
+        var toAdd = button.getAttribute('item-add');
+        button.setAttribute('item-add',toRemove + "29-");
+        //figure out what id bean patty is
+      });
+      editWindow.document.body.appendChild(beanButton);
     }
     editWindow.document.body.appendChild(comboButton);
 
@@ -228,14 +280,20 @@
     var total = 0;
     ids.value = "";
     noIds.value = "";
+    ticket.value = "";
+    addIds.value = "";
     for (var i = 0; i < orderedItems.length; i++) {
       var price = parseFloat(orderedItems[i].getAttribute('data-price'));
       var thisId = orderedItems[i].getAttribute('item-id');
       var thisSide = orderedItems[i].getAttribute('item-side');
       var thisRemove = orderedItems[i].getAttribute('item-remove');
+      var thisAdd = orderedItems[i].getAttribute('item-add');
+      var thisText = orderedItems[i].textContent + '\n';
       total += price;
       ids.value = ids.value + thisId +"-"+thisSide;
       noIds.value = noIds.value + thisRemove;
+      ticket.value = ticket.value + thisText;
+      addIds.value = addIds.value + thisAdd;
     }
     ids.value = ids.value;
     total=total*1.08;
