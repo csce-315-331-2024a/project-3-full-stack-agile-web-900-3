@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/SalesTrends.java
 /home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/controller/OrdersPageController.java
 /home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/OrderProducts.java
@@ -42,48 +41,3 @@
 /home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Products.java
 /home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/projection/OverstockProjection.java
 /home/quinn/Sprint 3/project-3-full-stack-agile-web-900-3/demo/src/main/java/projectone/demo/model/Users.java
-=======
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\repository\ProductsRepository.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\OrderProducts.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\repository\SalesTrendsRepository.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\queriesController.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\repository\InventoryRepository.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\CustomerController.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\repository\UsersRepository.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\Inventory.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\authentication.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\kitchenController.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\Orders.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\repository\CustomerRepository.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\repository\OrdersRepository.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\WeatherResponse.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\OrdersPageController.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\ProductInventory.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\repository\ProductInventoryRepository.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\projection\SalesTrendsProjection.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\DemoApplication.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\greetController.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\DBConnection.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\SalesData.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\loginController.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\MenuBoard.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\projection\SalesDataProjection.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\CustomAuthenticationSuccessHandler.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\repository\OrderProductsRepo.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\SalesTrends.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\Users.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\projection\OverstockProjection.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\repository\SalesDataRepository.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\service\MyUserDetailsService.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\SecurityConfig.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\Products.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\IndexController.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\CashierController.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\logout.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\adminController.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\ProductController.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\ProductInventoryController.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\Overstock.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\controller\InventoryController.java
-C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\main\java\projectone\demo\model\CustomUserDetailsService.java
->>>>>>> d7149d6a0244077963ff5042a3fc31cf13dd44f7
