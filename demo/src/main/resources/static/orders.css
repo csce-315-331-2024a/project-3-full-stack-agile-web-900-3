@@ -138,3 +138,28 @@ button:hover {
   right: 0; /* Aligns the element to the right edge of the viewport */
   z-index: 1000; /* Ensures it stays on top of other content */
 }
+.inv{
+  height: 80vh;
+  width: auto;
+  overflow: auto;     
+  border: 4px solid #F5EBD5; /* Set the border color to black and width to 2px */
+  border-radius: 20px; /* Rounded corners with a radius of 10px */
+}
+.header {
+  background: white; /* Sets a white background for product listings */
+  padding: 15px; /* Adds padding inside each product container */
+  margin-top: 10px; /* Adds space between each product listing */
+  border-radius: 8px; /* Rounds the corners of the product listings */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds a shadow to the product listings */
+  display: flex; /* Utilizes flexbox for horizontal layout */
+  justify-content: space-between; /* Distributes space between elements evenly */
+  color: black; /* Text color inside products set to black for readability */
+  overflow: hidden;
+}
+
+.header-item {
+  flex-grow: 1; /* Ensures each header item can expand to take equal space */
+  text-align: center; /* Centers the text within each header item */
+  padding: 5px 0; /* Slight padding for better text framing */
+  font-weight: bold; /* Makes header text bold */
+}
