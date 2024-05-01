@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 projectone/demo/model/DBConnection.class
 projectone/demo/model/Orders.class
 projectone/demo/controller/authentication.class
@@ -30,3 +31,5 @@ projectone/demo/controller/desertController.class
 projectone/demo/controller/queriesController.class
 projectone/demo/controller/loginController.class
 projectone/demo/controller/IndexController.class
+=======
+>>>>>>> 4355e2a355eb9a95ca43cc624cd9c5d74509aea9

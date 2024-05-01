@@ -45,7 +45,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             return "/greet/cashier";
         }
         else {
-            return "/";
+            return "/greet/customer";
         }
     }
 }
