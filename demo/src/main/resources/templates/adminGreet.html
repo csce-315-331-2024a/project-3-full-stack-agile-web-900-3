@@ -19,14 +19,16 @@
             <select class="form-select" id="actionDropdown">
                 <option selected>Choose an action...</option>
                 <option value="/admin">Admin</option>
-                <option value="/manager">Manager</option>
+                <option value="/Manager/manager">Manager</option>
                 <option value="/cashierPage">Employee</option>
-                <option value="/customer.html">Customer</option>
+                <option value="/customer">Customer</option>
                 <option value="/menuBoard">Menuboard</option>
                 <option value="/kitchen">Kitchen</option>
             </select>
             <button class="btn btn-outline-secondary" type="button" th:onclick="'redirectToSelectedUrl()'">Go</button>
         </div>
+
+        <button th:onclick="'window.location.href=\'/logout\''"> Logout </button>
 
     </div>
 
