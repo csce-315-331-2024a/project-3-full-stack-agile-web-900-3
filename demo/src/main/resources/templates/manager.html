@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" class = "entireArea">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,12 +59,12 @@
 <div id = manager-list th:fragment= "manager-list" class = "manager-list">
   <!-- th: is thymleaf and the each tag is saying each value in the item table and the   ${manager} linkes it to the manager controller logic-->
   <div class = "inv">
-    <div id = list th:fragment = "manager-list"  th:each="item: ${manager}">
+    <div id = list class = list  th:each="item: ${manager}">
   
      
       <!-- this line is displaying the id attrabute of a row in a product table -->
       <!-- <div class = "id" th:text="${item.product_id}">ID</div> -->
-      <div class = item> 
+      <div class = item th:fragment = item> 
 
         <div class = "top">
 
@@ -127,7 +127,7 @@
                     </span>
                 </span>
               <span class = modify>
-              <form hx-post = "manager/addInv" hx-swap ="outerHTML" hx-target="#manager-list">
+              <form hx-post = "manager/addInv" hx-swap ="outerHTML" hx-target = "#updateArea" >
                 <input  th:value ="${item.product_id}" name = "id" style="display: none;">
               <select class = highSelect name = "new-inv-id">
                 <option th:each = "inv: ${inventory}" th:if ="${inv.type} != utilities  " th:value = "${inv.id}" th:text = "${inv.name}">

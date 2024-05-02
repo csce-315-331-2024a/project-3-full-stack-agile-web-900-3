@@ -22,12 +22,8 @@ public class greetController {
     public String greetAdmin(){
         return "adminGreet";
     }
-    /**
-     * Greets the manager.
-     *
-     * @return the manager greeting view directory
-     */
-    @GetMapping("/Manager/Inventory/food")
+
+    @GetMapping("/manager")
     public String greetManager(){
         return "managerGreet";
     }

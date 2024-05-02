@@ -21,40 +21,38 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-/**
-  * @author Hayden O'keefe 
- * @author Ethan Woods
- */
-/**
- * Controller for customer-related operations.
- */
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+
+import projectone.demo.repository.OrderProductsRepo;
+import projectone.demo.repository.ProductsRepository;
+import projectone.demo.model.OrderProducts;
+
+import java.util.Arrays;
+
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
-    @Autowired
     private OrdersRepository orderRepository;
-      /**
-     * Constructs a {@code CustomerController} with the necessary repositories.
-     *
-     * @param customerRepository the customer repository
-     * @param orderRepository the orders repository
-     */
-    CustomerController(CustomerRepository customerRepository, OrdersRepository orderRepository)
-    {
+    private final OrderProductsRepo orderProductsRepo;
+
+    CustomerController(CustomerRepository customerRepository, OrdersRepository orderRepository,
+            OrderProductsRepo orderProductsRepo) {
+        this.orderProductsRepo = orderProductsRepo;
         this.customerRepository = customerRepository;
         this.orderRepository = orderRepository;
-        
     }
-       /**
-     * Displays the main customer page.
-     *
-     * @return the customer view directory
-     */
+
     @GetMapping
-        public String Index() {
-            return "customer"; 
+    public String Index() {
+        return "customer";
     }
         /**
      * Displays the orders page for a customer.
@@ -62,30 +60,36 @@ public class CustomerController {
      * @return the customer view directory
      */
     @GetMapping("/orders")
-    String Orders()
-    {
+    String Orders() {
         System.out.println("working");
         return "customer";
     }
-       /**
-     * Adds a new order with the specified price.
-     *
-     * @param price the price of the new order
-     * @return redirect string to the checkout page
-     */
-    @PostMapping(value = "/add")
-    String add(@RequestParam("price")String price)
-    {
-        System.out.println(price);
-        Long newid = orderRepository.findMaxId()+1;
+
+    @PostMapping(value = "/checkout")
+    String add(@RequestParam("price") String price, @RequestParam("productId") String ids, Model orderModel,
+            Model orderProductsModel) {
+
+        String[] rawIdList = ids.split("-");
+
+        Long newId = orderRepository.findMaxId() + 1;
+        int[] idList = Arrays.stream(rawIdList).mapToInt(Integer::parseInt).toArray();
+
         LocalDateTime time = LocalDateTime.now();
         String status = "processing";
         BigDecimal newPrice = new BigDecimal(price);
-        Orders newOrder = new Orders(newid,newPrice,time,status);
+        Orders newOrder = new Orders(newId, newPrice, time, status);
         this.orderRepository.save(newOrder);
-       
+        orderModel.addAttribute("orders", newOrder);
+
+        for (long productID : idList) {
+            Long newID = orderProductsRepo.findMaxId() + 1;
+            OrderProducts newJunction = new OrderProducts(newID, newId, productID, 1L);
+            this.orderProductsRepo.save(newJunction);
+            orderProductsModel.addAttribute("orderProducts", newJunction);
+        }
+
         System.out.println("order added");
-        return "redirect:/customer/checkout";
+        return "redirect:/customer"; // TODO: redirect to thank you page.
     }
     
     /**
@@ -112,11 +116,6 @@ public class CustomerController {
         return "customerEditItem";
     }
 
-     /**
-     * Displays the checkout page.
-     *
-     * @return the checkout view directory
-     */
     @GetMapping("/checkout")
     public String checkoutPage() {
         return "customerCheckout";

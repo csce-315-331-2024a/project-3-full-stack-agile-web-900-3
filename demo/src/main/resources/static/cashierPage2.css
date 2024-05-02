@@ -1,0 +1,302 @@
+body, h1, p, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: bold;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: maroon;
+    color:rgb(0, 0, 0);
+    
+  }
+  
+  p{
+    font-size: 20px;
+    background-color: black;
+  }
+  
+  #placeOrder{
+    font-size: 20px;
+  }
+
+  #typeHeader{
+    font-size: 20px;
+    background-color: black;
+    text-align: center;
+  }
+
+  #contrastButton{
+    margin-top: 50%;
+  }
+
+  #google_translate_element {
+    position: absolute;
+  }
+  .container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .sidebar {
+    width: 30%;
+    height: 500px; 
+    background-color: maroon;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; 
+  }
+  
+  .sidebar h1 {
+    margin-bottom: 20px;
+    color: white;
+    background-color: black;
+  }
+  
+  .sidebar button {
+    background-color:white;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sidebar button:hover {
+    opacity: 0.7;
+  }
+  
+  #google_translate_element {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+  }
+  
+  
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); 
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .grid-item button {
+  
+    width: 100%;
+    padding: 20px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .button {
+    padding: 20px;
+    border: none;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin: 2px;
+    text-shadow: white;
+  }
+  
+  #burger {
+    
+    background-color: black;
+    color: white;
+    
+  }
+  
+  #basket {
+    
+    background-color: goldenrod;
+    color: white;
+  }
+  
+  #sandwich {
+    background-color: rgb(107, 106, 106);
+    color: white;
+  }
+  
+  #sweet {
+    background-color: rgb(188, 41, 63);
+    color: white;
+  }
+  
+  #beverage {
+    background-color: rgb(12, 100, 154);
+    color: white;
+  }
+  
+  #side {
+    background-color: rgb(77, 46, 6);
+    color: white;
+  }
+  
+  #salad {
+    background-color: rgb(42, 56, 14);
+    color: white;
+  }
+  
+  #sauce {
+    background-color: rgb(207, 59, 1);
+    color: white;
+  }
+  
+  #typeHeader {
+    color: white;
+  }
+  
+  .button:hover {
+    transform: scale(1.05);
+    background-color: white;
+  }
+  
+  .small-button {
+    padding: 10px;
+    background-color: white;
+    border: none;
+    color:black;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+  
+  .small-button:hover {
+    opacity: 0.7;
+  }
+  
+  #outputText {
+    padding: 10px;
+    border: 5px solid rgb(0, 0, 0);
+    background-color: white;
+    margin-bottom: 20px;
+    height: 450px; 
+    overflow-y: auto; 
+  }
+  
+  #orderTotal {
+    color:white;
+  }
+  
+  #backButton {
+    margin-top: 10px;
+  }
+  
+  .ordered-item {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s, color 0.2s;
+  }
+  
+  .ordered-item:hover {
+    transform: scale(1.05);
+    background-color: maroon;
+    color: white;
+  }
+  
+  /* CSS for editWindow */
+  .edit-window {
+    padding: 20px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  
+  .edit-window label {
+    display: block;
+    font-weight: bolder;
+    margin-bottom: 10px;
+  }
+  
+  .edit-window select {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .noButton.uniqueNoButton {
+    background-color: black;
+    color: white;
+    display: block; 
+    width: 100%; 
+    margin-bottom: 5px; 
+    padding: 8px; 
+    font-size: 18px; 
+  }
+  
+  .noButtonDiv {
+    padding: 10px;
+  }
+  
+  .addButton.uniqueAddButton {
+    background-color: black;
+    color: goldenrod;
+    display: block; 
+    width: 100%; 
+    margin-bottom: 5px;
+    padding: 8px; 
+    font-size: 18px; 
+  }
+  
+  .addButtonDiv {
+    padding: 10px; 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 5px; 
+  }
+  
+  
+  .edit-window button {
+    padding: 8px 16px;
+    background-color: navy;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .edit-window button:hover {
+    background-color: blue;
+  }
+  
+  .edit-window .btn-group {
+    margin-top: 10px;
+  }
+  
+  
+  /* Adjustments for responsiveness */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+    }
+  
+    .content {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .sub-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }

@@ -11,18 +11,12 @@
 </head>
 <body>
 <div class="landing-page bg-maroon">
-
-
-
-
-
-
         <div class="options-container flex-grow-1">
-            <div class="option menu" th:onclick="'window.location.href=\'/menuBoard\''">
-                Menu
+            <div class="option menu">
+                <a th:href="@{/menuBoard}">Menu</a>
             </div>
             <div class="option order" th:onclick="'window.location.href=\'/customer\''">
-                Order
+                <a th:href="@{/customer}">Customer Order Page</a>
             </div>
 
         </div>

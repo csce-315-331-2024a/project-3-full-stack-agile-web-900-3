@@ -4,9 +4,12 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import projectone.demo.model.Inventory;
 import projectone.demo.projection.OverstockProjection;
 /**
@@ -60,4 +63,9 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
         "usage_count", nativeQuery = true)
     List<OverstockProjection> findOverstock(@Param("start_time") Timestamp startTime, @Param("end_time") Timestamp endTime);
     
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE inventory SET quantity = quantity - :quantityUsed WHERE id = :inventoryId", nativeQuery = true)
+    void updateInventoryQuantity(@Param("inventoryId") Long inventoryId, @Param("quantityUsed") int quantityUsed);
+
 }
