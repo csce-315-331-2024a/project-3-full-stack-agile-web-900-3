@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InventoryController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">projectone.demo.controller</a> &gt; <span class="el_source">InventoryController.java</span></div><h1>InventoryController.java</h1><pre class="source lang-java linenums">package projectone.demo.controller;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import projectone.demo.model.Inventory;
+import projectone.demo.model.Products;
+import projectone.demo.repository.InventoryRepository;
+import projectone.demo.repository.ProductsRepository;
+// @RequestMapping(value = &quot;/inventory&quot;)   
+// @Controller
+// class InventoryController{
+//     @Autowired
+//     private InventoryRepository repository;
+
+//     String InventoryController(InventoryRepository repository)
+//     {
+//         this.repository = repository;
+//         return &quot;inventory&quot;;
+//     }
+//     @GetMapping
+//     String Inventory(Model model)
+//     {
+//         model.addAttribute(&quot;inventory&quot;, this.repository.findAll());
+
+//         return &quot;inventory&quot;;
+//     }
+//     @PostMapping
+//     String order( @RequestParam(&quot;new-quantity&quot;)String amount,@RequestParam(&quot;item-id&quot;)String id,Model model)
+//     {
+       
+//         Long Id = Long.parseLong(id);
+//     Integer amt = Integer.parseInt(amount);
+//     LocalDate date = LocalDate.now();
+    
+//     Inventory inventoryItem = this.repository.getById(Id);
+//      System.out.println(inventoryItem.toString());
+
+//     inventoryItem.setQuantity(inventoryItem.getQuantity() + amt);
+//     inventoryItem.setOrderDate(date); 
+
+//     this.repository.save(inventoryItem);
+//     model.addAttribute(&quot;inventory&quot;, this.repository.findAll());
+    
+//     return &quot;redirect:/inventory&quot;;
+        
+//     }
+//     String modify( @RequestParam(&quot;new-quantity&quot;)String amount,@RequestParam(&quot;item-id&quot;)String id,Model model)
+//     {
+       
+//     Long Id = Long.parseLong(id);
+//     Integer amt = Integer.parseInt(amount);
+//     LocalDate date = LocalDate.now();
+    
+//     Inventory inventoryItem = this.repository.getById(Id);
+//      System.out.println(inventoryItem.toString());
+
+//     inventoryItem.setQuantity(inventoryItem.getQuantity() + amt);
+//     inventoryItem.setOrderDate(date); 
+
+//     this.repository.save(inventoryItem);
+//     model.addAttribute(&quot;inventory&quot;, this.repository.findAll());
+    
+//     return &quot;inventory&quot;;
+        
+//     }
+// }
+
+@RequestMapping(&quot;Manager/Inventory/food&quot;)
+@Controller
+<span class="nc" id="L88">class foodController</span>
+{
+    @Autowired
+    private  InventoryRepository repository;
+
+    String foodController(InventoryRepository repository)
+    {
+<span class="nc" id="L95">        this.repository = repository;</span>
+<span class="nc" id="L96">        return &quot;/Manager/Inventory/food&quot;;</span>
+    }
+    @GetMapping
+    String Inventory(Model model)
+    {
+<span class="nc" id="L101">        model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+
+<span class="nc" id="L103">        return &quot;/Manager/Inventory/food&quot;;</span>
+    }
+    @PostMapping
+    String order( @RequestParam(&quot;new-quantity&quot;)String amount,@RequestParam(&quot;item-id&quot;)String id,@RequestParam(&quot;item-name&quot;)String name,@RequestParam(&quot;item-unit&quot;)String unit,@RequestParam(&quot;item-low&quot;)String low,Model model)
+    {
+      
+<span class="nc" id="L109">    Long Id = Long.parseLong(id);</span>
+<span class="nc" id="L110">    Integer amt = Integer.parseInt(amount);</span>
+<span class="nc" id="L111">    LocalDate date = LocalDate.now();</span>
+<span class="nc" id="L112">    Integer lowThresh = Integer.parseInt(low);</span>
+    
+<span class="nc" id="L114">    Inventory inventoryItem = this.repository.getById(Id);</span>
+<span class="nc" id="L115">     System.out.println(inventoryItem.toString());</span>
+
+<span class="nc" id="L117">    inventoryItem.setQuantity(inventoryItem.getQuantity() + amt);</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">    if(amt!=0)</span>
+    {
+<span class="nc" id="L120">        inventoryItem.setOrderDate(date); </span>
+    }
+    
+<span class="nc" id="L123">    inventoryItem.setName(name);</span>
+<span class="nc" id="L124">    inventoryItem.setLowThreshold(lowThresh);</span>
+<span class="nc" id="L125">    inventoryItem.setUnit(unit);</span>
+
+
+<span class="nc" id="L128">    this.repository.save(inventoryItem);</span>
+<span class="nc" id="L129">    model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+<span class="nc" id="L130">    System.err.println(name +&quot; changed&quot;);</span>
+<span class="nc" id="L131">    return &quot;redirect:/Manager/Inventory/food&quot;;</span>
+        
+    }
+
+
+    @PostMapping(&quot;/add&quot;)
+    String add( @RequestParam(&quot;item-name&quot;)String name,@RequestParam(&quot;item-unit&quot;)String unit,@RequestParam(&quot;item-low&quot;)String low,Model model)
+    {
+<span class="nc" id="L139">    Long id = this.repository.findMaxId();</span>
+<span class="nc" id="L140">    id+=1;</span>
+<span class="nc" id="L141">    System.out.println(id);</span>
+<span class="nc" id="L142">    LocalDate date = LocalDate.now();</span>
+<span class="nc" id="L143">    Inventory inventoryItem = new Inventory(id,name,&quot;food&quot;,0,unit,Integer.parseInt(low),date);</span>
+     
+<span class="nc" id="L145">    this.repository.save(inventoryItem);</span>
+<span class="nc" id="L146">    model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+<span class="nc" id="L147">    System.err.println(name +&quot; added&quot;);</span>
+<span class="nc" id="L148">    return &quot;redirect:/Manager/Inventory/food&quot;;</span>
+        
+    }
+
+    @ResponseBody
+    @DeleteMapping(value = &quot;/{id}&quot; ,produces = MediaType.TEXT_HTML_VALUE)
+    String delete(@PathVariable Long id)
+    {
+        try
+        {
+<span class="nc" id="L158">            System.out.println(&quot;going to delete Inventory  number: &quot;+id);</span>
+<span class="nc" id="L159">        repository.deleteById(id);// this is a querie from jpa repository</span>
+<span class="nc" id="L160">        return &quot;&quot;;</span>
+        }
+<span class="nc" id="L162">        catch(Exception e)</span>
+        {
+<span class="nc" id="L164">            return handleException(id, e);</span>
+        }
+    }
+
+    public String handleException(Long id, Exception e) {
+        // Log the exception details for debugging purposes
+<span class="nc" id="L170">        System.err.println(&quot;An error occurred while processing request for ID: &quot; + id);</span>
+<span class="nc" id="L171">        e.printStackTrace();</span>
+
+        // Return an HTML response indicating an error
+<span class="nc" id="L174">        return &quot;&lt;!DOCTYPE html&gt;&quot; +</span>
+               &quot;&lt;html lang='en'&gt;&quot; +
+               &quot;&lt;head&gt;&quot; +
+               &quot;&lt;meta charset='UTF-8'&gt;&quot; +
+               &quot;&lt;meta name='viewport' content='width=device-width, initial-scale=1.0'&gt;&quot; +
+               &quot;&lt;title&gt;Error Message&lt;/title&gt;&quot; +
+               &quot;&lt;style&gt;&quot; +
+               &quot;body { font-family: Arial, sans-serif; margin: 0; padding: 0; height: 100vh; display: flex; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.5); }&quot; +
+               &quot;.popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; padding: 20px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); border-radius: 8px; background: #fff; z-index: 1000; }&quot; +
+               &quot;.popup-content { text-align: center; }&quot; +
+               &quot;.close-button { float: right; width: 1.5em; line-height: 1.5em; text-align: center; cursor: pointer; border-radius: 0.25em; background-color: lightgray; }&quot; +
+               &quot;.close-button:hover { background-color: darkgray; }&quot; +
+               &quot;&lt;/style&gt;&quot; +
+               &quot;&lt;/head&gt;&quot; +
+               &quot;&lt;body&gt;&quot; +
+               &quot;&lt;div class='popup'&gt;&quot; +
+               &quot;&lt;div class='popup-content'&gt;&quot; +
+               &quot;&lt;span class='close-button'&gt;&amp;times;&lt;/span&gt;&quot; +
+               &quot;&lt;p&gt;Error processing your request for Inventory ID &quot; + id + &quot;. ID not found or Item is used in a product, make sure no products use inventory item.&lt;/p&gt;&quot; +
+               &quot;&lt;/div&gt;&quot; +
+               &quot;&lt;/div&gt;&quot; +
+               &quot;&lt;script&gt;&quot; +
+               &quot;document.querySelector('.close-button').addEventListener('click', function() {&quot; +
+               &quot;document.querySelector('.popup').style.display = 'none';&quot; +
+               &quot;});&quot; +
+               &quot;&lt;/script&gt;&quot; +
+               &quot;&lt;/body&gt;&quot; +
+               &quot;&lt;/html&gt;&quot;;
+    }
+}
+    
+
+
+
+@RequestMapping(&quot;Manager/Inventory/desert&quot;)
+@Controller
+<span class="nc" id="L210">class desertController</span>
+{
+    @Autowired
+    private  InventoryRepository repository;
+
+    String foodController(InventoryRepository repository)
+    {
+<span class="nc" id="L217">        this.repository = repository;</span>
+<span class="nc" id="L218">        return &quot;Manager/Inventory/desert&quot;;</span>
+    }
+    @GetMapping
+    String Inventory(Model model)
+    {
+<span class="nc" id="L223">        model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+
+<span class="nc" id="L225">        return &quot;Manager/Inventory/desert&quot;;</span>
+    }
+    @PostMapping
+    String order( @RequestParam(&quot;new-quantity&quot;)String amount,@RequestParam(&quot;item-id&quot;)String id,@RequestParam(&quot;item-name&quot;)String name,@RequestParam(&quot;item-unit&quot;)String unit,@RequestParam(&quot;item-low&quot;)String low,Model model)
+    {
+      
+<span class="nc" id="L231">    Long Id = Long.parseLong(id);</span>
+<span class="nc" id="L232">    Integer amt = Integer.parseInt(amount);</span>
+<span class="nc" id="L233">    LocalDate date = LocalDate.now();</span>
+<span class="nc" id="L234">    Integer lowThresh = Integer.parseInt(low);</span>
+    
+<span class="nc" id="L236">    Inventory inventoryItem = this.repository.getById(Id);</span>
+<span class="nc" id="L237">     System.out.println(inventoryItem.toString());</span>
+
+<span class="nc" id="L239">    inventoryItem.setQuantity(inventoryItem.getQuantity() + amt);</span>
+<span class="nc bnc" id="L240" title="All 2 branches missed.">    if(amt!=0)</span>
+    {
+<span class="nc" id="L242">        inventoryItem.setOrderDate(date); </span>
+    }
+    
+<span class="nc" id="L245">    inventoryItem.setName(name);</span>
+<span class="nc" id="L246">    inventoryItem.setLowThreshold(lowThresh);</span>
+<span class="nc" id="L247">    inventoryItem.setUnit(unit);</span>
+
+
+<span class="nc" id="L250">    this.repository.save(inventoryItem);</span>
+<span class="nc" id="L251">    model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+<span class="nc" id="L252">    System.err.println(name +&quot; changed&quot;);</span>
+<span class="nc" id="L253">    return &quot;redirect:/Manager/Inventory/desert&quot;;</span>
+        
+    }
+
+
+    @PostMapping(&quot;/add&quot;)
+    String add( @RequestParam(&quot;item-name&quot;)String name,@RequestParam(&quot;item-unit&quot;)String unit,@RequestParam(&quot;item-low&quot;)String low,Model model)
+    {
+<span class="nc" id="L261">    Long id = this.repository.findMaxId();</span>
+<span class="nc" id="L262">    id+=1;</span>
+<span class="nc" id="L263">    System.out.println(id);</span>
+<span class="nc" id="L264">    LocalDate date = LocalDate.now();</span>
+<span class="nc" id="L265">    Inventory inventoryItem = new Inventory(id,name,&quot;desert&quot;,0,unit,Integer.parseInt(low),date);</span>
+     
+<span class="nc" id="L267">    this.repository.save(inventoryItem);</span>
+<span class="nc" id="L268">    model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+<span class="nc" id="L269">    System.err.println(name +&quot; added&quot;);</span>
+<span class="nc" id="L270">    return &quot;redirect:/Manager/Inventory/desert&quot;;</span>
+        
+    }
+
+    @ResponseBody
+    @DeleteMapping(value = &quot;/{id}&quot; ,produces = MediaType.TEXT_HTML_VALUE)
+    String delete(@PathVariable Long id)
+    {
+        try
+        {
+<span class="nc" id="L280">            System.out.println(&quot;going to delete Inventory  number: &quot;+id);</span>
+<span class="nc" id="L281">        repository.deleteById(id);// this is a querie from jpa repository</span>
+<span class="nc" id="L282">        return &quot;&quot;;</span>
+        }
+<span class="nc" id="L284">        catch(Exception e)</span>
+        {
+<span class="nc" id="L286">            return handleException(id, e);</span>
+        }
+    }
+
+    public String handleException(Long id, Exception e) {
+        // Log the exception details for debugging purposes
+<span class="nc" id="L292">        System.err.println(&quot;An error occurred while processing request for ID: &quot; + id);</span>
+<span class="nc" id="L293">        e.printStackTrace();</span>
+
+        // Return an HTML response indicating an error
+<span class="nc" id="L296">        return &quot;&lt;!DOCTYPE html&gt;&quot; +</span>
+               &quot;&lt;html lang='en'&gt;&quot; +
+               &quot;&lt;head&gt;&quot; +
+               &quot;&lt;meta charset='UTF-8'&gt;&quot; +
+               &quot;&lt;meta name='viewport' content='width=device-width, initial-scale=1.0'&gt;&quot; +
+               &quot;&lt;title&gt;Error Message&lt;/title&gt;&quot; +
+               &quot;&lt;style&gt;&quot; +
+               &quot;body { font-family: Arial, sans-serif; margin: 0; padding: 0; height: 100vh; display: flex; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.5); }&quot; +
+               &quot;.popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; padding: 20px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); border-radius: 8px; background: #fff; z-index: 1000; }&quot; +
+               &quot;.popup-content { text-align: center; }&quot; +
+               &quot;.close-button { float: right; width: 1.5em; line-height: 1.5em; text-align: center; cursor: pointer; border-radius: 0.25em; background-color: lightgray; }&quot; +
+               &quot;.close-button:hover { background-color: darkgray; }&quot; +
+               &quot;&lt;/style&gt;&quot; +
+               &quot;&lt;/head&gt;&quot; +
+               &quot;&lt;body&gt;&quot; +
+               &quot;&lt;div class='popup'&gt;&quot; +
+               &quot;&lt;div class='popup-content'&gt;&quot; +
+               &quot;&lt;span class='close-button'&gt;&amp;times;&lt;/span&gt;&quot; +
+               &quot;&lt;p&gt;Error processing your request for Inventory ID &quot; + id + &quot;. ID not found or Item is used in a product, make sure no products use inventory item.&lt;/p&gt;&quot; +
+               &quot;&lt;/div&gt;&quot; +
+               &quot;&lt;/div&gt;&quot; +
+               &quot;&lt;script&gt;&quot; +
+               &quot;document.querySelector('.close-button').addEventListener('click', function() {&quot; +
+               &quot;document.querySelector('.popup').style.display = 'none';&quot; +
+               &quot;});&quot; +
+               &quot;&lt;/script&gt;&quot; +
+               &quot;&lt;/body&gt;&quot; +
+               &quot;&lt;/html&gt;&quot;;
+    }
+}
+
+@RequestMapping(&quot;Manager/Inventory/condiments&quot;)
+@Controller
+<span class="nc" id="L329">class condimentsController</span>
+{
+    @Autowired
+    private  InventoryRepository repository;
+
+    String foodController(InventoryRepository repository)
+    {
+<span class="nc" id="L336">        this.repository = repository;</span>
+<span class="nc" id="L337">        return &quot;Manager/Inventory/condiments&quot;;</span>
+    }
+    @GetMapping
+    String Inventory(Model model)
+    {
+<span class="nc" id="L342">        model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+
+<span class="nc" id="L344">        return &quot;Manager/Inventory/condiments&quot;;</span>
+    }
+    @PostMapping
+    String order( @RequestParam(&quot;new-quantity&quot;)String amount,@RequestParam(&quot;item-id&quot;)String id,@RequestParam(&quot;item-name&quot;)String name,@RequestParam(&quot;item-unit&quot;)String unit,@RequestParam(&quot;item-low&quot;)String low,Model model)
+    {
+      
+<span class="nc" id="L350">    Long Id = Long.parseLong(id);</span>
+<span class="nc" id="L351">    Integer amt = Integer.parseInt(amount);</span>
+<span class="nc" id="L352">    LocalDate date = LocalDate.now();</span>
+<span class="nc" id="L353">    Integer lowThresh = Integer.parseInt(low);</span>
+    
+<span class="nc" id="L355">    Inventory inventoryItem = this.repository.getById(Id);</span>
+<span class="nc" id="L356">     System.out.println(inventoryItem.toString());</span>
+
+<span class="nc" id="L358">    inventoryItem.setQuantity(inventoryItem.getQuantity() + amt);</span>
+<span class="nc bnc" id="L359" title="All 2 branches missed.">    if(amt!=0)</span>
+    {
+<span class="nc" id="L361">        inventoryItem.setOrderDate(date); </span>
+    }
+    
+<span class="nc" id="L364">    inventoryItem.setName(name);</span>
+<span class="nc" id="L365">    inventoryItem.setLowThreshold(lowThresh);</span>
+<span class="nc" id="L366">    inventoryItem.setUnit(unit);</span>
+
+
+<span class="nc" id="L369">    this.repository.save(inventoryItem);</span>
+<span class="nc" id="L370">    model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+<span class="nc" id="L371">    System.err.println(name +&quot; changed&quot;);</span>
+<span class="nc" id="L372">    return &quot;redirect:/Manager/Inventory/condiments&quot;;</span>
+        
+    }
+
+
+    @PostMapping(&quot;/add&quot;)
+    String add( @RequestParam(&quot;item-name&quot;)String name,@RequestParam(&quot;item-unit&quot;)String unit,@RequestParam(&quot;item-low&quot;)String low,Model model)
+    {
+<span class="nc" id="L380">    Long id = this.repository.findMaxId();</span>
+<span class="nc" id="L381">    id+=1;</span>
+<span class="nc" id="L382">    System.out.println(id);</span>
+<span class="nc" id="L383">    LocalDate date = LocalDate.now();</span>
+<span class="nc" id="L384">    Inventory inventoryItem = new Inventory(id,name,&quot;condiment&quot;,0,unit,Integer.parseInt(low),date);</span>
+     
+<span class="nc" id="L386">    this.repository.save(inventoryItem);</span>
+<span class="nc" id="L387">    model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+<span class="nc" id="L388">    System.err.println(name +&quot; added&quot;);</span>
+<span class="nc" id="L389">    return &quot;redirect:/Manager/Inventory/condiments&quot;;</span>
+        
+    }
+
+    @ResponseBody
+    @DeleteMapping(value = &quot;/{id}&quot; ,produces = MediaType.TEXT_HTML_VALUE)
+    String delete(@PathVariable Long id)
+    {
+        try
+        {
+<span class="nc" id="L399">            System.out.println(&quot;going to delete Inventory  number: &quot;+id);</span>
+<span class="nc" id="L400">        repository.deleteById(id);// this is a querie from jpa repository</span>
+<span class="nc" id="L401">        return &quot;&quot;;</span>
+        }
+<span class="nc" id="L403">        catch(Exception e)</span>
+        {
+<span class="nc" id="L405">            return handleException(id, e);</span>
+        }
+    }
+
+    public String handleException(Long id, Exception e) {
+        // Log the exception details for debugging purposes
+<span class="nc" id="L411">        System.err.println(&quot;An error occurred while processing request for ID: &quot; + id);</span>
+<span class="nc" id="L412">        e.printStackTrace();</span>
+
+        // Return an HTML response indicating an error
+<span class="nc" id="L415">        return &quot;&lt;!DOCTYPE html&gt;&quot; +</span>
+               &quot;&lt;html lang='en'&gt;&quot; +
+               &quot;&lt;head&gt;&quot; +
+               &quot;&lt;meta charset='UTF-8'&gt;&quot; +
+               &quot;&lt;meta name='viewport' content='width=device-width, initial-scale=1.0'&gt;&quot; +
+               &quot;&lt;title&gt;Error Message&lt;/title&gt;&quot; +
+               &quot;&lt;style&gt;&quot; +
+               &quot;body { font-family: Arial, sans-serif; margin: 0; padding: 0; height: 100vh; display: flex; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.5); }&quot; +
+               &quot;.popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; padding: 20px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); border-radius: 8px; background: #fff; z-index: 1000; }&quot; +
+               &quot;.popup-content { text-align: center; }&quot; +
+               &quot;.close-button { float: right; width: 1.5em; line-height: 1.5em; text-align: center; cursor: pointer; border-radius: 0.25em; background-color: lightgray; }&quot; +
+               &quot;.close-button:hover { background-color: darkgray; }&quot; +
+               &quot;&lt;/style&gt;&quot; +
+               &quot;&lt;/head&gt;&quot; +
+               &quot;&lt;body&gt;&quot; +
+               &quot;&lt;div class='popup'&gt;&quot; +
+               &quot;&lt;div class='popup-content'&gt;&quot; +
+               &quot;&lt;span class='close-button'&gt;&amp;times;&lt;/span&gt;&quot; +
+               &quot;&lt;p&gt;Error processing your request for Inventory ID &quot; + id + &quot;. ID not found or Item is used in a product, make sure no products use inventory item.&lt;/p&gt;&quot; +
+               &quot;&lt;/div&gt;&quot; +
+               &quot;&lt;/div&gt;&quot; +
+               &quot;&lt;script&gt;&quot; +
+               &quot;document.querySelector('.close-button').addEventListener('click', function() {&quot; +
+               &quot;document.querySelector('.popup').style.display = 'none';&quot; +
+               &quot;});&quot; +
+               &quot;&lt;/script&gt;&quot; +
+               &quot;&lt;/body&gt;&quot; +
+               &quot;&lt;/html&gt;&quot;;
+    }
+}
+
+@RequestMapping(&quot;Manager/Inventory/utilities&quot;)
+@Controller
+<span class="nc" id="L448">class utilitesController</span>
+{
+    @Autowired
+    private  InventoryRepository repository;
+
+    String foodController(InventoryRepository repository)
+    {
+<span class="nc" id="L455">        this.repository = repository;</span>
+<span class="nc" id="L456">        return &quot;Manager/Inventory/utilities&quot;;</span>
+    }
+    @GetMapping
+    String Inventory(Model model)
+    {
+<span class="nc" id="L461">        model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+
+<span class="nc" id="L463">        return &quot;Manager/Inventory/utilities&quot;;</span>
+    }
+    @PostMapping
+    String order( @RequestParam(&quot;new-quantity&quot;)String amount,@RequestParam(&quot;item-id&quot;)String id,@RequestParam(&quot;item-name&quot;)String name,@RequestParam(&quot;item-unit&quot;)String unit,@RequestParam(&quot;item-low&quot;)String low,Model model)
+    {
+      
+<span class="nc" id="L469">    Long Id = Long.parseLong(id);</span>
+<span class="nc" id="L470">    Integer amt = Integer.parseInt(amount);</span>
+<span class="nc" id="L471">    LocalDate date = LocalDate.now();</span>
+<span class="nc" id="L472">    Integer lowThresh = Integer.parseInt(low);</span>
+    
+<span class="nc" id="L474">    Inventory inventoryItem = this.repository.getById(Id);</span>
+<span class="nc" id="L475">     System.out.println(inventoryItem.toString());</span>
+
+<span class="nc" id="L477">    inventoryItem.setQuantity(inventoryItem.getQuantity() + amt);</span>
+<span class="nc bnc" id="L478" title="All 2 branches missed.">    if(amt!=0)</span>
+    {
+<span class="nc" id="L480">        inventoryItem.setOrderDate(date); </span>
+    }
+    
+<span class="nc" id="L483">    inventoryItem.setName(name);</span>
+<span class="nc" id="L484">    inventoryItem.setLowThreshold(lowThresh);</span>
+<span class="nc" id="L485">    inventoryItem.setUnit(unit);</span>
+
+
+<span class="nc" id="L488">    this.repository.save(inventoryItem);</span>
+<span class="nc" id="L489">    model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+<span class="nc" id="L490">    System.err.println(name +&quot; changed&quot;);</span>
+<span class="nc" id="L491">    return &quot;redirect:/Manager/Inventory/utilities&quot;;</span>
+        
+    }
+
+
+    @PostMapping(&quot;/add&quot;)
+    String add( @RequestParam(&quot;item-name&quot;)String name,@RequestParam(&quot;item-unit&quot;)String unit,@RequestParam(&quot;item-low&quot;)String low,Model model)
+    {
+<span class="nc" id="L499">    Long id = this.repository.findMaxId();</span>
+<span class="nc" id="L500">    id+=1;</span>
+<span class="nc" id="L501">    System.out.println(id);</span>
+<span class="nc" id="L502">    LocalDate date = LocalDate.now();</span>
+<span class="nc" id="L503">    Inventory inventoryItem = new Inventory(id,name,&quot;utilities&quot;,0,unit,Integer.parseInt(low),date);</span>
+     
+<span class="nc" id="L505">    this.repository.save(inventoryItem);</span>
+<span class="nc" id="L506">    model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+<span class="nc" id="L507">    System.err.println(name +&quot; added&quot;);</span>
+<span class="nc" id="L508">    return &quot;redirect:/Manager/Inventory/utilities&quot;;</span>
+        
+    }
+
+    @ResponseBody
+    @DeleteMapping(value = &quot;/{id}&quot; ,produces = MediaType.TEXT_HTML_VALUE)
+    String delete(@PathVariable Long id)
+    {
+        try
+        {
+<span class="nc" id="L518">            System.out.println(&quot;going to delete Inventory  number: &quot;+id);</span>
+<span class="nc" id="L519">        repository.deleteById(id);// this is a querie from jpa repository</span>
+<span class="nc" id="L520">        return &quot;&quot;;</span>
+        }
+<span class="nc" id="L522">        catch(Exception e)</span>
+        {
+<span class="nc" id="L524">            return handleException(id, e);</span>
+        }
+    }
+
+    public String handleException(Long id, Exception e) {
+        // Log the exception details for debugging purposes
+<span class="nc" id="L530">        System.err.println(&quot;An error occurred while processing request for ID: &quot; + id);</span>
+<span class="nc" id="L531">        e.printStackTrace();</span>
+
+        // Return an HTML response indicating an error
+<span class="nc" id="L534">        return &quot;&lt;!DOCTYPE html&gt;&quot; +</span>
+               &quot;&lt;html lang='en'&gt;&quot; +
+               &quot;&lt;head&gt;&quot; +
+               &quot;&lt;meta charset='UTF-8'&gt;&quot; +
+               &quot;&lt;meta name='viewport' content='width=device-width, initial-scale=1.0'&gt;&quot; +
+               &quot;&lt;title&gt;Error Message&lt;/title&gt;&quot; +
+               &quot;&lt;style&gt;&quot; +
+               &quot;body { font-family: Arial, sans-serif; margin: 0; padding: 0; height: 100vh; display: flex; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.5); }&quot; +
+               &quot;.popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; padding: 20px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); border-radius: 8px; background: #fff; z-index: 1000; }&quot; +
+               &quot;.popup-content { text-align: center; }&quot; +
+               &quot;.close-button { float: right; width: 1.5em; line-height: 1.5em; text-align: center; cursor: pointer; border-radius: 0.25em; background-color: lightgray; }&quot; +
+               &quot;.close-button:hover { background-color: darkgray; }&quot; +
+               &quot;&lt;/style&gt;&quot; +
+               &quot;&lt;/head&gt;&quot; +
+               &quot;&lt;body&gt;&quot; +
+               &quot;&lt;div class='popup'&gt;&quot; +
+               &quot;&lt;div class='popup-content'&gt;&quot; +
+               &quot;&lt;span class='close-button'&gt;&amp;times;&lt;/span&gt;&quot; +
+               &quot;&lt;p&gt;Error processing your request for Inventory ID &quot; + id + &quot;. ID not found or Item is used in a product, make sure no products use inventory item.&lt;/p&gt;&quot; +
+               &quot;&lt;/div&gt;&quot; +
+               &quot;&lt;/div&gt;&quot; +
+               &quot;&lt;script&gt;&quot; +
+               &quot;document.querySelector('.close-button').addEventListener('click', function() {&quot; +
+               &quot;document.querySelector('.popup').style.display = 'none';&quot; +
+               &quot;});&quot; +
+               &quot;&lt;/script&gt;&quot; +
+               &quot;&lt;/body&gt;&quot; +
+               &quot;&lt;/html&gt;&quot;;
+    }
+}
+
+@RequestMapping(&quot;Manager/Inventory/toppings&quot;)
+@Controller
+<span class="nc" id="L567">class toppingsController</span>
+{
+    @Autowired
+    private  InventoryRepository repository;
+
+    String foodController(InventoryRepository repository)
+    {
+<span class="nc" id="L574">        this.repository = repository;</span>
+<span class="nc" id="L575">        return &quot;Manager/Inventory/toppings&quot;;</span>
+    }
+    @GetMapping
+    String Inventory(Model model)
+    {
+<span class="nc" id="L580">        model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+
+<span class="nc" id="L582">        return &quot;Manager/Inventory/toppings&quot;;</span>
+    }
+    @PostMapping()
+    String order( @RequestParam(&quot;new-quantity&quot;)String amount,@RequestParam(&quot;item-id&quot;)String id,@RequestParam(&quot;item-name&quot;)String name,@RequestParam(&quot;item-unit&quot;)String unit,@RequestParam(&quot;item-low&quot;)String low,Model model)
+    {
+      
+<span class="nc" id="L588">    Long Id = Long.parseLong(id);</span>
+<span class="nc" id="L589">    Integer amt = Integer.parseInt(amount);</span>
+<span class="nc" id="L590">    LocalDate date = LocalDate.now();</span>
+<span class="nc" id="L591">    Integer lowThresh = Integer.parseInt(low);</span>
+    
+<span class="nc" id="L593">    Inventory inventoryItem = this.repository.getById(Id);</span>
+<span class="nc" id="L594">     System.out.println(inventoryItem.toString());</span>
+
+<span class="nc" id="L596">    inventoryItem.setQuantity(inventoryItem.getQuantity() + amt);</span>
+<span class="nc bnc" id="L597" title="All 2 branches missed.">    if(amt!=0)</span>
+    {
+<span class="nc" id="L599">        inventoryItem.setOrderDate(date); </span>
+    }
+    
+<span class="nc" id="L602">    inventoryItem.setName(name);</span>
+<span class="nc" id="L603">    inventoryItem.setLowThreshold(lowThresh);</span>
+<span class="nc" id="L604">    inventoryItem.setUnit(unit);</span>
+
+
+<span class="nc" id="L607">    this.repository.save(inventoryItem);</span>
+<span class="nc" id="L608">    model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+<span class="nc" id="L609">    System.err.println(name +&quot; changed&quot;);</span>
+<span class="nc" id="L610">    return &quot;redirect:/Manager/Inventory/toppings&quot;;</span>
+        
+    }
+
+
+    @PostMapping(&quot;/add&quot;)
+    String add( @RequestParam(&quot;item-name&quot;)String name,@RequestParam(&quot;item-unit&quot;)String unit,@RequestParam(&quot;item-low&quot;)String low,Model model)
+    {
+<span class="nc" id="L618">    Long id = this.repository.findMaxId();</span>
+<span class="nc" id="L619">    id+=1;</span>
+<span class="nc" id="L620">    System.out.println(id);</span>
+<span class="nc" id="L621">    LocalDate date = LocalDate.now();</span>
+<span class="nc" id="L622">    Inventory inventoryItem = new Inventory(id,name,&quot;topping&quot;,0,unit,Integer.parseInt(low),date);</span>
+     
+<span class="nc" id="L624">    this.repository.save(inventoryItem);</span>
+<span class="nc" id="L625">    model.addAttribute(&quot;inventory&quot;, this.repository.findAll());</span>
+<span class="nc" id="L626">    System.err.println(name +&quot; added&quot;);</span>
+<span class="nc" id="L627">    return &quot;redirect:/Manager/Inventory/toppings&quot;;</span>
+        
+    }
+
+    @ResponseBody
+    @DeleteMapping(value = &quot;/{id}&quot; ,produces = MediaType.TEXT_HTML_VALUE)
+    String delete(@PathVariable Long id)
+    {
+        try
+        {
+<span class="nc" id="L637">            System.out.println(&quot;going to delete Inventory  number: &quot;+id);</span>
+<span class="nc" id="L638">        repository.deleteById(id);// this is a querie from jpa repository</span>
+<span class="nc" id="L639">        return &quot;&quot;;</span>
+        }
+<span class="nc" id="L641">        catch(Exception e)</span>
+        {
+<span class="nc" id="L643">            return handleException(id, e);</span>
+        }
+    }
+
+    public String handleException(Long id, Exception e) {
+        // Log the exception details for debugging purposes
+<span class="nc" id="L649">        System.err.println(&quot;An error occurred while processing request for ID: &quot; + id);</span>
+<span class="nc" id="L650">        e.printStackTrace();</span>
+
+        // Return an HTML response indicating an error
+<span class="nc" id="L653">        return &quot;&lt;!DOCTYPE html&gt;&quot; +</span>
+               &quot;&lt;html lang='en'&gt;&quot; +
+               &quot;&lt;head&gt;&quot; +
+               &quot;&lt;meta charset='UTF-8'&gt;&quot; +
+               &quot;&lt;meta name='viewport' content='width=device-width, initial-scale=1.0'&gt;&quot; +
+               &quot;&lt;title&gt;Error Message&lt;/title&gt;&quot; +
+               &quot;&lt;style&gt;&quot; +
+               &quot;body { font-family: Arial, sans-serif; margin: 0; padding: 0; height: 100vh; display: flex; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.5); }&quot; +
+               &quot;.popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; padding: 20px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); border-radius: 8px; background: #fff; z-index: 1000; }&quot; +
+               &quot;.popup-content { text-align: center; }&quot; +
+               &quot;.close-button { float: right; width: 1.5em; line-height: 1.5em; text-align: center; cursor: pointer; border-radius: 0.25em; background-color: lightgray; }&quot; +
+               &quot;.close-button:hover { background-color: darkgray; }&quot; +
+               &quot;&lt;/style&gt;&quot; +
+               &quot;&lt;/head&gt;&quot; +
+               &quot;&lt;body&gt;&quot; +
+               &quot;&lt;div class='popup'&gt;&quot; +
+               &quot;&lt;div class='popup-content'&gt;&quot; +
+               &quot;&lt;span class='close-button'&gt;&amp;times;&lt;/span&gt;&quot; +
+               &quot;&lt;p&gt;Error processing your request for Inventory ID &quot; + id + &quot;. ID not found or Item is used in a product, make sure no products use inventory item.&lt;/p&gt;&quot; +
+               &quot;&lt;/div&gt;&quot; +
+               &quot;&lt;/div&gt;&quot; +
+               &quot;&lt;script&gt;&quot; +
+               &quot;document.querySelector('.close-button').addEventListener('click', function() {&quot; +
+               &quot;document.querySelector('.popup').style.display = 'none';&quot; +
+               &quot;});&quot; +
+               &quot;&lt;/script&gt;&quot; +
+               &quot;&lt;/body&gt;&quot; +
+               &quot;&lt;/html&gt;&quot;;
+    }
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

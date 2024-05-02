@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomerController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">projectone.demo.controller</a> &gt; <span class="el_source">CustomerController.java</span></div><h1>CustomerController.java</h1><pre class="source lang-java linenums">package projectone.demo.controller;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+
+import org.springframework.web.client.RestTemplate;
+import projectone.demo.model.Products;
+import projectone.demo.model.WeatherResponse;
+import projectone.demo.repository.CustomerRepository;
+
+import projectone.demo.repository.OrdersRepository;
+import projectone.demo.model.Orders;
+
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+@RequestMapping(&quot;/customer&quot;)
+public class CustomerController {
+    @Autowired
+    private CustomerRepository customerRepository;
+    @Autowired
+    private OrdersRepository orderRepository;
+
+    CustomerController(CustomerRepository customerRepository, OrdersRepository orderRepository)
+<span class="fc" id="L34">    {</span>
+<span class="fc" id="L35">        this.customerRepository = customerRepository;</span>
+<span class="fc" id="L36">        this.orderRepository = orderRepository;</span>
+        
+<span class="fc" id="L38">    }</span>
+
+    @GetMapping
+        public String Index() {
+<span class="nc" id="L42">            return &quot;customer&quot;; </span>
+    }
+
+    @GetMapping(&quot;/orders&quot;)
+    String Orders()
+    {
+<span class="nc" id="L48">        System.out.println(&quot;working&quot;);</span>
+<span class="nc" id="L49">        return &quot;customer&quot;;</span>
+    }
+
+    @PostMapping(value = &quot;/add&quot;)
+    String add(@RequestParam(&quot;price&quot;)String price)
+    {
+<span class="nc" id="L55">        System.out.println(price);</span>
+<span class="nc" id="L56">        Long newid = orderRepository.findMaxId()+1;</span>
+<span class="nc" id="L57">        LocalDateTime time = LocalDateTime.now();</span>
+<span class="nc" id="L58">        String status = &quot;processing&quot;;</span>
+<span class="nc" id="L59">        BigDecimal newPrice = new BigDecimal(price);</span>
+<span class="nc" id="L60">        Orders newOrder = new Orders(newid,newPrice,time,status);</span>
+<span class="nc" id="L61">        this.orderRepository.save(newOrder);</span>
+       
+<span class="nc" id="L63">        System.out.println(&quot;order added&quot;);</span>
+<span class="nc" id="L64">        return &quot;redirect:/customer/checkout&quot;;</span>
+    }
+
+    @GetMapping(&quot;/api/menu/{category}&quot;)
+    public ResponseEntity&lt;List&lt;Products&gt;&gt; getMenuByCategory(@PathVariable(&quot;category&quot;) String category) {
+<span class="fc" id="L69">        List&lt;Products&gt; productsByCategory = customerRepository.findByProductType(category);</span>
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if (productsByCategory.isEmpty()) {</span>
+<span class="nc" id="L71">            return ResponseEntity.notFound().build();</span>
+        }
+<span class="fc" id="L73">        return ResponseEntity.ok(productsByCategory);</span>
+    }
+
+    @GetMapping(&quot;/edit&quot;)
+    public String editPage() {
+<span class="nc" id="L78">        return &quot;customerEditItem&quot;;</span>
+    }
+
+    
+    @GetMapping(&quot;/checkout&quot;)
+    public String checkoutPage() {
+<span class="nc" id="L84">        return &quot;customerCheckout&quot;;</span>
+    }
+
+<span class="nc" id="L87">    record geoLocation(double latitude, double longitude){};</span>
+
+    public geoLocation weatherLocation;
+    public WeatherResponse currentWeather_api;
+    public String weatherIconLink;
+    public String weatherCity;
+    public String weatherDescription;
+    public double weatherTemp;
+
+    @PostMapping(&quot;/location&quot;)
+    public String handleLocation(@RequestBody geoLocation location) throws JsonProcessingException {
+
+        // send an api request to openweather api to get the weather
+        // the api format is https://api.openweathermap.org/data/2.5/weather?lat={lat}&amp;lon={lon}&amp;appid={API key}
+        // the api key is 85a9986100fc4b8928e3e17b2d74322c
+        // the response will be in html format
+
+<span class="nc" id="L104">        System.out.println(location.latitude());</span>
+<span class="nc" id="L105">        System.out.println(location.longitude());</span>
+<span class="nc" id="L106">        System.out.println(&quot;javascript recieved&quot;);</span>
+
+<span class="nc" id="L108">        String apiUrl = String.format(&quot;https://api.openweathermap.org/data/2.5/weather?lat=%f&amp;lon=%f&amp;appid=85a9986100fc4b8928e3e17b2d74322c&quot;,</span>
+<span class="nc" id="L109">                location.latitude(), location.longitude());</span>
+<span class="nc" id="L110">        RestTemplate restTemplate = new RestTemplate();</span>
+<span class="nc" id="L111">        String jsonResponse = restTemplate.getForObject(apiUrl, String.class);</span>
+
+        //deserialize jsonResponse to WeatherResponse object
+<span class="nc" id="L114">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="nc" id="L115">        currentWeather_api = objectMapper.readValue(jsonResponse, WeatherResponse.class);</span>
+
+        //convert the temperature from kelvin to farenheit and store
+<span class="nc" id="L118">        double temp_faren = (currentWeather_api.getMain().get(&quot;temp&quot;) - 273.15) * 9/5 + 32;</span>
+<span class="nc" id="L119">        currentWeather_api.getMain().put(&quot;temp&quot;, (float) temp_faren);</span>
+<span class="nc" id="L120">        weatherTemp = temp_faren;</span>
+        //create the source link for the weather icon
+<span class="nc" id="L122">        weatherIconLink = &quot;https://openweathermap.org/img/wn/&quot; + currentWeather_api.getWeather()[0].getIcon() + &quot;.png&quot;;</span>
+        //get the city name
+<span class="nc" id="L124">        weatherCity = currentWeather_api.getName();</span>
+        //get the weather description
+<span class="nc" id="L126">        weatherDescription = currentWeather_api.getWeather()[0].getDescription();</span>
+
+<span class="nc" id="L128">        System.out.println(currentWeather_api);</span>
+<span class="nc" id="L129">        weatherLocation = location;</span>
+
+
+
+<span class="nc" id="L133">        return &quot;redirect:/customer&quot;;</span>
+    }
+
+    @GetMapping(&quot;/api/products&quot;)
+    public ResponseEntity&lt;List&lt;Products&gt;&gt; getAllProducts() {
+<span class="fc" id="L138">        List&lt;Products&gt; products = customerRepository.findAll();</span>
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">        if (products.isEmpty()) {</span>
+<span class="nc" id="L140">            return ResponseEntity.noContent().build(); // or notFound().build() depending on the scenario</span>
+        }
+<span class="fc" id="L142">        return ResponseEntity.ok(products);</span>
+    }
+
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

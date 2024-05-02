@@ -9,8 +9,19 @@ import projectone.demo.projection.SalesTrendsProjection;
 
 import java.sql.Timestamp;
 import java.util.List;
-
+/**
+ * repositoy that gets our sales trend data
+ */
 public interface SalesTrendsRepository extends JpaRepository<SalesTrends, Long> {
+    /**
+ * Fetches the top 10 pairs of products frequently bought together within the specified
+ * time range, ordered by the frequency of co-purchases.
+ *
+ * @param startTime the start of the time period for the sales trends analysis
+ * @param endTime the end of the time period for the sales trends analysis
+ * @return a list of sales trends projections showing paired product names and their
+ * frequency of co-purchase
+ */
     @Query(value = "SELECT " +
             "p1.productname AS productNameOne, " +
             "p2.productname AS productNameTwo, " +

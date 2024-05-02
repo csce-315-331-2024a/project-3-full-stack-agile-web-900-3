@@ -21,6 +21,12 @@ import java.sql.*;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
+/**
+ * @author Koby kuruvilla
+ */
+/**
+ * controller for the menuboard.html page
+ */
 
 @RequestMapping(value = "/menuBoard")
 @Controller
@@ -32,7 +38,11 @@ public class MenuBoard {
     private List<String> categories;
     private HashMap<String, List<Products>> categoryMap;
     private final ProductsRepository productsRepository;
-
+     /**
+     * Constructs a {@code MenuBoardController} with the necessary product repository.
+     *
+     * @param productsRepository the repository for accessing product data
+     */
     @Autowired
     public MenuBoard(ProductsRepository productsRepository) {
         this.productsRepository = productsRepository;
@@ -40,6 +50,11 @@ public class MenuBoard {
         categories = getCategories(productList);
         categoryMap = groupProducts();
     }
+   /**
+     * Fetches product data from the database.
+     *
+     * @return a list of {@link Products}
+     */
     public List<Products> fetchDataFromDatabase() {
         //
         List<Products> allProducts = productsRepository.findAll();
@@ -67,10 +82,20 @@ public class MenuBoard {
 
         return allProducts;
     }
-
+     /**
+     * Extracts unique categories from a list of products.
+     *
+     * @param prod_list the list of products
+     * @return a list of distinct product categories
+     */
     public List<String> getCategories(List<Products> prod_list){
         return prod_list.stream().map(item -> item.getProduct_type()).distinct().collect(Collectors.toList());
     }
+     /**
+     * Groups products by their categories.
+     *
+     * @return a hashmap linking product categories to lists of products
+     */
     public HashMap<String, List<Products>> groupProducts(){
         // split up the productNames and prices by category
         // make a map that maps each unique category to a list of products
@@ -88,7 +113,12 @@ public class MenuBoard {
 
 
 
-
+    /**
+     * Displays the menu board with product categories.
+     *
+     * @param model the model to carry data to the view
+     * @return the menu board view name
+     */
     @GetMapping
     String getPeople(Model model){
         productList = fetchDataFromDatabase();
@@ -128,6 +158,13 @@ public class MenuBoard {
     public String weatherCity;
     public String weatherDescription;
     public double weatherTemp;
+       /**
+     * Handles location data to fetch weather information.
+     *
+     * @param location the geographical location
+     * @return redirect string to the menu board
+     * @throws JsonProcessingException if JSON processing fails
+     */
     @PostMapping
     public String handleLocation(@RequestBody geoLocation location) throws JsonProcessingException {
         productList = fetchDataFromDatabase();
@@ -189,20 +226,19 @@ public class MenuBoard {
 
         return "redirect:/menuBoard";
     }
-
-    // Function to capitialize the words in the Weather API
     public static String capitalizeEachWord(String input) {
-        char[] chars = input.toLowerCase().toCharArray();
-        boolean found = false;
-        for (int i = 0; i < chars.length; i++) {
-            if (!found && Character.isLetter(chars[i])) {
-                chars[i] = Character.toUpperCase(chars[i]);
-                found = true;
-            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'' || chars[i]=='-') { // Reset for next word
-                found = false;
+        if (input == null) return null;  // Handle null input gracefully.
+    
+        StringBuilder result = new StringBuilder(input.length());
+        String[] words = input.trim().split("\\s+"); // Split input into words, removing extra spaces.
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                result.append(Character.toUpperCase(word.charAt(0))); // Capitalize the first letter.
+                result.append(word.substring(1).toLowerCase()); // Convert the rest of the word to lowercase.
+                result.append(" "); // Append a space after each word.
             }
         }
-        return String.valueOf(chars);
+        return result.toString().trim(); // Return the trimmed result to remove the last space.
     }
 
 
@@ -223,6 +259,13 @@ public class MenuBoard {
 //        return "test";
 //    }
 //
+
+    /**
+     * Displays the weather fragment with current weather information.
+     *
+     * @param model the model to carry data to the view
+     * @return the weather fragment view name
+     */
     @GetMapping("/weather")
     public String getWeather(Model model) {
         model.addAttribute("weatherIconLink", weatherIconLink);

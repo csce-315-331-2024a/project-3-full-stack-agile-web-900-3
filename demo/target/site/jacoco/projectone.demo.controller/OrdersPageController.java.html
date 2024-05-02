@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrdersPageController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">projectone.demo.controller</a> &gt; <span class="el_source">OrdersPageController.java</span></div><h1>OrdersPageController.java</h1><pre class="source lang-java linenums">package projectone.demo.controller;
+
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.sql.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import projectone.demo.model.Orders;
+import projectone.demo.model.Products;
+import projectone.demo.model.OrderProducts;
+import projectone.demo.repository.OrderProductsRepo;
+import projectone.demo.repository.OrdersRepository;
+import projectone.demo.repository.ProductsRepository;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@RequestMapping(&quot;Manager/orders&quot;)
+@Controller
+class OrdersPageController {
+    @Autowired
+    private OrdersRepository orderRepository;
+    private OrderProductsRepo orderProductsRepo;
+    private ProductsRepository productsRepository;
+    private LocalDateTime endDate;
+    private LocalDateTime startDate;
+    
+<span class="fc" id="L41">    public OrdersPageController(OrdersRepository orderRepository, OrderProductsRepo orderProductsRepo,ProductsRepository productsRepository) {</span>
+<span class="fc" id="L42">        this.orderRepository = orderRepository;</span>
+<span class="fc" id="L43">        this.orderProductsRepo = orderProductsRepo;</span>
+<span class="fc" id="L44">        this.productsRepository = productsRepository;</span>
+<span class="fc" id="L45">    }</span>
+
+    @GetMapping
+    String Orders(Model model,Model junctionModel,Model productModel,Model deletModel)
+    {
+        try{
+<span class="nc" id="L51">        LocalDateTime dateTime = LocalDateTime.now();</span>
+<span class="nc" id="L52">        startDate = LocalDateTime.of(dateTime.toLocalDate(), LocalTime.MIDNIGHT);</span>
+<span class="nc" id="L53">        endDate = LocalDateTime.now();</span>
+<span class="nc" id="L54">        ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);</span>
+<span class="nc" id="L55">        ArrayList&lt;Orders&gt; datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate, LocalDateTime.now());</span>
+<span class="nc" id="L56">        Orders firstOrder = datSorted.get(0);</span>
+<span class="nc" id="L57">        int size = datSorted.size();</span>
+<span class="nc" id="L58">        Orders lastOrder = datSorted.get(size-1);</span>
+<span class="nc" id="L59">        Collections.reverse(dat);</span>
+<span class="nc" id="L60">        deletModel.addAttribute(&quot;deleteList&quot;, null);</span>
+<span class="nc" id="L61">        junctionModel.addAttribute(&quot;junction&quot;, this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));</span>
+<span class="nc" id="L62">        model.addAttribute(&quot;orders&quot;, dat);</span>
+<span class="nc" id="L63">        productModel.addAttribute(&quot;products&quot;, productsRepository.findAll());</span>
+<span class="nc" id="L64">        return &quot;Manager/orders&quot;;</span>
+        }
+<span class="nc" id="L66">        catch(Exception e)</span>
+        {
+<span class="nc" id="L68">            return &quot;Manager/orders&quot;;</span>
+        }
+    }
+    @PostMapping(value = &quot;/add&quot;)
+    String add(@RequestParam(&quot;price&quot;)String price,Model model)
+    {
+<span class="fc" id="L74">        Long newid = orderRepository.findMaxId()+1;</span>
+<span class="fc" id="L75">        LocalDateTime localDateTime = LocalDateTime.now(); </span>
+        
+<span class="fc" id="L77">        String status = &quot;processing&quot;;</span>
+<span class="fc" id="L78">        BigDecimal newPrice = new BigDecimal(price);</span>
+<span class="fc" id="L79">        Orders newOrder = new Orders(newid,newPrice,localDateTime,status);</span>
+<span class="fc" id="L80">        this.orderRepository.save(newOrder);</span>
+<span class="fc" id="L81">        model.addAttribute(&quot;orders&quot;, this.orderRepository.findAll());</span>
+<span class="fc" id="L82">        System.out.println(&quot;order added &quot;+ newPrice);</span>
+<span class="fc" id="L83">        return &quot;redirect:/Manager/orders&quot;;</span>
+    }
+    @PostMapping(value = &quot;/view&quot;)
+    String view(@RequestParam(&quot;date&quot;)String date,Model model,Model junctionModel,Model productModel)
+    {
+        
+<span class="fc" id="L89">        System.out.println(date);</span>
+        try{
+           
+<span class="fc" id="L92">            LocalDate localDate = LocalDate.parse(date);</span>
+
+       
+<span class="fc" id="L95">        startDate = LocalDateTime.of(localDate, LocalTime.MIDNIGHT);</span>
+
+        
+<span class="fc" id="L98">        endDate = LocalDateTime.of(localDate, LocalTime.of(23, 59));</span>
+<span class="fc" id="L99">        ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);</span>
+<span class="fc" id="L100">        ArrayList&lt;Orders&gt; datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);</span>
+<span class="nc" id="L101">        Orders firstOrder = datSorted.get(1);</span>
+<span class="nc" id="L102">        int size = datSorted.size();</span>
+<span class="nc" id="L103">        Orders lastOrder = datSorted.get(size-1);</span>
+<span class="nc" id="L104">        Collections.reverse(dat);</span>
+<span class="nc" id="L105">        junctionModel.addAttribute(&quot;junction&quot;, this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));</span>
+<span class="nc" id="L106">        model.addAttribute(&quot;orders&quot;, dat);</span>
+<span class="nc" id="L107">        productModel.addAttribute(&quot;products&quot;, productsRepository.findAll());</span>
+        }
+<span class="fc" id="L109">        catch(Exception e)</span>
+        {
+<span class="fc" id="L111">            System.out.println(&quot;catchBlock&quot;);</span>
+<span class="nc" id="L112">        }</span>
+       
+<span class="fc" id="L114">        return &quot;Manager/orders&quot;;</span>
+    }
+    @PostMapping(&quot;/modifyPrice&quot;)
+    String modify(@RequestParam(&quot;id&quot;)String id,@RequestParam(&quot;price&quot;)String price,Model model,Model junctionModel,Model productModel)
+    {
+<span class="pc bpc" id="L119" title="1 of 2 branches missed.">        if(id!=&quot;&quot;)</span>
+        {
+<span class="fc" id="L121">            System.out.println(id);</span>
+<span class="fc" id="L122">            String newid = id.replace(&quot;,&quot;, &quot;&quot;).trim();</span>
+<span class="fc" id="L123">            Orders modifiedOrder = this.orderRepository.getReferenceById(Long.parseLong(newid));</span>
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">            if(price !=&quot;&quot;)</span>
+<span class="fc" id="L125">            modifiedOrder.setPrice(new BigDecimal(price));</span>
+<span class="fc" id="L126">            this.orderRepository.save(modifiedOrder);</span>
+<span class="fc" id="L127">            System.out.println(&quot;modified price of:&quot;+id);</span>
+
+<span class="fc" id="L129">            List&lt;Orders&gt; datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);</span>
+<span class="pc bpc" id="L130" title="3 of 4 branches missed.">            if (!datSorted.isEmpty() &amp;&amp; datSorted.size() &gt; 1) {</span>
+<span class="nc" id="L131">                Orders firstOrder = datSorted.get(0);</span>
+<span class="nc" id="L132">                Orders lastOrder = datSorted.get(datSorted.size() - 1);</span>
+<span class="nc" id="L133">                Collections.reverse(datSorted);</span>
+<span class="nc" id="L134">                junctionModel.addAttribute(&quot;junction&quot;, orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));</span>
+            }
+<span class="fc" id="L136">            model.addAttribute(&quot;orders&quot;, datSorted);</span>
+<span class="fc" id="L137">            productModel.addAttribute(&quot;products&quot;, productsRepository.findAll());</span>
+        }
+<span class="fc" id="L139">        return &quot;Manager/orders :: list&quot;;</span>
+    }
+    @PostMapping(&quot;/modifyStatus&quot;)
+    String modifyStatus(@RequestParam(&quot;id&quot;)String id,@RequestParam(&quot;status&quot;)String Status,Model model,Model junctionModel,Model productModel)
+    {
+<span class="pc bpc" id="L144" title="1 of 2 branches missed.">        if(id!=&quot;&quot;)</span>
+        {
+<span class="fc" id="L146">            System.out.println(id);</span>
+<span class="fc" id="L147">            String newid = id.replace(&quot;,&quot;, &quot;&quot;).trim();</span>
+<span class="fc" id="L148">            Orders modifiedOrder = this.orderRepository.getReferenceById(Long.parseLong(newid));</span>
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">            if(Status !=&quot;&quot;)</span>
+<span class="fc" id="L150">            modifiedOrder.setStatus(Status);</span>
+<span class="fc" id="L151">            this.orderRepository.save(modifiedOrder);</span>
+<span class="fc" id="L152">            System.out.println(&quot;modified status of:&quot;+id);</span>
+
+<span class="fc" id="L154">            List&lt;Orders&gt; datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);</span>
+<span class="pc bpc" id="L155" title="3 of 4 branches missed.">            if (!datSorted.isEmpty() &amp;&amp; datSorted.size() &gt; 1) {</span>
+<span class="nc" id="L156">                Orders firstOrder = datSorted.get(0);</span>
+<span class="nc" id="L157">                Orders lastOrder = datSorted.get(datSorted.size() - 1);</span>
+<span class="nc" id="L158">                Collections.reverse(datSorted);</span>
+<span class="nc" id="L159">                junctionModel.addAttribute(&quot;junction&quot;, orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));</span>
+            }
+<span class="fc" id="L161">            model.addAttribute(&quot;orders&quot;, datSorted);</span>
+<span class="fc" id="L162">            productModel.addAttribute(&quot;products&quot;, productsRepository.findAll());</span>
+        }
+<span class="fc" id="L164">        return &quot;Manager/orders :: list&quot;;</span>
+    }
+    @PostMapping(&quot;/addProduct&quot;)
+    String AddItem(@RequestParam(&quot;id&quot;) String id, @RequestParam(&quot;prodId&quot;) String prodId, Model model, Model junctionModel, Model productModel) {
+<span class="pc bpc" id="L168" title="2 of 4 branches missed.">        if (!id.isEmpty() &amp;&amp; !prodId.isEmpty()) {</span>
+<span class="fc" id="L169">            Long newid = orderProductsRepo.findMaxId() + 1;</span>
+<span class="fc" id="L170">            OrderProducts newJunction = new OrderProducts(newid, Long.parseLong(id), Long.parseLong(prodId), Long.parseLong(&quot;1&quot;));</span>
+<span class="fc" id="L171">            orderProductsRepo.save(newJunction);</span>
+
+<span class="fc" id="L173">            Products addPrice = productsRepository.getReferenceById(Long.parseLong(prodId));</span>
+<span class="fc" id="L174">            Orders modifiedPrice = orderRepository.getReferenceById(Long.parseLong(id));</span>
+
+<span class="pc bpc" id="L176" title="2 of 4 branches missed.">            if (addPrice != null &amp;&amp; modifiedPrice != null) {</span>
+<span class="fc" id="L177">                BigDecimal newPrice = addPrice.getPrice().add(modifiedPrice.getPrice());</span>
+<span class="fc" id="L178">                modifiedPrice.setPrice(newPrice);</span>
+<span class="fc" id="L179">                orderRepository.save(modifiedPrice);</span>
+            }
+
+<span class="fc" id="L182">            List&lt;Orders&gt; datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);</span>
+<span class="pc bpc" id="L183" title="3 of 4 branches missed.">            if (!datSorted.isEmpty() &amp;&amp; datSorted.size() &gt; 1) {</span>
+<span class="nc" id="L184">                Orders firstOrder = datSorted.get(0);</span>
+<span class="nc" id="L185">                Orders lastOrder = datSorted.get(datSorted.size() - 1);</span>
+<span class="nc" id="L186">                Collections.reverse(datSorted);</span>
+<span class="nc" id="L187">                junctionModel.addAttribute(&quot;junction&quot;, orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));</span>
+            }
+            
+<span class="fc" id="L190">            model.addAttribute(&quot;orders&quot;, datSorted);</span>
+<span class="fc" id="L191">            productModel.addAttribute(&quot;products&quot;, productsRepository.findAll());</span>
+        }
+<span class="fc" id="L193">        return &quot;Manager/orders :: list&quot;;</span>
+    }
+    @PostMapping(&quot;/removeProduct&quot;)
+    String RemoveItem(@RequestParam(&quot;id&quot;) String id, @RequestParam(&quot;remove&quot;) String prodId, Model model, Model junctionModel, Model productModel) {
+<span class="pc bpc" id="L197" title="2 of 4 branches missed.">        if (!id.isEmpty() &amp;&amp; !prodId.isEmpty()) {</span>
+<span class="fc" id="L198">            List&lt;OrderProducts&gt; deleteList = orderProductsRepo.findByOrderIdAndProductId(Long.parseLong(id), Long.parseLong(prodId));</span>
+            
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">            if (!deleteList.isEmpty()) { // Check if the list is not empty</span>
+<span class="fc" id="L201">                Long idToDelete = deleteList.get(0).getOrder_product_id();</span>
+<span class="fc" id="L202">                System.out.println(idToDelete);</span>
+<span class="fc" id="L203">                orderProductsRepo.deleteById(idToDelete);</span>
+
+<span class="fc" id="L205">                Products addPrice = productsRepository.getReferenceById(Long.parseLong(prodId));</span>
+<span class="fc" id="L206">                Orders modifiedPrice = orderRepository.getReferenceById(Long.parseLong(id));</span>
+                
+<span class="pc bpc" id="L208" title="2 of 4 branches missed.">                if (addPrice != null &amp;&amp; modifiedPrice != null) { // Check if addPrice and modifiedPrice are not null</span>
+<span class="fc" id="L209">                    BigDecimal newPrice = modifiedPrice.getPrice().subtract(addPrice.getPrice());</span>
+<span class="fc" id="L210">                    modifiedPrice.setPrice(newPrice);</span>
+<span class="fc" id="L211">                    orderRepository.save(modifiedPrice);</span>
+<span class="fc" id="L212">                    System.out.println(&quot;added &quot; + prodId);</span>
+                }
+            }
+<span class="fc" id="L215">            List&lt;Orders&gt; datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);</span>
+<span class="pc bpc" id="L216" title="3 of 4 branches missed.">            if (!datSorted.isEmpty() &amp;&amp; datSorted.size() &gt; 1) {</span>
+<span class="nc" id="L217">                Orders firstOrder = datSorted.get(0);</span>
+<span class="nc" id="L218">                Orders lastOrder = datSorted.get(datSorted.size() - 1);</span>
+<span class="nc" id="L219">                Collections.reverse(datSorted);</span>
+<span class="nc" id="L220">                junctionModel.addAttribute(&quot;junction&quot;, orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));</span>
+            }
+<span class="fc" id="L222">            model.addAttribute(&quot;orders&quot;, datSorted);</span>
+<span class="fc" id="L223">            productModel.addAttribute(&quot;products&quot;, productsRepository.findAll());</span>
+        }
+<span class="fc" id="L225">        return &quot;Manager/orders :: list&quot;;</span>
+    }
+    @PostMapping(&quot;/updateRemove&quot;)
+    public String postMethodName(@RequestParam(&quot;id&quot;)String id,Model deletModel ) {
+<span class="nc" id="L229">        List&lt;Long&gt; prodids  = orderProductsRepo.findProductIdsByOrderId(Long.parseLong(id));</span>
+<span class="nc" id="L230">        deletModel.addAttribute(&quot;deleteList&quot;, productsRepository.findAllById(prodids));</span>
+
+<span class="nc" id="L232">        return &quot;Manager/orders :: remove&quot;;</span>
+    }
+    @PostMapping(&quot;removeOrder&quot;)
+    public String removeOrder(@RequestParam(&quot;id&quot;)String id,Model model,Model junctionModel,Model productModel ) {
+<span class="nc" id="L236">        orderProductsRepo.deleteByOrderId(Long.parseLong(id));</span>
+<span class="nc" id="L237">        orderRepository.deleteById(Long.parseLong(id));</span>
+       
+
+
+<span class="nc" id="L241">        ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);</span>
+<span class="nc" id="L242">        ArrayList&lt;Orders&gt; datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);</span>
+<span class="nc" id="L243">        Orders firstOrder = datSorted.get(1);</span>
+<span class="nc" id="L244">        int size = datSorted.size();</span>
+<span class="nc" id="L245">        Orders lastOrder = datSorted.get(size-1);</span>
+<span class="nc" id="L246">        Collections.reverse(dat);</span>
+<span class="nc" id="L247">        junctionModel.addAttribute(&quot;junction&quot;, this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));</span>
+<span class="nc" id="L248">        model.addAttribute(&quot;orders&quot;, dat);</span>
+<span class="nc" id="L249">        productModel.addAttribute(&quot;products&quot;, productsRepository.findAll());</span>
+<span class="nc" id="L250">        System.out.println(&quot;deleting:&quot; + id);</span>
+<span class="nc" id="L251">        return &quot;Manager/orders :: list&quot;;</span>
+    }
+    
+    
+    // @PostMapping(value = &quot;/updateOrder&quot;)
+    //  String update(@RequestParam(&quot;status&quot;)String newStatus, @RequestParam(&quot;Orderid&quot;)String id,@RequestParam(&quot;price&quot;)String price,@RequestParam(&quot;add&quot;)String add,@RequestParam(&quot;remove&quot;)String remove,Model junctionModel,Model model,Model productModel)
+    // {
+    //     if(newStatus != &quot;&quot;)
+    //     {
+    //     Orders newOrder = orderRepository.getById(Long.parseLong(id));
+    //     newOrder.setPrice(new BigDecimal(price));
+    //     newOrder.setStatus(newStatus);
+    //     this.orderRepository.save(newOrder);
+    //     }
+        
+    //     if(add != &quot;&quot;)
+    //     {
+    //         Long newId = orderProductsRepo.findMaxId()+1;
+    //         Long orderid = Long.parseLong(id);
+    //         Long addnew = Long.parseLong(add);
+    //         Long newQuantity = Long.parseLong(&quot;1&quot;);
+    //         OrderProducts newJunction = new OrderProducts(newId,orderid,addnew,newQuantity);
+    //     }
+    //     if(remove != &quot;&quot;)
+    //     {
+
+    //     }
+        
+    //   System.out.println(&quot;working&quot;);
+    //   return(&quot;Manager/orders&quot;);
+       
+    // }
+
+ 
+    
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

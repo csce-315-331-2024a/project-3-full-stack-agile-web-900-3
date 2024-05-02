@@ -22,48 +22,82 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+
+import projectone.demo.repository.OrderProductsRepo;
+import projectone.demo.repository.ProductsRepository;
+import projectone.demo.model.OrderProducts;
+
+import java.util.Arrays;
+
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
-    @Autowired
     private OrdersRepository orderRepository;
+    private final OrderProductsRepo orderProductsRepo;
 
-    CustomerController(CustomerRepository customerRepository, OrdersRepository orderRepository)
-    {
+    CustomerController(CustomerRepository customerRepository, OrdersRepository orderRepository,
+            OrderProductsRepo orderProductsRepo) {
+        this.orderProductsRepo = orderProductsRepo;
         this.customerRepository = customerRepository;
         this.orderRepository = orderRepository;
-        
     }
 
     @GetMapping
-        public String Index() {
-            return "customer"; 
+    public String Index() {
+        return "customer";
     }
-
+        /**
+     * Displays the orders page for a customer.
+     *
+     * @return the customer view directory
+     */
     @GetMapping("/orders")
-    String Orders()
-    {
+    String Orders() {
         System.out.println("working");
         return "customer";
     }
 
-    @PostMapping(value = "/add")
-    String add(@RequestParam("price")String price)
-    {
-        System.out.println(price);
-        Long newid = orderRepository.findMaxId()+1;
+    @PostMapping(value = "/checkout")
+    String add(@RequestParam("price") String price, @RequestParam("productId") String ids, Model orderModel,
+            Model orderProductsModel) {
+
+        String[] rawIdList = ids.split("-");
+
+        Long newId = orderRepository.findMaxId() + 1;
+        int[] idList = Arrays.stream(rawIdList).mapToInt(Integer::parseInt).toArray();
+
         LocalDateTime time = LocalDateTime.now();
         String status = "processing";
         BigDecimal newPrice = new BigDecimal(price);
-        Orders newOrder = new Orders(newid,newPrice,time,status);
+        Orders newOrder = new Orders(newId, newPrice, time, status);
         this.orderRepository.save(newOrder);
-       
-        System.out.println("order added");
-        return "redirect:/customer/checkout";
-    }
+        orderModel.addAttribute("orders", newOrder);
 
+        for (long productID : idList) {
+            Long newID = orderProductsRepo.findMaxId() + 1;
+            OrderProducts newJunction = new OrderProducts(newID, newId, productID, 1L);
+            this.orderProductsRepo.save(newJunction);
+            orderProductsModel.addAttribute("orderProducts", newJunction);
+        }
+
+        System.out.println("order added");
+        return "redirect:/customer"; // TODO: redirect to thank you page.
+    }
+    
+    /**
+     * Fetches the menu by category.
+     *
+     * @param category the product category
+     * @return response entity containing list of products or not found
+     */
     @GetMapping("/api/menu/{category}")
     public ResponseEntity<List<Products>> getMenuByCategory(@PathVariable("category") String category) {
         List<Products> productsByCategory = customerRepository.findByProductType(category);
@@ -72,13 +106,16 @@ public class CustomerController {
         }
         return ResponseEntity.ok(productsByCategory);
     }
-
+       /**
+     * Displays the page for editing customer items.
+     *
+     * @return the edit item view directory
+     */
     @GetMapping("/edit")
     public String editPage() {
         return "customerEditItem";
     }
 
-    
     @GetMapping("/checkout")
     public String checkoutPage() {
         return "customerCheckout";
@@ -92,7 +129,13 @@ public class CustomerController {
     public String weatherCity;
     public String weatherDescription;
     public double weatherTemp;
-
+       /**
+     * Handles the location update and fetches weather information.
+     *
+     * @param location the geographical coordinates
+     * @return redirect string to the customer page
+     * @throws JsonProcessingException if JSON processing fails
+     */
     @PostMapping("/location")
     public String handleLocation(@RequestBody geoLocation location) throws JsonProcessingException {
 
@@ -132,7 +175,11 @@ public class CustomerController {
 
         return "redirect:/customer";
     }
-
+      /**
+     * Fetches all products.
+     *
+     * @return response entity containing list of products or no content
+     */
     @GetMapping("/api/products")
     public ResponseEntity<List<Products>> getAllProducts() {
         List<Products> products = customerRepository.findAll();

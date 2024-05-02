@@ -23,9 +23,16 @@ import projectone.demo.repository.SalesTrendsRepository;
 import projectone.demo.repository.InventoryRepository;
 import projectone.demo.service.InventoryService;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author Chance Hughes
+ */
+/**
+ * Controller for handling various sales-related queries in a management context.
+ */
 @Controller
 public class queriesController {
     private final SalesDataRepository salesDataRepository;
@@ -34,6 +41,13 @@ public class queriesController {
     private final InventoryService inventoryService;
     private static final Logger logger = LoggerFactory.getLogger(queriesController.class);
 
+      /**
+     * Constructs a QueriesController with necessary repositories.
+     *
+     * @param salesDataRepository      Repository for sales data.
+     * @param salesTrendsRepository    Repository for sales trends.
+     * @param inventoryRepository      Repository for inventory data.
+     */
     public queriesController(SalesDataRepository salesDataRepository, SalesTrendsRepository salesTrendsRepository,
                              InventoryRepository inventoryRepository, InventoryService inventoryService) {
         this.salesDataRepository = salesDataRepository;
@@ -41,7 +55,15 @@ public class queriesController {
         this.inventoryRepository = inventoryRepository;
         this.inventoryService = inventoryService;
     }
-
+        /**
+     * Displays various sales-related data based on provided start and end times.
+     *
+     * @param startTime   Start time for querying sales data, in ISO format.
+     * @param endTime     End time for querying sales data, in ISO format.
+     * @param display     Type of data to display ("data", "trends", or "overstock").
+     * @param model       Model to pass attributes to the view.
+     * @return            The view for displaying queried sales data.
+     */
     @GetMapping("/Manager/queries")
     public String displayQueries(
         @RequestParam(value = "start_time", required = false, defaultValue = "2023-01-01T00:00") String startTime,
