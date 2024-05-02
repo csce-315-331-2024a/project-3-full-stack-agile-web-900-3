@@ -1,0 +1,45 @@
+
+body {
+  background-color: maroon;
+  color: white;
+  font-family: Arial, sans-serif;
+  padding: 2%; 
+}
+
+#pin-display {
+  text-align: center;
+  font-size: 2em;
+  margin: 1em auto;
+  letter-spacing: 0.3em;
+  background-color: #fff;
+  color: #333;
+  border-radius: 0.3em;
+  width: 90%; /* Adjusted to be responsive */
+  max-width: 400px; /* Ensures it doesn't get too large on bigger screens */
+  padding: 1em;
+  box-sizing: border-box; /* Ensures padding doesn't add to the width */
+}
+
+.pin-pad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2%; /* Provides spacing between buttons */
+  width: 90%; /* Makes the grid responsive */
+  max-width: 400px; /* Ensures it doesn't get too large */
+  margin: 2em auto; /* Centers the grid with margin */
+}
+
+.pin-pad button {
+  padding: 0.75em;
+  font-size: 1em; /* Keeps font size responsive */
+  background-color: white;
+  color: maroon;
+  border: none;
+  border-radius: 0.2em; /* Adjusted for aesthetics */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pin-pad button:hover {
+  background-color: #706868;
+}

@@ -1,0 +1,35 @@
+ <div class = bottom>
+    <div class = items> Purchased:
+      <span th:each = "junc : ${junction}" th:if ="${junc.order_id} == ${order.order_id}">
+        
+          <span class = "products-name"   th:each ="product:${products}" th:if="${product.product_id == junc.product_id}" th:text = "${product.productname}"></span>
+        
+      </span>
+    </div>
+    <div class = modify>
+      <div class = modify-items >
+        <span>Add:</span>
+        <select name = add>
+          <option value = "">don't add</option>
+          <div th:each = "product :${products}" >
+            <option th:value = ${product.product_id} th:text = "${product.productname}" ></option>
+          </div>
+        </select>
+       
+      </div>
+      
+      <div calss = modify-items >
+        <span>Remove: </span>
+        <select name = remove>
+          <option value = "">don't remove</option>
+          <div th:each = "junc : ${junction}" th:if ="${junc.order_id} == ${order.order_id}">
+              <option th:each ="product:${products}" th:if="${product.product_id == junc.product_id}" th:text = "${product.productname}" th:value = "${junc.order_product_id}">
+
+              </option>
+          </div>
+        </select>
+       
+      </div>
+    </div>
+      
+  </div>

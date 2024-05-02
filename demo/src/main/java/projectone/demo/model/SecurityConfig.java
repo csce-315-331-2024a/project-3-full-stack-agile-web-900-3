@@ -1,3 +1,7 @@
+/**
+ * Configuration class for security settings and handling.
+ */
+
 package projectone.demo.model;
 
 import jakarta.servlet.ServletException;
@@ -57,17 +61,28 @@ import java.util.*;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+/**
+ * Configuration class for security settings and handling.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig{
 
 
-
+    /** The redirect URI for the application. */
     @Value("${app.redirect-uri}")
     private String redirectUri;
 
+    /** The repository for user data. */
     private UsersRepository usersRepository;
+
+    /** The list of users in the database. */
     private List<Users> databaseUsers;
+
+    /**
+     * Constructor for SecurityConfig.
+     * @param usersRepository The repository for user data.
+     */
     public SecurityConfig(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
         this.databaseUsers = usersRepository.findAll();
@@ -75,8 +90,18 @@ public class SecurityConfig{
 
 
     }
+
+    /** The custom authentication success handler. */
     @Autowired
     private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    
+    /**
+     * Configures the security filter chain.
+     * @param http The HttpSecurity object.
+     * @return The SecurityFilterChain object.
+     * @throws Exception If an error occurs during configuration.
+     */
+
     @SuppressWarnings("deprecation")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -118,11 +143,20 @@ public class SecurityConfig{
         return http.build();
     }
 
+
+    /**
+     * Defines the client registration repository.
+     * @return The ClientRegistrationRepository object.
+     */
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository() {
         return new InMemoryClientRegistrationRepository(this.googleClientRegistration());
     }
 
+    /**
+     * Configures the Google client registration.
+     * @return The ClientRegistration object for Google.
+     */
     private ClientRegistration googleClientRegistration() {
         return ClientRegistration.withRegistrationId("google")
                 .clientId("584496888119-f70a71sds4sg2ufqu3oipp6cofqfs044.apps.googleusercontent.com")
@@ -140,6 +174,10 @@ public class SecurityConfig{
                 .build();
     }
 
+    /**
+     * Defines the mapper for user authorities.
+     * @return The GrantedAuthoritiesMapper object.
+     */
     @Bean
     public GrantedAuthoritiesMapper userAuthoritiesMapper() {
         return (authorities) -> {
@@ -186,6 +224,10 @@ public class SecurityConfig{
         };
     }
 
+    /**
+     * Defines the authentication success handler.
+     * @return The AuthenticationSuccessHandler object.
+     */
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
         return new CustomAuthenticationSuccessHandler();

@@ -1,3 +1,7 @@
+/**
+ * Represents sales trends data retrieved from the database.
+ */
+
 package projectone.demo.model;
 import lombok.*;
 
@@ -12,6 +16,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
+/**
+ * Entity class representing sales trends data stored in the database.
+ */
 
 @Entity(name="SalesTrends")
 @Table(name="sales_trends")
@@ -20,16 +27,21 @@ import jakarta.persistence.Column;
 @Getter
 @Setter
 public class SalesTrends implements Serializable {
+
+    /** The unique numerical identifier for the sales trend data. */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Added an ID for JPA identity management.
 
+    /** The name of the first product to be viewed in the sales trend data. */
     @Column(name = "product_name_one", nullable = false)
     private String productNameOne;
 
+    /** The name of the second product to be viewed the sales trend data. */
     @Column(name = "product_name_two", nullable = false)
     private String productNameTwo;
 
+    /** The frequency of occurrence of the sales trend. */
     @Column(name = "frequency", nullable = false)
     private int freq;
 
