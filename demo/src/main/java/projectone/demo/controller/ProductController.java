@@ -47,11 +47,12 @@ class ProductsController{
         repositoryJunction.deleteAllByProductId(id);
         System.out.println("going to delete Product number: "+id);
         repository.deleteById(id);// this is a query from jpa repository
+
         return "";
     }
 
     @PostMapping("/add")
-    String add(@RequestParam("new-productsName")String name,@RequestParam("new-productsPrice")String price,@RequestParam("new-productsType")String type,Model model)
+    String add(@RequestParam("new-productsName")String name,@RequestParam("new-productsPrice")String price,@RequestParam("new-productsType")String type,Model model,Model modelJunc, Model modelinventory)
     {
         Long newId = this.repository.findMaxId() +1;
         BigDecimal bdFromString = new BigDecimal(price);
@@ -60,6 +61,8 @@ class ProductsController{
         System.out.println("adding "+ name);
         this.repository.save(newProduct);
         model.addAttribute("manager", this.repository.findAll());
+        modelJunc.addAttribute("junction", this.repositoryJunction.findAll());
+        modelinventory.addAttribute("inventory", this.invRepository.findAll());
         return "manager :: manager-list"; // in this one im sending back a Thymeleaf fragment
         
     }

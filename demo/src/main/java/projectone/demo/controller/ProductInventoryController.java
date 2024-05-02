@@ -20,4 +20,5 @@ public class ProductInventoryController {
     public List<String> getProductIngredients(@PathVariable Long productId) {
         return productInventoryRepository.findIngredientNamesByProductId(productId);
     }
+    
 }
