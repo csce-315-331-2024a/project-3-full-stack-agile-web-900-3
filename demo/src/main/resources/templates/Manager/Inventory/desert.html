@@ -4,10 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Inventory Table</title>
-  <link rel="stylesheet" href="../../inventory.css">
+  <link id="theme-link" rel="stylesheet" type="text/css" href = ../../inventory.css>
   <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 </head>
-<span id = translate>
+
+
+<span><h2 >Inventory</h2></span><h2><span id = translate>
   <script type="text/javascript">
     function googleTranslateElementInit() {
         new google.translate.TranslateElement(
@@ -18,9 +20,13 @@
     </script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   
-      <div id="google_translate_element"></div>
-</span>
-<h2 >Inventory</h2>
+      <span id="google_translate_element"></span>
+      <span><select id="theme-select" onchange="switchTheme(this.value)">
+        <option value="../../inventory.css">Default</option>
+        <option value="../../inventoryAlt.css">HighContrast</option>
+    </select></span>
+</span></h2>
+
 <body id = "updateArea">
   <div id = navBar>
     <a th:href="@{/}" class="nav-btn" >Home</a>
@@ -32,6 +38,7 @@
     <a th:href="@{/Manager/orders}" class="nav-btn">Orders</a>
     <a th:href="@{/manager}" class="nav-btn" >Products</a>
     <a th:href="@{/Manager/queries}" class = "nav-btn" >Reports</a>
+    
   </div>
   <div class = "category-container">
     <div class="content" id="food" th:fragment = "loadArea">
@@ -82,8 +89,23 @@
         <input class="unit" placeholder="unit" id = Input name = "item-unit"></input>
         <input class="low_threshold" placeholder="low threshold" id = Input name = "item-low"></input>
         <button type="submit">Add Item</button>
+        
       </form>
     </div>
     
    
 </body>
+<script>
+  // Function to switch the theme
+  function switchTheme(cssFile) {
+      document.getElementById('theme-link').href = cssFile;
+      localStorage.setItem('theme', cssFile); // Store the theme in localStorage
+  }
+
+  // Load the theme from localStorage
+  window.onload = function() {
+      const savedTheme = localStorage.getItem('theme') || '../../inventory.css'; // Default theme
+      document.getElementById('theme-link').href = savedTheme;
+      document.getElementById('theme-select').value = savedTheme; // Set the dropdown to reflect the saved theme
+  }
+</script>

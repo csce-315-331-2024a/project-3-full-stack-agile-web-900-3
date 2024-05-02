@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif; /* Sets a clean, readable font */
     margin: 20px; /* Adds margin around the entire content for better spacing */
-    background: #400101; /* Sets a maroon background for the page */
+    background: maroon; /* Sets a maroon background for the page */
     color: #ffffff; /* Sets text color to white for readability on maroon background */
   }
   h2{
@@ -43,7 +43,7 @@ body {
   }
   
   #styledInput:hover {
-    background-color: rgba(242, 211, 152); /* Changes background to yellow on hover */
+    background-color: rgb(245, 232, 208); /* Changes background to yellow on hover */
     padding: 5px; /* Increase padding to expand the circular background */
   }
 
@@ -141,7 +141,7 @@ button:hover {
 }
 #translate {
   position: absolute; /* or 'absolute' depending on your layout needs */
-  top: 20px; /* Adjust this value to place it at the desired vertical position */
+  top: -20px; /* Adjust this value to place it at the desired vertical position */
   right: 0; /* Aligns the element to the right edge of the viewport */
   z-index: 1000; /* Ensures it stays on top of other content */
 }
@@ -172,7 +172,18 @@ button:hover {
   font-weight: bold; /* Makes header text bold */
   font-size: xx-large;
 }
-#selectDate{
-    font
-}
 
+
+.highContrast{
+  font-size: x-large;
+  font-weight: bold;
+  
+} 
+.highSelect {
+  width: 300px;   /* Adjusts the width of the dropdown */
+  height: 50px;   /* Adjusts the height of the dropdown */
+  font-size: 20px; /* Increases the font size to enhance readability */
+  padding: 5px 10px; /* Adds padding inside the dropdown for better aesthetics */
+  border-radius: 5px; /* Optionally, rounds the corners of the dropdown */
+  border: 2px solid #ccc; /* Adds a border with a light gray color */
+}

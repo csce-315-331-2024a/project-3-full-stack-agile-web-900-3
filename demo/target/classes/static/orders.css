@@ -134,7 +134,7 @@ button:hover {
 }
 #translate {
   position: absolute; /* or 'absolute' depending on your layout needs */
-  top: 20px; /* Adjust this value to place it at the desired vertical position */
+  top: -20px; /* Adjust this value to place it at the desired vertical position */
   right: 0; /* Aligns the element to the right edge of the viewport */
   z-index: 1000; /* Ensures it stays on top of other content */
 }

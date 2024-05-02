@@ -166,16 +166,17 @@ public class OrdersPageController {
             modifiedOrder.setPrice(new BigDecimal(price));
             this.orderRepository.save(modifiedOrder);
             System.out.println("modified price of:"+id);
-            ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
-            ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
-            Orders firstOrder = datSorted.get(1);
-            int size = datSorted.size();
-            Orders lastOrder = datSorted.get(size-1);
-            Collections.reverse(dat);
-            junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
-            model.addAttribute("orders", dat);
-            productModel.addAttribute("products", productsRepository.findAll());
+           
         }
+        ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
+        ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
+        Orders firstOrder = datSorted.get(1);
+        int size = datSorted.size();
+        Orders lastOrder = datSorted.get(size-1);
+        Collections.reverse(dat);
+        junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
+        model.addAttribute("orders", dat);
+        productModel.addAttribute("products", productsRepository.findAll());
         return "Manager/orders :: list";
     }
         /**
@@ -200,16 +201,17 @@ public class OrdersPageController {
             modifiedOrder.setStatus(Status);
             this.orderRepository.save(modifiedOrder);
             System.out.println("modified status of:"+id);
-            ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
-            ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
-            Orders firstOrder = datSorted.get(1);
-            int size = datSorted.size();
-            Orders lastOrder = datSorted.get(size-1);
-            Collections.reverse(dat);
-            junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
-            model.addAttribute("orders", dat);
-            productModel.addAttribute("products", productsRepository.findAll());
+          
         }
+        ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
+        ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
+        Orders firstOrder = datSorted.get(1);
+        int size = datSorted.size();
+        Orders lastOrder = datSorted.get(size-1);
+        Collections.reverse(dat);
+        junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
+        model.addAttribute("orders", dat);
+        productModel.addAttribute("products", productsRepository.findAll());
         return "Manager/orders :: list";
     }
     /**
@@ -241,7 +243,9 @@ public class OrdersPageController {
                 System.out.println("added "+prodId);
             }
            
-            ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
+            
+        }
+        ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
             ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
             Orders firstOrder = datSorted.get(1);
             int size = datSorted.size();
@@ -250,7 +254,6 @@ public class OrdersPageController {
             junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
             model.addAttribute("orders", dat);
             productModel.addAttribute("products", productsRepository.findAll());
-        }
         return "Manager/orders :: list";
     }
     /**
@@ -284,7 +287,9 @@ public class OrdersPageController {
                 System.out.println("added "+prodId);
             
            
-            ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
+            
+        }
+        ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
             ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
             Orders firstOrder = datSorted.get(1);
             int size = datSorted.size();
@@ -293,7 +298,6 @@ public class OrdersPageController {
             junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
             model.addAttribute("orders", dat);
             productModel.addAttribute("products", productsRepository.findAll());
-        }
         return "Manager/orders :: list";
     }
     /**
