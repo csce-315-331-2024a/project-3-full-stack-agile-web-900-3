@@ -37,12 +37,10 @@ projectone\demo\model\WeatherResponse$Weather.class
 projectone\demo\controller\condimentsController.class
 projectone\demo\repository\SalesDataRepository.class
 projectone\demo\model\DBConnection.class
-projectone\demo\controller\IndexController.class
 projectone\demo\repository\SalesTrendsRepository.class
 projectone\demo\controller\loginController.class
 projectone\demo\model\Inventory.class
 projectone\demo\repository\InventoryRepository.class
-projectone\demo\controller\PinPadController.class
 projectone\demo\repository\ProductInventoryRepository.class
 projectone\demo\model\Products.class
 projectone\demo\controller\ProductInventoryController.class
