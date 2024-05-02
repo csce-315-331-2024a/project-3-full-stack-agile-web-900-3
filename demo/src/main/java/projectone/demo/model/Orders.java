@@ -3,8 +3,8 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,17 +29,16 @@ public class Orders implements Serializable{
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "order_datetime")
-    private Timestamp orderDatetime;
+    private LocalDateTime orderDatetime;
     @Column(name = "order_status")
     private String status;
-    
 
     @Override
     public String toString() {
         return "Orders{" +
                 "order_id=" + order_id +
                 ", price=" + price +
-                ", orderDatetime=" + orderDatetime +
+                ", orderDatetime=" + orderDatetime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) +
                 '}';
     }
 }

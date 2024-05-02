@@ -68,3 +68,40 @@ form {
   width: 100%; /* Ensures the image is responsive */
   height: auto;
 }
+
+#navBar {
+    
+  display: flex;
+  justify-content: space-around; /* Adjust this if you need different spacing */
+  align-items: center;
+  margin-top: 40;
+  padding: 10px;
+  position: relative; /* Ensures that the absolute positioning of h2 is relative to navBar */
+}
+.nav-btn:hover,
+.nav-btn:focus {
+  transform: scale(1.05);   /* Enlarges the link */
+  background-color:darkgray;
+          
+}
+.nav-btn {
+  flex-grow: 1;
+  text-align: center;
+  margin: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  color: black;
+}
+#translate {
+  position: absolute; /* or 'absolute' depending on your layout needs */
+  top: 20px; /* Adjust this value to place it at the desired vertical position */
+  right: 0; /* Aligns the element to the right edge of the viewport */
+  z-index: 1000; /* Ensures it stays on top of other content */
+}

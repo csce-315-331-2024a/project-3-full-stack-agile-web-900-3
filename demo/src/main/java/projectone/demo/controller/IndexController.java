@@ -27,7 +27,6 @@ import projectone.demo.model.Products;
 import projectone.demo.model.Users;
 import projectone.demo.repository.InventoryRepository;
 import projectone.demo.repository.ProductsRepository;
-import projectone.demo.repository.UsersRepository;
 
 
 @Controller // no logic in this this is purely mappping the index html to the javascript
@@ -48,32 +47,7 @@ import projectone.demo.repository.UsersRepository;
     }
     
 
-    @RequestMapping(value = "/cashierPage")
-    @Controller // no logic in this is purely mappping the index html to the javascript
-    class CashierController{
-        private final ProductsRepository repository;
-        CashierController(ProductsRepository repository)
-        {
-            this.repository = repository;
-        }
-    @GetMapping
-    String products(Model model)
-    {
-        model.addAttribute("products", this.repository.findAll());
-        return "cashierPage";
-    }
-    }
     
-    
-//    @Controller // no logic in this this is purely mappping the index html to the javascript
-//    class MenuBoardController
-//    {
-//        @GetMapping("/menuBoard")
-//    public String menuBoard()
-//    {
-//        return "menuBoard";
-//    }
-//    }
     
     
     @Controller

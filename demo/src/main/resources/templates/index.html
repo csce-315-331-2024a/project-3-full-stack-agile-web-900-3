@@ -10,26 +10,19 @@
     <script src="index.js"></script>
 </head>
 <body>
-<div class="landing-page">
+<div class="landing-page bg-maroon">
 
 
-<div class="links">
-    <!-- <a href="pinpad.html" class="button">Pin Pad</a> -->
-    <a th:href="@{/pinpad}">Go to pinPad Page</a>
-    <a th:href="@{/manager}">Go to Manager Page</a>
-    <a th:href="@{/menuBoard}">Go to Menu Board</a>
-    <a th:href="@{/cashierPage}">Go to Cashier Page</a>
-    <a th:href="@{/inventory}">Go to Manager Inventory</a>
-    <a href="customer.html" class="button">Go to Customer Page</a>
-
-</div>
 
 
-    <div class="container flex-grow-1">
-        <h1>Welcome To Rev's Grill</h1>
-        <img src="images/rev.png" alt="Rev's Grill Logo">
-        <button id="loginButton" class="bg-lightmaroon" th:onclick="'window.location.href=\'/login\''">Login</button>
-        <button class="bg-lightmaroon"> Continue as guest </button>
+
+    <div class="landing-page bg-maroon">
+        <div class="container flex-grow-1">
+            <h1>Welcome To Rev's Grill</h1>
+            <img src="images/rev.png" alt="Rev's Grill Logo" class="rounded-image">
+            <button id="loginButton" class="btn-rounded bg-lightmaroon" th:onclick="'window.location.href=\'/login\''">Login</button>
+            <button class="btn-rounded bg-lightmaroon" th:onclick="'window.location.href=\'/greet/customer\''">Continue as guest</button>
+        </div>
     </div>
 
 

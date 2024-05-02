@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import projectone.demo.model.ProductInventory;
 import projectone.demo.model.Products;
 import projectone.demo.repository.InventoryRepository;
-import projectone.demo.repository.ProductsInventoryRepo;
+import projectone.demo.repository.ProductInventoryRepository;
 import projectone.demo.repository.ProductsRepository;
 
-@RequestMapping(value = "Manager/manager")   
+@RequestMapping("manager")   
 @Controller
 class ProductsController{
-    private final ProductsInventoryRepo repositoryJunction;
+    private final ProductInventoryRepository repositoryJunction;
     private final ProductsRepository repository;
     private final InventoryRepository invRepository;
     // importing products repository
-    ProductsController(ProductsRepository repository,ProductsInventoryRepo repositoryJunction,InventoryRepository invRepository){
+    ProductsController(ProductsRepository repository,ProductInventoryRepository repositoryJunction,InventoryRepository invRepository){
         this.repository = repository;
         this.repositoryJunction = repositoryJunction;
         this.invRepository = invRepository;
@@ -37,7 +37,7 @@ class ProductsController{
        model.addAttribute("manager", this.repository.findAll());
        modelJunc.addAttribute("junction", this.repositoryJunction.findAll());
        modelinventory.addAttribute("inventory", this.invRepository.findAll());
-        return "Manager/manager";
+        return "manager";
     }
     
     @ResponseBody
@@ -47,11 +47,12 @@ class ProductsController{
         repositoryJunction.deleteAllByProductId(id);
         System.out.println("going to delete Product number: "+id);
         repository.deleteById(id);// this is a query from jpa repository
+
         return "";
     }
 
     @PostMapping("/add")
-    String add(@RequestParam("new-productsName")String name,@RequestParam("new-productsPrice")String price,@RequestParam("new-productsType")String type,Model model)
+    String add(@RequestParam("new-productsName")String name,@RequestParam("new-productsPrice")String price,@RequestParam("new-productsType")String type,Model model,Model modelJunc, Model modelinventory)
     {
         Long newId = this.repository.findMaxId() +1;
         BigDecimal bdFromString = new BigDecimal(price);
@@ -60,7 +61,9 @@ class ProductsController{
         System.out.println("adding "+ name);
         this.repository.save(newProduct);
         model.addAttribute("manager", this.repository.findAll());
-        return "Manager/manager :: manager-list"; // in this one im sending back a Thymeleaf fragment
+        modelJunc.addAttribute("junction", this.repositoryJunction.findAll());
+        modelinventory.addAttribute("inventory", this.invRepository.findAll());
+        return "manager :: manager-list"; // in this one im sending back a Thymeleaf fragment
         
     }
     @PostMapping("/addInv")
@@ -71,7 +74,7 @@ class ProductsController{
         System.out.println("adding new junction");
         this.repositoryJunction.save(newJunc);
         modelJunc.addAttribute("junction", this.repositoryJunction.findAll());
-        return "redirect:/Manager/manager"; // in this one im sending back a Thymeleaf fragment
+        return "redirect:/manager"; // in this one im sending back a Thymeleaf fragment
         
     }
     @PostMapping("/removeInv")
@@ -80,7 +83,7 @@ class ProductsController{
         System.out.println(remove);
         repositoryJunction.deleteById(Long.parseLong(remove));
         modelJunc.addAttribute("junction", this.repositoryJunction.findAll());
-        return "redirect:/Manager/manager"; // in this one im sending back a Thymeleaf fragment
+        return "redirect:/manager"; // in this one im sending back a Thymeleaf fragment
         
     }
     @PostMapping()
@@ -90,7 +93,7 @@ class ProductsController{
     this.repository.save(newProd);//saving it to the repository i made
     model.addAttribute("inventory", this.repository.findAll()); // updating the model in code by copying everything from databse
     System.err.println(name +" changed");
-    return "redirect:/Manager/manager";// this is where im redirecting to ie the whole html file 
+    return "redirect:/manager";// this is where im redirecting to ie the whole html file 
         
     }
     

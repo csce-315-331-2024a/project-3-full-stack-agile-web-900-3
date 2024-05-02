@@ -42,7 +42,7 @@ public class queriesController {
         this.inventoryService = inventoryService;
     }
 
-    @GetMapping("/queries")
+    @GetMapping("/Manager/queries")
     public String displayQueries(
         @RequestParam(value = "start_time", required = false, defaultValue = "2023-01-01T00:00") String startTime,
         @RequestParam(value = "end_time", required = false, defaultValue = "2023-12-31T23:59") String endTime,
@@ -85,8 +85,9 @@ public class queriesController {
                 List<SalesDataProjection> salesData = salesDataRepository.fetchSalesData(startTimestamp, endTimestamp);
                 model.addAttribute("data", salesData);
         }
-
         model.addAttribute("display", display);
-        return "queries";
-    }
+
+            return "Manager/queries";
+        }
 }
+

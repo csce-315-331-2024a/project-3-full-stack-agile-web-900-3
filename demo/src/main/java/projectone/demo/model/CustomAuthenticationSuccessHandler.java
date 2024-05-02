@@ -29,10 +29,23 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         boolean isAdmin = authentication.getAuthorities().stream()
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
 
+        boolean isManager = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_MANAGER"));
+
+        boolean isCashier = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_CASHIER"));
+
         if (isAdmin) {
             return "/greet/admin";
-        } else {
-            return "/";
+        }
+        else if(isManager){
+            return "/greet/manager";
+        }
+        else if(isCashier){
+            return "/greet/cashier";
+        }
+        else {
+            return "/greet/customer";
         }
     }
 }
