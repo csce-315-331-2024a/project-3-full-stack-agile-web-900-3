@@ -7,21 +7,27 @@ import jakarta.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
+import org.springframework.security.oauth2.client.oidc.web.server.logout.OidcClientInitiatedServerLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
@@ -37,10 +43,16 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
+import org.springframework.security.web.server.authentication.logout.ServerLogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 import projectone.demo.repository.UsersRepository;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.*;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -49,17 +61,33 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig{
 
+
+
+    @Value("${app.redirect-uri}")
+    private String redirectUri;
+
     private UsersRepository usersRepository;
     private List<Users> databaseUsers;
     public SecurityConfig(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
         this.databaseUsers = usersRepository.findAll();
+
+
+
     }
     @Autowired
     private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
     @SuppressWarnings("deprecation")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository());
+        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("/");
+
+        SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
+        securityContextLogoutHandler.setInvalidateHttpSession(true);
+        securityContextLogoutHandler.setClearAuthentication(true);
+
+
         http
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
@@ -70,9 +98,23 @@ public class SecurityConfig{
                                 .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2Login ->
-                        oauth2Login.successHandler(customAuthenticationSuccessHandler)
+                        oauth2Login
+                                .successHandler(customAuthenticationSuccessHandler)
+
                 )
-                .csrf((csrf) -> csrf.disable());
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID", "remember-me")
+                        .clearAuthentication(true)
+                )
+
+                .csrf((csrf) -> csrf.disable())
+
+
+        ;
+
         return http.build();
     }
 
@@ -148,5 +190,7 @@ public class SecurityConfig{
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
         return new CustomAuthenticationSuccessHandler();
     }
+
+
 
 }

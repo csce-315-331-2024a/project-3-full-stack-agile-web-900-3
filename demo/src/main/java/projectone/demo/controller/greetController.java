@@ -24,4 +24,9 @@ public class greetController {
         return "cashierGreet";
     }
 
+    @GetMapping("/customer")
+    public String greetCustomer(){
+        return "customerGreet";
+    }
+
 }
