@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @WebMvcTest(MenuBoard.class)
-public class MenuBoardTest1 {
+public class seleniumMenuTest {
 
     @Autowired
     private MockMvc mockMvc;
