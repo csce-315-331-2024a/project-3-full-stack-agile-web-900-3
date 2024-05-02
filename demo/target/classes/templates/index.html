@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Page</title>
+    <script src="https://unpkg.com/htmx.org@1.8.1"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+<div class="landing-page bg-maroon">
+
+
+
+
+
+    <div class="landing-page bg-maroon">
+        <div class="container flex-grow-1">
+            <h1>Welcome To Rev's Grill</h1>
+            <img src="images/rev.png" alt="Rev's Grill Logo" class="rounded-image">
+            <button id="loginButton" class="btn-rounded bg-lightmaroon" th:onclick="'window.location.href=\'/login\''">Login</button>
+            <button class="btn-rounded bg-lightmaroon" th:onclick="'window.location.href=\'/greet/customer\''">Continue as guest</button>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- <a href="menuBoard.html" class="button">Menu Board</a> -->
+
+
+<script src="http://localhost:35729/livereload.js"></script>
+
+
+</body>
+</html>

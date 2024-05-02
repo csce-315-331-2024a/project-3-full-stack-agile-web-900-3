@@ -1,0 +1,178 @@
+body {
+    font-family: Arial, sans-serif; /* Sets a clean, readable font */
+    margin: 20px; /* Adds margin around the entire content for better spacing */
+    background: #400101; /* Sets a maroon background for the page */
+    color: #ffffff; /* Sets text color to white for readability on maroon background */
+  }
+  h2{
+    font-size: xx-large;
+    font-weight: bold;
+  }
+  .item {
+    background: white; /* Sets a white background for product listings */
+    padding: 15px; /* Adds padding inside each product container */
+    margin-top: 10px; /* Adds space between each product listing */
+    border-radius: 8px; /* Rounds the corners of the product listings */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds a shadow to the product listings */
+    color: black; /* Text color inside products set to black for readability */
+   
+  }
+  .item span{
+    flex: 1; /* Allows each element within products to take equal space */
+    text-align: center; /* Centers text within each div */
+  }
+  .top{
+   
+    display: flex; /* Utilizes flexbox for horizontal layout */
+    justify-content: space-between; /* Distributes space between elements evenly */
+    color: black; /* Text color inside products set to black for readability */
+    overflow: hidden;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  #styledInput {
+    border: none; /* Removes the default border */
+    background-color: transparent; /* Background is transparent by default */
+    text-align: center; /* Centers the text inside the input */
+    font-size: 26px; /* Sets the font size */
+    color: black; /* Text color is black */
+    padding: 2px; /* Adds padding around the text */
+    width: 8vh; /* Width is auto to fit content by default */
+    transition: background-color 0.3s, padding 0.3s; /* Smooth transition for background color and padding */
+    border-radius: 10%; /* Starts with a fully rounded shape */
+  }
+  
+  #styledInput:hover {
+    background-color: rgba(242, 211, 152); /* Changes background to yellow on hover */
+    padding: 5px; /* Increase padding to expand the circular background */
+  }
+
+  .products{
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: row;  /* Align children in a row */
+  justify-content: space-between; /* Space between the content and modify div */
+  align-items: flex-start; /* Align items to the start of the flex container */
+  flex-wrap: wrap; /* Allows wrapping */
+  color: black;
+  }
+
+  .products-name {
+    background-color: #f2f3f5; /* Light grey background for each ingredient tag */
+    padding: 5px 10px; /* Adequate padding inside each tag */
+    border-radius: 15px; /* Fully rounded edges for the tags */
+    font-size: 24px; /* Smaller font size for compact tags */
+    display: inline-block; /* Ensures tags are lined up inline */
+    margin-right: 5px; /* Space between tags */
+    margin-bottom: 5px; /* Space below each tag when wrapped */
+}
+.modify {
+  display: flex;
+  margin-top: 4vh;
+  justify-content: center; /* Center the forms horizontally */
+  align-items: center; /* Align items vertically */
+  margin-left: auto;  /* Push to the right */
+}
+
+.modify-items {
+display: inline-block;  /* Display forms inline */
+margin-left: 15vh;           /* Spacing between forms */
+}
+
+.items{
+  margin-top: 4vh;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+#spinner {
+  width: 100px;        /* Adjust the size of the spinner */
+  height: 100px;       /* Adjust the size of the spinner */
+  border: 16px solid #f3f3f3; /* Light grey background */
+  border-top: 16px solid white; /* White foreground */
+  border-radius: 50%;
+  position: absolute;
+}
+#navBar {
+    
+  display: flex;
+  justify-content: space-around; /* Adjust this if you need different spacing */
+  align-items: center;
+  margin-top: 40;
+  padding: 10px;
+  position: relative; /* Ensures that the absolute positioning of h2 is relative to navBar */
+}
+.nav-btn:hover,
+.nav-btn:focus {
+  transform: scale(1.05);   /* Enlarges the link */
+  background-color:darkgray;
+          
+}
+
+button {
+  background: white; /* Sets a white background color for the button */
+  color: black; /* Sets the text color to black for visibility */
+  padding: 10px 20px; /* Adds padding inside the button */
+  border: 1px solid #ccc; /* Adds a light grey border for some definition */
+  border-radius: 5px; /* Rounds the corners of the button */
+  cursor: pointer; /* Shows a pointer cursor when hovering over the button */
+}
+
+button:hover {
+  background: #e6e6e6; /* Light grey background on hover for a subtle effect */
+}
+.nav-btn {
+  flex-grow: 1;
+  text-align: center;
+  margin: 5px;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  color: black;
+}
+#translate {
+  position: absolute; /* or 'absolute' depending on your layout needs */
+  top: 20px; /* Adjust this value to place it at the desired vertical position */
+  right: 0; /* Aligns the element to the right edge of the viewport */
+  z-index: 1000; /* Ensures it stays on top of other content */
+}
+.inv{
+  height: 80vh;
+  width: auto;
+  overflow: auto;     
+  border: 4px solid #F5EBD5; /* Set the border color to black and width to 2px */
+  border-radius: 20px; /* Rounded corners with a radius of 10px */
+}
+.header {
+  background: white; /* Sets a white background for product listings */
+  padding: 15px; /* Adds padding inside each product container */
+  margin-top: 10px; /* Adds space between each product listing */
+  border-radius: 8px; /* Rounds the corners of the product listings */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Adds a shadow to the product listings */
+  display: flex; /* Utilizes flexbox for horizontal layout */
+  justify-content: space-between; /* Distributes space between elements evenly */
+  color: black; /* Text color inside products set to black for readability */
+  overflow: hidden;
+  font-size: xx-large;
+}
+
+.header-item {
+  flex-grow: 1; /* Ensures each header item can expand to take equal space */
+  text-align: center; /* Centers the text within each header item */
+  padding: 5px 0; /* Slight padding for better text framing */
+  font-weight: bold; /* Makes header text bold */
+  font-size: xx-large;
+}
+#selectDate{
+    font
+}
+

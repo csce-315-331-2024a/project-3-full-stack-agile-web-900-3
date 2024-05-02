@@ -1,3 +1,6 @@
+/**
+ * Represents sales data retrieved from the database.
+ */
 package projectone.demo.model;
 import lombok.*;
 import jakarta.persistence.Entity;
@@ -11,6 +14,11 @@ import jakarta.persistence.SqlResultSetMapping;
 import jakarta.persistence.ColumnResult;
 
 import java.io.Serializable;
+
+
+/**
+ * Entity class representing sales data stored in the database.
+ */
 
 @SqlResultSetMapping(
     name = "SalesDataMapping",
@@ -32,17 +40,22 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class SalesData implements Serializable {
+
+    /** The unique identifier for the product in the sales data. */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "productId") // Ensure this name is used as an alias in your SQL query
     private int productId;
 
+     /** The name of the product in the sales data. */
     @Column(name = "productName", nullable = false) // Ensure this name is used as an alias in your SQL query
     private String productName;
 
+    /** The quantity of the product sold. */
     @Column(name = "quantitySold", nullable = false) // Ensure this name is used as an alias in your SQL query
     private int quantitySold;
 
+    /** The total sales amount of the product. */
     @Column(name = "totalSales", nullable = false) // Ensure this name is used as an alias in your SQL query
     private double totalSales;
 
