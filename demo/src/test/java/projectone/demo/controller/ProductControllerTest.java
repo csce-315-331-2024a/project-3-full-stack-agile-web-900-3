@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import projectone.demo.model.Products;
 import projectone.demo.repository.CustomerRepository;
+import projectone.demo.repository.OrderProductsRepo;
 import projectone.demo.repository.OrdersRepository;
 
 import java.math.BigDecimal;
@@ -25,13 +26,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @WebMvcTest(CustomerController.class)
-public class CustomerControllerTest {
+public class ProductControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private CustomerRepository customerRepository;
+
+    @MockBean
+    private OrderProductsRepo orderProductsRepo;
 
     @MockBean
     private OrdersRepository ordersRepository;

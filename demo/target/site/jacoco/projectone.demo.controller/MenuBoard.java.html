@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuBoard.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">projectone.demo.controller</a> &gt; <span class="el_source">MenuBoard.java</span></div><h1>MenuBoard.java</h1><pre class="source lang-java linenums">package projectone.demo.controller;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import projectone.demo.model.Products;
+import projectone.demo.model.WeatherResponse;
+import projectone.demo.repository.ProductsRepository;
+
+import java.awt.*;
+import java.math.BigDecimal;
+import java.sql.*;
+import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RequestMapping(value = &quot;/menuBoard&quot;)
+@Controller
+public class MenuBoard {
+    private static final String URL = &quot;jdbc:postgresql://csce-315-db.engr.tamu.edu:5432/csce331_900_03_p3_db&quot;;
+    private static final String USER = &quot;csce331_900_03_user&quot;;
+    private static final String PASSWORD = &quot;snBjvgg8&quot;;
+    private List&lt;Products&gt; productList;
+    private List&lt;String&gt; categories;
+    private HashMap&lt;String, List&lt;Products&gt;&gt; categoryMap;
+    private final ProductsRepository productsRepository;
+
+    @Autowired
+<span class="nc" id="L37">    public MenuBoard(ProductsRepository productsRepository) {</span>
+<span class="nc" id="L38">        this.productsRepository = productsRepository;</span>
+<span class="nc" id="L39">        productList = fetchDataFromDatabase();</span>
+<span class="nc" id="L40">        categories = getCategories(productList);</span>
+<span class="nc" id="L41">        categoryMap = groupProducts();</span>
+<span class="nc" id="L42">    }</span>
+    public List&lt;Products&gt; fetchDataFromDatabase() {
+        //
+<span class="nc" id="L45">        List&lt;Products&gt; allProducts = productsRepository.findAll();</span>
+
+//        List&lt;List&lt;String&gt;&gt; productList = new ArrayList&lt;&gt;();
+//
+//        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
+//            if (conn != null) {
+//                String sql = &quot;SELECT productname, price, product_type FROM products&quot;;
+//
+//                try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+//                    System.out.println(rs);
+//                    while (rs.next()) {
+//                        List&lt;String&gt; item = new ArrayList&lt;&gt;();
+//                        item.add(rs.getString(&quot;productname&quot;));
+//                        item.add(rs.getString(&quot;price&quot;));
+//                        item.add(rs.getString(&quot;product_type&quot;));
+//                        productList.add(item);
+//                    }
+//                }
+//            }
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
+
+<span class="nc" id="L68">        return allProducts;</span>
+    }
+
+    public List&lt;String&gt; getCategories(List&lt;Products&gt; prod_list){
+<span class="nc" id="L72">        return prod_list.stream().map(item -&gt; item.getProduct_type()).distinct().collect(Collectors.toList());</span>
+    }
+    public HashMap&lt;String, List&lt;Products&gt;&gt; groupProducts(){
+        // split up the productNames and prices by category
+        // make a map that maps each unique category to a list of products
+<span class="nc" id="L77">        Map&lt;String, List&lt;Products&gt;&gt; groupedProducts = productList.stream().collect(Collectors.groupingBy(Products::getProduct_type));</span>
+<span class="nc" id="L78">        return new HashMap&lt;&gt;(groupedProducts);</span>
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+    @GetMapping
+    String getPeople(Model model){
+<span class="nc" id="L94">        productList = fetchDataFromDatabase();</span>
+<span class="nc" id="L95">        categories = getCategories(productList);</span>
+<span class="nc" id="L96">        categoryMap = groupProducts();</span>
+
+<span class="nc" id="L98">        double category_per_col = Math.round(categories.size() / 3.0);</span>
+        //create a list of list to store the indexes of the categoreis belonging to each column
+<span class="nc" id="L100">        ArrayList&lt;List&lt;Integer&gt;&gt; categoryColumns = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L102">        int curr_index =0;</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        for(int i =0; i&lt;3; i++){</span>
+<span class="nc" id="L104">            categoryColumns.add(new ArrayList&lt;&gt;());</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">            for (int j = 0; j &lt; category_per_col; j++) {</span>
+<span class="nc" id="L106">                categoryColumns.get(i).add(curr_index);</span>
+<span class="nc" id="L107">                curr_index++;</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">                if(curr_index &gt;= categories.size()){</span>
+<span class="nc" id="L109">                    break;</span>
+                }
+            }
+        }
+
+
+<span class="nc" id="L115">        model.addAttribute(&quot;categoryMap&quot;, categoryMap);</span>
+<span class="nc" id="L116">        model.addAttribute(&quot;categories&quot;, categories);</span>
+<span class="nc" id="L117">        model.addAttribute(&quot;category_per_col&quot;, category_per_col);</span>
+<span class="nc" id="L118">        model.addAttribute(&quot;categoryColumns&quot;, categoryColumns);</span>
+<span class="nc" id="L119">        model.addAttribute(&quot;weatherResponse&quot;, null);</span>
+<span class="nc" id="L120">        return &quot;menuBoard&quot;;</span>
+
+    }
+
+<span class="nc" id="L124">    record geoLocation(double latitude, double longitude){};</span>
+    public geoLocation weatherLocation;
+    public WeatherResponse currentWeather_api;
+    public String weatherIconLink;
+    public String weatherCity;
+    public String weatherDescription;
+    public double weatherTemp;
+    @PostMapping
+    public String handleLocation(@RequestBody geoLocation location) throws JsonProcessingException {
+<span class="nc" id="L133">        productList = fetchDataFromDatabase();</span>
+<span class="nc" id="L134">        categories = getCategories(productList);</span>
+<span class="nc" id="L135">        categoryMap = groupProducts();</span>
+
+<span class="nc" id="L137">        double category_per_col = Math.round(categories.size() / 3.0);</span>
+        //create a list of list to store the indexes of the categoreis belonging to each column
+<span class="nc" id="L139">        ArrayList&lt;List&lt;Integer&gt;&gt; categoryColumns = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L141">        int curr_index =0;</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        for(int i =0; i&lt;3; i++){</span>
+<span class="nc" id="L143">            categoryColumns.add(new ArrayList&lt;&gt;());</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">            for (int j = 0; j &lt; category_per_col; j++) {</span>
+<span class="nc" id="L145">                categoryColumns.get(i).add(curr_index);</span>
+<span class="nc" id="L146">                curr_index++;</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">                if(curr_index &gt;= categories.size()){</span>
+<span class="nc" id="L148">                    break;</span>
+                }
+            }
+        }
+
+
+
+
+        // send an api request to openweather api to get the weather
+        // the api format is https://api.openweathermap.org/data/2.5/weather?lat={lat}&amp;lon={lon}&amp;appid={API key}
+        // the api key is 85a9986100fc4b8928e3e17b2d74322c
+        // the response will be in html format
+
+<span class="nc" id="L161">        System.out.println(location.latitude());</span>
+<span class="nc" id="L162">        System.out.println(location.longitude());</span>
+<span class="nc" id="L163">        System.out.println(&quot;javascript recieved&quot;);</span>
+
+<span class="nc" id="L165">        String apiUrl = String.format(&quot;https://api.openweathermap.org/data/2.5/weather?lat=%f&amp;lon=%f&amp;appid=85a9986100fc4b8928e3e17b2d74322c&quot;,</span>
+<span class="nc" id="L166">                location.latitude(), location.longitude());</span>
+<span class="nc" id="L167">        RestTemplate restTemplate = new RestTemplate();</span>
+<span class="nc" id="L168">        String jsonResponse = restTemplate.getForObject(apiUrl, String.class);</span>
+
+        //deserialize jsonResponse to WeatherResponse object
+<span class="nc" id="L171">        ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="nc" id="L172">        currentWeather_api = objectMapper.readValue(jsonResponse, WeatherResponse.class);</span>
+
+        //convert the temperature from kelvin to farenheit and store
+<span class="nc" id="L175">        double temp_faren = (int)(currentWeather_api.getMain().get(&quot;temp&quot;) - 273.15) * 9/5 + 32;</span>
+<span class="nc" id="L176">        currentWeather_api.getMain().put(&quot;temp&quot;, (float) temp_faren);</span>
+<span class="nc" id="L177">        weatherTemp = temp_faren;</span>
+        //create the source link for the weather icon
+<span class="nc" id="L179">        weatherIconLink = &quot;https://openweathermap.org/img/wn/&quot; + currentWeather_api.getWeather()[0].getIcon() + &quot;.png&quot;;</span>
+        //get the city name
+<span class="nc" id="L181">        weatherCity = currentWeather_api.getName();</span>
+        //get the weather description
+<span class="nc" id="L183">        weatherDescription = capitalizeEachWord(currentWeather_api.getWeather()[0].getDescription());</span>
+
+<span class="nc" id="L185">        System.out.println(currentWeather_api);</span>
+<span class="nc" id="L186">        weatherLocation = location;</span>
+
+
+
+<span class="nc" id="L190">        return &quot;redirect:/menuBoard&quot;;</span>
+    }
+
+    // Function to capitialize the words in the Weather API
+    public static String capitalizeEachWord(String input) {
+<span class="nc" id="L195">        char[] chars = input.toLowerCase().toCharArray();</span>
+<span class="nc" id="L196">        boolean found = false;</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        for (int i = 0; i &lt; chars.length; i++) {</span>
+<span class="nc bnc" id="L198" title="All 4 branches missed.">            if (!found &amp;&amp; Character.isLetter(chars[i])) {</span>
+<span class="nc" id="L199">                chars[i] = Character.toUpperCase(chars[i]);</span>
+<span class="nc" id="L200">                found = true;</span>
+<span class="nc bnc" id="L201" title="All 8 branches missed.">            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'' || chars[i]=='-') { // Reset for next word</span>
+<span class="nc" id="L202">                found = false;</span>
+            }
+        }
+<span class="nc" id="L205">        return String.valueOf(chars);</span>
+    }
+
+
+
+//    @PostMapping
+//    public String postWeather(Model model, @RequestBody geoLocation location) throws JsonProcessingException {
+//        model.addAttribute(&quot;shantanu&quot;, &quot;adsfadsf&quot;);
+//        weatherLocation = location;
+//        System.out.println(location.latitude());
+//        System.out.println(location.longitude());
+//        return &quot;redirect:/menuBoard&quot;;
+//    }
+//
+//    @GetMapping
+//    public String getTest(Model model) {
+//        model.addAttribute(&quot;weather&quot;, weatherLocation);
+//        System.out.println(&quot;get request made&quot;);
+//        return &quot;test&quot;;
+//    }
+//
+    @GetMapping(&quot;/weather&quot;)
+    public String getWeather(Model model) {
+<span class="nc" id="L228">        model.addAttribute(&quot;weatherIconLink&quot;, weatherIconLink);</span>
+<span class="nc" id="L229">        model.addAttribute(&quot;weatherCity&quot;, weatherCity);</span>
+<span class="nc" id="L230">        model.addAttribute(&quot;weatherDescription&quot;, weatherDescription);</span>
+<span class="nc" id="L231">        model.addAttribute(&quot;weatherTemp&quot;, weatherTemp);</span>
+<span class="nc" id="L232">        return &quot;fragments/weather&quot;;</span>
+    }
+
+
+
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
