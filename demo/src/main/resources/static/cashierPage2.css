@@ -27,6 +27,10 @@ body, h1, p, button {
     text-align: center;
   }
 
+  #contrastButton{
+    margin-top: 50%;
+  }
+
   #google_translate_element {
     position: absolute;
   }
