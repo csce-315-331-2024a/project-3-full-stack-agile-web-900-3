@@ -57,7 +57,6 @@
               <div th:each="thisName: ${inventory}">
                 <th:block th:if = "${thisName.id == thisItem.inventoryId}">
                   <input type="hidden" th:class="${item.productname} + ${item.product_id}" th:value="${thisName.name} +'-'+${thisName.id}" />
-            
                 </th:block>
               </div>
             </th:block>
