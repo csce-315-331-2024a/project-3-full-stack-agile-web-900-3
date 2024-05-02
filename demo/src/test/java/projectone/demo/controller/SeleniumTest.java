@@ -40,7 +40,6 @@ public class SeleniumTest {
     JavascriptExecutor js;
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\cobyk\\Documents\\ChromeDriver\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
         js = (JavascriptExecutor) driver;
         vars = new HashMap<String, Object>();
