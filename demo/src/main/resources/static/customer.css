@@ -5,29 +5,29 @@ body, html {
   height: 100%;
   overflow: hidden;
 }
-.container {
-  display: flex;
-  height: 100%;
-  padding-top: 50px; 
-}
+
 
 #google_translate_element {
-  position: absolute;
   display: flex;
   bottom: 0;
   left: 0;
-  width: 100%;
-  color: white; 
-  padding-bottom: 50px;
+  color: white;
   box-sizing: border-box;
+  float: right;
+  margin-right: 50px;
 }
 
 .navbar {
   background-color: #500000;
+  margin: 0;
+  padding: 0;
+  min-width: 150px;
   width: 10%;
   height: 100%;
   overflow: auto;
   position: fixed;
+  display: block;
+  padding-top: 75px;
 }
 .nav-button {
   display: flex;
@@ -49,12 +49,13 @@ body, html {
 .menu-area {
   flex-grow: 1;
   padding-left: 160px;
-  padding-top: 20px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   overflow-x: hidden;
-  margin-right: 400px;
+  margin-right: 20%;
+  height: 100%;
+  padding-top: 50px;
 }
 .menu-item {
   background-color: white;
@@ -83,6 +84,7 @@ body, html {
   right: 0;
   top: 0;
   bottom: 0;
+  padding-top: 75px;
 }
 .order-button, .confirm-button, .cancel-button {
   padding: 8px 10px;
