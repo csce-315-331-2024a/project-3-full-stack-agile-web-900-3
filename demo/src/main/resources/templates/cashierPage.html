@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../cashierPage.css"></link>
+<link rel="stylesheet" href="../cashierPage2.css"></link>
 <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 <html xmlns:th="http://www.thymeleaf.org"></html>
 <title>Cashier Page</title>
@@ -127,7 +127,7 @@
     editWindow.document.body.classList.add('edit-window');
     var cssLink = editWindow.document.createElement('link');
     cssLink.rel = 'stylesheet';
-    cssLink.href = '../cashierPage.css'; 
+    cssLink.href = '../cashierPage2.css'; 
     editWindow.document.head.appendChild(cssLink);
     var thePrice = parseFloat(button.getAttribute('data-price'));
     var toppings = document.getElementsByClassName('tops');
