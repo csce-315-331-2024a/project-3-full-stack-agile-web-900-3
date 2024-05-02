@@ -1,4 +1,4 @@
-body, h2, p, button {
+body, h1, p, button {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,6 +10,26 @@ body {
   color:rgb(0, 0, 0);
 }
 
+#typeHeader{
+  text-align: center;
+}
+
+#contrastButton{
+  
+}
+
+.sideButtons{
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  width: calc(100% - 20px);
+  max-width: 300px;
+}
+
+
+#google_translate_element {
+  position: absolute;
+}
 .container {
   display: flex;
   min-height: 100vh;
@@ -17,14 +37,14 @@ body {
 
 .sidebar {
   width: 30%;
-  height: 500px; /* Set the desired height */
+  height: 500px; 
   background-color: maroon;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: auto; 
 }
 
-.sidebar h2 {
+.sidebar h1 {
   margin-bottom: 20px;
   color: white;
 }
@@ -47,7 +67,7 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  color: white; /* Ensure text is visible */
+  color: white;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 40px;
@@ -207,23 +227,34 @@ body {
 }
 
 .noButton.uniqueNoButton {
-  /* padding: 8px 16px; */
   background-color: maroon;
   color: white;
-  /* border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 10px;
-  width:fit-content; */
-  display: block; /* Display buttons as block elements */
-  width: 100%; /* Set width to 100% to expand to the width of their container */
-  margin-bottom: 5px; /* Add margin between buttons */
-  padding: 8px; /* Add padding to give space inside the buttons */
-  font-size: 14px; /* Adjust font size as needed */
+  display: block; 
+  width: 100%; 
+  margin-bottom: 5px; 
+  padding: 8px; 
+  font-size: 14px; 
 }
 
 .noButtonDiv {
-  padding: 10px; /* Add padding to give space around the buttons */
+  padding: 10px;
+}
+
+.addButton.uniqueAddButton {
+  background-color: maroon;
+  color: goldenrod;
+  display: block; 
+  width: 100%; 
+  margin-bottom: 5px;
+  padding: 8px; 
+  font-size: 14px; 
+}
+
+.addButtonDiv {
+  padding: 10px; 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 5px; 
 }
 
 
