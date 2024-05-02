@@ -4,18 +4,34 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import projectone.demo.model.Inventory;
 import projectone.demo.projection.OverstockProjection;
-
+/**
+ * Repository interface for inventory data access operations.
+ */
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
+    /**
+     * Retrieves the highest inventory ID from the inventory table.
+     * 
+     * @return the maximum inventory ID
+     */
     // You can define custom queries here if needed
     @Query(value = "SELECT MAX(id) FROM inventory", nativeQuery = true)
     Long findMaxId(); 
-    
+      /**
+     * Finds inventory items that are understocked within a specified time period.
+     * 
+     * @param startTime the start time of the period to consider
+     * @param endTime the end time of the period to consider
+     * @return a list of overstock projections for items with usage counts below their low threshold
+     */
     @Query(value = "SELECT " +
     "i.id AS inventoryId, " +
     "i.name AS inventoryName, " +
@@ -47,4 +63,9 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
         "usage_count", nativeQuery = true)
     List<OverstockProjection> findOverstock(@Param("start_time") Timestamp startTime, @Param("end_time") Timestamp endTime);
     
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE inventory SET quantity = quantity - :quantityUsed WHERE id = :inventoryId", nativeQuery = true)
+    void updateInventoryQuantity(@Param("inventoryId") Long inventoryId, @Param("quantityUsed") int quantityUsed);
+
 }

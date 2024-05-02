@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>kitchenController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">projectone.demo.controller</a> &gt; <span class="el_source">kitchenController.java</span></div><h1>kitchenController.java</h1><pre class="source lang-java linenums">package projectone.demo.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import projectone.demo.model.OrderProducts;
+import projectone.demo.model.Orders;
+import projectone.demo.repository.OrderProductsRepo;
+import projectone.demo.repository.OrdersRepository;
+import projectone.demo.repository.ProductsRepository;
+@RequestMapping(&quot;/kitchen&quot;)
+@Controller
+ class kitchenController {
+    @Autowired
+    private OrdersRepository repository;
+    private OrderProductsRepo orderprodRepository;
+    private ProductsRepository productRepo;
+
+    
+    kitchenController(OrdersRepository repository,OrderProductsRepo orderprodRepository,ProductsRepository productRepo)
+<span class="nc" id="L28">        {</span>
+<span class="nc" id="L29">            this.productRepo = productRepo;</span>
+<span class="nc" id="L30">            this.repository = repository;</span>
+<span class="nc" id="L31">            this.orderprodRepository = orderprodRepository;</span>
+           
+<span class="nc" id="L33">        }</span>
+
+    @GetMapping
+    String Orders(Model model,Model junction, Model product)
+    {   
+
+        try{
+<span class="nc" id="L40">        List&lt;Orders&gt; listOfOrders = this.repository.findOrdersWithStatusProcessing();</span>
+<span class="nc" id="L41">        Orders firstOrder = listOfOrders.get(0);</span>
+<span class="nc" id="L42">        int size = listOfOrders.size();</span>
+<span class="nc" id="L43">        Orders lastOrder = listOfOrders.get(size-1);</span>
+<span class="nc" id="L44">        junction.addAttribute(&quot;junction&quot;, this.orderprodRepository.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));</span>
+<span class="nc" id="L45">        model.addAttribute(&quot;orders&quot;,listOfOrders );</span>
+<span class="nc" id="L46">        product.addAttribute(&quot;products&quot;, this.productRepo.findAll());</span>
+<span class="nc" id="L47">        return &quot;kitchen&quot;;</span>
+    }
+<span class="nc" id="L49">    catch(Exception e)</span>
+    {
+<span class="nc" id="L51">        return &quot;kitchen&quot;;</span>
+    }
+    }
+    @PostMapping
+    String update(@RequestParam(&quot;id&quot;)String id,@RequestParam(&quot;update&quot;)String update,Model model)
+    {
+<span class="nc" id="L57">        Orders newOrder = this.repository.getById(Long.parseLong(id));</span>
+<span class="nc" id="L58">        newOrder.setStatus(update);</span>
+<span class="nc" id="L59">        this.repository.save(newOrder);</span>
+<span class="nc" id="L60">        model.addAttribute(&quot;pending&quot;,this.repository.findOrdersWithStatusProcessing());</span>
+<span class="nc" id="L61">        System.out.println(&quot;updated order &quot;+id);</span>
+<span class="nc" id="L62">        return &quot;redirect:/kitchen&quot;;</span>
+    }
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

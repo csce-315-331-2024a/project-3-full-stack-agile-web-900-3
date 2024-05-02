@@ -9,9 +9,18 @@ import projectone.demo.projection.SalesDataProjection;
 
 import java.sql.Timestamp;
 import java.util.List;
-
+/**
+ * repostiory to get the sales data reports
+ */
 @Repository
 public interface SalesDataRepository extends JpaRepository<SalesData, Integer> {
+          /**
+ * Retrieves sales data within the specified time range.
+ *
+ * @param startTime the beginning of the time range
+ * @param endTime the end of the time range
+ * @return a list of sales data projections
+ */
       @Query(value = "SELECT " +
            "p.product_id AS productId, " +
            "p.productname AS productName, " +
@@ -25,7 +34,12 @@ public interface SalesDataRepository extends JpaRepository<SalesData, Integer> {
            "ORDER BY totalSales DESC", nativeQuery = true)
     List<SalesDataProjection> fetchSalesData(@Param("start_time") Timestamp startTime, @Param("end_time") Timestamp endTime);
 
-
+/**
+ * Retrieves raw sales data for debugging purposes within a fixed time range
+ * from January 1, 2023, to January 1, 2024.
+ *
+ * @return a list of objects arrays representing sales data
+ */
       @Query(value = "SELECT " +
       "p.product_id AS productId, " + // Ensure the alias matches exactly with the entity field
       "p.productname AS productName, " + // Adjusted to match the database column name exactly
