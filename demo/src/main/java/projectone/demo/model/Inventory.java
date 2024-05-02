@@ -20,6 +20,7 @@ import jakarta.persistence.Column;
 public class Inventory implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Ensuring that the ID is auto-generated
     @Column(name = "id")
     private Long id;
 

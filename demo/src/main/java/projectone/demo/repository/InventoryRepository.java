@@ -74,4 +74,7 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
            countQuery = "SELECT COUNT(DISTINCT i.id) FROM Inventory i",
            nativeQuery = true)
     Page<Object[]> findAggregatedInventoryUsage(@Param("start_time") Timestamp startTime, @Param("end_time") Timestamp endTime, Pageable pageable);
+
+    @Query(value = "SELECT * FROM inventory WHERE quantity < low_threshold", nativeQuery = true)
+    List<Inventory> findItemsBelowThreshold();
 }

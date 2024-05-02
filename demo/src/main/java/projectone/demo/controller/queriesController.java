@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import projectone.demo.model.Inventory;
 import projectone.demo.model.SalesData;
 import projectone.demo.model.SalesTrends;
 import projectone.demo.projection.SalesDataProjection;
@@ -50,8 +51,12 @@ public class queriesController {
         @RequestParam(value = "size", required = false, defaultValue = "10") int size,
         Model model) {
 
-        startTime = startTime + ":00"; // Ensure seconds are included
-        endTime = endTime + ":00";
+        // Formatting times to include seconds
+    startTime = startTime + ":00";
+    endTime = endTime + ":00";
+    model.addAttribute("start_time", startTime);
+    model.addAttribute("end_time", endTime);
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         Timestamp startTimestamp = Timestamp.valueOf(LocalDateTime.parse(startTime, formatter));
         Timestamp endTimestamp = Timestamp.valueOf(LocalDateTime.parse(endTime, formatter));
@@ -71,6 +76,10 @@ public class queriesController {
                 model.addAttribute("chartImage", base64Chart);
                 model.addAttribute("currentPage", page);
                 model.addAttribute("totalPages", 10); // Example, needs to be dynamically calculated based on data
+                break;
+            case "belowThreshold":
+                List<Inventory> itemsBelowThreshold = inventoryRepository.findItemsBelowThreshold();
+                model.addAttribute("belowThreshold", itemsBelowThreshold);
                 break;
             default:
                 List<SalesDataProjection> salesData = salesDataRepository.fetchSalesData(startTimestamp, endTimestamp);

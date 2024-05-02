@@ -23,8 +23,7 @@ public interface SalesTrendsRepository extends JpaRepository<SalesTrends, Long> 
             "JOIN products p2 ON op2.product_id = p2.product_id " +
             "WHERE o.order_datetime BETWEEN :start_time AND :end_time " +
             "GROUP BY p1.productname, p2.productname " +
-            "ORDER BY freq DESC " +
-            "LIMIT 10", nativeQuery = true)
+            "ORDER BY freq DESC ", nativeQuery = true)
     List<SalesTrendsProjection> findSalesTrends(@Param("start_time") Timestamp startTime, @Param("end_time") Timestamp endTime);
 }
 
