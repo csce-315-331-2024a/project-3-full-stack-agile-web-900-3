@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: projectone.demo.controller.OrdersPageControllerTests
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.672 s -- in projectone.demo.controller.OrdersPageControllerTests
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.873 s -- in projectone.demo.controller.OrdersPageControllerTests
