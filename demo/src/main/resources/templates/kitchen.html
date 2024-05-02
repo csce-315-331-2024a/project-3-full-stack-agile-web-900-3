@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title >Manager Table</title>
-  <link rel="stylesheet" href="kitchen.css">
+  <link rel="stylesheet" href="orders.css">
   <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 </head>
 <body id = "updateArea">
@@ -12,22 +12,44 @@
     <div class="order-container">
         <div class="header">
             <div class="header-item">ID</div>
-            <div class="header-item">Price</div>
             <div class="header-item">Date</div>
+            <div class="header-item">Price</div>
             <div class="header-item">Status</div>
             <div class ="header-item">Update</div>
           </div>
-        <div th:each="item: ${pending}" class="order-item">
-            <span class="order-field" th:text="${item.order_id}"></span>
-            <span class="order-field" th:text="${item.price}"></span>
-            <span class="order-field" th:text="${item.orderDatetime}"></span>
-            <span class="order-field" th:text="${item.status}"></span>
+          <div class = inv>
+            <div class = list th:fragment = list>
+          <div   class = item th:each = "order : ${orders}">
+            
+            <div class = top >
+            
+            <span th:text = "${order.order_id}"></span>
+            <span th:text = "${order.orderDatetime}"></span>
+            <span th:text = " ${order.price}"> </span>
+            <span th:text = " ${order.status}"></span>
+            <span>
             <form hx-post="/kitchen" hx-target="#updateArea" hx-swap="outerHTML">
-                <input type="hidden" th:value="${item.order_id}" name="id">
+                <input type="hidden" th:value="${order.order_id}" name="id">
                 <button type="submit" name="update" value="completed">Complete</button>
                 <button type="submit" name="update" value="canceled">Cancel</button>
             </form>
-            
-        </div>
+            </span>
+           </div>
+           <div class = bottom>
+            <div class = items> Products:
+              <span th:each = "junc : ${junction}" th:if = "${order.order_id} == ${junc.order_id}" >
+                
+                  <span class = "products-name"   th:each ="product:${products}" th:if="${product.product_id == junc.product_id}" th:text = "${product.productname}"></span>
+                
+              </span>
+           </div>
+      </div>
+      </div>
+      </div>
+      </div>
+        
+    </div>
+    <div>
+        bottom
     </div>
 </body>
