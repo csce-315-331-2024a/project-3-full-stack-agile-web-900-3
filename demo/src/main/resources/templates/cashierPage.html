@@ -15,7 +15,7 @@
 <div class="container">
   <div class="sidebar">
       
-    <h2>Current Order</h2>
+    <h1>Current Order</h1>
     <div id="outputContainer"></div>
     <p id="orderTotal">Order Total: $0.00</p>
     <form hx-post="/cashierPage/add" hx-target="#all" hx-swap="outerHTML">
@@ -32,6 +32,9 @@
       <th:block th:if="${thisItem.type == 'topping' or thisItem.type == 'condiment'}">
         <input type="hidden" class="tops" th:value="${thisItem.name} +'-'+ ${thisItem.id}"/>
       </th:block>
+
+    
+      <div id="google_translate_element"></div> 
     </div>
     
   </div>
@@ -302,8 +305,17 @@
     orderTotalParagraph.textContent = 'Order Total: $' + total.toFixed(2);
   }
 
-  
-
 </script>
+
+<script src="script.js"></script>
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement(
+                {pageLanguage: 'en'},
+                'google_translate_element'
+            );
+        } 
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
