@@ -1,4 +1,4 @@
-body, h2, p, button {
+body, h1, p, button {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,6 +10,10 @@ body {
   color:rgb(0, 0, 0);
 }
 
+
+#google_translate_element {
+  position: absolute;
+}
 .container {
   display: flex;
   min-height: 100vh;
@@ -24,7 +28,7 @@ body {
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
-.sidebar h2 {
+.sidebar h1 {
   margin-bottom: 20px;
   color: white;
 }
