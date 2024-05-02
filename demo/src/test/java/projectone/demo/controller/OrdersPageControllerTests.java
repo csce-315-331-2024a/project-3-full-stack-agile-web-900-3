@@ -8,6 +8,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 
 import projectone.demo.model.Orders;
@@ -202,5 +205,35 @@ public class OrdersPageControllerTests {
                 savedOrder.getPrice().equals(newPrice) &&
                 savedOrder.getStatus().equals("processing")));
     }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void shouldRemoveOrderAndRedirect() throws Exception {
+        // Setup
+        Long orderId = 1L;
+
+        // Correct the mocking approach for void methods
+        doNothing().when(orderProductsRepo).deleteByOrderId(orderId);
+        doNothing().when(ordersRepository).deleteById(orderId);
+
+        // Continue with additional setup
+        ArrayList<Orders> orders = new ArrayList<>();
+        orders.add(new Orders(1L, new BigDecimal("100.00"), LocalDateTime.now(), "processing"));
+        orders.add(new Orders(2L, new BigDecimal("200.00"), LocalDateTime.now().minusDays(1), "completed"));
+        given(ordersRepository.findOrdersWithinDateRangeSorted(any(LocalDateTime.class), any(LocalDateTime.class)))
+            .willReturn(orders);
+
+        // Act & Assert
+        mockMvc.perform(post("/Manager/orders/removeOrder")
+                .param("id", orderId.toString())
+                .with(csrf()))
+            .andExpect(status().isOk())
+            .andExpect(view().name("Manager/orders :: list"));
+
+        // Verify that delete operations were called
+        verify(orderProductsRepo).deleteByOrderId(orderId);
+        verify(ordersRepository).deleteById(orderId);
+    }
+
 
 }

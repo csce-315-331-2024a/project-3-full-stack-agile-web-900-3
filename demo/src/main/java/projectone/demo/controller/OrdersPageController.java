@@ -238,14 +238,15 @@ class OrdersPageController {
        
 
 
-        ArrayList dat = this.orderRepository.findOrdersWithinDateRange(startDate, endDate);
-        ArrayList<Orders> datSorted = this.orderRepository.findOrdersWithinDateRangeSorted(startDate,endDate);
-        Orders firstOrder = datSorted.get(1);
-        int size = datSorted.size();
-        Orders lastOrder = datSorted.get(size-1);
-        Collections.reverse(dat);
-        junctionModel.addAttribute("junction", this.orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
-        model.addAttribute("orders", dat);
+        List<Orders> datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);
+            if (!datSorted.isEmpty() && datSorted.size() > 1) {
+                Orders firstOrder = datSorted.get(0);
+                Orders lastOrder = datSorted.get(datSorted.size() - 1);
+                Collections.reverse(datSorted);
+                junctionModel.addAttribute("junction", orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));
+            }
+
+        model.addAttribute("orders", datSorted);
         productModel.addAttribute("products", productsRepository.findAll());
         System.out.println("deleting:" + id);
         return "Manager/orders :: list";
