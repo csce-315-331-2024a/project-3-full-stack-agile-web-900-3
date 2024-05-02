@@ -55,7 +55,7 @@ class CashierController{
         return "cashierPage";
     }
     @PostMapping(value = "/add")
-    public String add(@RequestParam("price") String price,@RequestParam("productId")String ids, Model orderModel,Model orderProductsModel) {
+    public String add(@RequestParam("price") String price, @RequestParam("productId")String ids, @RequestParam("addId")String addIds, @RequestParam("noId")String noIds, Model orderModel, Model orderProductsModel) {
 
         String[] numbersArray = ids.split("-");
         
@@ -64,7 +64,6 @@ class CashierController{
         int[] numbers = Arrays.stream(numbersArray).mapToInt(Integer::parseInt).toArray();
         
       
-        
         LocalDateTime date = LocalDateTime.now();
         String status = "processing";
         BigDecimal newPrice = new BigDecimal(price);
@@ -78,8 +77,30 @@ class CashierController{
             OrderProducts newJunction = new OrderProducts(newID,newId,productID,Long.parseLong("1"));
             this.orderProductsRepo.save(newJunction);
             orderProductsModel.addAttribute("orderProducts", this.orderProductsRepo.getLastOrder());
+
+            List<Long> inventoryIds = productInventoryRepository.getInventoryIdsForProduct(productID);
+            for (Long inventoryId : inventoryIds){
+                inventoryRepository.updateInventoryQuantity(inventoryId, 1);
+            }
+
         }
-        System.out.println("Order placed successfully.\n"+ids);
+        if(addIds != ""){    
+            String[] addIdsArray = addIds.split("-");
+            int[] adds = Arrays.stream(addIdsArray).mapToInt(Integer::parseInt).toArray();
+            for(int i=0;i<adds.length;i++){
+                Long addId = new Long(adds[i]);
+                inventoryRepository.updateInventoryQuantity(addId, 1);
+            }
+        }
+        if(noIds != ""){
+            String[] noIdsArray = noIds.split("-");
+            int[] nos = Arrays.stream(noIdsArray).mapToInt(Integer::parseInt).toArray();
+            for(int i=0;i<nos.length;i++){
+                Long noId = new Long(nos[i]);
+                inventoryRepository.updateInventoryQuantity(noId, -1);
+            }
+        }
+        System.out.println("Order placed successfully.\n ordered: "+ids+" included: "+addIds+". not included: "+noIds);
         return "redirect:/cashierPage";
     }
 

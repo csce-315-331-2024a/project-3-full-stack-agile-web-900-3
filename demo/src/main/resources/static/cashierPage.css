@@ -1,4 +1,4 @@
-body, h2, p, button {
+body, h1, p, button {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,6 +10,10 @@ body {
   color:rgb(0, 0, 0);
 }
 
+
+#google_translate_element {
+  position: absolute;
+}
 .container {
   display: flex;
   min-height: 100vh;
@@ -24,7 +28,7 @@ body {
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
-.sidebar h2 {
+.sidebar h1 {
   margin-bottom: 20px;
   color: white;
 }
@@ -224,6 +228,23 @@ body {
 
 .noButtonDiv {
   padding: 10px; /* Add padding to give space around the buttons */
+}
+
+.addButton.uniqueAddButton {
+  background-color: maroon;
+  color: goldenrod;
+  display: block; 
+  width: 100%; 
+  margin-bottom: 5px;
+  padding: 8px; 
+  font-size: 14px; 
+}
+
+.addButtonDiv {
+  padding: 10px; 
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  gap: 5px; /* Gap between buttons */
 }
 
 

@@ -14,7 +14,7 @@ public class greetController {
         return "adminGreet";
     }
 
-    @GetMapping("/Manager/Inventory/food")
+    @GetMapping("/manager")
     public String greetManager(){
         return "managerGreet";
     }

@@ -293,8 +293,8 @@ function updateTotal() {
   const stateTaxRate = 1.08; // 8% state tax
   orderTotal *= stateTaxRate;
 
-  const totalPriceElement = document.getElementById('total-price');
-  totalPriceElement.value = orderTotal.toFixed(2);
+  // const totalPriceElement = document.getElementById('total-price');
+  // totalPriceElement.value = orderTotal.toFixed(2);
   document.getElementById('display-total').textContent = `$${orderTotal.toFixed(2)}`;
   console.log('Updated order total:', orderTotal.toFixed(2));
 }
@@ -328,12 +328,14 @@ document.getElementById('cancel-order').addEventListener('click', function () {
   document.getElementById('order-summary').innerHTML = '';
   saveOrderDetails();
   updateTotal();
+  localStorage.clear();
 });
 
 document.getElementById('confirm-order').addEventListener('click', function () {
   if (orderTotal > 0 && confirm('Do you want to proceed to checkout?')) {
     localStorage.setItem('returningUser', 'true');
     saveOrderDetails();
+    window.location.href = '/customer/checkout';
   } else {
     alert('Please add items to your order.');
   }
