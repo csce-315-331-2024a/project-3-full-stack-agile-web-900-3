@@ -27,19 +27,38 @@ import projectone.demo.repository.SalesTrendsRepository;
 import projectone.demo.projection.OverstockProjection;
 import projectone.demo.repository.InventoryRepository;
 
-
+/**
+ * @author Chance Hughes
+ */
+/**
+ * Controller for handling various sales-related queries in a management context.
+ */
 @Controller
 public class queriesController {
     private final SalesDataRepository salesDataRepository;
     private final SalesTrendsRepository salesTrendsRepository;
     private final InventoryRepository inventoryRepository;
-
+      /**
+     * Constructs a QueriesController with necessary repositories.
+     *
+     * @param salesDataRepository      Repository for sales data.
+     * @param salesTrendsRepository    Repository for sales trends.
+     * @param inventoryRepository      Repository for inventory data.
+     */
     public queriesController(SalesDataRepository salesDataRepository, SalesTrendsRepository salesTrendsRepository, InventoryRepository inventoryRepository) {
         this.salesDataRepository = salesDataRepository;
         this.salesTrendsRepository = salesTrendsRepository;
         this.inventoryRepository = inventoryRepository;
     }
-
+        /**
+     * Displays various sales-related data based on provided start and end times.
+     *
+     * @param startTime   Start time for querying sales data, in ISO format.
+     * @param endTime     End time for querying sales data, in ISO format.
+     * @param display     Type of data to display ("data", "trends", or "overstock").
+     * @param model       Model to pass attributes to the view.
+     * @return            The view for displaying queried sales data.
+     */
     @GetMapping("/Manager/queries")
     public String displayQueries(
         @RequestParam(value = "start_time", required = false, defaultValue = "2023-01-01T00:00") String startTime,
