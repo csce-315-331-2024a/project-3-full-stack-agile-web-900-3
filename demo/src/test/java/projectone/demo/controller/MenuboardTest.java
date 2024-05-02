@@ -64,7 +64,11 @@ public class MenuboardTest {
       dropdown.findElement(By.xpath("//option[. = 'Arabic']")).click();
     }
     wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
+    try {
+      Thread.sleep(5000); // Sleeps for 10,000 milliseconds or 10 seconds
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
 
     WebElement dropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".goog-te-combo")));
     dropdown.click(); // to open the dropdown and ensure all options are loaded
