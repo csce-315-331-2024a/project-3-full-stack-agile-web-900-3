@@ -226,17 +226,6 @@ public class MenuBoard {
 
         return "redirect:/menuBoard";
     }
-<<<<<<< HEAD
-
-=======
-     /**
-     * Capitalizes each word in a string.
-     *
-     * @param input the string to capitalize
-     * @return the capitalized string
-     */
-    // Function to capitialize the words in the Weather API
->>>>>>> 86fe59f42b8b8890f4146f843b57938cf0cdde23
     public static String capitalizeEachWord(String input) {
         if (input == null) return null;  // Handle null input gracefully.
     

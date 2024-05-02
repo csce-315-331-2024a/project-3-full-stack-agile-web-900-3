@@ -66,6 +66,10 @@ public class Products implements Serializable{
                 '}';
     }
 
+    /**
+     * Retrieves the ID of the product.
+     * @return Retrieves the ID of the product.
+     */
     public Long getProductID() {
         return product_id;
     }

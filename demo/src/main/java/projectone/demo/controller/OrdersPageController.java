@@ -224,34 +224,36 @@ public class OrdersPageController {
  * @param productModel  Model to pass product data.
  * @return              Updated list fragment of the orders page.
  */
-    @PostMapping("/addProduct")
-    String AddItem(@RequestParam("id") String id, @RequestParam("prodId") String prodId, Model model, Model junctionModel, Model productModel) {
-        if (!id.isEmpty() && !prodId.isEmpty()) {
-            Long newid = orderProductsRepo.findMaxId() + 1;
-            OrderProducts newJunction = new OrderProducts(newid, Long.parseLong(id), Long.parseLong(prodId), Long.parseLong("1"));
-            orderProductsRepo.save(newJunction);
+@PostMapping("/addProduct")
+String addItem(@RequestParam("id") String id, @RequestParam("prodId") String prodId, Model model, Model junctionModel, Model productModel) {
+    if (!id.isEmpty() && !prodId.isEmpty()) {
+        Long newid = orderProductsRepo.findMaxId() + 1;
+        OrderProducts newJunction = new OrderProducts(newid, Long.parseLong(id), Long.parseLong(prodId), Long.parseLong("1"));
+        orderProductsRepo.save(newJunction);
 
-            Products addPrice = productsRepository.getReferenceById(Long.parseLong(prodId));
-            Orders modifiedPrice = orderRepository.getReferenceById(Long.parseLong(id));
+        Products addPrice = productsRepository.getReferenceById(Long.parseLong(prodId));
+        Orders modifiedPrice = orderRepository.getReferenceById(Long.parseLong(id));
 
-            if (addPrice != null && modifiedPrice != null) {
-                BigDecimal newPrice = addPrice.getPrice().add(modifiedPrice.getPrice());
-                modifiedPrice.setPrice(newPrice);
-                orderRepository.save(modifiedPrice);
-            }
+        if (addPrice != null && modifiedPrice != null) {
+            BigDecimal newPrice = addPrice.getPrice().add(modifiedPrice.getPrice());
+            modifiedPrice.setPrice(newPrice);
+            orderRepository.save(modifiedPrice);
+        }
 
-            List<Orders> datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);
-            if (!datSorted.isEmpty() && datSorted.size() > 1) {
-                Orders firstOrder = datSorted.get(0);
-                Orders lastOrder = datSorted.get(datSorted.size() - 1);
-                Collections.reverse(datSorted);
-                junctionModel.addAttribute("junction", orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));
-            }
-            
-            model.addAttribute("orders", datSorted);
-            productModel.addAttribute("products", productsRepository.findAll());
+        List<Orders> datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);
+        if (!datSorted.isEmpty() && datSorted.size() > 1) {
+            Orders firstOrder = datSorted.get(0);
+            Orders lastOrder = datSorted.get(datSorted.size() - 1);
+            Collections.reverse(datSorted);
+            junctionModel.addAttribute("junction", orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));
+        }
+        
+        model.addAttribute("orders", datSorted);
+        productModel.addAttribute("products", productsRepository.findAll());
         return "Manager/orders :: list";
     }
+    return "Manager/orders"; // Ensure a default return in case conditions fail
+}
     /**
  * Removes a product from an order and adjusts the order price accordingly.
  *
@@ -262,37 +264,38 @@ public class OrdersPageController {
  * @param productModel  Model to pass product data.
  * @return              Updated list fragment of the orders page.
  */
-    @PostMapping("/removeProduct")
-    String RemoveItem(@RequestParam("id") String id, @RequestParam("remove") String prodId, Model model, Model junctionModel, Model productModel) {
-        if (!id.isEmpty() && !prodId.isEmpty()) {
-            List<OrderProducts> deleteList = orderProductsRepo.findByOrderIdAndProductId(Long.parseLong(id), Long.parseLong(prodId));
-            
-            if (!deleteList.isEmpty()) { // Check if the list is not empty
-                Long idToDelete = deleteList.get(0).getOrder_product_id();
-                System.out.println(idToDelete);
-                orderProductsRepo.deleteById(idToDelete);
+@PostMapping("/removeProduct")
+String removeItem(@RequestParam("id") String id, @RequestParam("remove") String prodId, Model model, Model junctionModel, Model productModel) {
+    if (!id.isEmpty() && !prodId.isEmpty()) {
+        List<OrderProducts> deleteList = orderProductsRepo.findByOrderIdAndProductId(Long.parseLong(id), Long.parseLong(prodId));
+        
+        if (!deleteList.isEmpty()) { // Check if the list is not empty
+            Long idToDelete = deleteList.get(0).getOrder_product_id();
+            orderProductsRepo.deleteById(idToDelete);
 
-                Products addPrice = productsRepository.getReferenceById(Long.parseLong(prodId));
-                Orders modifiedPrice = orderRepository.getReferenceById(Long.parseLong(id));
-                
-                if (addPrice != null && modifiedPrice != null) { // Check if addPrice and modifiedPrice are not null
-                    BigDecimal newPrice = modifiedPrice.getPrice().subtract(addPrice.getPrice());
-                    modifiedPrice.setPrice(newPrice);
-                    orderRepository.save(modifiedPrice);
-                    System.out.println("added " + prodId);
-                }
+            Products addPrice = productsRepository.getReferenceById(Long.parseLong(prodId));
+            Orders modifiedPrice = orderRepository.getReferenceById(Long.parseLong(id));
+            
+            if (addPrice != null && modifiedPrice != null) { // Check if addPrice and modifiedPrice are not null
+                BigDecimal newPrice = modifiedPrice.getPrice().subtract(addPrice.getPrice());
+                modifiedPrice.setPrice(newPrice);
+                orderRepository.save(modifiedPrice);
+                System.out.println("removed " + prodId);
             }
-            List<Orders> datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);
-            if (!datSorted.isEmpty() && datSorted.size() > 1) {
-                Orders firstOrder = datSorted.get(0);
-                Orders lastOrder = datSorted.get(datSorted.size() - 1);
-                Collections.reverse(datSorted);
-                junctionModel.addAttribute("junction", orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));
-            }
-            model.addAttribute("orders", datSorted);
-            productModel.addAttribute("products", productsRepository.findAll());
+        }
+        List<Orders> datSorted = orderRepository.findOrdersWithinDateRangeSorted(startDate, endDate);
+        if (!datSorted.isEmpty() && datSorted.size() > 1) {
+            Orders firstOrder = datSorted.get(0);
+            Orders lastOrder = datSorted.get(datSorted.size() - 1);
+            Collections.reverse(datSorted);
+            junctionModel.addAttribute("junction", orderProductsRepo.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(), lastOrder.getOrder_id()));
+        }
+        model.addAttribute("orders", datSorted);
+        productModel.addAttribute("products", productsRepository.findAll());
         return "Manager/orders :: list";
     }
+    return "Manager/orders"; // Ensure a default return in case conditions fail
+}
     /**
  * Updates the product removal options based on the specified order ID.
  *
