@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../cashierPage.css"></link>
+<link id="cssLink" type="text/css" rel="stylesheet" href="../cashierPage.css"></link>
 <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 <html xmlns:th="http://www.thymeleaf.org"></html>
 <title>Cashier Page</title>
@@ -27,13 +27,16 @@
     </form>
     
     <input type="hidden" name="" id="ticket"/>
-    <button id="backButton"class="button">back</button>
+    <div class="sideButtons">
+      <button id="backButton"class="button">Home Page</button>
+      <button id="contrastButton">Contrast Toggle</button>
+    </div>
     <div th:each="thisItem: ${inventory}">
       <th:block th:if="${thisItem.type == 'topping' or thisItem.type == 'condiment'}">
         <input type="hidden" class="tops" th:value="${thisItem.name} +'-'+ ${thisItem.id}"/>
       </th:block>
 
-    
+      
       <div id="google_translate_element"></div> 
     </div>
     
@@ -69,6 +72,7 @@
 </div>
 
 
+
 <script>
 
   var outputContainer = document.getElementById('outputContainer');
@@ -79,7 +83,24 @@
   var noIds = document.getElementById("noIds");
   var ticket = document.getElementById("ticket");
   var addIds = document.getElementById('addIds');
+  var cssThing = "cashierPage.css";
   
+  document.addEventListener("DOMContentLoaded", function() {
+    const contrastButton = document.getElementById("contrastButton");
+
+    function toggleContrast() {
+      const linkElement = document.getElementById("cssLink");
+      if (linkElement.href.includes("cashierPage.css")) {
+        linkElement.href = "cashierPage2.css";
+        cssThing = "cashierPage2.css";
+      } else {
+        linkElement.href = "cashierPage.css";
+        cssThing = "cashierPage.css";
+      }
+    }
+
+    contrastButton.addEventListener("click", toggleContrast);
+  });
 
   
   
@@ -127,7 +148,7 @@
     editWindow.document.body.classList.add('edit-window');
     var cssLink = editWindow.document.createElement('link');
     cssLink.rel = 'stylesheet';
-    cssLink.href = '../cashierPage.css'; 
+    cssLink.href = cssThing; 
     editWindow.document.head.appendChild(cssLink);
     var thePrice = parseFloat(button.getAttribute('data-price'));
     var toppings = document.getElementsByClassName('tops');

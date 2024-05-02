@@ -54,7 +54,11 @@ public class CustomerController {
     public String Index() {
         return "customer";
     }
-
+        /**
+     * Displays the orders page for a customer.
+     *
+     * @return the customer view directory
+     */
     @GetMapping("/orders")
     String Orders() {
         System.out.println("working");
@@ -87,7 +91,13 @@ public class CustomerController {
         System.out.println("order added");
         return "redirect:/customer"; // TODO: redirect to thank you page.
     }
-
+    
+    /**
+     * Fetches the menu by category.
+     *
+     * @param category the product category
+     * @return response entity containing list of products or not found
+     */
     @GetMapping("/api/menu/{category}")
     public ResponseEntity<List<Products>> getMenuByCategory(@PathVariable("category") String category) {
         List<Products> productsByCategory = customerRepository.findByProductType(category);
@@ -96,7 +106,11 @@ public class CustomerController {
         }
         return ResponseEntity.ok(productsByCategory);
     }
-
+       /**
+     * Displays the page for editing customer items.
+     *
+     * @return the edit item view directory
+     */
     @GetMapping("/edit")
     public String editPage() {
         return "customerEditItem";
@@ -115,7 +129,13 @@ public class CustomerController {
     public String weatherCity;
     public String weatherDescription;
     public double weatherTemp;
-
+       /**
+     * Handles the location update and fetches weather information.
+     *
+     * @param location the geographical coordinates
+     * @return redirect string to the customer page
+     * @throws JsonProcessingException if JSON processing fails
+     */
     @PostMapping("/location")
     public String handleLocation(@RequestBody geoLocation location) throws JsonProcessingException {
 
@@ -155,7 +175,11 @@ public class CustomerController {
 
         return "redirect:/customer";
     }
-
+      /**
+     * Fetches all products.
+     *
+     * @return response entity containing list of products or no content
+     */
     @GetMapping("/api/products")
     public ResponseEntity<List<Products>> getAllProducts() {
         List<Products> products = customerRepository.findAll();

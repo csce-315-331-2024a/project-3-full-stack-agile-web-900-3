@@ -24,17 +24,30 @@ import projectone.demo.repository.ProductInventoryRepository;
 import projectone.demo.repository.ProductsRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+/**
 
-
+ * @author Kaghan Odom
+ */
+/**
+ * Controller for handling cashier operations.
+ */
 @RequestMapping(value = "/cashierPage")
 @Controller // no logic in this this is purely mappping the index html to the javascript
-class CashierController{
+public class CashierController{
     private final ProductsRepository repository;
     private final OrdersRepository ordersRepository;
     private final OrderProductsRepo orderProductsRepo;
     private final ProductInventoryRepository productInventoryRepository;
     private final InventoryRepository inventoryRepository;
-
+        /**
+     * Constructs a {@code CashierController} with necessary repositories.
+     *
+     * @param repository the products repository
+     * @param ordersRepository the orders repository
+     * @param orderProductsRepo the order products repository
+     * @param productInventoryRepository the product inventory repository
+     * @param inventoryRepository the inventory repository
+     */
     CashierController(ProductsRepository repository,OrdersRepository ordersRepository, OrderProductsRepo orderProductsRepo, ProductInventoryRepository productInventoryRepository, InventoryRepository inventoryRepository){
         this.repository = repository;
         this.ordersRepository = ordersRepository;
@@ -42,6 +55,13 @@ class CashierController{
         this.productInventoryRepository=productInventoryRepository;
         this.inventoryRepository=inventoryRepository;
     }
+    
+    /**
+     * Fetches and displays product and order related data on the cashier page.
+     *
+     * @param model the model for MVC
+     * @return the cashier page view directory
+     */
     @GetMapping
     String products(Model model, Model orderModel, Model orderProductsModel, Model productModel, Model productInventoryModel, Model inventoryModel)
     {
@@ -54,6 +74,15 @@ class CashierController{
         inventoryModel.addAttribute("inventory", this.inventoryRepository.findAll());
         return "cashierPage";
     }
+        /**
+     * Processes the addition of a new order with specified product IDs and price.
+     *
+     * @param price the total price of the order
+     * @param ids the product IDs for the order
+     * @param orderModel model for the orders table
+     * @param orderProductsModel model for the order products table
+     * @return redirect string to refresh the cashier page
+     */
     @PostMapping(value = "/add")
     public String add(@RequestParam("price") String price, @RequestParam("productId")String ids, @RequestParam("addId")String addIds, @RequestParam("noId")String noIds, Model orderModel, Model orderProductsModel) {
 

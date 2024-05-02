@@ -15,15 +15,26 @@ import projectone.demo.model.Orders;
 import projectone.demo.repository.OrderProductsRepo;
 import projectone.demo.repository.OrdersRepository;
 import projectone.demo.repository.ProductsRepository;
+
+
+/**
+ * Controller for kitchen operations related to order management.
+ */
 @RequestMapping("/kitchen")
 @Controller
- class kitchenController {
+ public class kitchenController {
     @Autowired
     private OrdersRepository repository;
     private OrderProductsRepo orderprodRepository;
     private ProductsRepository productRepo;
 
-    
+        /**
+     * Constructs a KitchenController with necessary repositories.
+     *
+     * @param repository       Repository for orders.
+     * @param orderprodRepository  Repository for order products.
+     * @param productRepo       Repository for products.
+     */
     kitchenController(OrdersRepository repository,OrderProductsRepo orderprodRepository,ProductsRepository productRepo)
         {
             this.productRepo = productRepo;
@@ -31,7 +42,14 @@ import projectone.demo.repository.ProductsRepository;
             this.orderprodRepository = orderprodRepository;
            
         }
-
+         /**
+     * Displays the kitchen dashboard with orders, their details, and products.
+     *
+     * @param model     Model to pass orders to the view.
+     * @param junction  Model to pass order products (junction data).
+     * @param product   Model to pass products data.
+     * @return          The kitchen view name.
+     */
     @GetMapping
     String Orders(Model model,Model junction, Model product)
     {   
@@ -51,6 +69,14 @@ import projectone.demo.repository.ProductsRepository;
         return "kitchen";
     }
     }
+    /**
+     * Updates the status of an order based on kitchen actions.
+     *
+     * @param id        ID of the order to update.
+     * @param update    New status for the order.
+     * @param model     Model to pass updated order data.
+     * @return          Redirects back to the kitchen dashboard.
+     */
     @PostMapping
     String update(@RequestParam("id")String id,@RequestParam("update")String update,Model model)
     {

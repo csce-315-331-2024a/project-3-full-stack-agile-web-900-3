@@ -4,11 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manager Table</title>
-  <link rel="stylesheet" href="../manager.css">
+  <link id="theme-link" rel="stylesheet" type="text/css" href = ../manager.css>
   <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 </head>
 <body id = "updateArea">
-  <h2>Products</h2>
+  <span><h2>Products</h2></span><h2><span id = translate>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+          new google.translate.TranslateElement(
+              {pageLanguage: 'en'},
+              'google_translate_element'
+          );
+      } 
+      </script>
+      <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
+        <span id="google_translate_element"></span>
+        <span><select id="theme-select" onchange="switchTheme(this.value)">
+          <option value="../manager.css">Default</option>
+          <option value="../managerAlt.css">HighContrast</option>
+      </select></span>
+  </span></h2>
   <span id = translate>
     <script type="text/javascript">
       function googleTranslateElementInit() {
@@ -65,8 +81,8 @@
           <input name = "new-price" id = styledInput class = "price" th:value="${item.price}"></input>
         </div>
         <div>
-          <select name="new-item" aria-label="Type">
-            <option th:text="${item.productType}" th:value="${item.productType}" disabled selected hidden></option>
+          <select class = highSelect name="new-item" aria-label="Type">
+            <option class = highContrast th:text="${item.productType}" th:value="${item.productType}" disabled selected hidden></option>
     
             <option value="burger">Burger</option>
             <option value="sandwich">Sandwich</option>
@@ -80,14 +96,14 @@
         </div>
           <div>
               
-              <button type = "submit">
+              <button class = highContrast type = "submit">
                 Update
               </button>
               <button 
               
                       th:attr = "hx-delete = @{/manager/{id}(id = ${item.product_id})}"  
                       hx-swap = "outerHTML"
-                      
+                      class = highContrast
                       hx-target = "closest .item"
                       
                       >
@@ -102,7 +118,7 @@
         </div>
         <div class = "bottom content">
           
-            <span>Ingredients:</span>
+            <span  class = highContrast >Ingredients:</span>
               <span th:each="junction : ${junction}">
                   <span th:if="${junction.productId} == ${item.product_id}">
                       <span th:each="inv: ${inventory}" th:if="${junction.inventoryId} == ${inv.id}" class="ingredient-name">
@@ -113,17 +129,17 @@
               <span class = modify>
               <form hx-post = "manager/addInv" hx-swap ="outerHTML" hx-target = "#updateArea" >
                 <input  th:value ="${item.product_id}" name = "id" style="display: none;">
-              <select name = "new-inv-id">
+              <select class = highSelect name = "new-inv-id">
                 <option th:each = "inv: ${inventory}" th:if ="${inv.type} != utilities  " th:value = "${inv.id}" th:text = "${inv.name}">
       
                 </option>
               </select>
       
-              <button  type = "submit">Add</button>
+              <button class = highContrast  hx-get = "/manager" hx-target="body" hx-swap="outerHTML" type = "submit">Add</button>
               
             </form>
             <form  hx-post = "manager/removeInv" hx-swap = "outerHTML" hx-target="#updateArea">
-              <select name = "remove">
+              <select class = highSelect name = "remove">
                 <span th:each="junction : ${junction}">
                   <span th:if="${junction.productId} == ${item.product_id}">
                       <span th:each="inv: ${inventory}" th:if="${junction.inventoryId} == ${inv.id}" class="ingredient-name">
@@ -133,7 +149,7 @@
                   </span>
       
               </select>
-              <button type = "submit">Remove</button>
+              <button class = highContrast  type = "submit">Remove</button>
             </form>
           </span>
           
@@ -153,12 +169,12 @@
   </div>
 
 </div>
-    <div  id = "addProduct">
-      <div class = header >
+    <div class= item id = "addProduct">
+      <div class = "line products">
         
-        <input type = "text" name = "new-productsName" id = "new-productsName" placeholder = "name"/>
-        <input type = "price" name = "new-productsPrice" id = "new-productsPrice" placeholder="price"/>
-        <select type = "type" name = "new-productsType" id = "new-productsType" placeholder="Type">
+        <input class = highSelect type = "text" name = "new-productsName" id = "new-productsName" placeholder = "name"/>
+        <input class = highSelect type = "price" name = "new-productsPrice" id = "new-productsPrice" placeholder="price"/>
+        <select class = highSelect type = "type" name = "new-productsType" id = "new-productsType" placeholder="Type">
           <option value="burger">Burger</option>
           <option value="sandwich">Sandwich</option>
           <option value="sweet">Sweet</option>
@@ -170,6 +186,7 @@
         </select>
         <div class = "buttons">
           <button 
+          class = highContrast
           hx-post ="manager/add"
           hx-include = "#new-productsName, #new-productsPrice, #new-productsType"
           hx-target = ".manager-list"
@@ -182,3 +199,17 @@
   </body>
 
 </html>
+<script>
+  // Function to switch the theme
+  function switchTheme(cssFile) {
+      document.getElementById('theme-link').href = cssFile;
+      localStorage.setItem('themeManager', cssFile); // Store the theme in localStorage
+  }
+
+  // Load the theme from localStorage
+  window.onload = function() {
+      const savedTheme = localStorage.getItem('themeManager') || '../manager.css'; // Default theme
+      document.getElementById('theme-link').href = savedTheme;
+      document.getElementById('theme-select').value = savedTheme; // Set the dropdown to reflect the saved theme
+  }
+</script>
