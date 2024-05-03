@@ -17,6 +17,15 @@ body, h1, p, button {
     background-color: black;
   }
   
+  #spinner {
+    width: 100px;        /* Adjust the size of the spinner */
+    height: 100px;       /* Adjust the size of the spinner */
+    border: 16px solid #f3f3f3; /* Light grey background */
+    border-top: 16px solid white; /* White foreground */
+    border-radius: 50%;
+    position: absolute;
+  }
+
   #placeOrder{
     font-size: 20px;
   }
@@ -27,8 +36,8 @@ body, h1, p, button {
     text-align: center;
   }
 
-  #contrastButton{
-    margin-top: 50%;
+  #currentOrder{
+    font-size: 30px;
   }
 
   #google_translate_element {
@@ -40,7 +49,7 @@ body, h1, p, button {
   }
   
   .sidebar {
-    width: 30%;
+    width: 35%;
     height: 500px; 
     background-color: maroon;
     padding: 20px;
@@ -86,6 +95,7 @@ body, h1, p, button {
     grid-template-columns: repeat(8, 1fr); 
     gap: 10px;
     padding: 10px;
+    width: 80%;
   }
   
   .grid-item button {
@@ -196,7 +206,7 @@ body, h1, p, button {
     background-color: white;
     border: 2px solid black;
     color: black;
-    font-size: 20px;
+    font-size: 15px;
     cursor: pointer;
     transition: transform 0.2s, background-color 0.2s, color 0.2s;
   }
