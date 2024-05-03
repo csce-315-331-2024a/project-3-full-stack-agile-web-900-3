@@ -101,14 +101,14 @@ import projectone.demo.repository.ProductsRepository;
         {
             System.out.println("here");
             List restockProd = orderprodRepository.findProductIdsByOrderId(Long.parseLong(id));
-            for(int i= 0 ;i<restockProd.size() ; i ++)
+            for(int i= 0 ;i<restockProd.size() ; i++)
             {
                 
                 List restockInv = prodInvrepo.getInventoryIdsForProduct(Long.parseLong(restockProd.get(i).toString()));
                 for(int j = 0; j<restockInv.size(); j++)
                 {
                     Inventory updateInv = this.invRepository.getById(Long.parseLong(restockInv.get(i).toString()));
-                    updateInv.setQuantity(updateInv.getQuantity()+1);
+                    this.invRepository.updateInventoryQuantity(Long.parseLong(restockInv.get(i).toString()), -1);
                 }
             }
         }
