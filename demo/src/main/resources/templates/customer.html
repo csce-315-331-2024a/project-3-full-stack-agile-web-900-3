@@ -19,25 +19,12 @@
   </script>
   <script type="text/javascript"
     src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  <script>
-    // Function to switch the theme
-    function switchTheme(cssFile) {
-      document.getElementById('theme-link').href = cssFile;
-      localStorage.setItem('theme', cssFile); // Store the theme in localStorage
-    }
 
-    // Load the theme from localStorage
-    window.onload = function () {
-      const savedTheme = localStorage.getItem('theme') || 'style1.css'; // Default theme
-      document.getElementById('theme-link').href = savedTheme;
-      document.getElementById('theme-select').value = savedTheme; // Set the dropdown to reflect the saved theme
-    }
-  </script>
 </head>
 
 <body>
   <div class="top-nav">
-    <a href="/" class="home-link">Home</a>  
+    <a href="/" class="home-link">Home</a>
     <span>
       <label for="theme-select">Select Theme</label>
       <select id="theme-select" onchange="switchTheme(this.value)">
@@ -131,5 +118,62 @@
   </div>
   <script src="/customerScript.js"></script>
 </body>
+
+<script>
+  // Function to switch the theme
+  function switchTheme(cssFile) {
+    document.getElementById('theme-link').href = cssFile;
+    localStorage.setItem('theme', cssFile); // Store the theme in localStorage
+  }
+
+  // Load the theme from localStorage
+  window.onload = function () {
+    const savedTheme = localStorage.getItem('theme') || 'style1.css'; // Default theme
+    document.getElementById('theme-link').href = savedTheme;
+    document.getElementById('theme-select').value = savedTheme; // Set the dropdown to reflect the saved theme
+  }
+
+  document.getElementById('cancel-order').addEventListener('click', function () {
+    document.getElementById('order-summary').innerHTML = '';
+    saveOrderDetails();
+    updateTotal();
+    localStorage.clear();
+  });
+
+  document.getElementById('confirm-order').addEventListener('click', function () {
+    if (orderTotal > 0 && confirm('Do you want to proceed to checkout?')) {
+      localStorage.setItem('returningUser', 'true');
+      saveOrderDetails();
+      window.location.href = '/customer/checkout';
+    } else {
+      alert('Please add items to your order.');
+    }
+  });
+
+  // Call this function when the page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM fully loaded and parsed");
+    const isReturningUser = localStorage.getItem('returningUser');
+
+    console.log("Is Returning User:", isReturningUser);
+
+    if (isReturningUser) {
+      console.log("Loading Order Details from Local Storage");
+      loadOrderDetails();
+      loadMenuItems('burger');
+    } else {
+      console.log("Clearing Local Storage");
+      localStorage.clear();
+      loadMenuItems('burger');
+    }
+
+    console.log("Removing 'returningUser' from Local Storage");
+    localStorage.removeItem('returningUser');
+  });
+
+
+  getLocationAndPost();
+
+</script>
 
 </html>
