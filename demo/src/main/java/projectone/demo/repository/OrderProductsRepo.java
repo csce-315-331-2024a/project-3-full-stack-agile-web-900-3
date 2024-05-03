@@ -11,6 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import projectone.demo.model.OrderProducts;
 /**
+ * @author Quinn Bromley
+ */
+
+/**
  * Repository interface for accessing order products data.
  */
 @Repository

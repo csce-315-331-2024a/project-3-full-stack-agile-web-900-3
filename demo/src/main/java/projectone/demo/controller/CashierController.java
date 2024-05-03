@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import projectone.demo.model.OrderProducts;
+import projectone.demo.model.OrderTicket;
 import projectone.demo.model.Orders;
 import projectone.demo.repository.InventoryRepository;
 import projectone.demo.repository.OrderProductsRepo;
+import projectone.demo.repository.OrderTicketRepository;
 import projectone.demo.repository.OrdersRepository;
 import projectone.demo.repository.ProductInventoryRepository;
 import projectone.demo.repository.ProductsRepository;
+import projectone.demo.repository.OrderTicketRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 /**
@@ -39,6 +42,7 @@ public class CashierController{
     private final OrderProductsRepo orderProductsRepo;
     private final ProductInventoryRepository productInventoryRepository;
     private final InventoryRepository inventoryRepository;
+    private final OrderTicketRepository orderTicketRepository;
         /**
      * Constructs a {@code CashierController} with necessary repositories.
      *
@@ -47,13 +51,15 @@ public class CashierController{
      * @param orderProductsRepo the order products repository
      * @param productInventoryRepository the product inventory repository
      * @param inventoryRepository the inventory repository
+     * @param inventoryRepository the ticket repository
      */
-    CashierController(ProductsRepository repository,OrdersRepository ordersRepository, OrderProductsRepo orderProductsRepo, ProductInventoryRepository productInventoryRepository, InventoryRepository inventoryRepository){
+    CashierController(ProductsRepository repository,OrdersRepository ordersRepository, OrderProductsRepo orderProductsRepo, ProductInventoryRepository productInventoryRepository, InventoryRepository inventoryRepository,OrderTicketRepository orderTicketRepository){
         this.repository = repository;
         this.ordersRepository = ordersRepository;
         this.orderProductsRepo=orderProductsRepo;
         this.productInventoryRepository=productInventoryRepository;
         this.inventoryRepository=inventoryRepository;
+        this.orderTicketRepository = orderTicketRepository;
     }
     
     /**
@@ -63,7 +69,7 @@ public class CashierController{
      * @return the cashier page view directory
      */
     @GetMapping
-    String products(Model model, Model orderModel, Model orderProductsModel, Model productModel, Model productInventoryModel, Model inventoryModel)
+    String products(Model model, Model orderModel, Model orderProductsModel, Model productModel, Model productInventoryModel, Model inventoryModel,Model orderTicketModel)
     {
         List<String> prodTypes = Arrays.asList("sweet", "sandwich", "sauce", "burger",  "side", "beverage", "basket", "salad","seasonal");        
         productModel.addAttribute("productTypes", prodTypes);
@@ -72,6 +78,7 @@ public class CashierController{
         orderProductsModel.addAttribute("orderProducts", this.orderProductsRepo.getLastOrder());
         productInventoryModel.addAttribute("productInventory", this.productInventoryRepository.findAll());
         inventoryModel.addAttribute("inventory", this.inventoryRepository.findAll());
+        orderTicketModel.addAttribute("order_ticket", this.orderTicketRepository.getLastOrder());
         return "cashierPage";
     }
         /**
@@ -84,7 +91,7 @@ public class CashierController{
      * @return redirect string to refresh the cashier page
      */
     @PostMapping(value = "/add")
-    public String add(@RequestParam("price") String price, @RequestParam("productId")String ids, @RequestParam("addId")String addIds, @RequestParam("noId")String noIds, Model orderModel, Model orderProductsModel) {
+    public String add(@RequestParam("price") String price, @RequestParam("productId")String ids, @RequestParam("addId")String addIds, @RequestParam("noId")String noIds, @RequestParam("ticket")String ticket, Model orderModel, Model orderProductsModel, Model orderTicketModel) {
 
         String[] numbersArray = ids.split("-");
         
@@ -99,6 +106,13 @@ public class CashierController{
         Orders newOrder = new Orders(newId,newPrice,date,status);
         this.ordersRepository.save(newOrder);
         orderModel.addAttribute("orders", this.ordersRepository.getLastOrder());
+        if(noIds != "" ||  addIds != ""){
+            OrderTicket newTicket = new OrderTicket(newId,ticket);
+            this.orderTicketRepository.save(newTicket);
+            orderTicketModel.addAttribute("order_ticket", orderTicketRepository.getLastOrder());
+        }
+
+
         for(int i =0; i<numbers.length;i++)
         {
             Long productID = new Long(numbers[i]);
@@ -129,6 +143,7 @@ public class CashierController{
                 inventoryRepository.updateInventoryQuantity(noId, -1);
             }
         }
+        
         System.out.println("Order placed successfully.\n ordered: "+ids+" included: "+addIds+". not included: "+noIds);
         return "redirect:/cashierPage";
     }
