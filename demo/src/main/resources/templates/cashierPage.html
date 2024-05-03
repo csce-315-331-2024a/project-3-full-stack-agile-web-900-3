@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link id="cssLink" type="text/css" rel="stylesheet" href="../cashierPage.css"></link>
+<link id="theme-link" rel="stylesheet" type="text/css" href = /cashierPage.css>
 <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 <html xmlns:th="http://www.thymeleaf.org"></html>
 <title>Cashier Page</title>
@@ -11,26 +11,31 @@
   
 </style>
 </head>
+
 <body id="all">
+  
 <div class="container">
   <div class="sidebar">
       
-    <h1>Current Order</h1>
+    <h1 id="currentOrder">Current Order</h1>
     <div id="outputContainer"></div>
     <p id="orderTotal">Order Total: $0.00</p>
-    <form hx-post="/cashierPage/add" hx-target="#all" hx-swap="outerHTML">
+    <form hx-post="/cashierPage/add" hx-target="#all" hx-swap="outerHTML" hx-indicator="#spinner">
       <input type="hidden" name="price"  id="total-price"/>
       <input type="hidden" name="productId" id="ids"/> 
       <input type="hidden" name="noId" id="noIds"/>
       <input type="hidden" name="addId" id="addIds"/>
       <input type="hidden" name="ticket" id="ticket"/>
       <button id="placeOrder" type="submit">Place Order</button>
+      
     </form>
-    
     <div class="sideButtons">
       <button id="backButton"class="button">Home Page</button>
-      <button id="contrastButton">Contrast Toggle</button>
+      
     </div>
+    <img src = /images/spinners/90-ring.svg alt = "" id="spinner" class="htmx-indicator">
+    
+    
     <div th:each="thisItem: ${inventory}">
       <th:block th:if="${thisItem.type == 'topping' or thisItem.type == 'condiment'}">
         <input type="hidden" class="tops" th:value="${thisItem.name} +'-'+ ${thisItem.id}"/>
@@ -68,6 +73,10 @@
       </div>
     </div>
   </div>
+  <span><select id="theme-select" onchange="switchTheme(this.value)">
+    <option value="cashierPage.css">Default</option>
+    <option value="cashierPage2.css">HighContrast</option>
+</select></span>
 
 </div>
 
@@ -83,24 +92,34 @@
   var noIds = document.getElementById("noIds");
   var ticket = document.getElementById("ticket");
   var addIds = document.getElementById('addIds');
-  var cssThing = "cashierPage.css";
+  var cssThing = document.getElementById("theme-link");
   
-  document.addEventListener("DOMContentLoaded", function() {
-    const contrastButton = document.getElementById("contrastButton");
+  
+  // const contrastButton = document.getElementById("contrastButton");
 
-    function toggleContrast() {
-      const linkElement = document.getElementById("cssLink");
-      if (linkElement.href.includes("cashierPage.css")) {
-        linkElement.href = "cashierPage2.css";
-        cssThing = "cashierPage2.css";
-      } else {
-        linkElement.href = "cashierPage.css";
-        cssThing = "cashierPage.css";
-      }
-    }
+  // function toggleContrast() {
+  //   const linkElement = document.getElementById("cssLink");
+  //   if (linkElement.href.includes("cashierPage.css")) {
+  //     linkElement.href = "cashierPage2.css";
+  //     cssThing.href = "cashierPage2.css";
+  //   } else {
+  //     linkElement.href = "cashierPage.css";
+  //     cssThing.href = "cashierPage.css";
+  //   }
+  // }
 
-    contrastButton.addEventListener("click", toggleContrast);
-  });
+  // contrastButton.addEventListener("click", toggleContrast);
+  function switchTheme(cssFile) {
+      document.getElementById('theme-link').href = cssFile;
+      localStorage.setItem('themeCashier', cssFile); // Store the theme in localStorage
+  }
+
+  // Load the theme from localStorage
+  window.onload = function() {
+      const savedTheme = localStorage.getItem('themeCashier') || 'cashierPage.css'; 
+      document.getElementById('theme-link').href = savedTheme;
+      document.getElementById('theme-select').value = savedTheme; 
+  }
 
   
   
@@ -129,7 +148,6 @@
     itemButton.textContent = itemName + ' - $' + itemPrice.toFixed(2); 
     itemButton.classList.add('ordered-item');
     itemButton.setAttribute('data-price', itemPrice); 
-    //itemButton.setAttribute('quantity', 1); 
     itemButton.setAttribute('item-type',itemType);
     itemButton.setAttribute('item-id',itemId);
     itemButton.setAttribute('item-ingredients',itemIngredients);
@@ -148,7 +166,7 @@
     editWindow.document.body.classList.add('edit-window');
     var cssLink = editWindow.document.createElement('link');
     cssLink.rel = 'stylesheet';
-    cssLink.href = cssThing; 
+    cssLink.href = cssThing.href; 
     editWindow.document.head.appendChild(cssLink);
     var thePrice = parseFloat(button.getAttribute('data-price'));
     var toppings = document.getElementsByClassName('tops');
@@ -222,7 +240,7 @@
         noButtons[index].addEventListener('click', function () {
           noButtons[index].disabled = true;
           
-          button.textContent = button.textContent.split(' - ')[0] + ' ' + noButtons[index].textContent + ' - $' + thePrice.toFixed(2);
+          button.textContent = button.textContent.split(' - ')[0] + ' -- ' + noButtons[index].textContent + ' - $' + thePrice.toFixed(2);
           label.textContent = button.textContent;
           var toRemove = button.getAttribute('item-remove');
           button.setAttribute('item-remove',toRemove + ingredients[index].split('-')[1] + "-");
@@ -244,7 +262,7 @@
         addButtons[index].classList.add('uniqueAddButton'); // Add a unique class
         addButtons[index].addEventListener('click', function () {
           addButtons[index].disabled = true;
-          button.textContent = button.textContent.split(' - ')[0] + ' ' + addButtons[index].textContent + ' - $' + thePrice.toFixed(2);
+          button.textContent = button.textContent.split(' - ')[0] + ' -- ' + addButtons[index].textContent + ' - $' + thePrice.toFixed(2);
           label.textContent = button.textContent;
           var toAdd = button.getAttribute('item-add');
           button.setAttribute('item-add',toAdd + toppings[index].value.split('-')[1] + "-");
@@ -312,12 +330,14 @@
       var thisSide = orderedItems[i].getAttribute('item-side');
       var thisRemove = orderedItems[i].getAttribute('item-remove');
       var thisAdd = orderedItems[i].getAttribute('item-add');
-      var thisText = orderedItems[i].textContent.split(' - ')[0] + '\n';
+      var thisText = orderedItems[i].textContent.split(' - ')[0] + ' || ';
       total += price;
       ids.value = ids.value + thisId +"-"+thisSide;
       noIds.value = noIds.value + thisRemove;
-      ticket.value = ticket.value + thisText;
       addIds.value = addIds.value + thisAdd;
+      if(thisAdd != "" || thisRemove != ""){
+        ticket.value = ticket.value + thisText;
+      }
     }
     ids.value = ids.value;
     total=total*1.08;

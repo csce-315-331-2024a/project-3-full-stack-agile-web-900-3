@@ -59,9 +59,11 @@
                   
               </span>
               <div>Modifications:
-              <span th:each ="addon : ${addons}" th:if = "${addon.order_id } == ${order.order_id}">
-                  <span th:text = "${addon.ticket}"></span>
-              </span>
+              <div th:each ="addon : ${addons}" th:if = "${addon.order_id } == ${order.order_id}">
+                
+                  <div th:text = "${addon.ticket}"> </div >
+                  
+                  </div>
             </div>
            </div>
       </div>
