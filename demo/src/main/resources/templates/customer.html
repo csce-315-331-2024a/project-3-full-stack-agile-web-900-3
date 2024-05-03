@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Revs Ordering System</title>
   <link rel="stylesheet" href="/customer.css">
+  <link id="theme-link" rel="stylesheet" type="text/css" href=../customer.css>
 
   <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
   <script type="text/javascript">
@@ -18,88 +19,106 @@
   </script>
   <script type="text/javascript"
     src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </head>
 
 <body>
   <div class="top-nav">
     <a href="/" class="home-link">Home</a>
+    <span>
+      <label for="theme-select">Select Theme</label>
+      <select id="theme-select" onchange="switchTheme(this.value)">
+        <option value="../customer.css">Default</option>
+        <option value="../customerHighContrast.css">HighContrast</option>
+      </select>
+    </span>
+    <div id="google_translate_element"></div>
   </div>
+  <nav class="navbar">
+    <button class="nav-button" onclick="loadMenuItems('burger')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" class="menu-icon">
+        <path
+          d="M61.1 224C45 224 32 211 32 194.9c0-1.9 .2-3.7 .6-5.6C37.9 168.3 78.8 32 256 32s218.1 136.3 223.4 157.3c.5 1.9 .6 3.7 .6 5.6c0 16.1-13 29.1-29.1 29.1H61.1zM144 128a16 16 0 1 0 -32 0 16 16 0 1 0 32 0zm240 16a16 16 0 1 0 0-32 16 16 0 1 0 0 32zM272 96a16 16 0 1 0 -32 0 16 16 0 1 0 32 0zM16 304c0-26.5 21.5-48 48-48H448c26.5 0 48 21.5 48 48s-21.5 48-48 48H64c-26.5 0-48-21.5-48-48zm16 96c0-8.8 7.2-16 16-16H464c8.8 0 16 7.2 16 16v16c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V400z" />
+      </svg>
+      Burgers
+    </button>
+    <button class="nav-button" onclick="loadMenuItems('sandwich')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" class="menu-icon">
+        <path
+          d="M256 32C192 32 0 64 0 192c0 35.3 28.7 64 64 64V432c0 26.5 21.5 48 48 48H400c26.5 0 48-21.5 48-48V256c35.3 0 64-28.7 64-64C512 64 320 32 256 32z" />
+      </svg>
+      Sandwiches
+    </button>
+    <button class="nav-button" onclick="loadMenuItems('basket')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20" height="20" class="menu-icon">
+        <path
+          d="M253.3 35.1c6.1-11.8 1.5-26.3-10.2-32.4s-26.3-1.5-32.4 10.2L117.6 192H32c-17.7 0-32 14.3-32 32s14.3 32 32 32L83.9 463.5C91 492 116.6 512 146 512H430c29.4 0 55-20 62.1-48.5L544 256c17.7 0 32-14.3 32-32s-14.3-32-32-32H458.4L365.3 12.9C359.2 1.2 344.7-3.4 332.9 2.7s-16.3 20.6-10.2 32.4L404.3 192H171.7L253.3 35.1zM192 304v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16s16 7.2 16 16zm96-16c8.8 0 16 7.2 16 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16zm128 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16s16 7.2 16 16z" />
+      </svg>
+      Baskets
+    </button>
+    <button class="nav-button" onclick="loadMenuItems('sweet')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" class="menu-icon">
+        <path
+          d="M367.1 160c.6-5.3 .9-10.6 .9-16C368 64.5 303.5 0 224 0S80 64.5 80 144c0 5.4 .3 10.7 .9 16H80c-26.5 0-48 21.5-48 48s21.5 48 48 48h53.5 181H368c26.5 0 48-21.5 48-48s-21.5-48-48-48h-.9zM96 288L200.8 497.7c4.4 8.8 13.3 14.3 23.2 14.3s18.8-5.5 23.2-14.3L352 288H96z" />
+      </svg>
+      Sweets
+    </button>
+    <button class="nav-button" onclick="loadMenuItems('beverage')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="20" height="20" class="menu-icon">
+        <path
+          d="M32 0C23.1 0 14.6 3.7 8.6 10.2S-.6 25.4 .1 34.3L28.9 437.7c3 41.9 37.8 74.3 79.8 74.3H275.3c42 0 76.8-32.4 79.8-74.3L383.9 34.3c.6-8.9-2.4-17.6-8.5-24.1S360.9 0 352 0H32zM73 156.5L66.4 64H317.6L311 156.5l-24.2 12.1c-19.4 9.7-42.2 9.7-61.6 0c-20.9-10.4-45.5-10.4-66.4 0c-19.4 9.7-42.2 9.7-61.6 0L73 156.5z" />
+      </svg>
+      Beverages
+    </button>
+    <button class="nav-button" onclick="loadMenuItems('salad')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" class="menu-icon">
+        <path
+          d="M0 192c0-35.3 28.7-64 64-64c.5 0 1.1 0 1.6 0C73 91.5 105.3 64 144 64c15 0 29 4.1 40.9 11.2C198.2 49.6 225.1 32 256 32s57.8 17.6 71.1 43.2C339 68.1 353 64 368 64c38.7 0 71 27.5 78.4 64c.5 0 1.1 0 1.6 0c35.3 0 64 28.7 64 64c0 11.7-3.1 22.6-8.6 32H8.6C3.1 214.6 0 203.7 0 192zm0 91.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4z" />
+      </svg>
+      Salads
+    </button>
+    <button class="nav-button" onclick="loadMenuItems('side')">
+      <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="20"
+        height="20" class="menu-icon">
+        <path
+          d="M19,12h-2.22l1.11-3.93c.46-1.7-.54-3.48-2.24-3.95-.25-.07-.51-.11-.78-.11l.09-.49c.13-.79-.05-1.59-.51-2.24S13.29,.18,12.48,.04c-1.19-.21-2.35,.33-2.99,1.28C8.85,.38,7.69-.16,6.5,.04c-.79,.13-1.48,.57-1.94,1.22s-.64,1.45-.5,2.29l.1,.45c-.27,0-.53,.05-.79,.12-1.7,.48-2.71,2.25-2.24,3.96l1.13,4.02c-.61,.16-1.16,.5-1.57,1C.11,13.79-.12,14.7,.06,15.59l.88,4.41c.46,2.33,2.53,4,4.9,4h13.16c2.76,0,5-2.24,5-5v-2c0-2.76-2.24-5-5-5Zm3,5H10c0-1.65,1.35-3,3-3h6c1.65,0,3,1.35,3,3ZM15.11,6.04c.65,.18,1.03,.85,.85,1.49l-1.26,4.46h-1.28l1.08-5.97c.2-.05,.41-.04,.61,.01Zm-2.94-4.03c.26,.04,.49,.19,.65,.41,.15,.22,.21,.48,.17,.74l-1.61,8.84h-2.09l1.7-9.18c.1-.54,.62-.89,1.18-.8Zm-5.98,.4c.15-.22,.39-.36,.65-.41,.54-.09,1.06,.27,1.16,.84l.49,2.48-.91,4.93-1.08-4.89c0-.12-.03-.25-.08-.36l-.41-1.84c-.04-.26,.02-.53,.17-.75Zm-2.29,3.62c.24-.07,.48-.06,.71,.02l1.31,5.94h-1.61l-1.26-4.46c-.18-.65,.21-1.32,.85-1.5Zm-.99,13.56l-.88-4.41c-.06-.29,.02-.6,.21-.83,.19-.23,.47-.37,.77-.37h6c-.63,.84-1,1.88-1,3v2c0,1.13,.38,2.18,1.02,3.02h-3.18c-1.43,0-2.66-1.01-2.94-2.41Zm16.1,2.39h-6c-1.65,0-3-1.35-3-3h4l1.89,1.26c.67,.45,1.55,.45,2.22,0l1.89-1.26h2c0,1.65-1.35,3-3,3Z" />
+      </svg>
+      Sides
+    </button>
+    <button class="nav-button" onclick="loadMenuItems('sauce')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" class="menu-icon">
+        <path
+          d="M32 32c-9.3 0-18.1 4-24.2 11.1S-1 59.4 .3 68.6l50 342.9c5.7 39.3 39.4 68.5 79.2 68.5h253c39.7 0 73.4-29.1 79.2-68.5l50-342.9c1.3-9.2-1.4-18.5-7.5-25.5S489.3 32 480 32H32zM87.7 224L69 96H443L424.3 224H87.7z" />
+      </svg>
+      Sauces
+    </button>
+
+    <button class="nav-button" onclick="loadMenuItems('seasonal')">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" class="menu-icon">
+        <path 
+        d="M348.8 131.5c3.7-2.3 7.9-3.5 12.2-3.5c12.7 0 23 10.3 23 23v5.6c0 9.9-5.1 19.1-13.5 24.3L30.1 393.7C.1 412.5-9 451.9 9.7 481.9s58.2 39.1 88.2 20.4L438.4 289.5c45.8-28.6 73.6-78.8 73.6-132.8V151C512 67.6 444.4 0 361 0c-28.3 0-56 8-80.1 23L254.1 39.7c-30 18.7-39.1 58.2-20.4 88.2s58.2 39.1 88.2 20.4l26.8-16.8zM298.4 49.8c9.2-5.7 19.1-10.1 29.4-13.1L348 97.5c-5.7 1.4-11.2 3.7-16.3 6.8l-12.6 7.9L298.4 49.8zm88.5 52.7l46.2-46.2c8.5 6.5 16.1 14.1 22.6 22.6l-46.2 46.2c-5.1-9.6-13-17.5-22.6-22.6zm28.9 59.3l61.6 20.5c-2.2 10.5-5.8 20.7-10.5 30.2l-62-20.7c6.2-8.8 10.1-19.1 11-30.1zm-86.1 82.5l60.4 37.7-30.2 18.9-60.4-37.7 30.2-18.9zm-107.2 67l60.4 37.7-30.2 18.9-60.4-37.7 30.2-18.9zM119.3 375.7l60.4 37.7-30.2 18.9L89.1 394.6l30.2-18.9z"/>
+      </svg>
+      Seasonal
+    </button>
+  </nav>
   <div class="container">
-    <nav class="navbar">
-      <button class="nav-button" onclick="loadMenuItems('burger')">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" class="menu-icon">
-          <path
-            d="M61.1 224C45 224 32 211 32 194.9c0-1.9 .2-3.7 .6-5.6C37.9 168.3 78.8 32 256 32s218.1 136.3 223.4 157.3c.5 1.9 .6 3.7 .6 5.6c0 16.1-13 29.1-29.1 29.1H61.1zM144 128a16 16 0 1 0 -32 0 16 16 0 1 0 32 0zm240 16a16 16 0 1 0 0-32 16 16 0 1 0 0 32zM272 96a16 16 0 1 0 -32 0 16 16 0 1 0 32 0zM16 304c0-26.5 21.5-48 48-48H448c26.5 0 48 21.5 48 48s-21.5 48-48 48H64c-26.5 0-48-21.5-48-48zm16 96c0-8.8 7.2-16 16-16H464c8.8 0 16 7.2 16 16v16c0 35.3-28.7 64-64 64H96c-35.3 0-64-28.7-64-64V400z" />
-        </svg>
-        Burgers
-      </button>
-      <button class="nav-button" onclick="loadMenuItems('sandwich')">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" class="menu-icon">
-          <path
-            d="M256 32C192 32 0 64 0 192c0 35.3 28.7 64 64 64V432c0 26.5 21.5 48 48 48H400c26.5 0 48-21.5 48-48V256c35.3 0 64-28.7 64-64C512 64 320 32 256 32z" />
-        </svg>
-        Sandwiches
-      </button>
-      <button class="nav-button" onclick="loadMenuItems('basket')">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20" height="20" class="menu-icon">
-          <path
-            d="M253.3 35.1c6.1-11.8 1.5-26.3-10.2-32.4s-26.3-1.5-32.4 10.2L117.6 192H32c-17.7 0-32 14.3-32 32s14.3 32 32 32L83.9 463.5C91 492 116.6 512 146 512H430c29.4 0 55-20 62.1-48.5L544 256c17.7 0 32-14.3 32-32s-14.3-32-32-32H458.4L365.3 12.9C359.2 1.2 344.7-3.4 332.9 2.7s-16.3 20.6-10.2 32.4L404.3 192H171.7L253.3 35.1zM192 304v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16s16 7.2 16 16zm96-16c8.8 0 16 7.2 16 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16zm128 16v96c0 8.8-7.2 16-16 16s-16-7.2-16-16V304c0-8.8 7.2-16 16-16s16 7.2 16 16z" />
-        </svg>
-        Baskets
-      </button>
-      <button class="nav-button" onclick="loadMenuItems('sweet')">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" class="menu-icon">
-          <path
-            d="M367.1 160c.6-5.3 .9-10.6 .9-16C368 64.5 303.5 0 224 0S80 64.5 80 144c0 5.4 .3 10.7 .9 16H80c-26.5 0-48 21.5-48 48s21.5 48 48 48h53.5 181H368c26.5 0 48-21.5 48-48s-21.5-48-48-48h-.9zM96 288L200.8 497.7c4.4 8.8 13.3 14.3 23.2 14.3s18.8-5.5 23.2-14.3L352 288H96z" />
-        </svg>
-        Sweets
-      </button>
-      <button class="nav-button" onclick="loadMenuItems('beverage')">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="20" height="20" class="menu-icon">
-          <path
-            d="M32 0C23.1 0 14.6 3.7 8.6 10.2S-.6 25.4 .1 34.3L28.9 437.7c3 41.9 37.8 74.3 79.8 74.3H275.3c42 0 76.8-32.4 79.8-74.3L383.9 34.3c.6-8.9-2.4-17.6-8.5-24.1S360.9 0 352 0H32zM73 156.5L66.4 64H317.6L311 156.5l-24.2 12.1c-19.4 9.7-42.2 9.7-61.6 0c-20.9-10.4-45.5-10.4-66.4 0c-19.4 9.7-42.2 9.7-61.6 0L73 156.5z" />
-        </svg>
-        Beverages
-      </button>
-      <button class="nav-button" onclick="loadMenuItems('salad')">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" class="menu-icon">
-          <path
-            d="M0 192c0-35.3 28.7-64 64-64c.5 0 1.1 0 1.6 0C73 91.5 105.3 64 144 64c15 0 29 4.1 40.9 11.2C198.2 49.6 225.1 32 256 32s57.8 17.6 71.1 43.2C339 68.1 353 64 368 64c38.7 0 71 27.5 78.4 64c.5 0 1.1 0 1.6 0c35.3 0 64 28.7 64 64c0 11.7-3.1 22.6-8.6 32H8.6C3.1 214.6 0 203.7 0 192zm0 91.4C0 268.3 12.3 256 27.4 256H484.6c15.1 0 27.4 12.3 27.4 27.4c0 70.5-44.4 130.7-106.7 154.1L403.5 452c-2 16-15.6 28-31.8 28H140.2c-16.1 0-29.8-12-31.8-28l-1.8-14.4C44.4 414.1 0 353.9 0 283.4z" />
-        </svg>
-        Salads
-      </button>
-      <button class="nav-button" onclick="loadMenuItems('side')">
-        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="20"
-          height="20" class="menu-icon">
-          <path
-            d="M19,12h-2.22l1.11-3.93c.46-1.7-.54-3.48-2.24-3.95-.25-.07-.51-.11-.78-.11l.09-.49c.13-.79-.05-1.59-.51-2.24S13.29,.18,12.48,.04c-1.19-.21-2.35,.33-2.99,1.28C8.85,.38,7.69-.16,6.5,.04c-.79,.13-1.48,.57-1.94,1.22s-.64,1.45-.5,2.29l.1,.45c-.27,0-.53,.05-.79,.12-1.7,.48-2.71,2.25-2.24,3.96l1.13,4.02c-.61,.16-1.16,.5-1.57,1C.11,13.79-.12,14.7,.06,15.59l.88,4.41c.46,2.33,2.53,4,4.9,4h13.16c2.76,0,5-2.24,5-5v-2c0-2.76-2.24-5-5-5Zm3,5H10c0-1.65,1.35-3,3-3h6c1.65,0,3,1.35,3,3ZM15.11,6.04c.65,.18,1.03,.85,.85,1.49l-1.26,4.46h-1.28l1.08-5.97c.2-.05,.41-.04,.61,.01Zm-2.94-4.03c.26,.04,.49,.19,.65,.41,.15,.22,.21,.48,.17,.74l-1.61,8.84h-2.09l1.7-9.18c.1-.54,.62-.89,1.18-.8Zm-5.98,.4c.15-.22,.39-.36,.65-.41,.54-.09,1.06,.27,1.16,.84l.49,2.48-.91,4.93-1.08-4.89c0-.12-.03-.25-.08-.36l-.41-1.84c-.04-.26,.02-.53,.17-.75Zm-2.29,3.62c.24-.07,.48-.06,.71,.02l1.31,5.94h-1.61l-1.26-4.46c-.18-.65,.21-1.32,.85-1.5Zm-.99,13.56l-.88-4.41c-.06-.29,.02-.6,.21-.83,.19-.23,.47-.37,.77-.37h6c-.63,.84-1,1.88-1,3v2c0,1.13,.38,2.18,1.02,3.02h-3.18c-1.43,0-2.66-1.01-2.94-2.41Zm16.1,2.39h-6c-1.65,0-3-1.35-3-3h4l1.89,1.26c.67,.45,1.55,.45,2.22,0l1.89-1.26h2c0,1.65-1.35,3-3,3Z" />
-        </svg>
-        Sides
-      </button>
-      <button class="nav-button" onclick="loadMenuItems('sauce')">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20" height="20" class="menu-icon">
-          <path
-            d="M32 32c-9.3 0-18.1 4-24.2 11.1S-1 59.4 .3 68.6l50 342.9c5.7 39.3 39.4 68.5 79.2 68.5h253c39.7 0 73.4-29.1 79.2-68.5l50-342.9c1.3-9.2-1.4-18.5-7.5-25.5S489.3 32 480 32H32zM87.7 224L69 96H443L424.3 224H87.7z" />
-        </svg>
-        Sauces
-      </button>
-      <div id="google_translate_element"></div>
-    </nav>
     <div class="menu-area" id="menu-items">
     </div>
-    <aside class="order-tracker">
-      <h2>Your Order</h2>
-      <div class="order-items">
-        <ul id="order-summary">
-        </ul>
-      </div>
-      <div class="order-total">
-        <p>Total: <span id="display-total">$0.00</span></p>
-      </div>
-      <button class="confirm-button" id="confirm-order">Confirm Order</button>
-      <button class="cancel-button" id="cancel-order">Cancel Order</button>
-    </aside>
   </div>
+  <aside class="order-tracker">
+    <h2>Your Order</h2>
+    <div class="order-items">
+      <ul id="order-summary">
+      </ul>
+    </div>
+    <div class="order-total">
+      <p>Total: <span id="display-total">$0.00</span></p>
+    </div>
+    <button class="confirm-button" id="confirm-order">Confirm Order</button>
+    <button class="cancel-button" id="cancel-order">Cancel Order</button>
+  </aside>
+
+
   <div class="quantity-controls">
     <button class="minus-button">-</button>
     <span class="quantity-display">1</span>
@@ -107,5 +126,62 @@
   </div>
   <script src="/customerScript.js"></script>
 </body>
+
+<script>
+  // Function to switch the theme
+  function switchTheme(cssFile) {
+    document.getElementById('theme-link').href = cssFile;
+    localStorage.setItem('theme', cssFile); // Store the theme in localStorage
+  }
+
+  // Load the theme from localStorage
+  window.onload = function () {
+    const savedTheme = localStorage.getItem('theme') || 'style1.css'; // Default theme
+    document.getElementById('theme-link').href = savedTheme;
+    document.getElementById('theme-select').value = savedTheme; // Set the dropdown to reflect the saved theme
+  }
+
+  document.getElementById('cancel-order').addEventListener('click', function () {
+    document.getElementById('order-summary').innerHTML = '';
+    saveOrderDetails();
+    updateTotal();
+    localStorage.clear();
+  });
+
+  document.getElementById('confirm-order').addEventListener('click', function () {
+    if (orderTotal > 0 && confirm('Do you want to proceed to checkout?')) {
+      localStorage.setItem('returningUser', 'true');
+      saveOrderDetails();
+      window.location.href = '/customer/checkout';
+    } else {
+      alert('Please add items to your order.');
+    }
+  });
+
+  // Call this function when the page loads
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM fully loaded and parsed");
+    const isReturningUser = localStorage.getItem('returningUser');
+
+    console.log("Is Returning User:", isReturningUser);
+
+    if (isReturningUser) {
+      console.log("Loading Order Details from Local Storage");
+      loadOrderDetails();
+      loadMenuItems('burger');
+    } else {
+      console.log("Clearing Local Storage");
+      localStorage.clear();
+      loadMenuItems('burger');
+    }
+
+    console.log("Removing 'returningUser' from Local Storage");
+    localStorage.removeItem('returningUser');
+  });
+
+
+  getLocationAndPost();
+
+</script>
 
 </html>

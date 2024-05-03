@@ -4,6 +4,7 @@
 <head>
     <title>Edit Item</title>
     <link rel="stylesheet" href="/customer.css">
+
 </head>
 
 <body>
@@ -11,7 +12,9 @@
     <p>Modify the item details here.</p>
 
     <div id="edit-section" style="display: none;">
-        <ul id="ingredient-list"></ul>
+        <form id="ingredient-list"></form>
+
+        <button onclick="saveChanges()">Save Changes</button>
         <button class="back-button" onclick="goBack()">Back to Customer Page</button>
     </div>
 
@@ -21,15 +24,17 @@
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get('product_id');
         }
-
+        let productId = 0;
         document.addEventListener('DOMContentLoaded', function () {
-            const productId = getProductIdFromUrl();
+
+            productId = getProductIdFromUrl();
             if (productId) {
-                customerEditItem(productId);
+                customerEditItem();
             } else {
                 console.error('Product ID not found.');
-            
+
             }
+
         });
 
         function goBack() {
@@ -40,6 +45,97 @@
                 alert('Failed to navigate back. Check console for errors.');
             }
         }
+
+
+        function customerEditItem() {
+            const savedOrderDetails = localStorage.getItem('orderDetails');
+            fetch(`/api/products/${productId}/ingredients`)
+                .then(response => response.json())
+                .then(ingredients => {
+                    const editSection = document.getElementById('edit-section');
+                    const ingredientList = document.getElementById('ingredient-list');
+                    ingredientList.innerHTML = '';
+
+                    let ingredientsOff = [];
+
+
+                    if (savedOrderDetails) {
+                        const orderDetails = JSON.parse(savedOrderDetails);
+                        const item = orderDetails.find(detail => {
+                            return detail.productId == productId;
+                        });
+                        if (item) {
+                            if(item.ingredients){
+                                ingredientsOff = item.ingredients;
+                            }
+                            console.log("ingredients off", ingredientsOff);
+                        }
+                    }
+
+                    ingredients.forEach(ingredient => {
+                        const ingredientItem = document.createElement('li');
+                        const ingredientInput = document.createElement("input");
+                        ingredientInput.classList.add("ingredient-selector");
+                        ingredientInput.type = "checkbox";
+                        if (!ingredientsOff.includes(ingredient)) {
+                            ingredientInput.setAttribute("checked", 1);
+                        }
+
+                        ingredientInput.name = ingredient;
+                        ingredientInput.id = ingredient;
+
+                        const ingredientLabel = document.createElement("label");
+                        ingredientLabel.setAttribute("for", ingredient);
+                        ingredientLabel.textContent = ingredient;
+
+                        ingredientItem.appendChild(ingredientInput);
+                        ingredientItem.appendChild(ingredientLabel);
+
+                        ingredientList.appendChild(ingredientItem);
+
+                    });
+
+                    editSection.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error fetching ingredients:', error);
+                    editSection.style.display = 'none';
+                });
+        }
+
+
+        function saveChanges() {
+            const ingredientList = document.getElementById('ingredient-list');
+            const inputs = document.getElementsByClassName("ingredient-selector");
+            let ingredients = [];
+
+            for (let i = 0; i < inputs.length; i++) {
+                const inp = inputs.item(i);
+                if (!inp.checked) {
+                    ingredients.push(inp.name);
+                }
+            }
+
+            let savedOrderDetails = localStorage.getItem('orderDetails');
+            console.log("Save changes init", savedOrderDetails);
+            if (savedOrderDetails) {
+                let orderDetails = JSON.parse(savedOrderDetails);
+                let itemIdx = orderDetails.findIndex(detail => {
+                    console.log("detail product id", detail.productId);
+                    return detail.productId == productId;
+                });
+                if (itemIdx > -1) {
+                    orderDetails[itemIdx].ingredientList = ingredients;
+                    console.log("Save changes saved", orderDetails);
+                    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
+                }
+                
+                
+                console.log("product id", productId);
+            }
+            //window.location.href = "/customer";
+        }
+
     </script>
 </body>
 
