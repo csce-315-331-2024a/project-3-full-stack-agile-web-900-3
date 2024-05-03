@@ -6,14 +6,14 @@ body, html {
   overflow: hidden;
   font-weight: bold;
   color: #333; 
-  background-color: #fff;
+  background-color: #800000;
 }
 
 #google_translate_element {
   display: flex;
   bottom: 0;
   left: 0;
-  color: white;
+  color: #800000;
   box-sizing: border-box;
   float: right;
   margin-right: 50px;
@@ -21,8 +21,8 @@ body, html {
 }
 
 .navbar {
-  background-color: #500000; 
-  color: #ffffff;
+  background-color: white; 
+  color: #800000;
   margin: 0;
   padding: 0;
   min-width: 150px;
@@ -38,8 +38,8 @@ body, html {
   align-items: center;
   justify-content: flex-start;
   padding: 10px 10px 10px 20px;
-  color: white;
-  background-color: #500000;
+  color: #800000;
+  background-color: white;
   font-size: 16px; 
   border: none;
   width: 100%;
@@ -48,7 +48,7 @@ body, html {
   gap: 10px;
 }
 .nav-button:hover {
-  background-color: #730000;
+  background-color: white;
 }
 .menu-area {
   flex-grow: 1;
@@ -82,7 +82,7 @@ body, html {
 }
 .order-tracker {
   width: 20%;
-  background-color: #f8f8f8;
+  background-color: white;
   padding: 20px;
   overflow-y: auto;
   position: fixed;
@@ -93,7 +93,7 @@ body, html {
 }
 .order-button, .confirm-button, .cancel-button {
   padding: 8px 10px;
-  background-color: #500000;
+  background-color: #800000;
   color: white;
   border: none;
   border-radius: 10px;
@@ -106,7 +106,7 @@ body, html {
   margin-bottom: 10px;
 }
 .order-button:hover, .confirm-button:hover, .cancel-button:hover {
-  background-color: #730000; 
+  background-color: white; 
 }
 .menu-item img {
   max-width: 100%; 
@@ -118,22 +118,22 @@ body, html {
   margin-bottom: 10px;
 }
 .menu-icon {
-  fill: white;
+  fill: #800000;
 }
 .order-items li {
   margin-bottom: 10px;
   list-style-type: none;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid white;
 }
 .quantity-controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #500000;
+  background-color: white;
   border-radius: 10px;
   padding: 5px;
-  color: white;
+  color: #800000;
   width: 100px;
 }
 .quantity-controls.hidden {
@@ -147,7 +147,7 @@ body, html {
 .minus-button, .plus-button {
   background: none;
   border: none;
-  color: white;
+  color: #800000;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold; 
@@ -157,11 +157,11 @@ body, html {
   text-align: center;
   border-radius: 50%;
   padding: 0;
-  background-color: #800000;
+  background-color: white;
   transition: background-color 0.3s ease;
 }
 .minus-button:hover, .plus-button:hover {
-  background-color: #a00000;
+  background-color: white;
 }
 .quantity-display {
   font-size: 14px;
@@ -174,7 +174,7 @@ body, html {
 .back-button {
   padding: 10px 15px;
   background-color: #4CAF50; 
-  color: white;
+  color: #800000;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -230,7 +230,7 @@ body, html {
   margin-bottom: 10px;
   list-style-type: none;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #b4b3b3;
 }
 
 .order-item-content {
@@ -253,34 +253,31 @@ body, html {
 .combo-label {
   font-size: 12px;
   font-weight: bold; 
-  color: #500000; 
+  color: #800000; 
   cursor: pointer;
 }
 
 
 .combo-label:hover {
-  color: #730000; 
+  color: white; 
 }
 
 
 .top-nav {
   width: 100%;
-  background-color: #500000;
-  color: white;
-  padding: 10px 20px;
-  text-align: left;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: white; 
+  color: #800000;
+  padding: 10px 20px; 
+  text-align: left; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  z-index: 1000; 
 }
 
 .home-link {
-  color: white;
+  color: #800000;
   text-decoration: none; 
   font-size: 16px; 
   font-weight: bold; 
@@ -288,9 +285,4 @@ body, html {
 
 .home-link:hover {
   text-decoration: underline;
-}
-
-.controls-container {
-  display: flex;
-  align-items: center;
 }
