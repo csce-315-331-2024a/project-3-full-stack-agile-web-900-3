@@ -23,10 +23,10 @@
       <input type="hidden" name="productId" id="ids"/> 
       <input type="hidden" name="noId" id="noIds"/>
       <input type="hidden" name="addId" id="addIds"/>
+      <input type="hidden" name="ticket" id="ticket"/>
       <button id="placeOrder" type="submit">Place Order</button>
     </form>
     
-    <input type="hidden" name="" id="ticket"/>
     <div class="sideButtons">
       <button id="backButton"class="button">Home Page</button>
       <button id="contrastButton">Contrast Toggle</button>
@@ -312,7 +312,7 @@
       var thisSide = orderedItems[i].getAttribute('item-side');
       var thisRemove = orderedItems[i].getAttribute('item-remove');
       var thisAdd = orderedItems[i].getAttribute('item-add');
-      var thisText = orderedItems[i].textContent + '\n';
+      var thisText = orderedItems[i].textContent.split(' - ')[0] + '\n';
       total += price;
       ids.value = ids.value + thisId +"-"+thisSide;
       noIds.value = noIds.value + thisRemove;
