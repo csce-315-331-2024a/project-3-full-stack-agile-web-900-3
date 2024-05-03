@@ -131,12 +131,12 @@
   // Function to switch the theme
   function switchTheme(cssFile) {
     document.getElementById('theme-link').href = cssFile;
-    localStorage.setItem('theme', cssFile); // Store the theme in localStorage
+    localStorage.setItem('themeCustomer', cssFile); // Store the theme in localStorage
   }
 
   // Load the theme from localStorage
   window.onload = function () {
-    const savedTheme = localStorage.getItem('theme') || 'style1.css'; // Default theme
+    const savedTheme = localStorage.getItem('themeCustomer') || '../customer.css'; // Default theme
     document.getElementById('theme-link').href = savedTheme;
     document.getElementById('theme-select').value = savedTheme; // Set the dropdown to reflect the saved theme
   }
