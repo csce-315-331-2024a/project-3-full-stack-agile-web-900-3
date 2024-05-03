@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 /home/alec_odom/csce-331-project3.1/project-3-full-stack-agile-web-900-3/demo/src/test/java/projectone/demo/controller/ProductControllerTest.java
 /home/alec_odom/csce-331-project3.1/project-3-full-stack-agile-web-900-3/demo/src/test/java/projectone/demo/controller/MenuBoardTest.java
 /home/alec_odom/csce-331-project3.1/project-3-full-stack-agile-web-900-3/demo/src/test/java/projectone/demo/controller/MyControllerTest.java
 /home/alec_odom/csce-331-project3.1/project-3-full-stack-agile-web-900-3/demo/src/test/java/projectone/demo/controller/OrdersPageControllerTests.java
+=======
+C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\test\java\projectone\demo\controller\OrdersPageControllerTests.java
+C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\test\java\projectone\demo\controller\MyControllerTest.java
+C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\test\java\projectone\demo\controller\MenuBoardTest.java
+C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\test\java\projectone\demo\controller\SeleniumTest.java
+C:\Users\cobyk\Documents\ComputerScience\CSCE331\Project3\project-3-full-stack-agile-web-900-3\demo\src\test\java\projectone\demo\controller\ProductControllerTest.java
+>>>>>>> e3b2f8dcb850b500aaa506e2dc2a38154497d4f7
