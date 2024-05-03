@@ -85,22 +85,22 @@
   var addIds = document.getElementById('addIds');
   var cssThing = "cashierPage.css";
   
-  document.addEventListener("DOMContentLoaded", function() {
-    const contrastButton = document.getElementById("contrastButton");
+  
+  const contrastButton = document.getElementById("contrastButton");
 
-    function toggleContrast() {
-      const linkElement = document.getElementById("cssLink");
-      if (linkElement.href.includes("cashierPage.css")) {
-        linkElement.href = "cashierPage2.css";
-        cssThing = "cashierPage2.css";
-      } else {
-        linkElement.href = "cashierPage.css";
-        cssThing = "cashierPage.css";
-      }
+  function toggleContrast() {
+    const linkElement = document.getElementById("cssLink");
+    if (linkElement.href.includes("cashierPage.css")) {
+      linkElement.href = "cashierPage2.css";
+      cssThing = "cashierPage2.css";
+    } else {
+      linkElement.href = "cashierPage.css";
+      cssThing = "cashierPage.css";
     }
+  }
 
-    contrastButton.addEventListener("click", toggleContrast);
-  });
+  contrastButton.addEventListener("click", toggleContrast);
+
 
   
   
@@ -316,8 +316,10 @@
       total += price;
       ids.value = ids.value + thisId +"-"+thisSide;
       noIds.value = noIds.value + thisRemove;
-      ticket.value = ticket.value + thisText;
       addIds.value = addIds.value + thisAdd;
+      if(thisAdd != "" || thisRemove != ""){
+        ticket.value = ticket.value + thisText;
+      }
     }
     ids.value = ids.value;
     total=total*1.08;
