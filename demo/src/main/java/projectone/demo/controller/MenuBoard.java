@@ -226,25 +226,19 @@ public class MenuBoard {
 
         return "redirect:/menuBoard";
     }
-     /**
-     * Capitalizes each word in a string.
-     *
-     * @param input the string to capitalize
-     * @return the capitalized string
-     */
-    // Function to capitialize the words in the Weather API
     public static String capitalizeEachWord(String input) {
-        char[] chars = input.toLowerCase().toCharArray();
-        boolean found = false;
-        for (int i = 0; i < chars.length; i++) {
-            if (!found && Character.isLetter(chars[i])) {
-                chars[i] = Character.toUpperCase(chars[i]);
-                found = true;
-            } else if (Character.isWhitespace(chars[i]) || chars[i]=='.' || chars[i]=='\'' || chars[i]=='-') { // Reset for next word
-                found = false;
+        if (input == null) return null;  // Handle null input gracefully.
+    
+        StringBuilder result = new StringBuilder(input.length());
+        String[] words = input.trim().split("\\s+"); // Split input into words, removing extra spaces.
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                result.append(Character.toUpperCase(word.charAt(0))); // Capitalize the first letter.
+                result.append(word.substring(1).toLowerCase()); // Convert the rest of the word to lowercase.
+                result.append(" "); // Append a space after each word.
             }
         }
-        return String.valueOf(chars);
+        return result.toString().trim(); // Return the trimmed result to remove the last space.
     }
 
 
