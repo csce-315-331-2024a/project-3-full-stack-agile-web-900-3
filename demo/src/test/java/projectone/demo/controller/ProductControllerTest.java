@@ -18,7 +18,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import projectone.demo.model.Products;
 import projectone.demo.repository.CustomerRepository;
 import projectone.demo.repository.OrderProductsRepo;
+import projectone.demo.repository.OrderTicketRepository;
 import projectone.demo.repository.OrdersRepository;
+import projectone.demo.repository.ProductInventoryRepository;
+import projectone.demo.repository.InventoryRepository;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -39,6 +42,14 @@ public class ProductControllerTest {
 
     @MockBean
     private OrdersRepository ordersRepository;
+
+    @MockBean
+    private InventoryRepository inventoryRepository;
+
+    @MockBean
+    private OrderTicketRepository orderTicketRepository;
+
+    @MockBean ProductInventoryRepository prodInvRepository;
 
     private List<Products> products;
 
