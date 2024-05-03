@@ -316,12 +316,11 @@ function updateTotal() {
   const stateTaxRate = 1.08; // 8% state tax
   orderTotal *= stateTaxRate;
 
-  // const totalPriceElement = document.getElementById('total-price');
-  // totalPriceElement.value = orderTotal.toFixed(2);
+  //const totalPriceElement = document.getElementById('total-price');
+  //totalPriceElement.value = orderTotal.toFixed(2);
   document.getElementById('display-total').textContent = `$${orderTotal.toFixed(2)}`;
   console.log('Updated order total:', orderTotal.toFixed(2));
 }
-
 
 
 function toggleEditSection(show) {

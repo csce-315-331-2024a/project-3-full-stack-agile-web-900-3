@@ -47,22 +47,24 @@
       const orderDetails = JSON.parse(savedOrderDetails);
       console.log('Loaded order details (parsed):', orderDetails); // Debugging log
       var productIds = [];
-      var totalPrice = 0;
+      var totalPrice1 = 0;
 
       orderDetails.forEach(detail => {
+        console.log(detail.price);
         productIds.push(detail.productId);
-        totalPrice += detail.price;
+        totalPrice1 += parseFloat(detail.price);
       });
 
       const stateTaxRate = 1.08; // 8% state tax
-      totalPrice *= stateTaxRate;
+      totalPrice1 *= stateTaxRate;
 
       const productList = productIds.join("-");
 
       const formProducts = document.getElementById("productId");
       const formPrice = document.getElementById("price");
       formProducts.value = productList;
-      formPrice.value = totalPrice;
+      formPrice.value = totalPrice1;
+      console.log(totalPrice1);
 
     } else {
       console.log('No order details found in localStorage.');
