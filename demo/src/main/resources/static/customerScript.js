@@ -10,17 +10,17 @@ function loadMenuItems(category) {
       data.forEach(item => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'menu-item';
-        
+
         const img = document.createElement('img');
         img.src = `/images/${category}/${item.productname}.png`;
-        img.alt = item.productname; 
+        img.alt = item.productname;
 
         const detailsDiv = document.createElement('div');
         detailsDiv.className = 'menu-item-details';
-        
+
         const itemName = document.createElement('h3');
         itemName.textContent = item.productname;
-        
+
         const itemPrice = document.createElement('p');
         itemPrice.className = 'menu-item-price';
         itemPrice.textContent = `$${item.price.toFixed(2)}`;
@@ -58,8 +58,8 @@ function loadMenuItems(category) {
         const orderButton = document.createElement('button');
         orderButton.className = 'order-button';
         orderButton.textContent = 'Add to Order';
-        orderButton.onclick = function() { 
-          addToOrder(item.product_id, item.price, item.productname, item.quantity, category); 
+        orderButton.onclick = function () {
+          addToOrder(item.product_id, item.price, item.productname, item.quantity, category, []);
         };
 
 
@@ -67,7 +67,7 @@ function loadMenuItems(category) {
         detailsDiv.appendChild(itemName);
         detailsDiv.appendChild(itemPrice);
         detailsDiv.appendChild(orderButton);
-        
+
         // Append image and detailsDiv to itemDiv
         itemDiv.appendChild(img);
         itemDiv.appendChild(detailsDiv);
@@ -82,29 +82,29 @@ function loadMenuItems(category) {
 let orderTotal = 0;
 let uniqueId = 0;  // Global counter for unique items in the order summary
 
-function addToOrder(productId, price, productName, quantity = 1, category) {
+function addToOrder(productId, price, productName, quantity = 1, category, ingredients) {
   const orderSummary = document.getElementById('order-summary');
   const comboCheckbox = document.getElementById(`combo-${productId}`);
-  let isCombo = comboCheckbox && comboCheckbox.checked;
-  let comboPrice = isCombo ? ((category === 'burger' || category === 'sandwich') ? 1.90 : 1.10) : 0;
-  let totalItemPrice = price + comboPrice;  // Adjusted price including combo
+  const isCombo = comboCheckbox && comboCheckbox.checked;
+  const comboPrice = isCombo ? ((category === 'burger' || category === 'sandwich') ? 1.90 : 1.10) : 0;
+  const totalItemPrice = parseFloat(price) + comboPrice;  // Adjusted price including combo
 
   // Modify the product name if it is a combo
   let displayName = isCombo ? `${productName} Combo` : productName;
 
   // Find an existing list item that matches the product ID and combo state
   let listItem = Array.from(orderSummary.children).find(
-    item => item.getAttribute('data-product-id') === productId && 
-            item.getAttribute('data-combo') === String(isCombo)
+    item => item.getAttribute('data-product-id') === productId &&
+      item.getAttribute('data-combo') === String(isCombo)
   );
 
-  console.log("Adding to order", { productId, price, productName, quantity, category });
+  console.log("Adding to order", { productId, totalItemPrice, productName, quantity, category, ingredients });
 
   // Inside addToOrder, log to check if elements are being found and added correctly
   if (!listItem) {
-      console.log("Creating new list item for", productName);
+    console.log("Creating new list item for", productName);
   } else {
-      console.log("Item already exists, updating quantity for", productName);
+    console.log("Item already exists, updating quantity for", productName);
   }
 
   if (!listItem) {
@@ -116,6 +116,7 @@ function addToOrder(productId, price, productName, quantity = 1, category) {
     listItem.setAttribute('data-category', category);
     listItem.setAttribute('data-is-combo', isCombo); // This will be either 'true' or 'false'
     listItem.setAttribute('data-unique-id', uniqueId.toString());
+    listItem.setAttribute('data-ingredients', ingredients.join(","));
     listItem.className = 'order-item';
 
     const contentDiv = document.createElement('div');
@@ -125,7 +126,12 @@ function addToOrder(productId, price, productName, quantity = 1, category) {
     itemDetails.className = 'item-details';
 
     const title = document.createElement('span');
-    title.textContent = `${displayName} - $${totalItemPrice.toFixed(2)}`;
+    title.textContent = `${displayName} `;
+    ingredients.forEach(item => {
+      title.textContent += `No ${item} `;
+    });
+    title.textContent += ` - $${totalItemPrice.toFixed(2)}`;
+    
     title.className = 'order-item-title';
 
     const quantityControls = document.createElement('div');
@@ -143,8 +149,8 @@ function addToOrder(productId, price, productName, quantity = 1, category) {
     const minusButton = document.createElement('button');
     minusButton.className = "minus-button";
     minusButton.textContent = '-';
-    minusButton.addEventListener('click', (function(uniqueIdCopy) {
-      return function() {
+    minusButton.addEventListener('click', (function (uniqueIdCopy) {
+      return function () {
         adjustQuantity(uniqueIdCopy, -1);
       };
     })(uniqueId));
@@ -153,8 +159,8 @@ function addToOrder(productId, price, productName, quantity = 1, category) {
     const plusButton = document.createElement('button');
     plusButton.className = 'plus-button';
     plusButton.textContent = '+';
-    plusButton.addEventListener('click', (function(uniqueIdCopy) {
-      return function() {
+    plusButton.addEventListener('click', (function (uniqueIdCopy) {
+      return function () {
         adjustQuantity(uniqueIdCopy, 1);
       };
     })(uniqueId));
@@ -191,20 +197,19 @@ function saveOrderDetails() {
     const uniqueId = item.getAttribute('data-unique-id');
     const productId = item.getAttribute('data-product-id');
 
-    // Extract the price and product name from the order-item-title span
-    const itemTitle = item.querySelector('.order-item-title').textContent;
-    const titleMatch = itemTitle.match(/^(.*) - \$([\d\.]+)$/); // Assuming the format is always "Name - $Price"
-    const productName = titleMatch ? titleMatch[1] : 'Unknown Product';
-    const price = titleMatch ? parseFloat(titleMatch[2]) : 0;
+    const category = item.getAttribute("data-category");
+    const productName = item.getAttribute("data-product-name");
+    const itemIngredients = item.getAttribute("data-ingredients");
+    const price = item.getAttribute("data-price");
+    const ingredientList = itemIngredients.textContent ? itemIngredients.textContent.split(",") : [];
 
-    // Extract the quantity from the quantity-display span
     const quantityText = item.querySelector('.quantity-display').textContent;
     const quantity = quantityText ? parseInt(quantityText) : 0;
 
     // Use the stored attribute instead of checking the checkbox state
     const isCombo = item.getAttribute('data-is-combo') === 'true';
 
-    orderDetails.push({ uniqueId, productId, price, productName, quantity, isCombo });
+    orderDetails.push({ uniqueId, productId, price, productName, quantity, isCombo, ingredientList, category });
   });
 
   localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
@@ -217,10 +222,10 @@ function loadOrderDetails() {
   if (savedOrderDetails) {
     const orderDetails = JSON.parse(savedOrderDetails);
     console.log('Loaded order details (parsed):', orderDetails); // Debugging log
-  
+
     orderDetails.forEach(detail => {
       // Make sure the keys match what you expect. If they don't, it will be undefined.
-      addToOrder(detail.productId, detail.price, detail.productName, detail.quantity);
+      addToOrder(detail.productId, detail.price, detail.productName, detail.quantity, detail.category, detail.ingredientList);
     });
 
     updateTotal();
@@ -300,70 +305,6 @@ function updateTotal() {
 }
 
 
-function customerEditItem(productId) {
-  fetch(`/api/products/${productId}/ingredients`)
-    .then(response => response.json())
-    .then(ingredients => {
-      const editSection = document.getElementById('edit-section');
-      const ingredientList = document.getElementById('ingredient-list');
-      ingredientList.innerHTML = '';
-
-      ingredients.forEach(ingredient => {
-        const ingredientItem = document.createElement('li');
-        ingredientItem.textContent = ingredient;
-        ingredientList.appendChild(ingredientItem);
-      });
-
-      editSection.style.display = 'block';
-    })
-    .catch(error => {
-      console.error('Error fetching ingredients:', error);
-      editSection.style.display = 'none';
-    });
-}
-
-
-
-document.getElementById('cancel-order').addEventListener('click', function () {
-  document.getElementById('order-summary').innerHTML = '';
-  saveOrderDetails();
-  updateTotal();
-  localStorage.clear();
-});
-
-document.getElementById('confirm-order').addEventListener('click', function () {
-  if (orderTotal > 0 && confirm('Do you want to proceed to checkout?')) {
-    localStorage.setItem('returningUser', 'true');
-    saveOrderDetails();
-    window.location.href = '/customer/checkout';
-  } else {
-    alert('Please add items to your order.');
-  }
-});
-
-
-// Call this function when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-  console.log("DOM fully loaded and parsed");
-  const isReturningUser = localStorage.getItem('returningUser');
-  
-  console.log("Is Returning User:", isReturningUser);
-  
-  if (isReturningUser) {
-    console.log("Loading Order Details from Local Storage");
-    loadOrderDetails();
-    loadMenuItems('burger');
-  } else {
-    console.log("Clearing Local Storage");
-    localStorage.clear();
-    loadMenuItems('burger');
-  }
-  
-  console.log("Removing 'returningUser' from Local Storage");
-  localStorage.removeItem('returningUser');
-});
-
-
 
 function toggleEditSection(show) {
   document.getElementById('edit-section').style.display = show ? 'block' : 'none';
@@ -371,13 +312,13 @@ function toggleEditSection(show) {
   document.getElementById('order-tracker').style.display = show ? 'none' : 'block'; // Assuming this is your order summary
 }
 
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
   let targetElement = event.target; // Clicked element
   while (targetElement != null) {
     if (targetElement.classList.contains('edit-icon-button')) {
       // Set the flag that the user is navigating to the edit item screen
       localStorage.setItem('returningUser', 'true');
-    
+
       // Save the current order to local storage
       saveOrderDetails();
 
@@ -391,20 +332,18 @@ document.addEventListener('click', function(event) {
 
 
 function getLocationAndPost() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var lat = position.coords.latitude;
-            var lng = position.coords.longitude;
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
 
-            console.log("coords", lat, lng);
-            var xhr = new XMLHttpRequest();
-            var url = "/customer/location";
-            var data = JSON.stringify({ latitude: lat, longitude: lng });
-            xhr.open("POST", url, true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.send(data);
-        });
-    }
+      console.log("coords", lat, lng);
+      var xhr = new XMLHttpRequest();
+      var url = "/customer/location";
+      var data = JSON.stringify({ latitude: lat, longitude: lng });
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.send(data);
+    });
+  }
 }
-
-getLocationAndPost();
