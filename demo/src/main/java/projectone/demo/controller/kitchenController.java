@@ -27,6 +27,7 @@ import projectone.demo.repository.ProductsRepository;
     private OrdersRepository repository;
     private OrderProductsRepo orderprodRepository;
     private ProductsRepository productRepo;
+    private 
 
         /**
      * Constructs a KitchenController with necessary repositories.
