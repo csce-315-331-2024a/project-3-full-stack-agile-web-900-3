@@ -163,7 +163,7 @@ public class SecurityConfig{
                 .clientSecret("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")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .redirectUri("http://localhost:8080/login/oauth2/code/google")
+                .redirectUri("https://hostingproject3-sflj3.kinsta.app/login/oauth2/code/google")
                 .scope("profile", "email")
                 .authorizationUri("https://accounts.google.com/o/oauth2/v2/auth")
                 .tokenUri("https://www.googleapis.com/oauth2/v4/token")
