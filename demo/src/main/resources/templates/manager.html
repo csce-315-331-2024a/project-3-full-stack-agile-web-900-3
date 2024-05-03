@@ -7,24 +7,25 @@
   <link id="theme-link" rel="stylesheet" type="text/css" href = ../manager.css>
   <script src="https://unpkg.com/htmx.org@1.8.1/dist/htmx.min.js"></script>
 </head>
-<body id = "updateArea">
-  <span><h2>Products</h2></span><h2><span id = translate>
-    <script type="text/javascript">
-      function googleTranslateElementInit() {
-          new google.translate.TranslateElement(
-              {pageLanguage: 'en'},
-              'google_translate_element'
-          );
-      } 
-      </script>
-      <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    
-        <span id="google_translate_element"></span>
-        <span><select id="theme-select" onchange="switchTheme(this.value)">
-          <option value="../manager.css">Default</option>
-          <option value="../managerAlt.css">HighContrast</option>
-      </select></span>
-  </span></h2>
+<span><h2>Products</h2></span><h2><span id = translate>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {pageLanguage: 'en'},
+            'google_translate_element'
+        );
+    } 
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  
+      <span id="google_translate_element"></span>
+      <span><select id="theme-select" onchange="switchTheme(this.value)">
+        <option value="../manager.css">Default</option>
+        <option value="../managerAlt.css">HighContrast</option>
+    </select></span>
+</span></h2>
+<body th:fragment = body id = "updateArea">
+  
   <span id = translate>
     <script type="text/javascript">
       function googleTranslateElementInit() {
@@ -119,13 +120,15 @@
         <div class = "bottom content">
           
             <span  class = highContrast >Ingredients:</span>
-              <span th:each="junction : ${junction}">
+            <span th:fragment = invItem class = invItem>
+              <span  th:each="junction : ${junction}">
                   <span th:if="${junction.productId} == ${item.product_id}">
                       <span th:each="inv: ${inventory}" th:if="${junction.inventoryId} == ${inv.id}" class="ingredient-name">
                           <span th:text="${inv.name}"></span>
                       </span>
                     </span>
                 </span>
+              </span>
               <span class = modify>
               <form hx-post = "manager/addInv" hx-swap ="outerHTML" hx-target = "#updateArea" >
                 <input  th:value ="${item.product_id}" name = "id" style="display: none;">
@@ -135,7 +138,7 @@
                 </option>
               </select>
       
-              <button class = highContrast  hx-get = "/manager" hx-target="body" hx-swap="outerHTML" type = "submit">Add</button>
+              <button class = highContrast   type = "submit">Add</button>
               
             </form>
             <form  hx-post = "manager/removeInv" hx-swap = "outerHTML" hx-target="#updateArea">
