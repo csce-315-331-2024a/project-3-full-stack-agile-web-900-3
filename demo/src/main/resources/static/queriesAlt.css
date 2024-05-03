@@ -1,0 +1,174 @@
+input[type="datetime-local"], 
+input[type="date"] {
+    font-size: 20px; /* Larger text size */
+    height: 50px; /* Larger input field for easier interaction */
+    width: 100%; /* Full width */
+    padding: 8px 10px; /* Padding inside the input */
+}
+
+/* Increasing the size of the calendar popup */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: relative;
+    width: 50px; /* Larger, easier to click */
+    height: 50px; /* Match the height of the input */
+    cursor: pointer;
+}
+
+/* Optional: Custom styles for webkit browsers */
+/* This includes styles for the dropdown, the calendar's internal structure might not be stylable via CSS */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+    display: none;
+}
+
+input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+    padding: 0; /* Remove padding around fields */
+}
+
+input[type="date"]::-webkit-datetime-edit-text,
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+    font-size: 20px; /* Larger font size within the calendar */
+    color: black; /* Ensuring high contrast text */
+}
+
+body {
+  font-family: Arial, sans-serif; /* Sets a clean, readable font */
+  margin: 20px; /* Adds margin around the entire content for better spacing */
+  background: maroon; /* Sets a maroon background for high contrast with white text */
+  color: #ffffff; /* Sets text color to white for high contrast */
+}
+
+button {
+  background: white; /* White background to contrast with text */
+  color: black; /* Black text for clear readability */
+  padding: 15px 30px; /* Larger padding for easier clicking */
+  border: 2px solid #000; /* Thicker black border for visibility */
+  border-radius: 5px; /* Maintains rounded corners */
+  cursor: pointer; /* Indicates clickable */
+  font-size: 20px; /* Larger font size for better readability */
+}
+
+button:hover {
+  background: #e6e6e6; /* Light grey background on hover for a subtle effect */
+  border-color: #444; /* Darker border on hover for better visibility */
+}
+
+form {
+  background: white; /* Maintains a white background for contrast */
+  padding: 25px; /* Increases padding for better separation */
+  border-radius: 8px; /* Keeps rounded corners */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Enhances shadow for depth */
+  margin-bottom: 30px; /* Increases bottom margin */
+  color: black; /* Ensures text is black for readability */
+  border: 3px solid black; /* Adds a black border for better definition */
+  font-size: 20px;
+}
+
+.table {
+  background: white; /* White background for contrast */
+  border-collapse: collapse; /* Ensures borders are merged */
+  width: 100%;
+}
+
+.table th, .table td {
+  border: 2px solid black; /* Thicker black borders for clarity */
+  padding: 10px; /* Larger padding for better separation */
+  font-size: 20px; /* Increases font size */
+}
+
+.table th {
+  background-color: #f2f2f2; /* Light grey for contrast */
+  text-align: left;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #f5f5f5; /* Light grey on hover for interaction indication */
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .form, .table {
+    width: 100%;
+  }
+}
+
+.chart-container {
+  background-color: #fff; /* White background for clarity */
+  padding: 20px; /* Increased padding */
+  border-radius: 8px; /* Rounded corners */
+  margin-bottom: 20px; /* Increased bottom margin */
+  border: 2px solid black; /* Black border for definition */
+}
+
+.img-fluid {
+  width: 100%; /* Full width for responsiveness */
+  height: auto;
+}
+
+#navBar {
+  display: flex;
+  justify-content: space-around; /* Equal spacing */
+  align-items: center;
+  margin-top: 40px;
+  padding: 10px;
+  position: relative;
+}
+
+.nav-btn:hover,
+.nav-btn:focus {
+  transform: scale(1.05); /* Slight scale on hover/focus for feedback */
+  background-color: darkgray; /* Dark grey for visibility on interaction */
+}
+
+.nav-btn {
+  flex-grow: 1;
+  text-align: center;
+  margin: 5px;
+  font-size: 20px; /* Larger font size for readability */
+  font-weight: bold;
+  padding: 15px 25px; /* Increased padding for better accessibility */
+  border: none;
+  border-radius: 5px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  color: black;
+}
+
+#translate {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  z-index: 1000;
+}
+
+.btn {
+  font-size: 20px; /* Larger font size for better readability */
+  font-weight: bold; /* Bold font weight for better visibility */
+  padding: 15px 30px; /* Larger padding for a bigger button */
+  margin: 5px; /* Space between buttons */
+  border-radius: 8px; /* Soften the corners with a moderate border radius */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions for hover effects */
+}
+
+.btn:hover, .btn:focus {
+  transform: scale(1.1); /* Slightly enlarge the button when hovered/focused */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better hover effect */
+}
+
+/* Specific styles for different button types for color differentiation */
+.btn-primary { background-color: #007bff; }
+.btn-secondary { background-color: #6c757d; }
+.btn-danger { background-color: #dc3545; }
+.btn-info { background-color: #17a2b8; }
+.btn-warning { background-color: #ffc107; }
+
+/* Ensure text on buttons is clear and contrasts well */
+.btn-primary, .btn-info, .btn-warning { color: black; } /* Dark text on lighter backgrounds */
+.btn-secondary, .btn-danger { color: white; } 
