@@ -17,6 +17,15 @@ body, h1, p, button {
     background-color: black;
   }
   
+  #spinner {
+    width: 100px;        /* Adjust the size of the spinner */
+    height: 100px;       /* Adjust the size of the spinner */
+    border: 16px solid #f3f3f3; /* Light grey background */
+    border-top: 16px solid white; /* White foreground */
+    border-radius: 50%;
+    position: absolute;
+  }
+
   #placeOrder{
     font-size: 20px;
   }

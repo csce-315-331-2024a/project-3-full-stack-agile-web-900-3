@@ -18,7 +18,7 @@
     <h1>Current Order</h1>
     <div id="outputContainer"></div>
     <p id="orderTotal">Order Total: $0.00</p>
-    <form hx-post="/cashierPage/add" hx-target="#all" hx-swap="outerHTML">
+    <form hx-post="/cashierPage/add" hx-target="#all" hx-swap="outerHTML" hx-indicator="#spinner">
       <input type="hidden" name="price"  id="total-price"/>
       <input type="hidden" name="productId" id="ids"/> 
       <input type="hidden" name="noId" id="noIds"/>
@@ -26,6 +26,7 @@
       <input type="hidden" name="ticket" id="ticket"/>
       <button id="placeOrder" type="submit">Place Order</button>
     </form>
+    <img src = /images/spinners/90-ring.svg alt = "" id="spinner" class="htmx-indicator">
     
     <div class="sideButtons">
       <button id="backButton"class="button">Home Page</button>
