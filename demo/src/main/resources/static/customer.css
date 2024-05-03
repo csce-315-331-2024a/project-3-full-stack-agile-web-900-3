@@ -7,6 +7,7 @@ body, html {
   font-weight: bold;
   color: #333; 
   background-color: #fff;
+  overflow-y: scroll;
 }
 
 #google_translate_element {
@@ -56,7 +57,7 @@ body, html {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  overflow-x: hidden;
+  overflow-y: scroll;
   margin-right: 20%;
   height: 100%;
   padding-top: 50px;

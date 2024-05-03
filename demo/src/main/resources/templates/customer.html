@@ -151,7 +151,7 @@
   });
 
   // Call this function when the page loads
-  document.addEventListener('DOMContentLoaded', () => {
+  //document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM fully loaded and parsed");
     const isReturningUser = localStorage.getItem('returningUser');
 
@@ -169,7 +169,7 @@
 
     console.log("Removing 'returningUser' from Local Storage");
     localStorage.removeItem('returningUser');
-  });
+  //});
 
 
   getLocationAndPost();
