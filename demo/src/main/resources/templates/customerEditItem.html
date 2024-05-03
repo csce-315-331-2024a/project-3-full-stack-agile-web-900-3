@@ -20,34 +20,8 @@
 
     <script src="/customerScript.js"></script>
     <script>
-        function getProductIdFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('product_id');
-        }
-        let productId = 0;
-        document.addEventListener('DOMContentLoaded', function () {
 
-            productId = getProductIdFromUrl();
-            if (productId) {
-                customerEditItem();
-            } else {
-                console.error('Product ID not found.');
-
-            }
-
-        });
-
-        function goBack() {
-            try {
-                window.location.href = '/customer';
-            } catch (error) {
-                console.error('Navigation error:', error);
-                alert('Failed to navigate back. Check console for errors.');
-            }
-        }
-
-
-        function customerEditItem() {
+function customerEditItem() {
             const savedOrderDetails = localStorage.getItem('orderDetails');
             fetch(`/api/products/${productId}/ingredients`)
                 .then(response => response.json())
@@ -102,6 +76,34 @@
                     editSection.style.display = 'none';
                 });
         }
+
+        
+        function getProductIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('product_id');
+        }
+        let productId = 0;
+        document.addEventListener('DOMContentLoaded', function () {
+
+            productId = getProductIdFromUrl();
+            if (productId) {
+                customerEditItem();
+            } else {
+                console.error('Product ID not found.');
+
+            }
+
+        });
+
+        function goBack() {
+            try {
+                window.location.href = '/customer';
+            } catch (error) {
+                console.error('Navigation error:', error);
+                alert('Failed to navigate back. Check console for errors.');
+            }
+        }
+
 
 
         function saveChanges() {
