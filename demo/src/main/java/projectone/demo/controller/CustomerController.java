@@ -76,6 +76,8 @@ public class CustomerController {
 
         LocalDateTime time = LocalDateTime.now();
         String status = "processing";
+        System.out.println(price);
+        System.out.println(price);
         BigDecimal newPrice = new BigDecimal(price);
         Orders newOrder = new Orders(newId, newPrice, time, status);
         this.orderRepository.save(newOrder);

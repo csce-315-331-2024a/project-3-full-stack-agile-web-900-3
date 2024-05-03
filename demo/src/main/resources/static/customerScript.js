@@ -7,6 +7,7 @@ function loadMenuItems(category) {
     .then(data => {
       const menuItems = document.getElementById('menu-items');
       menuItems.innerHTML = '';
+      console.log("something")
       data.forEach(item => {
         const itemDiv = document.createElement('div');
         itemDiv.className = 'menu-item';
@@ -76,8 +77,21 @@ function loadMenuItems(category) {
         itemDiv.appendChild(img);
         itemDiv.appendChild(detailsDiv);
 
-        // Append itemDiv to menuItems container
         menuItems.appendChild(itemDiv);
+        const ingredentList = document.createElement("ul");
+        itemDiv.appendChild(ingredentList);
+        
+        fetch(`/api/products/${item.product_id}/ingredients`)
+          .then(response => response.json())
+          .then(ingredients => {
+            ingredients.forEach(i => {
+              const item = document.createElement("li");
+              item.textContent = i;
+              ingredentList.appendChild(item);
+            })
+            console.log("ingredients" ,ingredients);
+          });
+          
       });
     })
     .catch(error => console.error('Error loading items:', error));
@@ -135,7 +149,7 @@ function addToOrder(productId, price, productName, quantity = 1, category, ingre
       title.textContent += `No ${item} `;
     });
     title.textContent += ` - $${totalItemPrice.toFixed(2)}`;
-    
+
     title.className = 'order-item-title';
 
     const quantityControls = document.createElement('div');
@@ -302,12 +316,11 @@ function updateTotal() {
   const stateTaxRate = 1.08; // 8% state tax
   orderTotal *= stateTaxRate;
 
-  // const totalPriceElement = document.getElementById('total-price');
-  // totalPriceElement.value = orderTotal.toFixed(2);
+  //const totalPriceElement = document.getElementById('total-price');
+  //totalPriceElement.value = orderTotal.toFixed(2);
   document.getElementById('display-total').textContent = `$${orderTotal.toFixed(2)}`;
   console.log('Updated order total:', orderTotal.toFixed(2));
 }
-
 
 
 function toggleEditSection(show) {
