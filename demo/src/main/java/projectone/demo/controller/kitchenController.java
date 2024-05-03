@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import projectone.demo.model.Inventory;
 import projectone.demo.model.OrderProducts;
 import projectone.demo.model.Orders;
+import projectone.demo.repository.InventoryRepository;
 import projectone.demo.repository.OrderProductsRepo;
+import projectone.demo.repository.OrderTicketRepository;
 import projectone.demo.repository.OrdersRepository;
+import projectone.demo.repository.ProductInventoryRepository;
 import projectone.demo.repository.ProductsRepository;
 
 
@@ -27,7 +30,9 @@ import projectone.demo.repository.ProductsRepository;
     private OrdersRepository repository;
     private OrderProductsRepo orderprodRepository;
     private ProductsRepository productRepo;
-    private 
+    private OrderTicketRepository orderAddonsRepo;
+    private InventoryRepository invRepository;
+    private ProductInventoryRepository prodInvrepo;
 
         /**
      * Constructs a KitchenController with necessary repositories.
@@ -36,11 +41,15 @@ import projectone.demo.repository.ProductsRepository;
      * @param orderprodRepository  Repository for order products.
      * @param productRepo       Repository for products.
      */
-    kitchenController(OrdersRepository repository,OrderProductsRepo orderprodRepository,ProductsRepository productRepo)
+    kitchenController(OrdersRepository repository,OrderProductsRepo orderprodRepository,ProductsRepository productRepo,OrderTicketRepository orderAddonsRepo,InventoryRepository invRepository,ProductInventoryRepository prodInvrepo)
         {
             this.productRepo = productRepo;
             this.repository = repository;
             this.orderprodRepository = orderprodRepository;
+            this.orderAddonsRepo = orderAddonsRepo;
+            this.invRepository = invRepository;
+            this.prodInvrepo = prodInvrepo;
+
            
         }
          /**
@@ -52,7 +61,7 @@ import projectone.demo.repository.ProductsRepository;
      * @return          The kitchen view name.
      */
     @GetMapping
-    String Orders(Model model,Model junction, Model product)
+    String Orders(Model model,Model junction, Model product,Model addons, Model inventory)
     {   
 
         try{
@@ -63,6 +72,9 @@ import projectone.demo.repository.ProductsRepository;
         junction.addAttribute("junction", this.orderprodRepository.findOrderProductsByOrderIdBetween(firstOrder.getOrder_id(),lastOrder.getOrder_id()));
         model.addAttribute("orders",listOfOrders );
         product.addAttribute("products", this.productRepo.findAll());
+        addons.addAttribute("addons", this.orderAddonsRepo.findAll());
+        inventory.addAttribute("inventory", this.invRepository.findAll());
+        
         return "kitchen";
     }
     catch(Exception e)
@@ -79,12 +91,30 @@ import projectone.demo.repository.ProductsRepository;
      * @return          Redirects back to the kitchen dashboard.
      */
     @PostMapping
-    String update(@RequestParam("id")String id,@RequestParam("update")String update,Model model)
+    String update(@RequestParam("id")String id,@RequestParam("update")String update,Model model, Model addons)
     {
+        this.orderAddonsRepo.deleteById(Long.parseLong(id));
         Orders newOrder = this.repository.getById(Long.parseLong(id));
         newOrder.setStatus(update);
+        System.out.println(update);
+        if(update.equals("canceled"))
+        {
+            System.out.println("here");
+            List restockProd = orderprodRepository.findProductIdsByOrderId(Long.parseLong(id));
+            for(int i= 0 ;i<restockProd.size() ; i ++)
+            {
+                
+                List restockInv = prodInvrepo.getInventoryIdsForProduct(Long.parseLong(restockProd.get(i).toString()));
+                for(int j = 0; j<restockInv.size(); j++)
+                {
+                    Inventory updateInv = this.invRepository.getById(Long.parseLong(restockInv.get(i).toString()));
+                    updateInv.setQuantity(updateInv.getQuantity()+1);
+                }
+            }
+        }
         this.repository.save(newOrder);
         model.addAttribute("pending",this.repository.findOrdersWithStatusProcessing());
+        addons.addAttribute("addons", this.orderAddonsRepo.findAll());
         System.out.println("updated order "+id);
         return "redirect:/kitchen";
     }

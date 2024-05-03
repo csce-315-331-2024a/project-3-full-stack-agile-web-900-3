@@ -40,8 +40,13 @@
               <span th:each = "junc : ${junction}" th:if = "${order.order_id} == ${junc.order_id}" >
                 
                   <span class = "products-name"   th:each ="product:${products}" th:if="${product.product_id == junc.product_id}" th:text = "${product.productname}"></span>
-                
+                  
               </span>
+              <div>Modifications:
+              <span th:each ="addon : ${addons}" th:if = "${addon.order_id } == ${order.order_id}">
+                  <span th:text = "${addon.ticket}"></span>
+              </span>
+            </div>
            </div>
       </div>
       </div>
