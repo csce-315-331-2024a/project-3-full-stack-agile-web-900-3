@@ -127,7 +127,7 @@ function customerEditItem() {
                     return detail.productId == productId;
                 });
                 if (itemIdx > -1) {
-                    orderDetails[itemIdx].ingredientList = ingredients;
+                    orderDetails[itemIdx].ingredients = ingredients;
                     console.log("Save changes saved", orderDetails);
                     localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
                 }

@@ -31,16 +31,18 @@
       <div class="form-group">
         <input type="hidden" id="productId" name="productId">
         <input type="hidden" id="price" name="price">
-        <input type="submit" value="Place Order" class="submit-button">
+        <input type="hidden" id="noId" name="noId">
+        <input type="submit" value="Place Order" id="po" class="submit-button">
       </div>
-      <button class="back-button" onclick="orderPlaced()">Back to Menu</button>
+      <button class="back-button" onclick="orderNotPlaced()">Back to Menu</button>
     </form>
 
   </div>
   <script>
-    function orderPlaced() {
-      localStorage.clear();
-      window.location.href='/customer';
+
+    function orderNotPlaced() {
+
+      window.location.href = '/customer';
     }
     const savedOrderDetails = localStorage.getItem('orderDetails');
     if (savedOrderDetails) {
@@ -48,11 +50,28 @@
       console.log('Loaded order details (parsed):', orderDetails); // Debugging log
       var productIds = [];
       var totalPrice1 = 0;
+      var noIdList = "";
 
       orderDetails.forEach(detail => {
         console.log(detail.price);
         productIds.push(detail.productId);
         totalPrice1 += parseFloat(detail.price);
+        //noIdList += orderDetails.ingredients.join(" - ") + "\n";
+        if (detail.ingredients.length > 0) {
+          if (detail.ingredients[0] == "") {
+            detail.ingredients = [];
+            return;
+          }
+
+          noIdList += detail.productName;
+
+          detail.ingredients.forEach(ing => {
+            noIdList += " No " + ing;
+          })
+          noIdList += "\n";
+        }
+
+
       });
 
       const stateTaxRate = 1.08; // 8% state tax
@@ -62,13 +81,20 @@
 
       const formProducts = document.getElementById("productId");
       const formPrice = document.getElementById("price");
+      const formNoId = document.getElementById("noId");
       formProducts.value = productList;
       formPrice.value = totalPrice1;
-      console.log(totalPrice1);
+      formNoId.value = noIdList;
+
+
 
     } else {
       console.log('No order details found in localStorage.');
     }
+
+    document.getElementById("po").onclick = function () {
+      localStorage.clear();
+    };
   </script>
 </body>
 

@@ -134,7 +134,7 @@ function addToOrder(productId, price, productName, quantity = 1, category, ingre
     listItem.setAttribute('data-category', category);
     listItem.setAttribute('data-is-combo', isCombo); // This will be either 'true' or 'false'
     listItem.setAttribute('data-unique-id', uniqueId.toString());
-    listItem.setAttribute('data-ingredients', ingredients.join(","));
+    if(ingredients) listItem.setAttribute('data-ingredients', ingredients.join(","));
     listItem.className = 'order-item';
 
     const contentDiv = document.createElement('div');
@@ -219,7 +219,7 @@ function saveOrderDetails() {
     const productName = item.getAttribute("data-product-name");
     const itemIngredients = item.getAttribute("data-ingredients");
     const price = item.getAttribute("data-price");
-    const ingredientList = itemIngredients.textContent ? itemIngredients.textContent.split(",") : [];
+    const ingredients = itemIngredients.split(",");
 
     const quantityText = item.querySelector('.quantity-display').textContent;
     const quantity = quantityText ? parseInt(quantityText) : 0;
@@ -227,7 +227,7 @@ function saveOrderDetails() {
     // Use the stored attribute instead of checking the checkbox state
     const isCombo = item.getAttribute('data-is-combo') === 'true';
 
-    orderDetails.push({ uniqueId, productId, price, productName, quantity, isCombo, ingredientList, category });
+    orderDetails.push({ uniqueId, productId, price, productName, quantity, isCombo, ingredients, category });
   });
 
   localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
@@ -238,14 +238,22 @@ function saveOrderDetails() {
 function loadOrderDetails() {
   const savedOrderDetails = localStorage.getItem('orderDetails');
   if (savedOrderDetails) {
-    const orderDetails = JSON.parse(savedOrderDetails);
+    let orderDetails = JSON.parse(savedOrderDetails);
     console.log('Loaded order details (parsed):', orderDetails); // Debugging log
 
     orderDetails.forEach(detail => {
       // Make sure the keys match what you expect. If they don't, it will be undefined.
-      addToOrder(detail.productId, detail.price, detail.productName, detail.quantity, detail.category, detail.ingredientList);
+      if(detail.ingredients){
+        if(detail.ingredients.length > 0)
+          if(detail.ingredients[0] == ""){
+            detail.ingredients = [];
+            
+          }
+      }
+      addToOrder(detail.productId, detail.price, detail.productName, detail.quantity, detail.category, detail.ingredients);
     });
 
+    localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
     updateTotal();
   } else {
     console.log('No order details found in localStorage.');

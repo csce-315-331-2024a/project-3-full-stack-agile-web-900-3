@@ -29,10 +29,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 
+
+import projectone.demo.repository.InventoryRepository;
 import projectone.demo.repository.OrderProductsRepo;
+import projectone.demo.repository.OrderTicketRepository;
+import projectone.demo.repository.OrdersRepository;
+import projectone.demo.repository.ProductInventoryRepository;
 import projectone.demo.repository.ProductsRepository;
+import projectone.demo.repository.OrderTicketRepository;
 import projectone.demo.model.OrderProducts;
 
+import projectone.demo.model.Orders;
+import projectone.demo.model.OrderTicket;
 import java.util.Arrays;
 
 @Controller
@@ -42,12 +50,18 @@ public class CustomerController {
     private CustomerRepository customerRepository;
     private OrdersRepository orderRepository;
     private final OrderProductsRepo orderProductsRepo;
+    private final InventoryRepository inventoryRepository;
+    private final OrderTicketRepository orderTicketRepository;
+    private final ProductInventoryRepository productInventoryRepository;
 
     CustomerController(CustomerRepository customerRepository, OrdersRepository orderRepository,
-            OrderProductsRepo orderProductsRepo) {
+            OrderProductsRepo orderProductsRepo, InventoryRepository inventoryRepository, OrderTicketRepository orderTicketRepository, ProductInventoryRepository productInventoryRepository) {
         this.orderProductsRepo = orderProductsRepo;
         this.customerRepository = customerRepository;
         this.orderRepository = orderRepository;
+        this.inventoryRepository = inventoryRepository;
+        this.orderTicketRepository = orderTicketRepository;
+        this.productInventoryRepository=productInventoryRepository;
     }
 
     @GetMapping
@@ -66,8 +80,8 @@ public class CustomerController {
     }
 
     @PostMapping(value = "/checkout")
-    String add(@RequestParam("price") String price, @RequestParam("productId") String ids, Model orderModel,
-            Model orderProductsModel) {
+    String add(@RequestParam("price") String price, @RequestParam("productId") String ids, @RequestParam("noId") String noIds, Model orderModel,
+            Model orderProductsModel, Model orderTicketModel) {
 
         String[] rawIdList = ids.split("-");
 
@@ -76,20 +90,43 @@ public class CustomerController {
 
         LocalDateTime time = LocalDateTime.now();
         String status = "processing";
-        System.out.println(price);
-        System.out.println(price);
+        System.out.println(noIds);
+
         BigDecimal newPrice = new BigDecimal(price);
         Orders newOrder = new Orders(newId, newPrice, time, status);
         this.orderRepository.save(newOrder);
         orderModel.addAttribute("orders", newOrder);
+
+        if(noIds != ""){
+
+            OrderTicket newTicket = new OrderTicket(newId,noIds);
+            this.orderTicketRepository.save(newTicket);
+            orderTicketModel.addAttribute("order_ticket", orderTicketRepository.getLastOrder());
+        }
 
         for (long productID : idList) {
             Long newID = orderProductsRepo.findMaxId() + 1;
             OrderProducts newJunction = new OrderProducts(newID, newId, productID, 1L);
             this.orderProductsRepo.save(newJunction);
             orderProductsModel.addAttribute("orderProducts", newJunction);
+
+
+            List<Long> inventoryIds = productInventoryRepository.getInventoryIdsForProduct(productID);
+            for (Long inventoryId : inventoryIds){
+                inventoryRepository.updateInventoryQuantity(inventoryId, 1);
+            }
         }
 
+        // if(noIds != ""){
+        //     String[] noIdsArray = noIds.split("-");
+        //     int[] nos = Arrays.stream(noIdsArray).mapToInt(Integer::parseInt).toArray();
+        //     for(int i=0;i<nos.length;i++){
+        //         Long noId = new Long(nos[i]);
+        //         inventoryRepository.updateInventoryQuantity(noId, -1);
+        //     }
+        // }
+        
+        System.out.println(noIds);
         System.out.println("order added");
         return "redirect:/customer"; // TODO: redirect to thank you page.
     }
