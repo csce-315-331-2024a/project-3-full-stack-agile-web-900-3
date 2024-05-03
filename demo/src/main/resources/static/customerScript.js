@@ -15,6 +15,10 @@ function loadMenuItems(category) {
         const img = document.createElement('img');
         img.src = `/images/${category}/${item.productname}.png`;
         img.alt = item.productname;
+        img.onerror = function() { // Set default image if the specific image doesn't load
+          this.onerror = null;
+          this.src = '/images/default.png'; 
+        };
 
         const detailsDiv = document.createElement('div');
         detailsDiv.className = 'menu-item-details';
