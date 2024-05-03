@@ -1,11 +1,3 @@
-<<<<<<< HEAD
 projectone/demo/controller/ProductControllerTest.class
 projectone/demo/controller/MyControllerTest.class
 projectone/demo/controller/OrdersPageControllerTests.class
-=======
-projectone\demo\controller\MenuBoardTest.class
-projectone\demo\controller\SeleniumTest.class
-projectone\demo\controller\OrdersPageControllerTests.class
-projectone\demo\controller\MyControllerTest.class
-projectone\demo\controller\ProductControllerTest.class
->>>>>>> e3b2f8dcb850b500aaa506e2dc2a38154497d4f7
