@@ -27,13 +27,13 @@ body {
   
 }
 
-.sideButtons{
+/* .sideButtons{
   display: flex;
   flex-direction: column; 
   gap: 10px;
   width: calc(100% - 20px);
   max-width: 300px;
-}
+} */
 
 
 #google_translate_element {
@@ -195,12 +195,12 @@ body {
 
 .ordered-item {
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   margin-bottom: 5px;
   background-color: white;
   border: 2px solid maroon;
   color: maroon;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   transition: transform 0.2s, background-color 0.2s, color 0.2s;
 }
@@ -219,6 +219,7 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
+  
 }
 
 .edit-window label {
